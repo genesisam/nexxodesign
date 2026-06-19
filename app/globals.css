@@ -3,25 +3,26 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════
-   Design Tokens — §7
-   PLACEHOLDER values — art-direct before launch.
-   Change values here; Tailwind picks them up via
-   tailwind.config.ts (color/font refs use var()).
+   Design Tokens — Nexxo identity
+   Edit values here; Tailwind picks them up via
+   tailwind.config.ts (all color/font refs use var()).
    ═══════════════════════════════════════════════ */
 :root {
-  /* Colors */
-  --color-ink:    #0E0E0E;   /* warm near-black base */
-  --color-paper:  #F2F0EC;   /* warm off-white, inverted sections */
-  --color-smoke:  #9A9A95;   /* muted neutral, secondary text */
-  --color-accent: #6C5CE7;   /* TODO: commit to Nexxo's own accent — electric indigo as placeholder */
-  --color-line:   #2A2A2A;   /* hairline borders */
+  /* ── Palette ── */
+  --color-ink:    #0E0E0E;   /* near-black base — primary background */
+  --color-paper:  #EFEBE3;   /* warm cream — inverted sections, card surfaces */
+  --color-smoke:  #8B8B85;   /* muted mid-tone — secondary text, labels */
+  --color-accent: #5B3DF5;   /* electric violet — CTAs, hover states, highlights */
+  --color-line:   #232323;   /* hairline borders on ink */
+  --color-clay:   #C9A88F;   /* warm terracotta — accents on paper sections */
 
-  /* Typography — swap for licensed fonts when ready */
-  --font-display: 'Space Grotesk', sans-serif;  /* PLACEHOLDER → PP Neue Montreal / Söhne Breit */
-  --font-body:    'DM Sans', sans-serif;         /* PLACEHOLDER → clean companion */
-  --font-mono:    'IBM Plex Mono', monospace;    /* technical/AI captions */
+  /* ── Typography ── */
+  /* Clash Display loaded via next/font/local in layout.tsx */
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
 
-  /* Motion easing (also available as Tailwind utilities) */
+  /* ── Motion easing (mirrored as Tailwind utilities) ── */
   --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
 }

@@ -16,6 +16,7 @@ const config: Config = {
         smoke: 'var(--color-smoke)',
         accent: 'var(--color-accent)',
         line:  'var(--color-line)',
+        clay:  'var(--color-clay)',
       },
       fontFamily: {
         display: ['var(--font-display)', 'sans-serif'],
