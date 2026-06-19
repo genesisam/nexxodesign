@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════
+   Design Tokens — §7
+   PLACEHOLDER values — art-direct before launch.
+   Change values here; Tailwind picks them up via
+   tailwind.config.ts (color/font refs use var()).
+   ═══════════════════════════════════════════════ */
+:root {
+  /* Colors */
+  --color-ink:    #0E0E0E;   /* warm near-black base */
+  --color-paper:  #F2F0EC;   /* warm off-white, inverted sections */
+  --color-smoke:  #9A9A95;   /* muted neutral, secondary text */
+  --color-accent: #6C5CE7;   /* TODO: commit to Nexxo's own accent — electric indigo as placeholder */
+  --color-line:   #2A2A2A;   /* hairline borders */
+
+  /* Typography — swap for licensed fonts when ready */
+  --font-display: 'Space Grotesk', sans-serif;  /* PLACEHOLDER → PP Neue Montreal / Söhne Breit */
+  --font-body:    'DM Sans', sans-serif;         /* PLACEHOLDER → clean companion */
+  --font-mono:    'IBM Plex Mono', monospace;    /* technical/AI captions */
+
+  /* Motion easing (also available as Tailwind utilities) */
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+/* ─── Base ─── */
+html {
+  font-family: var(--font-body);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Let Lenis control scrolling; don't fight it */
+  scroll-behavior: auto;
+}
+
+/* ─── Lenis classes (applied by Lenis to <html>) ─── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── prefers-reduced-motion — non-negotiable §3 ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Focus ─── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
