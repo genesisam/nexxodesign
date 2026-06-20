@@ -2,134 +2,125 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 
-export type ProjectCardData = {
+// ── Type ──────────────────────────────────────────────────────────────────
+// 'services' maps to 'tags' in the GROQ query when Sanity is wired:
+//   *[_type=="project"]{ ..., "services": tags }
+export type Project = {
   _id: string
   title: string
   slug: { current: string }
-  client?: string
-  year?: number
-  tags?: string[]
-  metric?: string
-  excerpt?: string
+  client: string
+  year: number
+  metric: string
+  services: string[]
   coverImage?: { asset: { _ref: string } }
+  excerpt?: string
 }
 
 type Props = {
-  project: ProjectCardData
-  /** Display number (01, 02 …) */
+  project: Project
+  /** Sequential display number — 01, 02 … */
   n: number
-  /** Spans full section width; taller image ratio */
-  featured?: boolean
 }
 
-export function ProjectCard({ project, n, featured = false }: Props) {
+export function ProjectCard({ project, n }: Props) {
   const label = String(n).padStart(2, '0')
 
-  // Sanity image URL — only computed when coverImage exists
   const imgSrc = project.coverImage
-    ? urlFor(project.coverImage)
-        .width(featured ? 2400 : 1200)
-        .height(featured ? 840 : 800)
-        .auto('format')
-        .url()
+    ? urlFor(project.coverImage).width(1200).height(1500).auto('format').url()
     : null
 
   return (
     <Link
       href={`/work/${project.slug.current}`}
-      className="group block border-b border-line"
-      aria-label={project.title}
+      className="group block"
+      aria-label={`${project.title} — ${project.client}`}
     >
-      {/* ── Image ── */}
-      <div
-        className={[
-          'relative overflow-hidden bg-line',
-          featured ? 'aspect-[16/7]' : 'aspect-[3/2]',
-        ].join(' ')}
-      >
+      {/* ── Cover image ───────────────────────────────── */}
+      <div className="relative aspect-[4/5] overflow-hidden bg-line">
+
         {imgSrc ? (
           <Image
             src={imgSrc}
             alt={project.title}
             fill
-            sizes={featured ? '100vw' : '(max-width: 768px) 100vw, 50vw'}
-            className="object-cover transition-transform duration-700 ease-in-out-expo group-hover:scale-[1.03]"
+            sizes="(max-width: 768px) 100vw, 45vw"
+            className="object-cover transition-transform duration-700 ease-in-out-expo group-hover:scale-[1.04]"
             priority={n <= 2}
           />
         ) : (
-          /* Placeholder — replaced once Sanity has real images */
-          <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-10 select-none">
-            {/* Hairline frame */}
-            <div className="absolute inset-4 md:inset-8 border border-line/30 pointer-events-none" />
-
-            {/* Number — large watermark */}
+          /* Placeholder — removed once coverImage exists in Sanity */
+          <div className="absolute inset-0 flex flex-col justify-end p-8 select-none">
+            {/* Subtle corner mark */}
+            <div className="absolute top-6 left-6 right-6 bottom-6 border border-line/20 pointer-events-none" />
+            {/* Watermark number */}
             <span
-              className="font-display font-semibold text-paper/[0.06] leading-none tracking-tight pointer-events-none self-end mt-auto"
+              className="absolute bottom-0 right-4 font-display font-semibold text-paper/[0.05] leading-none tracking-tight pointer-events-none"
               aria-hidden
-              style={{ fontSize: 'clamp(6rem, 22vw, 18rem)' }}
+              style={{ fontSize: 'clamp(7rem, 20vw, 16rem)' }}
             >
               {label}
             </span>
-
-            {/* Bottom meta */}
-            <div className="relative flex items-end justify-between mt-auto pt-4">
-              <span className="font-mono text-smoke/30 text-[9px] uppercase tracking-[0.25em]">
-                {project.client}
-              </span>
-              <span className="font-mono text-smoke/20 text-[9px]">
-                Imagen pendiente
-              </span>
-            </div>
           </div>
         )}
-      </div>
 
-      {/* ── Metadata ── */}
-      <div
-        className={[
-          'grid grid-cols-[1fr_auto] gap-x-6 gap-y-2 py-6',
-          featured ? 'px-6 md:px-16 lg:px-24' : 'px-6 md:px-8',
-        ].join(' ')}
-      >
-        {/* Label row */}
-        <span className="font-mono text-smoke text-[10px] uppercase tracking-[0.22em] col-start-1">
-          {[project.client, project.year].filter(Boolean).join(' · ')}
-        </span>
-        <span className="font-mono text-smoke/30 text-[10px] col-start-2 self-start">
+        {/* ── VIEW overlay ────────────────────────────── */}
+        <div
+          className="absolute inset-0 bg-ink/55 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          aria-hidden
+        >
+          <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-paper border border-paper/50 px-6 py-3">
+            View
+          </span>
+        </div>
+
+        {/* Project number — top-left badge */}
+        <span className="absolute top-5 left-5 font-mono text-[9px] uppercase tracking-[0.2em] text-smoke/60">
           {label}
         </span>
 
+      </div>
+
+      {/* ── Metadata ──────────────────────────────────── */}
+      <div className="pt-5 space-y-2">
+
+        {/* Client + year */}
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-smoke">
+            {project.client}
+          </span>
+          <span className="font-mono text-[10px] text-smoke/40">
+            {project.year}
+          </span>
+        </div>
+
         {/* Title */}
         <h3
-          className={[
-            'font-display font-semibold text-paper leading-[0.88] tracking-[-0.02em] col-span-2',
-            'transition-colors duration-300 group-hover:text-smoke',
-            featured ? 'text-4xl md:text-6xl lg:text-7xl mt-2' : 'text-2xl md:text-3xl mt-1',
-          ].join(' ')}
+          className="font-display font-semibold text-paper leading-[0.9] tracking-[-0.02em] transition-colors duration-300 group-hover:text-smoke"
+          style={{ fontSize: 'clamp(1.5rem, 2.6vw, 2.25rem)' }}
         >
           {project.title}
         </h3>
 
         {/* Metric */}
-        {project.metric && (
-          <p className="font-mono text-accent text-xs mt-1 col-span-2">
-            {project.metric}
-          </p>
-        )}
+        <p className="font-mono text-accent text-[11px] uppercase tracking-[0.18em] pt-1">
+          {project.metric}
+        </p>
 
-        {/* Tags */}
-        {project.tags && project.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-3 col-span-2">
-            {project.tags.map(tag => (
+        {/* Service tags */}
+        {project.services.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 pt-2">
+            {project.services.map(s => (
               <span
-                key={tag}
+                key={s}
                 className="font-mono text-[9px] uppercase tracking-[0.18em] text-smoke/50 border border-line px-2.5 py-1"
               >
-                {tag}
+                {s}
               </span>
             ))}
           </div>
         )}
+
       </div>
     </Link>
   )
