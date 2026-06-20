@@ -2,13 +2,13 @@ import Link from 'next/link'
 import { ProjectCard, type Project } from './ProjectCard'
 
 // ── Mock data ──────────────────────────────────────────────────────────────
-// Shape mirrors the Sanity 'project' schema.
-// To wire Sanity: replace with sanityClient.fetch(projectsQuery) and map
-//   tags → services in the GROQ projection:
-//   *[_type=="project"] | order(order asc)[0...4] {
-//     _id, title, slug, client, year, metric, coverImage, excerpt,
-//     "services": tags
-//   }
+// To wire Sanity, replace with:
+//   const projects = await sanityClient.fetch<Project[]>(`
+//     *[_type=="project"] | order(order asc)[0...4] {
+//       _id, title, slug, client, year, metric, coverImage, excerpt,
+//       "services": tags
+//     }
+//   `)
 const MOCK_PROJECTS: Project[] = [
   {
     _id: 'p1',
@@ -16,9 +16,8 @@ const MOCK_PROJECTS: Project[] = [
     slug: { current: 'app-ahorro-inversion-millennials' },
     client: 'Kapital',
     year: 2025,
-    metric: '+58% tasa de conversión',
+    metric: '+58% conversión',
     services: ['Product Design', 'Mobile App', 'Design System'],
-    excerpt: 'Rediseño del onboarding e inversión para una plataforma fintech colombiana con 200k usuarios activos.',
   },
   {
     _id: 'p2',
@@ -28,42 +27,37 @@ const MOCK_PROJECTS: Project[] = [
     year: 2025,
     metric: '×3 retención al mes 3',
     services: ['UX Research', 'Web App', 'Data Viz'],
-    excerpt: 'Interfaz de visualización de datos para un modelo ML de predicción de demanda en logística.',
   },
   {
     _id: 'p3',
-    title: 'Plataforma de gestión de portafolio inmobiliario',
-    slug: { current: 'plataforma-gestion-portafolio-inmobiliario' },
+    title: 'Plataforma de portafolio inmobiliario',
+    slug: { current: 'plataforma-portafolio-inmobiliario' },
     client: 'Raíces',
     year: 2025,
     metric: '+41% leads calificados',
     services: ['Product Design', 'Web App'],
-    excerpt: 'Plataforma de gestión y análisis de portafolio para fondos de inversión inmobiliaria en LatAm.',
   },
   {
     _id: 'p4',
-    title: 'Sitio de fundraising para Serie A',
+    title: 'Sitio de fundraising Serie A',
     slug: { current: 'sitio-fundraising-serie-a' },
     client: 'Ciclo',
     year: 2024,
     metric: 'Ronda cerrada en 60 días',
-    services: ['Web Design', 'Framer', 'Motion'],
-    excerpt: 'Sitio de captación y storytelling para una startup SaaS B2B en proceso de levantamiento Serie A.',
+    services: ['Web Design', 'Motion'],
   },
 ]
 
-// ── Section ────────────────────────────────────────────────────────────────
 export function SelectedWork() {
-  const left  = [MOCK_PROJECTS[0], MOCK_PROJECTS[2]] // col A — projects 1 & 3
-  const right = [MOCK_PROJECTS[1], MOCK_PROJECTS[3]] // col B — projects 2 & 4 (offset)
+  // col A = projects 0, 2  |  col B (offset) = projects 1, 3
+  const colA = [MOCK_PROJECTS[0], MOCK_PROJECTS[2]]
+  const colB = [MOCK_PROJECTS[1], MOCK_PROJECTS[3]]
 
   return (
-    <section
-      aria-label="Trabajo seleccionado"
-      className="border-t border-line"
-    >
-      {/* ── Heading row ── */}
-      <div className="flex items-end justify-between px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-14 md:pb-20">
+    <section aria-label="Trabajo seleccionado" className="border-t border-line">
+
+      {/* ── Heading ── */}
+      <div className="flex items-end justify-between px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-12 md:pb-16">
         <div>
           <span className="font-mono text-smoke text-[10px] uppercase tracking-[0.25em] block mb-4">
             02 — Work
@@ -78,41 +72,40 @@ export function SelectedWork() {
 
         <Link
           href="/work"
-          className="hidden md:inline-flex items-center gap-2 font-mono text-smoke text-[10px] uppercase tracking-[0.22em] hover:text-paper transition-colors duration-200 pb-1"
+          className="hidden md:inline-flex items-center gap-2 font-mono text-smoke text-[10px] uppercase tracking-[0.22em] hover:text-paper transition-colors duration-200"
         >
-          Ver todo el trabajo
-          <span aria-hidden>→</span>
+          Ver todo el trabajo <span aria-hidden>→</span>
         </Link>
       </div>
 
-      {/* ── Staggered 2-column grid ── */}
+      {/* ── Staggered grid — col A wider (3fr), col B narrower (2fr) ── */}
+      {/*    Right col starts mt-20 md / mt-28 lg to create the offset   */}
       <div className="px-6 md:px-16 lg:px-24 pb-24 md:pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 lg:gap-x-7">
+        <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-x-4 lg:gap-x-6">
 
-          {/* Column A — starts at baseline */}
-          <div className="flex flex-col gap-14 md:gap-16">
-            {left.map((project, i) => (
-              <ProjectCard key={project._id} project={project} n={i * 2 + 1} />
+          {/* Column A — larger cards */}
+          <div className="flex flex-col gap-10 md:gap-12">
+            {colA.map((p, i) => (
+              <ProjectCard key={p._id} project={p} n={i * 2 + 1} colSize="large" />
             ))}
           </div>
 
-          {/* Column B — pushed down to create the stagger */}
-          <div className="flex flex-col gap-14 md:gap-16 md:mt-20 lg:mt-28">
-            {right.map((project, i) => (
-              <ProjectCard key={project._id} project={project} n={i * 2 + 2} />
+          {/* Column B — smaller cards, pushed down */}
+          <div className="flex flex-col gap-10 md:gap-12 md:mt-20 lg:mt-28">
+            {colB.map((p, i) => (
+              <ProjectCard key={p._id} project={p} n={i * 2 + 2} colSize="small" />
             ))}
           </div>
 
         </div>
 
-        {/* Mobile CTA — visible only below md */}
-        <div className="mt-14 md:hidden">
+        {/* Mobile CTA */}
+        <div className="mt-12 md:hidden">
           <Link
             href="/work"
             className="inline-flex items-center gap-2 font-mono text-smoke text-[10px] uppercase tracking-[0.22em] hover:text-paper transition-colors duration-200"
           >
-            Ver todo el trabajo
-            <span aria-hidden>→</span>
+            Ver todo el trabajo <span aria-hidden>→</span>
           </Link>
         </div>
       </div>
