@@ -1,0 +1,357 @@
+{
+  "nav": {
+    "proyectos": "Proyectos",
+    "estudio": "Estudio",
+    "journal": "Journal",
+    "contacto": "Contacto",
+    "cotiza": "Cotiza",
+    "cotizaProyecto": "Cotiza tu proyecto",
+    "agendarLlamada": "Agendar llamada",
+    "cerrarMenu": "Cerrar menú",
+    "abrirMenu": "Abrir menú",
+    "ariaLogo": "Nexxo — inicio",
+    "switchLang": "EN"
+  },
+
+  "footer": {
+    "menuLabel": "MENU/",
+    "ubicacionLabel": "UBICACIÓN/",
+    "newsletterLabel": "NEWSLETTER/",
+    "socialsLabel": "SOCIALS/",
+    "ciudad": "Bogotá,",
+    "pais": "Colombia",
+    "newsletterText": "Recibe ideas sobre diseño, producto e IA — sin ruido.",
+    "emailPlaceholder": "tu@email.com",
+    "ariaEmail": "Correo electrónico",
+    "ariaSuscribirse": "Suscribirse",
+    "exito": "¡Estás dentro! →",
+    "privacidad": "Política de privacidad",
+    "soporte": "Soporte",
+    "copyright": "© 2026 Nexxo Design. Todos los derechos reservados.",
+    "navProyectos": "Proyectos",
+    "navEstudio": "Estudio",
+    "navJournal": "Journal",
+    "navContacto": "Contacto"
+  },
+
+  "hero": {
+    "eyebrow": "Automatización con IA & diseño que convierte — 2025",
+    "headline1": "Sistemas que generan",
+    "headline2": "leads en piloto automático.",
+    "body": "Construimos máquinas de adquisición: diseño premium + automatización con IA + CRO. No un sitio web — un activo que trabaja 24/7 para tu negocio.",
+    "ctaAgendar": "Agendar llamada",
+    "ctaTrabajo": "Ver resultados →"
+  },
+
+  "fusionReel": {
+    "label": "02 — Showreel",
+    "playReel": "Play reel",
+    "ariaShowreel": "Reproducir showreel",
+    "cerrar": "Cerrar",
+    "ariaShowreelDialog": "Showreel",
+    "videoProximamente": "Video próximamente"
+  },
+
+  "selectedWork": {
+    "seccion": "02 — Work",
+    "headline": "Trabajo seleccionado",
+    "ctaTodo": "Ver todo el trabajo"
+  },
+
+  "capabilities": {
+    "seccion": "03 — Servicios",
+    "headline1": "Lo que",
+    "headline2": "entregamos",
+    "items": [
+      {
+        "label": "Máquina de generación de leads",
+        "outcome": "Landing + automatización + CRM conectado. Tu pipeline lleno sin esfuerzo manual. Leads cualificados entrando mientras duermes.",
+        "imageHint": "Dashboard de leads / pipeline"
+      },
+      {
+        "label": "Automatización con IA",
+        "outcome": "Workflows de IA que eliminan tareas repetitivas, nutren leads automáticamente y escalan tu operación sin contratar más gente.",
+        "imageHint": "Pipeline de automatización IA"
+      },
+      {
+        "label": "Diseño de producto SaaS",
+        "outcome": "Interfaces que reducen churn y aumentan activación. El UX que hace que los usuarios paguen y se queden.",
+        "imageHint": "Dashboard / pantalla de producto"
+      },
+      {
+        "label": "Brand & web premium",
+        "outcome": "La presencia visual que convierte visitantes en clientes. CRO + SEO técnico + performance desde el día uno.",
+        "imageHint": "Landing de alta conversión"
+      }
+    ]
+  },
+
+  "statement": {
+    "seccion": "04 — Filosofía",
+    "texto": "No vendemos diseño. Construimos sistemas que hacen crecer negocios —",
+    "acento": "y los números lo demuestran.",
+    "body": "Combinamos diseño premium, automatización con IA y CRO para entregarte una máquina de adquisición completa. Pocos clientes, máximo resultado.",
+    "cta": "Hablemos"
+  },
+
+  "transformacion": {
+    "seccion": "05 — El sistema",
+    "scrollHint": "Scroll to continue",
+    "slots": [
+      {
+        "label": "01",
+        "title": "Estrategia\nde adquisición",
+        "sub": "Definimos el funnel completo: quién entra, cómo se convierte y qué sistema lo automatiza."
+      },
+      {
+        "label": "02",
+        "title": "Diseño que\nvende",
+        "sub": "Landing, producto o app. Cada pixel optimizado para conversión, no para premios."
+      },
+      {
+        "label": "03",
+        "title": "IA &\nautomatización",
+        "sub": "Workflows de IA: nurturing automático, seguimiento de leads, respuestas 24/7 sin intervención humana."
+      },
+      {
+        "label": "04",
+        "title": "Integración\nde stack",
+        "sub": "CRM, email, WhatsApp, analytics. Todo conectado para que no se caiga ningún lead."
+      },
+      {
+        "label": "05",
+        "title": "Lanzamiento\ny datos",
+        "sub": "Salimos al mercado, medimos cada evento y optimizamos con datos reales, no suposiciones."
+      },
+      {
+        "label": "06",
+        "title": "Escala\nsin fricción",
+        "sub": "El sistema trabaja solo. Tú recibes los leads cualificados y cierras. Nosotros mantenemos la máquina."
+      }
+    ]
+  },
+
+  "testimonios": {
+    "seccion": "06 — Clientes",
+    "headline1": "Más que clientes.",
+    "headline2": "Socios.",
+    "leerResenas": "Leer todas las reseñas →"
+  },
+
+  "journal": {
+    "seccion": "07 — Journal",
+    "headline": "Ideas que\nimportan.",
+    "verTodos": "Ver todos los artículos →",
+    "leer": "Leer →"
+  },
+
+  "nosotros": {
+    "meta": {
+      "title": "Estudio — Nexxo",
+      "description": "Un estudio pequeño obsesionado con que el diseño trabaje para el negocio. Producto y web premium, de la estrategia al deploy."
+    },
+    "tophead": {
+      "eyebrow": "El Estudio",
+      "headline": "Un estudio pequeño, obsesionado con que el diseño trabaje para el negocio.",
+      "subhead": "Producto y web premium, de la estrategia al deploy. Pocos clientes, atención real."
+    },
+    "manifiesto": {
+      "label": ">> Nuestra forma",
+      "p1muted": "¿En qué invertimos cada día?",
+      "p1accent": "En diseñar producto y web que hace crecer negocios — no solo portafolios.",
+      "p2accent": "Una manera distinta de trabajar.",
+      "p2muted": "Sin agencias grandes, sin intermediarios. Un estudio pequeño donde cada decisión tiene una razón de negocio detrás, no una reunión de validación interna.",
+      "p3": "Demostrar que el buen diseño se mide."
+    },
+    "proceso": {
+      "label": "Cómo trabajamos",
+      "steps": [
+        {
+          "num": "01",
+          "title": "Estrategia",
+          "sublabel": "Antes de diseñar, entender",
+          "desc": "Empezamos con un workshop de alineación donde mapeamos el negocio, los usuarios y el objetivo real del proyecto. Definimos KPIs de diseño, revisamos la competencia y establecemos qué métricas determinan el éxito.",
+          "desc2": "Sin esta base, el diseño es decoración cara. La mayoría de los proyectos fallidos tienen en común que empezaron sin entender a quién le hablan y por qué les importaría."
+        },
+        {
+          "num": "02",
+          "title": "Diseño",
+          "sublabel": "Alta fidelidad, iteración real",
+          "desc": "Construimos un sistema de componentes desde el primer sprint. Nada de wireframes en papel — vamos directo a alta fidelidad porque las decisiones reales se toman cuando se ve el producto real, no una aproximación.",
+          "desc2": "Cada ronda de feedback tiene una agenda y un criterio de aprobación. Iteramos rápido, documentamos las decisiones y mantenemos el diseño system como fuente única de verdad para el equipo de desarrollo."
+        },
+        {
+          "num": "03",
+          "title": "Build",
+          "sublabel": "Del diseño al código, sin pérdidas",
+          "desc": "Desarrollamos en Next.js con Tailwind o entregamos un handoff de producción con tokens, especificaciones y assets exportados listos para el dev. El diseño se ejecuta exactamente como se diseñó.",
+          "desc2": "Integramos Sanity como CMS headless para que el cliente pueda gestionar contenido sin depender de un desarrollador. Rendimiento, accesibilidad y SEO técnico son requisitos, no extras."
+        },
+        {
+          "num": "04",
+          "title": "Deploy & iteración",
+          "sublabel": "Lanzamos y seguimos",
+          "desc": "El lanzamiento no es el final del proyecto — es el inicio de la fase de datos. Configuramos analytics, definimos eventos clave y establecemos un ciclo de revisión post-lanzamiento.",
+          "desc2": "A los 30, 60 y 90 días revisamos las métricas y ajustamos lo que los datos indican. El proyecto termina cuando los números responden, no cuando el diseño está aprobado."
+        }
+      ]
+    },
+    "trabajo": {
+      "seccionLabel": "Trabajo seleccionado",
+      "headline": "Algunos proyectos.",
+      "ctaTodo": "Ver todo el trabajo →"
+    },
+    "cta": {
+      "headline": "¿Construimos algo juntos?",
+      "button": "Cuéntanos tu proyecto →"
+    }
+  },
+
+  "contact": {
+    "meta": {
+      "title": "Contacto — Nexxo",
+      "description": "Tomamos pocos proyectos para darle a cada uno la atención que merece. Cuéntanos qué quieres construir."
+    },
+    "eyebrow": "Contacto · Hablemos",
+    "headline": "Cuéntanos qué quieres construir.",
+    "subhead": "Tomamos pocos proyectos para darle a cada uno la atención que merece. Si tienes algo serio en mente, hablemos.",
+    "estimador": {
+      "titleLine1": "Estima tu",
+      "titleLine2": "proyecto",
+      "labelType": "Tipo de proyecto",
+      "labelVolume": "Volumen del proyecto",
+      "volMin": "1 pág.",
+      "volMax": "50+ págs.",
+      "volSuffix": "páginas",
+      "labelRedesign": "¿Es un rediseño?",
+      "optYes": "Sí",
+      "optNo": "No",
+      "labelDesign": "Nivel de diseño",
+      "labelEstimate": "Presupuesto estimado",
+      "estimateSuffix": "desde (USD)",
+      "disclaimer": "*Estimado inicial sin valor contractual. El precio final varía según los requerimientos técnicos específicos.",
+      "bdBase": "Base del proyecto",
+      "bdPages": "Páginas/pantallas",
+      "bdDesign": "Nivel de diseño",
+      "ctaText": "Hablemos del proyecto →",
+      "allAddons": "Todos los add-ons incluidos",
+      "selectedAddons": "Add-ons seleccionados",
+      "included": "incluido",
+      "projectOpts": {
+        "landing": "Landing de conversión",
+        "corporate": "Web corporativa",
+        "ecommerce": "E-commerce",
+        "app": "Producto SaaS — UI/UX"
+      },
+      "qualityOpts": {
+        "esencial": "Esencial",
+        "amedida": "A medida",
+        "premium": "Premium"
+      },
+      "addonOpts": {
+        "cms": "CMS (Sanity)",
+        "motion": "Motion & animaciones",
+        "seo": "SEO técnico",
+        "ia": "IA aplicada"
+      }
+    },
+    "form": {
+      "nombre": "Nombre",
+      "nombrePlaceholder": "Tu nombre",
+      "empresa": "Empresa",
+      "empresaPlaceholder": "Nombre de tu empresa o proyecto",
+      "tipoProyecto": "Tipo de proyecto",
+      "presupuesto": "Presupuesto aprox.",
+      "mensaje": "Mensaje",
+      "mensajePlaceholder": "Cuéntanos sobre tu proyecto: qué quieres construir, en qué etapa estás y qué esperas de nosotros.",
+      "opcional": "(opcional)",
+      "requerido": "Requerido.",
+      "emailInvalido": "Email no válido.",
+      "enviando": "Enviando…",
+      "enviar": "Enviar →",
+      "estimadoLabel": "Estimado adjunto",
+      "desdUSD": "desde (USD)",
+      "labelProyecto": "Proyecto",
+      "labelPaginas": "Páginas",
+      "labelDiseno": "Diseño",
+      "labelRediseno": "Rediseño",
+      "labelAddons": "Add-ons",
+      "si": "Sí",
+      "no": "No",
+      "recibido": "Recibido.",
+      "recibidoDesc": "Te respondemos en menos de 24h hábiles. Mientras tanto, también puedes escribirnos directamente por WhatsApp.",
+      "otroMensaje": "← Enviar otro mensaje",
+      "projectTypes": {
+        "selecciona": "Selecciona una opción",
+        "producto": "Producto digital",
+        "web": "Web & landing page",
+        "identidad": "Identidad de marca",
+        "ia": "IA aplicada",
+        "otro": "Otro"
+      },
+      "budgets": {
+        "selecciona": "Presupuesto aproximado (opcional)",
+        "menos5k": "Menos de $5,000 USD",
+        "5a15k": "$5,000 – $15,000 USD",
+        "mas15k": "$15,000+ USD",
+        "nose": "No estoy seguro"
+      }
+    },
+    "channels": {
+      "waTitle": "Escríbenos por WhatsApp",
+      "waSubtitle": "Respuesta en minutos →",
+      "waMessage": "Hola Nexxo, quiero cotizar un proyecto…",
+      "callLabel": "Llamada de 20 min",
+      "callBtn": "Agenda una llamada →",
+      "emailLabel": "Email",
+      "ubicacionLabel": "Ubicación",
+      "ubicacionLine1": "Bogotá, Colombia",
+      "ubicacionLine2": "Remoto LATAM & global",
+      "respuestaLabel": "Respuesta",
+      "respuestaText": "< 24h hábiles",
+      "siguenos": "Síguenos"
+    }
+  },
+
+  "work": {
+    "meta": {
+      "title": "Proyectos — Nexxo",
+      "description": "Proyectos de diseño de producto y web premium para SaaS, fintech e IA."
+    },
+    "hero": {
+      "eyebrow": "Nexxo — Work",
+      "line1": "Producto y web",
+      "para": "para",
+      "conector": "e",
+      "acento2": "IA."
+    },
+    "filtros": {
+      "todos": "Todos",
+      "limpiar": "× limpiar",
+      "aria": "Filtrar proyectos por vertical"
+    },
+    "counter": "{count, plural, one {# proyecto} other {# proyectos}}",
+    "empty": "Sin proyectos en este vertical",
+    "card": {
+      "ver": "Ver proyecto →"
+    }
+  },
+
+  "proyectos": {
+    "feedbackLabel": "Feedback del cliente",
+    "siguienteLabel": "Siguiente proyecto",
+    "volver": "← Volver a Proyectos",
+    "verSitio": "Ver sitio ↗",
+    "cotiza": "Cotiza tu proyecto →",
+    "verMas": "Ver más proyectos"
+  },
+
+  "notFound": {
+    "label": "Error 404",
+    "headline1": "Esta página",
+    "headline2": "no existe.",
+    "body": "La URL que buscas no existe o fue movida. Vuelve al inicio o explora el trabajo.",
+    "ctaInicio": "Ir al inicio",
+    "ctaTrabajo": "Ver trabajo →"
+  }
+}

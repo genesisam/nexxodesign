@@ -1,0 +1,357 @@
+{
+  "nav": {
+    "proyectos": "Projects",
+    "estudio": "Studio",
+    "journal": "Journal",
+    "contacto": "Contact",
+    "cotiza": "Get a quote",
+    "cotizaProyecto": "Get a quote",
+    "agendarLlamada": "Book a call",
+    "cerrarMenu": "Close menu",
+    "abrirMenu": "Open menu",
+    "ariaLogo": "Nexxo — home",
+    "switchLang": "ES"
+  },
+
+  "footer": {
+    "menuLabel": "MENU/",
+    "ubicacionLabel": "LOCATION/",
+    "newsletterLabel": "NEWSLETTER/",
+    "socialsLabel": "SOCIALS/",
+    "ciudad": "Bogotá,",
+    "pais": "Colombia",
+    "newsletterText": "Design, product and AI ideas — no noise.",
+    "emailPlaceholder": "your@email.com",
+    "ariaEmail": "Email address",
+    "ariaSuscribirse": "Subscribe",
+    "exito": "You're in! →",
+    "privacidad": "Privacy policy",
+    "soporte": "Support",
+    "copyright": "© 2026 Nexxo Design. All rights reserved.",
+    "navProyectos": "Projects",
+    "navEstudio": "Studio",
+    "navJournal": "Journal",
+    "navContacto": "Contact"
+  },
+
+  "hero": {
+    "eyebrow": "AI automation & design that converts — 2025",
+    "headline1": "Systems that generate",
+    "headline2": "leads on autopilot.",
+    "body": "We build acquisition machines: premium design + AI automation + CRO. Not a website — an asset that works 24/7 for your business.",
+    "ctaAgendar": "Book a call",
+    "ctaTrabajo": "See results →"
+  },
+
+  "fusionReel": {
+    "label": "02 — Showreel",
+    "playReel": "Play reel",
+    "ariaShowreel": "Play showreel",
+    "cerrar": "Close",
+    "ariaShowreelDialog": "Showreel",
+    "videoProximamente": "Video coming soon"
+  },
+
+  "selectedWork": {
+    "seccion": "02 — Work",
+    "headline": "Selected work",
+    "ctaTodo": "See all work"
+  },
+
+  "capabilities": {
+    "seccion": "03 — Services",
+    "headline1": "What we",
+    "headline2": "deliver",
+    "items": [
+      {
+        "label": "Lead generation machine",
+        "outcome": "Landing + automation + connected CRM. Your pipeline full without manual effort. Qualified leads coming in while you sleep.",
+        "imageHint": "Lead pipeline dashboard"
+      },
+      {
+        "label": "AI automation",
+        "outcome": "AI workflows that eliminate repetitive tasks, nurture leads automatically and scale your operation without hiring more people.",
+        "imageHint": "AI automation pipeline"
+      },
+      {
+        "label": "SaaS product design",
+        "outcome": "Interfaces that reduce churn and increase activation. The UX that makes users pay and stay.",
+        "imageHint": "Dashboard / product screen"
+      },
+      {
+        "label": "Brand & premium web",
+        "outcome": "The visual presence that turns visitors into clients. CRO + technical SEO + performance from day one.",
+        "imageHint": "High-conversion landing"
+      }
+    ]
+  },
+
+  "statement": {
+    "seccion": "04 — Philosophy",
+    "texto": "Where intention meets execution, the product takes shape —",
+    "acento": "with judgment and without noise.",
+    "body": "We take few projects at a time so each client receives full focus, direct communication and a studio that owns the outcome from start to finish.",
+    "cta": "Let's talk"
+  },
+
+  "transformacion": {
+    "seccion": "05 — Transformation",
+    "scrollHint": "Scroll to continue",
+    "slots": [
+      {
+        "label": "01",
+        "title": "From concept\nto design",
+        "sub": "We turn your idea into interfaces that delight from the very first pixel."
+      },
+      {
+        "label": "02",
+        "title": "From design\nto code",
+        "sub": "Every design decision oriented toward speed, conversion and scale."
+      },
+      {
+        "label": "03",
+        "title": "From code\nto product",
+        "sub": "We ship fast, measure everything and iterate on real data."
+      },
+      {
+        "label": "04",
+        "title": "From product\nto market",
+        "sub": "A launch strategy that connects with the right users."
+      },
+      {
+        "label": "05",
+        "title": "From market\nto growth",
+        "sub": "Retention and conversion design that scales with your business."
+      },
+      {
+        "label": "06",
+        "title": "From growth\nto leadership",
+        "sub": "Visual positioning that sets you apart as a reference in your industry."
+      }
+    ]
+  },
+
+  "testimonios": {
+    "seccion": "06 — Clients",
+    "headline1": "More than clients.",
+    "headline2": "Partners.",
+    "leerResenas": "Read all reviews →"
+  },
+
+  "journal": {
+    "seccion": "07 — Journal",
+    "headline": "Ideas that\nmatter.",
+    "verTodos": "See all articles →",
+    "leer": "Read →"
+  },
+
+  "nosotros": {
+    "meta": {
+      "title": "Studio — Nexxo",
+      "description": "A small studio obsessed with design that works for the business. Premium product and web, from strategy to deploy."
+    },
+    "tophead": {
+      "eyebrow": "The Studio",
+      "headline": "A small studio, obsessed with design that works for the business.",
+      "subhead": "Premium product and web, from strategy to deploy. Few clients, real attention."
+    },
+    "manifiesto": {
+      "label": ">> Our approach",
+      "p1muted": "What do we invest in every day?",
+      "p1accent": "Designing product and web that grows businesses — not just portfolios.",
+      "p2accent": "A different way of working.",
+      "p2muted": "No big agencies, no intermediaries. A small studio where every decision has a business reason behind it, not an internal validation meeting.",
+      "p3": "Proving that good design can be measured."
+    },
+    "proceso": {
+      "label": "How we work",
+      "steps": [
+        {
+          "num": "01",
+          "title": "Strategy",
+          "sublabel": "Understand before designing",
+          "desc": "We start with an alignment workshop mapping the business, users and real project goal. We define design KPIs, review the competitive landscape and establish which metrics will define success.",
+          "desc2": "Without this foundation, design is expensive decoration. Most failed projects share one thing: they started without understanding who they're talking to and why it would matter to them."
+        },
+        {
+          "num": "02",
+          "title": "Design",
+          "sublabel": "High fidelity, real iteration",
+          "desc": "We build a component system from the first sprint. No paper wireframes — we go straight to high fidelity because real decisions happen when you see the real product, not an approximation.",
+          "desc2": "Every feedback round has an agenda and approval criteria. We iterate fast, document decisions and maintain the design system as the single source of truth for the development team."
+        },
+        {
+          "num": "03",
+          "title": "Build",
+          "sublabel": "From design to code, no losses",
+          "desc": "We develop in Next.js with Tailwind or deliver a production handoff with tokens, specs and exported assets ready for dev. The design is executed exactly as designed.",
+          "desc2": "We integrate Sanity as a headless CMS so the client can manage content without depending on a developer. Performance, accessibility and technical SEO are requirements, not extras."
+        },
+        {
+          "num": "04",
+          "title": "Deploy & iteration",
+          "sublabel": "We launch and keep going",
+          "desc": "Launch is not the end of the project — it's the start of the data phase. We configure analytics, define key events and set a post-launch review cycle.",
+          "desc2": "At 30, 60 and 90 days we review the metrics and adjust what the data indicates. The project ends when the numbers respond, not when the design is approved."
+        }
+      ]
+    },
+    "trabajo": {
+      "seccionLabel": "Selected work",
+      "headline": "Some projects.",
+      "ctaTodo": "See all work →"
+    },
+    "cta": {
+      "headline": "Shall we build something together?",
+      "button": "Tell us about your project →"
+    }
+  },
+
+  "contact": {
+    "meta": {
+      "title": "Contact — Nexxo",
+      "description": "We take few projects to give each one the attention it deserves. Tell us what you want to build."
+    },
+    "eyebrow": "Contact · Let's talk",
+    "headline": "Tell us what you want to build.",
+    "subhead": "We take few projects to give each one the attention it deserves. If you have something serious in mind, let's talk.",
+    "estimador": {
+      "titleLine1": "Estimate your",
+      "titleLine2": "project",
+      "labelType": "Project type",
+      "labelVolume": "Project volume",
+      "volMin": "1 pg.",
+      "volMax": "50+ pgs.",
+      "volSuffix": "pages",
+      "labelRedesign": "Is it a redesign?",
+      "optYes": "Yes",
+      "optNo": "No",
+      "labelDesign": "Design level",
+      "labelEstimate": "Estimated budget",
+      "estimateSuffix": "from (USD)",
+      "disclaimer": "*Initial estimate, not contractual. Final price varies based on specific technical requirements.",
+      "bdBase": "Project base",
+      "bdPages": "Pages/screens",
+      "bdDesign": "Design level",
+      "ctaText": "Let's talk about your project →",
+      "allAddons": "All add-ons included",
+      "selectedAddons": "Selected add-ons",
+      "included": "included",
+      "projectOpts": {
+        "landing": "Conversion landing",
+        "corporate": "Corporate website",
+        "ecommerce": "E-commerce",
+        "app": "SaaS Product — UI/UX"
+      },
+      "qualityOpts": {
+        "esencial": "Essential",
+        "amedida": "Custom",
+        "premium": "Premium"
+      },
+      "addonOpts": {
+        "cms": "CMS (Sanity)",
+        "motion": "Motion & animations",
+        "seo": "Technical SEO",
+        "ia": "Applied AI"
+      }
+    },
+    "form": {
+      "nombre": "Name",
+      "nombrePlaceholder": "Your name",
+      "empresa": "Company",
+      "empresaPlaceholder": "Your company or project name",
+      "tipoProyecto": "Project type",
+      "presupuesto": "Approx. budget",
+      "mensaje": "Message",
+      "mensajePlaceholder": "Tell us about your project: what you want to build, what stage you're at and what you expect from us.",
+      "opcional": "(optional)",
+      "requerido": "Required.",
+      "emailInvalido": "Invalid email.",
+      "enviando": "Sending…",
+      "enviar": "Send →",
+      "estimadoLabel": "Attached estimate",
+      "desdUSD": "from (USD)",
+      "labelProyecto": "Project",
+      "labelPaginas": "Pages",
+      "labelDiseno": "Design",
+      "labelRediseno": "Redesign",
+      "labelAddons": "Add-ons",
+      "si": "Yes",
+      "no": "No",
+      "recibido": "Received.",
+      "recibidoDesc": "We'll respond within 24 business hours. In the meantime, you can also reach us directly on WhatsApp.",
+      "otroMensaje": "← Send another message",
+      "projectTypes": {
+        "selecciona": "Select an option",
+        "producto": "Digital product",
+        "web": "Web & landing page",
+        "identidad": "Brand identity",
+        "ia": "Applied AI",
+        "otro": "Other"
+      },
+      "budgets": {
+        "selecciona": "Approximate budget (optional)",
+        "menos5k": "Less than $5,000 USD",
+        "5a15k": "$5,000 – $15,000 USD",
+        "mas15k": "$15,000+ USD",
+        "nose": "Not sure"
+      }
+    },
+    "channels": {
+      "waTitle": "Write to us on WhatsApp",
+      "waSubtitle": "Response in minutes →",
+      "waMessage": "Hi Nexxo, I'd like to get a quote for a project…",
+      "callLabel": "20-min call",
+      "callBtn": "Book a call →",
+      "emailLabel": "Email",
+      "ubicacionLabel": "Location",
+      "ubicacionLine1": "Bogotá, Colombia",
+      "ubicacionLine2": "Remote LATAM & global",
+      "respuestaLabel": "Response",
+      "respuestaText": "< 24 business hours",
+      "siguenos": "Follow us"
+    }
+  },
+
+  "work": {
+    "meta": {
+      "title": "Projects — Nexxo",
+      "description": "Premium product and web design projects for SaaS, fintech and AI."
+    },
+    "hero": {
+      "eyebrow": "Nexxo — Work",
+      "line1": "Product and web",
+      "para": "for",
+      "conector": "and",
+      "acento2": "AI."
+    },
+    "filtros": {
+      "todos": "All",
+      "limpiar": "× clear",
+      "aria": "Filter projects by vertical"
+    },
+    "counter": "{count, plural, one {# project} other {# projects}}",
+    "empty": "No projects in this vertical",
+    "card": {
+      "ver": "View project →"
+    }
+  },
+
+  "proyectos": {
+    "feedbackLabel": "Client feedback",
+    "siguienteLabel": "Next project",
+    "volver": "← Back to Projects",
+    "verSitio": "View site ↗",
+    "cotiza": "Get a quote →",
+    "verMas": "See more projects"
+  },
+
+  "notFound": {
+    "label": "Error 404",
+    "headline1": "This page",
+    "headline2": "doesn't exist.",
+    "body": "The URL you're looking for doesn't exist or has been moved. Go back to the home or explore our work.",
+    "ctaInicio": "Go home",
+    "ctaTrabajo": "See work →"
+  }
+}

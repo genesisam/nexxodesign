@@ -10,13 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // §7 palette — references CSS vars so you can live-tweak in globals.css
-        ink:   'var(--color-ink)',
-        paper: 'var(--color-paper)',
-        smoke: 'var(--color-smoke)',
-        accent: 'var(--color-accent)',
-        line:  'var(--color-line)',
-        clay:  'var(--color-clay)',
+        // §7 palette — usa canales RGB para habilitar modificadores de opacidad
+        // (text-ink/75, bg-paper/50, border-smoke/30, etc.)
+        ink:    'rgb(var(--color-ink-rgb) / <alpha-value>)',
+        paper:  'rgb(var(--color-paper-rgb) / <alpha-value>)',
+        smoke:  'rgb(var(--color-smoke-rgb) / <alpha-value>)',
+        accent: 'rgb(var(--color-accent-rgb) / <alpha-value>)',
+        line:   'rgb(var(--color-line-rgb) / <alpha-value>)',
+        clay:   'rgb(var(--color-clay-rgb) / <alpha-value>)',
       },
       fontFamily: {
         display: ['var(--font-display)', 'sans-serif'],

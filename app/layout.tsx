@@ -1,55 +1,85 @@
 import type { Metadata, Viewport } from 'next'
 import { DM_Sans, IBM_Plex_Mono } from 'next/font/google'
+import { headers } from 'next/headers'
 import { SmoothScrollProvider } from '@/components/motion/SmoothScrollProvider'
 import './globals.css'
 
-// ─── Clash Display ──────────────────────────────────────────────────────────
-// Loaded via Fontshare CDN in globals.css (@import url(...)).
-// --font-display CSS var is set directly in :root → tailwind font-display works.
-//
-// TO SELF-HOST FOR PRODUCTION:
-// 1. Download .woff2 files from fontshare.com/fonts/clash-display
-// 2. Place in /public/fonts/ClashDisplay/ (see filenames in the old localFont block)
-// 3. Uncomment the block below, remove the @import from globals.css
-//
-// import localFont from 'next/font/local'
-// const clashDisplay = localFont({
-//   src: [
-//     { path: '../public/fonts/ClashDisplay/ClashDisplay-Regular.woff2',  weight: '400' },
-//     { path: '../public/fonts/ClashDisplay/ClashDisplay-Medium.woff2',   weight: '500' },
-//     { path: '../public/fonts/ClashDisplay/ClashDisplay-Semibold.woff2', weight: '600' },
-//     { path: '../public/fonts/ClashDisplay/ClashDisplay-Bold.woff2',     weight: '700' },
-//   ],
-//   variable: '--font-display',
-//   display: 'swap',
-// })
-
-// ─── DM Sans — body copy ────────────────────────────────────────────────────
 const dmSans = DM_Sans({
-  subsets: ['latin'],
+  subsets:  ['latin'],
   variable: '--font-body',
-  display: 'swap',
+  display:  'swap',
 })
 
-// ─── IBM Plex Mono — utility / mono ─────────────────────────────────────────
 const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
+  subsets:  ['latin'],
+  weight:   ['400', '500'],
   variable: '--font-mono',
-  display: 'swap',
+  display:  'swap',
 })
+
+import { SITE_URL, NOINDEX } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Nexxo — Diseño de producto y web premium',
+    default:  'Nexxo — Automatización con IA & Diseño que genera leads',
     template: '%s | Nexxo',
   },
   description:
-    'Nexxo es un estudio de diseño de producto y web premium para startups de SaaS, fintech e IA en LatAm e internacionales.',
+    'Construimos máquinas de generación de leads para startups: diseño premium + automatización con IA + CRO. Pipeline lleno en piloto automático. SaaS, fintech e IA en LatAm.',
+  metadataBase: new URL(SITE_URL),
+  // Inherited by every page — none of them override `robots`.
+  ...(NOINDEX && {
+    robots: {
+      index: false, follow: false,
+      googleBot: { index: false, follow: false },
+    },
+  }),
   openGraph: {
-    type: 'website',
-    locale: 'es_CO',
+    type:     'website',
     siteName: 'Nexxo',
+    images:   [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Nexxo Design' }],
+  },
+  twitter: {
+    card:   'summary_large_image',
+    images: ['/opengraph-image'],
+  },
+}
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type':    ['Organization', 'ProfessionalService'],
+  name:       'Nexxo',
+  url:        SITE_URL,
+  logo:       `${SITE_URL}/opengraph-image`,
+  description: 'Estudio especializado en automatización con IA, generación de leads y diseño de producto premium para startups SaaS, fintech e IA en LatAm.',
+  knowsAbout: [
+    'Automatización con IA', 'Generación de leads', 'Diseño de producto SaaS',
+    'CRO', 'UI/UX', 'Next.js', 'Sanity CMS', 'Growth design',
+  ],
+  areaServed: ['CO', 'MX', 'AR', 'CL', 'PE', 'US'],
+  sameAs: [
+    'https://www.instagram.com/alex.morenop/',
+    'https://www.linkedin.com/in/alexander-moreno-gp/',
+    'https://www.behance.net/alexander-moreno',
+  ],
+  contactPoint: {
+    '@type':           'ContactPoint',
+    telephone:         '+573183795352',
+    contactType:       'sales',
+    areaServed:        ['CO', 'LATAM'],
+    availableLanguage: ['Spanish', 'English'],
+  },
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type':    'WebSite',
+  name:       'Nexxo',
+  url:        SITE_URL,
+  potentialAction: {
+    '@type':       'SearchAction',
+    target:        `${SITE_URL}/proyectos?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
   },
 }
 
@@ -57,13 +87,18 @@ export const viewport: Viewport = {
   themeColor: '#0E0E0E',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers()
+  const locale      = headersList.get('x-locale') ?? 'es'
+
   return (
     <html
-      lang="es"
+      lang={locale}
       className={`${dmSans.variable} ${ibmPlexMono.variable}`}
     >
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>

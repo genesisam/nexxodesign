@@ -16,13 +16,21 @@
    tailwind.config.ts (all color/font refs use var()).
    ═══════════════════════════════════════════════ */
 :root {
-  /* ── Palette ── */
+  /* ── Palette (hex — used directly in CSS) ── */
   --color-ink:    #0E0E0E;   /* near-black base — primary background */
   --color-paper:  #EFEBE3;   /* warm cream — inverted sections, card surfaces */
   --color-smoke:  #8B8B85;   /* muted mid-tone — secondary text, labels */
   --color-accent: #5B3DF5;   /* electric violet — CTAs, hover states, highlights */
   --color-line:   #232323;   /* hairline borders on ink */
   --color-clay:   #C9A88F;   /* warm terracotta — accents on paper sections */
+
+  /* ── RGB channels (space-separated) — habilitan text-ink/75, bg-paper/50, etc. ── */
+  --color-ink-rgb:    14 14 14;
+  --color-paper-rgb:  239 235 227;
+  --color-smoke-rgb:  139 139 133;
+  --color-accent-rgb: 91 61 245;
+  --color-line-rgb:   35 35 35;
+  --color-clay-rgb:   201 168 143;
 
   /* ── Typography ── */
   /* Clash Display loaded via next/font/local in layout.tsx */
@@ -81,4 +89,79 @@ html.lenis body {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* ─── Marquee (ClientLogos §5.2) ─── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Testimonios marquee (§5.6) ─── */
+@keyframes testimonios-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Page transitions — CSS View Transitions API (Chrome/Edge 126+) ─── */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: vt-out 0.22s cubic-bezier(0.87, 0, 0.13, 1);
+}
+::view-transition-new(root) {
+  animation: vt-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes vt-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+@keyframes vt-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Film grain overlay (fixed, non-interactive) ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='256' height='256' filter='url(%23g)'/></svg>");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ─── Custom cursor — hide native when Cursor component mounts ─── */
+.cursor-none,
+.cursor-none * {
+  cursor: none !important;
+}
+
+/* ─── Force-hide cursor on touch/coarse-pointer devices ─── */
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+  .cursor-none,
+  .cursor-none * {
+    cursor: auto !important;
+  }
+}
+
+/* ─── Skeleton shimmer ─── */
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #1a1a1a 25%, #242424 50%, #1a1a1a 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
 }

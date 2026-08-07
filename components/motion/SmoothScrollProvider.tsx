@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useRef } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -11,48 +11,49 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, SplitText)
 }
 
-interface LenisContextValue {
-  lenis: Lenis | null
-}
+const LenisContext = createContext<Lenis | null>(null)
 
-const LenisContext = createContext<LenisContextValue>({ lenis: null })
-
+// useLenis() returns the Lenis instance once it's initialized, null before that.
+// Components that depend on Lenis (e.g. GSAP ScrollTrigger) should check for null.
 export function useLenis() {
-  return useContext(LenisContext).lenis
+  return useContext(LenisContext)
 }
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null)
+  const [lenis, setLenis] = useState<Lenis | null>(null)
 
   useEffect(() => {
     // Respect prefers-reduced-motion — static fallback per §3
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const lenis = new Lenis({
+    const instance = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       touchMultiplier: 1.5,
       infinite: false,
     })
-    lenisRef.current = lenis
 
     // Keep GSAP ScrollTrigger in sync with Lenis scroll position
-    lenis.on('scroll', ScrollTrigger.update)
+    instance.on('scroll', ScrollTrigger.update)
 
     // Drive Lenis via GSAP ticker so both share the same RAF loop
-    const onTick = (time: number) => lenis.raf(time * 1000)
+    const onTick = (time: number) => instance.raf(time * 1000)
     gsap.ticker.add(onTick)
     gsap.ticker.lagSmoothing(0)
 
+    // Expose instance via context — triggers re-render in consumers (e.g. Testimonios)
+    // so they can set up ScrollTrigger animations only after Lenis is ready.
+    setLenis(instance)
+
     return () => {
       gsap.ticker.remove(onTick)
-      lenis.destroy()
-      lenisRef.current = null
+      instance.destroy()
+      setLenis(null)
     }
   }, [])
 
   return (
-    <LenisContext.Provider value={{ lenis: lenisRef.current }}>
+    <LenisContext.Provider value={lenis}>
       {children}
     </LenisContext.Provider>
   )

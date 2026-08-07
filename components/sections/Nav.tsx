@@ -1,110 +1,182 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { NAV_LINKS, CONTACT_CALENDLY } from '@/lib/constants'
+import { useState, useEffect, useTransition } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { Link, usePathname, useRouter } from '@/lib/navigation'
+import { CONTACT_CALENDLY } from '@/lib/constants'
+
+const NAV_KEYS = [
+  { href: '/proyectos', key: 'proyectos' },
+  { href: '/nosotros', key: 'estudio'   },
+  { href: '/journal',  key: 'journal'   },
+  { href: '/contact',  key: 'contacto'  },
+] as const
 
 export function Nav() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen]       = useState(false)
+  const [, startTransition]   = useTransition()
+  const pathname              = usePathname()
+  const router                = useRouter()
+  const locale                = useLocale()
+  const t                     = useTranslations('nav')
+  const isHome                = pathname === '/'
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
+  useEffect(() => { setOpen(false) }, [pathname])
+
+  function switchLocale() {
+    const next = locale === 'es' ? 'en' : 'es'
+    startTransition(() => {
+      router.replace(pathname, { locale: next })
+    })
+  }
 
   return (
     <>
-      {/* ── Fixed nav — mix-blend-difference so it auto-inverts on any bg ── */}
       <nav
         aria-label="Navegación principal"
         className={[
-          'fixed top-0 left-0 right-0 z-50 pointer-events-none',
-          // Only blend when menu is closed — inside the ink overlay blend is not needed
-          open ? '' : 'mix-blend-difference',
+          `${isHome ? 'absolute' : 'fixed'} top-0 left-0 right-0 z-50 pointer-events-none`,
+          open || isHome ? '' : 'md:mix-blend-difference',
         ].join(' ')}
       >
-        <div className="flex items-center justify-between px-6 md:px-16 lg:px-24 h-16 md:h-20 pointer-events-auto">
+        <div className={`flex items-center justify-between px-6 md:px-16 lg:px-24 h-16 md:h-20 pointer-events-auto ${isHome ? 'md:h-24' : ''}`}>
 
-          {/* Logo wordmark */}
           <Link
             href="/"
+            aria-label={t('ariaLogo')}
             className="font-display font-semibold text-paper text-xl leading-none tracking-tight"
             onClick={() => setOpen(false)}
           >
             Nexxo
           </Link>
 
-          {/* Desktop links */}
-          <ul className="hidden md:flex items-center gap-10" role="list">
-            {NAV_LINKS.map(({ href, label }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="font-mono text-[10px] uppercase tracking-[0.22em] text-paper opacity-70 hover:opacity-100 transition-opacity duration-200"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
+          <ul className={`hidden md:flex items-center ${isHome ? 'gap-6 rounded-xl border border-paper/15 bg-ink/65 px-5 py-3 shadow-sm backdrop-blur-md' : 'gap-10'}`} role="list">
+            {NAV_KEYS.map(({ href, key }) => {
+              const isActive =
+                pathname === href || pathname.startsWith(href)
+              return (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    aria-current={isActive ? 'page' : undefined}
+                    className="font-mono text-[10px] uppercase tracking-[0.22em] text-paper transition-opacity duration-200"
+                    style={{ opacity: isActive ? 1 : 0.7 }}
+                  >
+                    {t(key)}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
 
-          {/* Desktop CTA */}
-          <Link
-            href="/contact"
-            className="hidden md:inline-flex items-center font-mono text-[10px] uppercase tracking-[0.22em] text-paper border border-paper/60 px-5 py-2.5 hover:border-paper transition-colors duration-200"
-          >
-            Cotiza
-          </Link>
+          <div className="hidden md:flex items-center gap-5">
+            {/* Selector de idioma */}
+            <button
+              onClick={switchLocale}
+              className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/50 hover:text-paper transition-colors duration-200"
+              aria-label={`Switch to ${t('switchLang')}`}
+            >
+              {t('switchLang')}
+            </button>
 
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden font-mono text-[10px] uppercase tracking-[0.22em] text-paper pointer-events-auto"
-            onClick={() => setOpen(v => !v)}
-            aria-expanded={open}
-            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          >
-            {open ? 'Cerrar' : 'Menú'}
-          </button>
+            <Link
+              href="/contact"
+              className={`inline-flex items-center font-mono text-[10px] uppercase tracking-[0.22em] px-5 py-2.5 transition-colors duration-200 ${isHome ? 'rounded-xl bg-paper text-ink hover:bg-paper/80' : 'text-paper border border-paper/60 hover:border-paper'}`}
+            >
+              {t('cotiza')}
+            </Link>
+          </div>
+
         </div>
       </nav>
 
-      {/* ── Mobile fullscreen menu ── */}
-      {open && (
-        <div
-          className="fixed inset-0 z-40 bg-ink flex flex-col justify-between px-6 pt-28 pb-12"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menú"
-        >
-          <ul className="space-y-2" role="list">
-            {NAV_LINKS.map(({ href, label }) => (
+      {/* Botón hamburguesa */}
+      <button
+        className="md:hidden fixed top-0 right-0 z-[60] h-16 w-16 flex items-center justify-center"
+        onClick={() => setOpen(v => !v)}
+        aria-expanded={open}
+        aria-label={open ? t('cerrarMenu') : t('abrirMenu')}
+      >
+        <span className="sr-only">{open ? t('cerrarMenu') : t('abrirMenu')}</span>
+        <div className="relative w-6 h-[18px] flex flex-col justify-between" aria-hidden>
+          <span
+            className="block h-[1.5px] w-full bg-paper origin-center transition-all duration-300"
+            style={{ transform: open ? 'translateY(8px) rotate(45deg)' : 'none' }}
+          />
+          <span
+            className="block h-[1.5px] bg-paper transition-all duration-200"
+            style={{ width: open ? '0%' : '100%', opacity: open ? 0 : 1 }}
+          />
+          <span
+            className="block h-[1.5px] w-full bg-paper origin-center transition-all duration-300"
+            style={{ transform: open ? 'translateY(-8px) rotate(-45deg)' : 'none' }}
+          />
+        </div>
+      </button>
+
+      {/* Menú fullscreen mobile */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menú"
+        className={[
+          'fixed inset-0 z-40 bg-ink flex flex-col justify-between px-6 pt-28 pb-12',
+          'transition-opacity duration-300',
+          open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
+        ].join(' ')}
+      >
+        <ul className="space-y-1" role="list">
+          {NAV_KEYS.map(({ href, key }) => {
+            const isActive =
+              pathname === href || pathname.startsWith(href)
+            return (
               <li key={href}>
                 <Link
                   href={href}
-                  className="block font-display font-semibold text-paper text-[13vw] leading-[1] tracking-tight hover:text-smoke transition-colors"
+                  aria-current={isActive ? 'page' : undefined}
+                  className="block font-display font-semibold text-paper leading-[1] tracking-tight hover:text-smoke transition-colors duration-150"
+                  style={{ fontSize: 'clamp(2.8rem, 13vw, 5rem)' }}
                   onClick={() => setOpen(false)}
                 >
-                  {label}
+                  {t(key)}
                 </Link>
               </li>
-            ))}
-          </ul>
+            )
+          })}
+        </ul>
 
-          <div className="space-y-3">
-            <Link
-              href="/contact"
-              className="flex items-center justify-center font-mono text-xs uppercase tracking-widest bg-accent text-paper w-full py-4"
-              onClick={() => setOpen(false)}
-            >
-              Cotiza tu proyecto
-            </Link>
-            <a
-              href={CONTACT_CALENDLY}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center font-mono text-xs uppercase tracking-widest border border-line text-smoke w-full py-4"
-              onClick={() => setOpen(false)}
-            >
-              Agendar llamada
-            </a>
-          </div>
+        <div className="space-y-3">
+          {/* Selector de idioma mobile */}
+          <button
+            onClick={() => { switchLocale(); setOpen(false) }}
+            className="flex items-center justify-center font-mono text-xs uppercase tracking-widest border border-line text-smoke/60 w-full py-3"
+          >
+            {t('switchLang')} — {locale === 'es' ? 'English' : 'Español'}
+          </button>
+
+          <Link
+            href="/contact"
+            className="flex items-center justify-center font-mono text-xs uppercase tracking-widest bg-accent text-paper w-full py-4"
+            onClick={() => setOpen(false)}
+          >
+            {t('cotizaProyecto')}
+          </Link>
+          <a
+            href={CONTACT_CALENDLY}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center font-mono text-xs uppercase tracking-widest border border-line text-smoke w-full py-4"
+            onClick={() => setOpen(false)}
+          >
+            {t('agendarLlamada')}
+          </a>
         </div>
-      )}
+      </div>
     </>
   )
 }

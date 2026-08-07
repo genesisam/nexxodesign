@@ -12,74 +12,83 @@ export type Project = {
   metric: string
   services: string[]
   coverImage?: { asset: { _ref: string } }
+  coverUrl?: string
   excerpt?: string
 }
+
+type Variant = 'pair' | 'featured'
 
 type Props = {
   project: Project
   n: number
-  /** Drives image size hint for next/image */
-  colSize: 'large' | 'small'
+  variant?: Variant
 }
 
-export function ProjectCard({ project, n, colSize }: Props) {
-  const label = String(n).padStart(2, '0')
+const ASPECT: Record<Variant, string> = {
+  pair:     'aspect-square',
+  featured: 'aspect-[16/9]',
+}
 
-  const imgSrc = project.coverImage
-    ? urlFor(project.coverImage)
-        .width(colSize === 'large' ? 1400 : 900)
-        .height(colSize === 'large' ? 1400 : 900)
-        .auto('format')
-        .url()
-    : null
+
+const IMG_DIM: Record<Variant, { w: number; h: number }> = {
+  pair:     { w: 1000, h: 1000 },
+  featured: { w: 2400, h: 1350 },
+}
+
+export function ProjectCard({ project, n, variant = 'pair' }: Props) {
+  const label = String(n).padStart(2, '0')
+  const { w, h } = IMG_DIM[variant]
+
+  const imgSrc = project.coverUrl
+    ?? (project.coverImage
+      ? urlFor(project.coverImage).width(w).height(h).auto('format').url()
+      : null)
 
   return (
     <Link
-      href={`/work/${project.slug.current}`}
+      href={`/proyectos/${project.slug.current}`}
       className="group block"
       aria-label={`${project.title} — ${project.client}`}
     >
-      {/* ── Cover — square ───────────────────────────── */}
-      <div className="relative aspect-square overflow-hidden bg-line">
+      {/* ── Image ── */}
+      <div className={`relative overflow-hidden bg-line ${ASPECT[variant]}`}>
 
         {imgSrc ? (
           <Image
             src={imgSrc}
             alt={project.title}
             fill
-            sizes={colSize === 'large'
-              ? '(max-width: 768px) 100vw, 60vw'
-              : '(max-width: 768px) 100vw, 40vw'}
-            className="object-cover transition-transform duration-700 ease-in-out-expo group-hover:scale-[1.04]"
+            sizes={variant === 'featured' ? '(max-width: 768px) 100vw, 80vw' : '(max-width: 768px) 100vw, 50vw'}
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             priority={n <= 2}
           />
         ) : (
-          /* Placeholder — swapped for real image via Sanity */
+          /* Placeholder watermark */
           <div className="absolute inset-0 flex items-end justify-end overflow-hidden">
             <span
-              className="font-display font-semibold text-paper/[0.055] leading-none tracking-tight select-none pointer-events-none pr-4 pb-2"
+              className="font-display font-semibold text-paper/[0.05] leading-none select-none pointer-events-none pr-4 pb-1"
               aria-hidden
-              style={{ fontSize: 'clamp(8rem, 25vw, 22rem)' }}
+              style={{ fontSize: 'clamp(4rem, 18vw, 20rem)' }}
             >
               {label}
             </span>
           </div>
         )}
 
-        {/* Service tags — overlaid bottom-left, como referencia */}
+        {/* Service tags — bottom-left overlay */}
         <div className="absolute bottom-4 left-4 flex flex-wrap gap-1.5">
           {project.services.map(s => (
             <span
               key={s}
-              className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/90 bg-ink/65 px-2.5 py-1.5"
+              className="font-mono text-[9px] uppercase tracking-[0.16em] text-paper/85 bg-ink/65 px-2.5 py-1.5"
             >
               {s}
             </span>
           ))}
         </div>
 
-        {/* Number badge top-left */}
-        <span className="absolute top-4 left-4 font-mono text-[9px] uppercase tracking-[0.2em] text-smoke/50">
+        {/* Number badge */}
+        <span className="absolute top-4 left-4 font-mono text-[9px] text-smoke/40 tracking-widest">
           {label}
         </span>
 
@@ -92,28 +101,27 @@ export function ProjectCard({ project, n, colSize }: Props) {
             View
           </span>
         </div>
-
       </div>
 
-      {/* ── Metadata ──────────────────────────────────── */}
+      {/* ── Metadata ── */}
       <div className="pt-4 space-y-1.5">
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-smoke">
+        <div className="flex items-baseline justify-between">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-smoke">
             {project.client}
           </span>
           <span className="font-mono text-[10px] text-smoke/35">
             {project.year}
           </span>
         </div>
-
         <h3
           className="font-display font-semibold text-paper leading-[0.9] tracking-[-0.02em] transition-colors duration-300 group-hover:text-smoke"
-          style={{ fontSize: 'clamp(1.25rem, 2.2vw, 1.875rem)' }}
+          style={{ fontSize: variant === 'featured'
+            ? 'clamp(1.5rem, 3vw, 2.75rem)'
+            : 'clamp(1.2rem, 2vw, 1.75rem)' }}
         >
           {project.title}
         </h3>
-
-        <p className="font-mono text-accent text-[11px] uppercase tracking-[0.16em] pt-0.5">
+        <p className="font-mono text-accent text-[11px] uppercase tracking-[0.15em] pt-0.5">
           {project.metric}
         </p>
       </div>

@@ -67,7 +67,7 @@ export function Hero() {
               Cotiza tu proyecto
             </Link>
             <Link
-              href="/work"
+              href="/proyectos"
               className="inline-flex items-center justify-center font-mono text-xs uppercase tracking-widest border border-line text-smoke px-7 py-3.5 hover:border-smoke/60 hover:text-paper transition-colors duration-200"
             >
               Ver trabajo →
