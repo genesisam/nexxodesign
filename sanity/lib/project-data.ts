@@ -47,12 +47,24 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   return MOCK_PROJECTS.find(p => p.slug.current === slug) ?? null
 }
 
+/**
+ * Union of the CMS slugs and the mock slugs, deduped.
+ *
+ * `getProjectBySlug` falls back to the mocks when Sanity has no matching
+ * document, so a mock-only project (currently `tolvia`) still renders a real
+ * 200 page. Returning only the CMS slugs would leave those pages out of the
+ * sitemap and unprerendered — reachable but never advertised.
+ */
 export async function getAllProjectSlugs(): Promise<string[]> {
+  const mockSlugs = MOCK_PROJECTS.map(p => p.slug.current)
+
+  let cmsSlugs: string[] = []
   try {
     const rows = await sanityClient.fetch<{ slug: string }[]>(allSlugsQuery)
-    if (rows?.length) return rows.map(r => r.slug)
+    cmsSlugs = rows?.map(r => r.slug).filter(Boolean) ?? []
   } catch {
-    // fall through to mock slugs
+    // Sanity unreachable — the mocks alone still cover every renderable page.
   }
-  return MOCK_PROJECTS.map(p => p.slug.current)
+
+  return [...new Set([...cmsSlugs, ...mockSlugs])]
 }

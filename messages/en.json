@@ -12,7 +12,6 @@
     "ariaLogo": "Nexxo — home",
     "switchLang": "ES"
   },
-
   "footer": {
     "menuLabel": "MENU/",
     "ubicacionLabel": "LOCATION/",
@@ -33,7 +32,6 @@
     "navJournal": "Journal",
     "navContacto": "Contact"
   },
-
   "hero": {
     "eyebrow": "AI automation & design that converts — 2025",
     "headline1": "Systems that generate",
@@ -42,7 +40,6 @@
     "ctaAgendar": "Book a call",
     "ctaTrabajo": "See results →"
   },
-
   "fusionReel": {
     "label": "02 — Showreel",
     "playReel": "Play reel",
@@ -51,13 +48,11 @@
     "ariaShowreelDialog": "Showreel",
     "videoProximamente": "Video coming soon"
   },
-
   "selectedWork": {
     "seccion": "02 — Work",
     "headline": "Selected work",
     "ctaTodo": "See all work"
   },
-
   "capabilities": {
     "seccion": "03 — Services",
     "headline1": "What we",
@@ -85,7 +80,6 @@
       }
     ]
   },
-
   "statement": {
     "seccion": "04 — Philosophy",
     "texto": "Where intention meets execution, the product takes shape —",
@@ -93,7 +87,6 @@
     "body": "We take few projects at a time so each client receives full focus, direct communication and a studio that owns the outcome from start to finish.",
     "cta": "Let's talk"
   },
-
   "transformacion": {
     "seccion": "05 — Transformation",
     "scrollHint": "Scroll to continue",
@@ -130,21 +123,18 @@
       }
     ]
   },
-
   "testimonios": {
     "seccion": "06 — Clients",
     "headline1": "More than clients.",
     "headline2": "Partners.",
     "leerResenas": "Read all reviews →"
   },
-
   "journal": {
     "seccion": "07 — Journal",
     "headline": "Ideas that\nmatter.",
     "verTodos": "See all articles →",
     "leer": "Read →"
   },
-
   "nosotros": {
     "meta": {
       "title": "Studio — Nexxo",
@@ -206,7 +196,6 @@
       "button": "Tell us about your project →"
     }
   },
-
   "contact": {
     "meta": {
       "title": "Contact — Nexxo",
@@ -312,7 +301,6 @@
       "siguenos": "Follow us"
     }
   },
-
   "work": {
     "meta": {
       "title": "Projects — Nexxo",
@@ -336,7 +324,6 @@
       "ver": "View project →"
     }
   },
-
   "proyectos": {
     "feedbackLabel": "Client feedback",
     "siguienteLabel": "Next project",
@@ -345,7 +332,6 @@
     "cotiza": "Get a quote →",
     "verMas": "See more projects"
   },
-
   "notFound": {
     "label": "Error 404",
     "headline1": "This page",
@@ -353,5 +339,46 @@
     "body": "The URL you're looking for doesn't exist or has been moved. Go back to the home or explore our work.",
     "ctaInicio": "Go home",
     "ctaTrabajo": "See work →"
+  },
+  "faq": {
+    "eyebrow": ">> FAQ",
+    "heading1": "Frequently asked",
+    "heading2": "questions",
+    "aside": "Can't find what you're looking for? Message us on WhatsApp.",
+    "aria": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What exactly does Nexxo do?",
+        "a": "Nexxo is a studio that builds lead generation systems for startups using premium design, AI automation and CRO. We do not just deliver a website — we deliver an acquisition machine that works 24/7: an optimised landing page, AI workflows that nurture leads automatically, a connected CRM and analytics to measure every dollar invested."
+      },
+      {
+        "q": "How long does a project take?",
+        "a": "Between 4 and 12 weeks depending on scope. A lead generation system with landing page and automation takes 4–6 weeks. A complete SaaS product (UX/UI plus development) takes 8–12 weeks. Always with weekly deliverables and direct communication."
+      },
+      {
+        "q": "How is Nexxo different from a traditional design agency?",
+        "a": "Design agencies deliver files. Nexxo delivers measurable results. We combine high-fidelity design with AI automation and CRO from day one. Every project includes business KPIs defined upfront and a metrics review at 30, 60 and 90 days after launch."
+      },
+      {
+        "q": "Do you only work with companies in Colombia?",
+        "a": "No. We work with startups across LatAm (Mexico, Argentina, Chile, Peru, Colombia) and with international companies entering the Latin American market. All our projects are remote and we deliver in both Spanish and English."
+      },
+      {
+        "q": "What kind of AI automations do you implement?",
+        "a": "We build workflows that include automatic lead follow-up over WhatsApp and email, AI chatbots for prospect qualification, CRM integrations (HubSpot, Notion, Airtable), nurturing pipelines with generative AI, and real-time analytics dashboards. All connected to your current stack."
+      },
+      {
+        "q": "How much does a project cost?",
+        "a": "Projects start at $5,000 USD for conversion landing pages with basic automation. Complete lead generation systems with AI and product design range from $8,000 to $25,000 USD depending on scope. Use the estimator on our contact page to get a personalised quote in 2 minutes."
+      },
+      {
+        "q": "Can you work with my current tech stack?",
+        "a": "Yes. We build mainly in Next.js, Tailwind and Sanity CMS, but we integrate with any stack: Webflow, Shopify, WordPress, HubSpot, Salesforce, Zapier, Make and AI tools such as OpenAI, Anthropic and Google Gemini."
+      },
+      {
+        "q": "What guarantees do you offer?",
+        "a": "Every project includes documented weekly deliverables, unlimited revisions within the agreed scope, a complete handoff with source code or design files, 30 days of post-launch support, and a metrics review at 30 and 60 days."
+      }
+    ]
   }
 }

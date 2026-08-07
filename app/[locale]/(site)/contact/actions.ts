@@ -4,7 +4,7 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const FROM  = process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev'
+const FROM  = process.env.RESEND_FROM_EMAIL ?? 'noreply@nexxodesign.com'
 const TO    = process.env.RESEND_TO_EMAIL   ?? 'info@nexxodesign.com'
 
 export type ContactState = {
@@ -18,7 +18,8 @@ export async function submitContact(
   formData: FormData,
 ): Promise<ContactState> {
   // ── Honeypot anti-spam ────────────────────────────────────────────────────
-  if ((formData.get('website') as string | null)?.trim()) {
+  // Field name kept deliberately meaningless — see the note in ContactForm.tsx.
+  if ((formData.get('nx_hp') as string | null)?.trim()) {
     return { status: 'error', message: 'Solicitud inválida.' }
   }
 

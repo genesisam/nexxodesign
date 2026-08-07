@@ -234,14 +234,19 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
   return (
     <form action={formAction} onSubmit={onSubmit} noValidate>
 
-      {/* Honeypot */}
+      {/* Honeypot. The name must NOT look like a real profile field: Chrome
+          ignores autoComplete="off" for recognised names (`website` among them)
+          and autofills it, which made genuine submissions fail the bot check.
+          The data-* attributes keep 1Password and LastPass out of it too. */}
       <input
         type="text"
-        name="website"
+        name="nx_hp"
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
         className="sr-only"
+        data-lpignore="true"
+        data-1p-ignore=""
       />
 
       {/* Estimate summary card */}
