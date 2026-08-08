@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Link, usePathname, useRouter } from '@/lib/navigation'
 import { CONTACT_CALENDLY } from '@/lib/constants'
 import { NexxoLogo } from '@/components/ui/NexxoLogo'
+import { useLenis } from '@/components/motion/SmoothScrollProvider'
 
 const NAV_KEYS = [
   { href: '/proyectos', key: 'proyectos' },
@@ -14,11 +15,13 @@ const NAV_KEYS = [
 ] as const
 
 export function Nav() {
-  const [open, setOpen]       = useState(false)
-  const [, startTransition]   = useTransition()
+  const [open, setOpen]         = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [, startTransition]     = useTransition()
   const pathname              = usePathname()
   const router                = useRouter()
   const locale                = useLocale()
+  const lenis                 = useLenis()
   const t                     = useTranslations('nav')
   const isHome                = pathname === '/'
 
@@ -28,6 +31,30 @@ export function Nav() {
   }, [open])
 
   useEffect(() => { setOpen(false) }, [pathname])
+
+  // Once the page has scrolled at all, the bar needs a surface of its own:
+  // over article text `mix-blend-difference` inverts per-pixel and the links
+  // become unreadable. Below the threshold we keep it fully transparent so the
+  // hero is untouched.
+  //
+  // Lenis swallows the native scroll event — the page moves and window.scrollY
+  // updates, but no listener fires — so we subscribe to Lenis when it is
+  // running and fall back to the window event when it is not (Lenis opts out
+  // entirely under prefers-reduced-motion).
+  useEffect(() => {
+    const update = (y: number) => setScrolled(y > 24)
+    update(window.scrollY)
+
+    if (lenis) {
+      const onLenisScroll = ({ scroll }: { scroll: number }) => update(scroll)
+      lenis.on('scroll', onLenisScroll)
+      return () => { lenis.off('scroll', onLenisScroll) }
+    }
+
+    const onScroll = () => update(window.scrollY)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [lenis])
 
   function switchLocale() {
     const next = locale === 'es' ? 'en' : 'es'
@@ -41,9 +68,19 @@ export function Nav() {
       <nav
         aria-label="Navegación principal"
         className={[
-          `${isHome ? 'absolute' : 'fixed'} top-0 left-0 right-0 z-50 pointer-events-none`,
-          open || isHome ? '' : 'md:mix-blend-difference',
+          'fixed top-0 left-0 right-0 z-50 pointer-events-none',
+          'transition-[background-color,backdrop-filter] duration-300',
+          // The blend trick only works while the bar is transparent — once the
+          // backdrop is on it would invert against our own surface.
+          open || isHome || scrolled ? '' : 'md:mix-blend-difference',
         ].join(' ')}
+        // Inline rather than a utility class: the surface is state-driven and
+        // must not depend on the class being present in the generated CSS.
+        style={scrolled ? {
+          backgroundColor: 'rgb(var(--color-ink-rgb) / 0.85)',
+          backdropFilter:  'blur(12px)',
+          borderBottom:    '1px solid rgb(var(--color-line-rgb) / 1)',
+        } : undefined}
       >
         <div className={`flex items-center justify-between px-6 md:px-16 lg:px-24 h-16 md:h-20 pointer-events-auto ${isHome ? 'md:h-24' : ''}`}>
 

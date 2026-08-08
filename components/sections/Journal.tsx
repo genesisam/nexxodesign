@@ -1,7 +1,8 @@
 'use client'
 
 import { useRef, useEffect, useState, useCallback } from 'react'
-import Link from 'next/link'
+// Locale-aware: plain next/link would send /en visitors to the unprefixed path.
+import { Link, useRouter } from '@/lib/navigation'
 
 const JOURNAL_PATH = '/journal'
 
@@ -102,6 +103,7 @@ const getInactivePct = (n: number) => (100 - ACTIVE_PCT) / (n - 1)  // 15% cuand
 // ── Componente ────────────────────────────────────────────────────────────────
 
 export function Journal() {
+  const router = useRouter()
   const [activeIdx,  setActiveIdx]  = useState(0)
   const [isMobile,   setIsMobile]   = useState(false)
   const videoRefs    = useRef<(HTMLVideoElement | null)[]>([])
@@ -203,8 +205,15 @@ export function Journal() {
                   : 'none',
               }}
               onMouseEnter={() => !isMobile && activate(i)}
-              onClick={() => activate(i)}
-              onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && activate(i)}
+              // First click opens the card, a second one follows it through —
+              // so the artwork itself is a link, not just the "Leer más" label.
+              onClick={() => (isActive ? router.push(`/journal/${post.slug.current}`) : activate(i))}
+              onKeyDown={e => {
+                if (e.key !== 'Enter' && e.key !== ' ') return
+                e.preventDefault()
+                if (isActive) router.push(`/journal/${post.slug.current}`)
+                else activate(i)
+              }}
             >
 
               {/* ── Fondo: imagen cover o gradiente placeholder ─────────────── */}

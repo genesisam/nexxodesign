@@ -30,13 +30,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title:       `${post.title} — Nexxo Journal`,
     description: post.excerpt,
     alternates:  buildAlternates(locale, `/journal/${slug}`),
+    authors:     [{ name: post.author.name, url: absoluteUrl(locale, '/nosotros') }],
+    keywords:    post.tags?.length ? post.tags : undefined,
+    category:    post.category,
     openGraph: {
       title:         post.title,
       description:   post.excerpt,
       type:          'article',
+      url:           absoluteUrl(locale, `/journal/${slug}`),
+      siteName:      'Nexxo',
+      locale,
       publishedTime: post.publishedAt,
+      modifiedTime:  post.publishedAt,
+      section:       post.category,
+      tags:          post.tags,
       authors:       [post.author.name],
-      images:        post.cover ? [{ url: post.cover, alt: post.title }] : undefined,
+      images:        post.cover
+        ? [{ url: post.cover, alt: post.title, width: 1200, height: 630 }]
+        : undefined,
     },
     twitter: {
       card:        'summary_large_image',
@@ -65,6 +76,15 @@ export default async function PostPage({ params }: Props) {
   const related    = allPosts.filter(p => p._id !== post._id && p.category === post.category).slice(0, 2)
   const relatedPosts = related.length > 0 ? related : allPosts.filter(p => p._id !== post._id).slice(0, 2)
 
+  const postUrl = absoluteUrl(locale, `/journal/${post.slug.current}`)
+
+  // Rough word count off the Portable Text spans — search engines use it as a
+  // depth signal, and an approximation beats omitting the field.
+  const wordCount = (post.body ?? []).reduce((n, block) => {
+    const children = (block as { children?: { text?: string }[] }).children ?? []
+    return n + children.reduce((m, c) => m + (c.text?.trim().split(/\s+/).filter(Boolean).length ?? 0), 0)
+  }, 0)
+
   // JSON-LD BlogPosting
   const jsonLd = {
     '@context':    'https://schema.org',
@@ -72,18 +92,46 @@ export default async function PostPage({ params }: Props) {
     headline:      post.title,
     description:   post.excerpt,
     datePublished: post.publishedAt,
-    image:         post.cover ?? undefined,
-    url:           absoluteUrl(locale, `/journal/${post.slug.current}`),
+    // Google treats a missing dateModified as a staleness signal; with no
+    // edit tracking in the CMS the publish date is the honest answer.
+    dateModified:  post.publishedAt,
+    image:         post.cover ? [post.cover] : undefined,
+    url:           postUrl,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+    inLanguage:    locale,
+    articleSection: post.category,
+    keywords:      post.tags?.length ? post.tags.join(', ') : undefined,
+    timeRequired:  post.readingTime ? `PT${post.readingTime}M` : undefined,
+    wordCount:     wordCount || undefined,
+    isAccessibleForFree: true,
     author: {
-      '@type': 'Person',
-      name:    post.author.name,
-      url:     absoluteUrl(locale, '/nosotros'),
+      '@type':   'Person',
+      name:      post.author.name,
+      jobTitle:  post.author.role,
+      url:       absoluteUrl(locale, '/nosotros'),
     },
     publisher: {
       '@type': 'Organization',
       name:    'Nexxo',
       url:     SITE_URL,
+      logo:    { '@type': 'ImageObject', url: `${SITE_URL}/icon.svg` },
     },
+    // Answer engines quote the lead: naming it explicitly keeps them from
+    // stitching a summary out of navigation chrome.
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '[data-speakable]'],
+    },
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type':    'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio',  item: absoluteUrl(locale) },
+      { '@type': 'ListItem', position: 2, name: 'Journal', item: absoluteUrl(locale, '/journal') },
+      { '@type': 'ListItem', position: 3, name: post.title },
+    ],
   }
 
   return (
@@ -91,6 +139,10 @@ export default async function PostPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <main className="bg-ink">
