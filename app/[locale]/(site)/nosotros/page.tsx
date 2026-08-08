@@ -56,12 +56,17 @@ export default async function NosotrosPage({ params }: Props) {
 
         <div className="mt-[7vh] w-full overflow-hidden">
           <div
-            className="w-full aspect-[16/7] bg-gradient-to-br from-paper/10 via-paper/4 to-transparent flex items-end p-8 md:p-14"
+            className="relative w-full aspect-[16/7] bg-gradient-to-br from-paper/10 via-paper/4 to-transparent"
             data-parallax
           >
-            <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-paper/20">
-              TODO: imagen hero del estudio — 16:7 landscape
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/system/estudio-hero.webp"
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+              fetchPriority="high"
+              draggable={false}
+            />
           </div>
         </div>
       </section>
