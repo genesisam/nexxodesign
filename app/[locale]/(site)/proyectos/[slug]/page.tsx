@@ -527,7 +527,9 @@ export default async function CaseStudyPage({ params }: Props) {
     description:   excerpt,
     url:           absoluteUrl(locale, `/proyectos/${project.slug.current}`),
     image:         project.cover ?? undefined,
-    dateCreated:   project.year.toString(),
+    // `year` is optional in the Sanity schema — guard it, or a project saved
+    // without one throws and takes down the whole case study page.
+    ...(project.year != null && { dateCreated: project.year.toString() }),
     keywords:      [project.vertical, 'automatización IA', 'diseño de producto', 'UX/UI', 'Nexxo'].join(', '),
     creator: {
       '@type': 'Organization',
@@ -570,8 +572,11 @@ export default async function CaseStudyPage({ params }: Props) {
         </nav>
 
         <p className="font-mono text-smoke/35 text-[9px] uppercase tracking-[0.28em] mb-7">
-          {project.client} · {project.year} · {project.vertical}
-          {project.timeline && ` · ${project.timeline}`}
+          {/* Every part is optional in the schema — join only what exists so a
+              missing field doesn't leave a dangling separator. */}
+          {[project.client, project.year, project.vertical, project.timeline]
+            .filter(Boolean)
+            .join(' · ')}
         </p>
 
         <h1

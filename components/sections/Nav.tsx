@@ -4,6 +4,7 @@ import { useState, useEffect, useTransition } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Link, usePathname, useRouter } from '@/lib/navigation'
 import { CONTACT_CALENDLY } from '@/lib/constants'
+import { NexxoLogo } from '@/components/ui/NexxoLogo'
 
 const NAV_KEYS = [
   { href: '/proyectos', key: 'proyectos' },
@@ -49,10 +50,10 @@ export function Nav() {
           <Link
             href="/"
             aria-label={t('ariaLogo')}
-            className="font-display font-semibold text-paper text-xl leading-none tracking-tight"
+            className="text-paper"
             onClick={() => setOpen(false)}
           >
-            Nexxo
+            <NexxoLogo className="h-6 md:h-7 w-auto" />
           </Link>
 
           <ul className={`hidden md:flex items-center ${isHome ? 'gap-6 rounded-xl border border-paper/15 bg-ink/65 px-5 py-3 shadow-sm backdrop-blur-md' : 'gap-10'}`} role="list">
