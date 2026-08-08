@@ -3,6 +3,26 @@ import { sanityClient } from './client'
 import { groq } from 'next-sanity'
 import { MOCK_PROJECTS } from '../mock/projects'
 
+/** Story-block projection, shared by the ES and EN narratives. */
+const storyProjection = `{
+  _type, _key,
+  label, heading, text, divider, caption, size, mediaType,
+  name, role, company, link,
+  _type == "overview" => {
+    "body": body[]{
+      ...,
+      _type == "image" => {
+        _type, _key, alt, caption, fullBleed,
+        "url": asset->url
+      }
+    }
+  },
+  _type == "media" => { "url": asset.asset->url },
+  _type == "splitShow" => {
+    "items": items[]{ _key, mediaType, size, caption, "url": asset.asset->url }
+  }
+}`
+
 const projectBySlugQuery = groq`
   *[_type == "project" && slug.current == $slug][0] {
     _id, title, subtitle, slug, client, year, timeline, excerpt, metric, liveUrl,
@@ -11,24 +31,10 @@ const projectBySlugQuery = groq`
     "cover":    coverImage.asset->url,
     "heroMedia": heroMedia,
     "metrics":  metrics[]{ _key, label, value },
-    "story": story[]{
-      _type, _key,
-      label, heading, text, divider, caption, size, mediaType,
-      name, role, company, link,
-      _type == "overview" => {
-        "body": body[]{
-          ...,
-          _type == "image" => {
-            _type, _key, alt, caption, fullBleed,
-            "url": asset->url
-          }
-        }
-      },
-      _type == "media" => { "url": asset.asset->url },
-      _type == "splitShow" => {
-        "items": items[]{ _key, mediaType, size, caption, "url": asset.asset->url }
-      }
-    },
+    "story": story[]${storyProjection},
+    subtitle_en, excerpt_en, metric_en,
+    "metrics_en": metrics_en[]{ _key, label, value },
+    "story_en": story_en[]${storyProjection},
     "nextProject": *[_type == "project" && order > ^.order] | order(order asc)[0] {
       title, slug, "cover": coverImage.asset->url, "vertical": vertical
     }

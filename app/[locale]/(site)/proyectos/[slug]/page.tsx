@@ -505,14 +505,16 @@ export default async function CaseStudyPage({ params }: Props) {
   const isEn = locale === 'en'
   const t    = await getTranslations('proyectos')
 
-  // EN overlay: when Sanity serves the project (Spanish-only), pull EN translations
-  // from the mock. This means EN content is always available regardless of CMS state.
+  // EN resolution order: Sanity first, then the mock, then the Spanish field.
+  // Sanity now carries the `_en` fields, so the CMS is the source of truth and
+  // the mock is only a fallback for the projects that predate it. A project
+  // translated only halfway still renders — untranslated fields show Spanish.
   const enMock = isEn ? (MOCK_PROJECTS.find(p => p.slug.current === slug) ?? null) : null
 
-  const subtitle = enMock?.subtitle_en ?? project.subtitle_en ?? project.subtitle
-  const excerpt  = enMock?.excerpt_en  ?? project.excerpt_en  ?? project.excerpt
-  const metrics  = enMock?.metrics_en  ?? project.metrics_en  ?? project.metrics
-  const story    = enMock?.story_en    ?? project.story_en    ?? project.story
+  const subtitle = (isEn ? project.subtitle_en ?? enMock?.subtitle_en : null) ?? project.subtitle
+  const excerpt  = (isEn ? project.excerpt_en  ?? enMock?.excerpt_en  : null) ?? project.excerpt
+  const metrics  = (isEn ? project.metrics_en  ?? enMock?.metrics_en  : null) ?? project.metrics
+  const story    = (isEn ? project.story_en    ?? enMock?.story_en    : null) ?? project.story
 
   const bg = getBg(project.vertical)
 
