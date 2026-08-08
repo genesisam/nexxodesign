@@ -60,22 +60,50 @@
     "items": [
       {
         "label": "Lead generation machine",
-        "outcome": "Landing + automation + connected CRM. Your pipeline full without manual effort. Qualified leads coming in while you sleep.",
-        "imageHint": "Lead pipeline dashboard"
+        "outcome": "Conversion landing, automation and CRM wired into one system. Every lead arrives, qualifies itself and reaches the right rep without anyone retyping data.",
+        "deliverables": [
+          "Landing + CRO",
+          "Automated nurturing",
+          "Connected CRM",
+          "Metrics dashboard"
+        ],
+        "image": "/images/system/servicio-01-leads.webp",
+        "imageHint": "Lead dashboard / pipeline"
       },
       {
         "label": "AI automation",
-        "outcome": "AI workflows that eliminate repetitive tasks, nurture leads automatically and scale your operation without hiring more people.",
+        "outcome": "Workflows that answer, qualify and follow up 24/7. Your team stops shuttling information between tools and goes back to closing.",
+        "deliverables": [
+          "AI qualification",
+          "WhatsApp and email follow-up",
+          "Integrations with your stack",
+          "Automated reporting"
+        ],
+        "image": "/images/system/servicio-02-automatizacion.webp",
         "imageHint": "AI automation pipeline"
       },
       {
         "label": "SaaS product design",
-        "outcome": "Interfaces that reduce churn and increase activation. The UX that makes users pay and stay.",
+        "outcome": "Interfaces that cut onboarding drop-off and lift activation. We design the shortest path between signing up and seeing value for the first time.",
+        "deliverables": [
+          "Research and flows",
+          "Design system",
+          "High-fidelity UI",
+          "Developer handoff"
+        ],
+        "image": "/images/system/servicio-03-producto.webp",
         "imageHint": "Dashboard / product screen"
       },
       {
-        "label": "Brand & premium web",
-        "outcome": "The visual presence that turns visitors into clients. CRO + technical SEO + performance from day one.",
+        "label": "Premium brand & web",
+        "outcome": "Identity and site built to convert, not to win awards. CRO, technical SEO and Core Web Vitals handled from the first commit, not patched on at the end.",
+        "deliverables": [
+          "Identity and graphic system",
+          "Next.js site",
+          "Technical SEO",
+          "Measurement and analytics"
+        ],
+        "image": "/images/system/servicio-04-brand.webp",
         "imageHint": "High-conversion landing"
       }
     ]

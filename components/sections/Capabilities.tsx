@@ -4,35 +4,51 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 type CapabilityItem = {
-  label:     string
-  outcome:   string
-  imageHint: string
+  label:        string
+  outcome:      string
+  deliverables: string[]
+  image:        string
+  imageHint:    string
 }
 
 const NUMBERS = ['01', '02', '03', '04']
 
-function ImagePlaceholder({ hint, number }: { hint: string; number: string }) {
+/** Artwork for a service, with the numeral kept over it as before. */
+function CapabilityArt({ src, hint, number }: { src: string; hint: string; number: string }) {
   return (
     <>
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="0.75"
-          className="w-8 h-8 text-smoke/20">
-          <rect x="3" y="3" width="34" height="34" rx="1" />
-          <line x1="3" y1="14" x2="37" y2="14" strokeDasharray="2 3" />
-          <line x1="14" y1="3" x2="14" y2="37" strokeDasharray="2 3" />
-        </svg>
-        <p className="font-mono text-smoke/20 text-[9px] uppercase tracking-[0.2em] text-center leading-loose px-6">
-          {hint}
-        </p>
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={hint}
+        className="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+        draggable={false}
+      />
       <span
-        className="absolute bottom-2 right-3 font-display font-bold text-paper/[0.05] leading-none select-none"
+        className="absolute bottom-2 right-3 font-display font-bold text-paper/[0.07] leading-none select-none"
         style={{ fontSize: 'clamp(3.5rem, 8vw, 7rem)' }}
         aria-hidden
       >
         {number}
       </span>
     </>
+  )
+}
+
+/** Concrete deliverables — scannable for readers, extractable for answer engines. */
+function Deliverables({ items }: { items: string[] }) {
+  return (
+    <ul className="flex flex-wrap gap-x-3 gap-y-1.5 mt-3" role="list">
+      {items.map(d => (
+        <li
+          key={d}
+          className="font-mono text-smoke/45 text-[10px] uppercase tracking-[0.16em] border border-line px-2.5 py-1"
+        >
+          {d}
+        </li>
+      ))}
+    </ul>
   )
 }
 
@@ -76,13 +92,16 @@ export function Capabilities() {
                   >
                     {cap.label}
                   </span>
-                  <span
-                    className={`block font-body text-smoke/70 text-[13px] leading-relaxed transition-all duration-300 overflow-hidden ${
-                      isActive ? 'max-h-16 opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0 pointer-events-none'
+                  <div
+                    className={`block transition-all duration-300 overflow-hidden ${
+                      isActive ? 'max-h-48 opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0 pointer-events-none'
                     }`}
                   >
-                    {cap.outcome}
-                  </span>
+                    <span className="block font-body text-smoke/70 text-[13px] leading-relaxed">
+                      {cap.outcome}
+                    </span>
+                    <Deliverables items={cap.deliverables} />
+                  </div>
                 </div>
                 <span
                   className={`font-mono text-[10px] tracking-[0.22em] shrink-0 transition-colors duration-300 ${
@@ -98,7 +117,7 @@ export function Capabilities() {
                   }`}
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-line">
-                    <ImagePlaceholder hint={cap.imageHint} number={num} />
+                    <CapabilityArt src={cap.image} hint={cap.imageHint} number={num} />
                   </div>
                 </div>
               </div>
@@ -150,11 +169,12 @@ export function Capabilities() {
               >
                 <div className="pb-7 space-y-4">
                   <div className="relative aspect-video bg-line overflow-hidden">
-                    <ImagePlaceholder hint={cap.imageHint} number={num} />
+                    <CapabilityArt src={cap.image} hint={cap.imageHint} number={num} />
                   </div>
                   <p className="font-body text-smoke text-[15px] leading-relaxed">
                     {cap.outcome}
                   </p>
+                  <Deliverables items={cap.deliverables} />
                 </div>
               </div>
             </div>
