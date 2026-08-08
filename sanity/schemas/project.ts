@@ -116,33 +116,36 @@ export const project = defineType({
   title: 'Proyecto',
   type:  'document',
   groups: [
-    { name: 'es', title: 'Español', default: true },
+    { name: 'general', title: 'General', default: true },
+    { name: 'es', title: 'Español' },
     { name: 'en', title: 'English' },
   ],
   fields: [
     // ── Identity ────────────────────────────────────────────────────────────
-    defineField({ name: 'title',    title: 'Nombre',            type: 'string', validation: R => R.required() }),
+    defineField({ name: 'title',    title: 'Nombre',            type: 'string', group: 'general', validation: R => R.required() }),
     defineField({ name: 'subtitle', title: 'Tagline editorial', type: 'string', group: 'es', description: 'Frase breve bajo el título (tophead)' }),
-    defineField({ name: 'slug',     title: 'Slug',              type: 'slug',   options: { source: 'title' }, validation: R => R.required() }),
-    defineField({ name: 'client',   title: 'Cliente',           type: 'string' }),
-    defineField({ name: 'year',     title: 'Año',               type: 'number' }),
-    defineField({ name: 'timeline', title: 'Duración',          type: 'string', description: 'ej. "6 semanas · Q1 2025" — se muestra en el tophead' }),
+    defineField({ name: 'slug',     title: 'Slug',              type: 'slug',   group: 'general', options: { source: 'title' }, validation: R => R.required() }),
+    defineField({ name: 'client',   title: 'Cliente',           type: 'string', group: 'general' }),
+    defineField({ name: 'year',     title: 'Año',               type: 'number', group: 'general' }),
+    defineField({ name: 'timeline', title: 'Duración',          type: 'string', group: 'general', description: 'ej. "6 semanas · Q1 2025" — se muestra en el tophead' }),
     defineField({
       name:    'vertical',
       title:   'Vertical',
       type:    'string',
+      group:   'general',
       options: { list: ['SaaS', 'Fintech', 'Web', 'Branding', 'IA'] },
     }),
     defineField({
       name:  'services',
       title: 'Servicios prestados',
       type:  'array',
+      group: 'general',
       of:    [{ type: 'string' }],
     }),
 
     // ── Media ───────────────────────────────────────────────────────────────
-    defineField({ name: 'coverImage', title: 'Imagen portada',   type: 'image', options: { hotspot: true } }),
-    defineField({ name: 'heroMedia',  title: 'Video hero (URL)', type: 'url',   description: 'URL de video mp4/webm para el hero' }),
+    defineField({ name: 'coverImage', title: 'Imagen portada',   type: 'image', group: 'general', options: { hotspot: true } }),
+    defineField({ name: 'heroMedia',  title: 'Video hero (URL)', type: 'url',   group: 'general', description: 'URL de video mp4/webm para el hero' }),
 
     // ── Metrics ─────────────────────────────────────────────────────────────
     defineField({ name: 'metric',    title: 'Métrica principal', type: 'string', group: 'es', description: 'ej. "+340% conversión"' }),
@@ -150,7 +153,7 @@ export const project = defineType({
 
     // ── Overview ────────────────────────────────────────────────────────────
     defineField({ name: 'excerpt', title: 'Resumen (reto + rol)', type: 'text', rows: 4, group: 'es' }),
-    defineField({ name: 'liveUrl', title: 'URL del sitio live',   type: 'url'  }),
+    defineField({ name: 'liveUrl', title: 'URL del sitio live',   type: 'url', group: 'general' }),
 
     // ── Story ───────────────────────────────────────────────────────────────
     defineField({ name: 'story', title: 'Historia del caso', type: 'array', group: 'es', of: storyBlocks }),
@@ -166,8 +169,8 @@ export const project = defineType({
     defineField({ name: 'story_en',    title: 'Historia del caso (EN)',   type: 'array', group: 'en', of: storyBlocks }),
 
     // ── Order / visibility ──────────────────────────────────────────────────
-    defineField({ name: 'order',    title: 'Orden manual',  type: 'number',  description: 'Menor = primero en la grilla' }),
-    defineField({ name: 'featured', title: 'Destacado',     type: 'boolean', initialValue: false }),
+    defineField({ name: 'order',    title: 'Orden manual',  type: 'number',  group: 'general', description: 'Menor = primero en la grilla' }),
+    defineField({ name: 'featured', title: 'Destacado',     type: 'boolean', group: 'general', initialValue: false }),
   ],
 
   orderings: [

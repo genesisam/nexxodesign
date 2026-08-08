@@ -15,6 +15,18 @@ const SLOT_BG = [
   'linear-gradient(148deg,#04080a 0%,#051a14 60%,#096640 100%)',
 ]
 
+// Card artwork, index-aligned with SLOT_BG: each image is lit in its slot's
+// accent colour, so the gradient underneath stays a seamless fallback if the
+// image is missing or still loading.
+const SLOT_SRC = [
+  '/images/system/transformacion-01.webp',
+  '/images/system/transformacion-02.webp',
+  '/images/system/transformacion-03.webp',
+  '/images/system/transformacion-04.webp',
+  '/images/system/transformacion-05.webp',
+  '/images/system/transformacion-06.webp',
+]
+
 // Thumbnail scale relative to main frame (matches Oryzo --thumb-scale: .35)
 const THUMB_SCALE = 0.35
 
@@ -23,7 +35,7 @@ type SlotData = { label: string; title: string; sub: string }
 export default function TransformacionInner() {
   const t     = useTranslations('transformacion')
   const slots = t.raw('slots') as SlotData[]
-  const SLOTS = slots.map((s, i) => ({ ...s, src: '', bg: SLOT_BG[i] }))
+  const SLOTS = slots.map((s, i) => ({ ...s, src: SLOT_SRC[i] ?? '', bg: SLOT_BG[i] }))
   const N     = SLOTS.length
   const sectionRef     = useRef<HTMLElement>(null)
   const frameRef       = useRef<HTMLDivElement>(null)   // main frame — overflow:hidden
