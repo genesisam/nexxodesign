@@ -1,7 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/navigation'
+import { getProjectCards } from '@/sanity/lib/project-data'
 import { ProjectCard, type Project } from './ProjectCard'
 
+/** Used only when Sanity is unreachable — the CMS is the source of truth. */
 const MOCK: Project[] = [
   {
     _id: 'solivus',
@@ -53,7 +55,11 @@ const MOCK: Project[] = [
 
 export async function SelectedWork() {
   const t = await getTranslations('selectedWork')
-  const [p1, p2, p3, p4, p5] = MOCK
+  // Covers live in the CMS; the static list is only a fallback so the section
+  // still renders if Sanity is down.
+  const cms = await getProjectCards()
+  const projects: Project[] = cms?.length ? cms : MOCK
+  const [p1, p2, p3, p4, p5] = projects
 
   return (
     <section aria-label={t('headline')} className="border-t border-line">

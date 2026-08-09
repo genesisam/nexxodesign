@@ -112,7 +112,7 @@
     "seccion": "04 — Filosofía",
     "texto": "No vendemos diseño. Construimos sistemas que hacen crecer negocios —",
     "acento": "y los números lo demuestran.",
-    "body": "Combinamos diseño premium, automatización con IA y CRO para entregarte una máquina de adquisición completa. Pocos clientes, máximo resultado.",
+    "body": "La mayoría de los sitios web son folletos caros: se ven bien, ganan un premio y no mueven una sola cifra del negocio. Nosotros trabajamos al revés. Empezamos por el número que quieres cambiar —leads al mes, coste por oportunidad, velocidad de cierre— y desde ahí decidimos qué diseñar, qué automatizar y qué medir. Un proyecto de Nexxo entrega tres cosas conectadas: la interfaz que convierte, los workflows de IA que dan seguimiento sin intervención humana, y la instrumentación que te dice qué está funcionando. Por eso tomamos pocos clientes a la vez: un sistema de adquisición se construye entendiendo cómo vende tu equipo, no aplicando una plantilla. Si buscas un proveedor que entregue archivos y desaparezca, no somos nosotros.",
     "cta": "Hablemos"
   },
   "transformacion": {
@@ -407,6 +407,18 @@
       {
         "q": "¿Qué garantías ofrecen?",
         "a": "Todos los proyectos incluyen: entregables semanales documentados, revisiones ilimitadas dentro del alcance definido, handoff completo con código fuente o archivos de diseño, 30 días de soporte post-lanzamiento y revisión de métricas a los 30 y 60 días."
+      },
+      {
+        "q": "¿Nexxo es una agencia de automatización con IA en Colombia?",
+        "a": "Somos un estudio con base en Bogotá que combina tres disciplinas que normalmente se contratan por separado: diseño de producto, automatización con IA y CRO. Operamos de forma remota para toda LatAm y para empresas internacionales que entran al mercado latinoamericano. La diferencia con una agencia de automatización pura es que también diseñamos la interfaz por la que entra el lead; la diferencia con un estudio de diseño es que conectamos esa interfaz a un sistema que da seguimiento solo."
+      },
+      {
+        "q": "¿Implementan el CRM o solo lo conectan?",
+        "a": "Ambas cosas, según lo que tengas. Si ya usas HubSpot, Notion, Airtable o Salesforce, conectamos tus formularios y workflows a esa instancia y respetamos tu estructura de datos. Si no tienes CRM, lo montamos desde cero: definimos las etapas del pipeline con tu equipo comercial, configuramos los campos que de verdad se van a llenar y automatizamos la asignación de leads. En los dos casos entregamos documentación para que tu equipo lo opere sin depender de nosotros."
+      },
+      {
+        "q": "¿Cómo funciona la generación de leads B2B con este sistema?",
+        "a": "El sistema tiene cuatro piezas. Primero, una landing diseñada para una intención concreta, no una home genérica. Segundo, la calificación automática: el formulario y los workflows de IA clasifican al prospecto por presupuesto, urgencia y encaje antes de que nadie lo mire. Tercero, el nurturing: quien no está listo entra en una secuencia por email y WhatsApp que lo educa durante semanas. Cuarto, la medición: cada evento queda registrado para que sepas qué canal trae oportunidades reales y cuál solo trae tráfico."
       }
     ]
   }

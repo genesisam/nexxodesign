@@ -123,6 +123,9 @@ export function PhysicsStickerWall({
       const body = Query.point(bodies, point)[0]
       if (!body) return
       event.preventDefault()
+      // Suppress panning only now that a sticker is genuinely held, so the
+      // gesture belongs to the drag instead of to the page scroll.
+      frame.style.touchAction = 'none'
       frame.setPointerCapture(event.pointerId)
       Sleeping.set(body, false)
       Body.setStatic(body, true)
@@ -139,6 +142,9 @@ export function PhysicsStickerWall({
     }
 
     const releaseSticker = () => {
+      // Reset before the guard: if a drag ever fails to start cleanly, the page
+      // must not be left unscrollable.
+      frame.style.touchAction = ''
       if (!dragging) return
       const { body, samples } = dragging
       const first = samples[0]
@@ -153,6 +159,8 @@ export function PhysicsStickerWall({
       Sleeping.set(body, false)
       Body.setVelocity(body, velocity)
       dragging = null
+      // Hand scrolling back to the page.
+      frame.style.touchAction = ''
     }
 
     const onPointerUp = (event: PointerEvent) => {
@@ -207,7 +215,11 @@ export function PhysicsStickerWall({
     <div
       ref={frameRef}
       aria-label="Muro interactivo de stickers"
-      className={`absolute inset-0 overflow-hidden touch-none ${className}`}
+      /* No `touch-none` here: this layer covers the whole 100svh hero, and
+         touch-action:none swallows the scroll gesture — on a phone the home
+         page could not be scrolled at all. Dragging sets it on the element
+         only while a sticker is actually held. */
+      className={`absolute inset-0 overflow-hidden ${className}`}
       style={{ backgroundColor }}
     >
       {stickers.map(sticker => (

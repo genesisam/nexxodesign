@@ -43,6 +43,43 @@ const projectBySlugQuery = groq`
 
 const allSlugsQuery = groq`*[_type == "project"]{ "slug": slug.current }`
 
+/** Card-sized projection for the home grid — same cover field the index uses. */
+const projectCardsQuery = groq`
+  *[_type == "project"] | order(order asc, _createdAt desc) {
+    _id, title, slug, client, year,
+    "metric":   coalesce(metric, ""),
+    "services": coalesce(services, []),
+    "coverUrl": coverImage.asset->url
+  }
+`
+
+export type ProjectCardData = {
+  _id: string
+  title: string
+  slug: { current: string }
+  client: string
+  year: number
+  metric: string
+  services: string[]
+  coverUrl?: string
+}
+
+/**
+ * Projects for the home selection. The home used to carry its own hardcoded
+ * array in which only one entry had a cover, so covers uploaded through the
+ * CMS appeared on /proyectos and nowhere else. Falls back to the caller's
+ * static list when Sanity is unreachable.
+ */
+export async function getProjectCards(): Promise<ProjectCardData[] | null> {
+  try {
+    const rows = await sanityClient.fetch<ProjectCardData[]>(projectCardsQuery)
+    if (rows?.length) return rows
+  } catch {
+    // Sanity unreachable — caller keeps its static fallback
+  }
+  return null
+}
+
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
     const result = await sanityClient.fetch<Project | null>(projectBySlugQuery, { slug })

@@ -112,7 +112,7 @@
     "seccion": "04 — Philosophy",
     "texto": "Where intention meets execution, the product takes shape —",
     "acento": "with judgment and without noise.",
-    "body": "We take few projects at a time so each client receives full focus, direct communication and a studio that owns the outcome from start to finish.",
+    "body": "Most websites are expensive brochures: they look good, win an award and move no business number at all. We work the other way round. We start from the number you want to change — leads per month, cost per opportunity, deal velocity — and from there decide what to design, what to automate and what to measure. A Nexxo project delivers three connected things: the interface that converts, the AI workflows that follow up without human intervention, and the instrumentation that tells you what is working. That is why we take few clients at a time: an acquisition system is built by understanding how your team sells, not by applying a template. If you want a vendor who hands over files and disappears, we are not it.",
     "cta": "Let's talk"
   },
   "transformacion": {
@@ -407,6 +407,18 @@
       {
         "q": "What guarantees do you offer?",
         "a": "Every project includes documented weekly deliverables, unlimited revisions within the agreed scope, a complete handoff with source code or design files, 30 days of post-launch support, and a metrics review at 30 and 60 days."
+      },
+      {
+        "q": "Is Nexxo an AI automation agency in Colombia?",
+        "a": "We are a Bogotá-based studio combining three disciplines usually hired separately: product design, AI automation and CRO. We work remotely across LatAm and with international companies entering the Latin American market. The difference from a pure automation agency is that we also design the interface the lead arrives through; the difference from a design studio is that we wire that interface to a system that follows up on its own."
+      },
+      {
+        "q": "Do you implement the CRM or only connect it?",
+        "a": "Both, depending on what you have. If you already use HubSpot, Notion, Airtable or Salesforce, we connect your forms and workflows to that instance and respect your data structure. If you have no CRM, we build it from scratch: we define pipeline stages with your sales team, configure the fields that will actually get filled, and automate lead assignment. Either way we hand over documentation so your team can run it without depending on us."
+      },
+      {
+        "q": "How does B2B lead generation work with this system?",
+        "a": "The system has four parts. First, a landing designed for one specific intent, not a generic homepage. Second, automatic qualification: the form and AI workflows sort the prospect by budget, urgency and fit before anyone looks at it. Third, nurturing: whoever is not ready enters an email and WhatsApp sequence that educates them over weeks. Fourth, measurement: every event is logged so you know which channel brings real opportunities and which only brings traffic."
       }
     ]
   }

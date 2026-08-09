@@ -85,6 +85,31 @@ const AVATAR_BG = ['#5B3DF5', '#1B6B5A', '#C9A88F', '#232323', '#8B8B85', '#5B3D
 const AVATAR_FG = ['#EFEBE3', '#EFEBE3', '#0E0E0E', '#EFEBE3', '#EFEBE3', '#EFEBE3', '#EFEBE3', '#0E0E0E', '#EFEBE3', '#EFEBE3']
 
 
+/**
+ * Ten attributed client reviews existed only as visual markup — invisible to
+ * search and to answer engines. Emitted as Review nodes on the organisation.
+ *
+ * No `reviewRating` and no AggregateRating: we hold no star scores, and
+ * inventing them would be fabricating data. Self-hosted reviews about your own
+ * business are also not eligible for Google rich results — this is here for
+ * semantic understanding and citability, not for stars in the SERP.
+ */
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nexxodesign.com'
+
+function reviewsJsonLd(items: Testimonial[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type':    'Organization',
+    '@id':      `${SITE_URL}/#organization`,
+    review: items.map(t => ({
+      '@type':      'Review',
+      reviewBody:   t.quote,
+      author:       { '@type': 'Person', name: t.name, jobTitle: t.role, worksFor: { '@type': 'Organization', name: t.company } },
+      itemReviewed: { '@id': `${SITE_URL}/#organization` },
+    })),
+  }
+}
+
 // ── Card ──────────────────────────────────────────────────────────────────────
 
 function TestimonialCard({
@@ -191,6 +216,10 @@ export function Testimonios() {
 
   return (
     <section aria-label="Testimonios" className="relative bg-ink py-16 md:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd(TESTIMONIALS)) }}
+      />
 
       {/* ── Cabecera ─────────────────────────────────────────────────────────── */}
       <div className="px-6 md:px-16 lg:px-24 shrink-0 flex items-start justify-between mb-6 md:mb-8">
