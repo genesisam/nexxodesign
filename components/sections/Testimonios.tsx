@@ -81,7 +81,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ]
 
-const AVATAR_BG = ['#5B3DF5', '#1B6B5A', '#C9A88F', '#232323', '#8B8B85', '#5B3DF5', '#1B6B5A', '#C9A88F', '#5B3DF5', '#1B6B5A']
+const AVATAR_BG = ['#5B3DF5', '#1B6B5A', '#C9A88F', '#4A4A44', '#8B8B85', '#5B3DF5', '#1B6B5A', '#C9A88F', '#5B3DF5', '#1B6B5A']
 const AVATAR_FG = ['#EFEBE3', '#EFEBE3', '#0E0E0E', '#EFEBE3', '#EFEBE3', '#EFEBE3', '#EFEBE3', '#0E0E0E', '#EFEBE3', '#EFEBE3']
 
 
@@ -128,7 +128,10 @@ function TestimonialCard({
     <div
       role="article"
       aria-label={`Testimonio de ${t.name}, ${t.company}`}
-      className="flex-shrink-0 bg-paper flex flex-col justify-between"
+      // Raised dark surface rather than a light card: a paper panel broke the
+      // dark language of the page. #232323 reads as elevated against the ink
+      // ground, and the hairline keeps the edge defined at that low separation.
+      className="flex-shrink-0 bg-line border border-paper/10 flex flex-col justify-between"
       style={{
         width:       'clamp(280px, 28vw, 480px)',
         aspectRatio: '0.95 / 1',
@@ -165,13 +168,13 @@ function TestimonialCard({
         </div>
         <div className="min-w-0">
           <p
-            className="font-display font-semibold text-ink leading-tight truncate"
+            className="font-display font-semibold text-paper leading-tight truncate"
             style={{ fontSize: 'clamp(13px, 1.05vw, 17px)' }}
           >
             {t.name}
           </p>
           <p
-            className="font-mono text-ink/40 uppercase tracking-[0.16em] mt-0.5 truncate"
+            className="font-mono text-smoke/70 uppercase tracking-[0.16em] mt-0.5 truncate"
             style={{ fontSize: 'clamp(8px, 0.72vw, 11px)' }}
           >
             {t.company}
@@ -182,13 +185,13 @@ function TestimonialCard({
       {/* ── BOTTOM: cita + badge de resultado ────────────────────────────── */}
       <div>
         <p
-          className="font-sans text-ink/75 leading-snug"
+          className="font-sans text-paper/75 leading-snug"
           style={{ fontSize: 'clamp(0.92rem, 1.55vw, 1.45rem)' }}
         >
           {t.quote}
         </p>
         {t.result && (
-          <div className="mt-4 pt-4 border-t border-ink/10">
+          <div className="mt-4 pt-4 border-t border-paper/10">
             <span
               className="inline-block font-mono text-paper uppercase tracking-[0.22em] bg-accent"
               style={{ fontSize: 'clamp(7px, 0.62vw, 10px)', padding: '5px 10px' }}
