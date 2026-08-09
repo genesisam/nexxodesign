@@ -88,7 +88,7 @@ export function ProjectCard({ project, n, variant = 'pair' }: Props) {
         </div>
 
         {/* Number badge */}
-        <span className="absolute top-4 left-4 font-mono text-[9px] text-smoke/40 tracking-widest">
+        <span className="absolute top-4 left-4 font-mono text-[9px] text-smoke/65 tracking-widest">
           {label}
         </span>
 
@@ -109,7 +109,7 @@ export function ProjectCard({ project, n, variant = 'pair' }: Props) {
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-smoke">
             {project.client}
           </span>
-          <span className="font-mono text-[10px] text-smoke/35">
+          <span className="font-mono text-[10px] text-smoke/60">
             {project.year}
           </span>
         </div>

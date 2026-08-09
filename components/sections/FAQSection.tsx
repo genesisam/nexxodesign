@@ -37,7 +37,7 @@ export function FAQSection() {
 
         {/* Left label */}
         <div className="md:sticky md:top-32">
-          <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/35 mb-4">
+          <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/60 mb-4">
             {t('eyebrow')}
           </p>
           <h2
@@ -46,7 +46,7 @@ export function FAQSection() {
           >
             {t('heading1')}<br />{t('heading2')}
           </h2>
-          <p className="font-mono text-paper/40 text-[11px] leading-relaxed mt-5 max-w-[24ch]">
+          <p className="font-mono text-paper/65 text-[11px] leading-relaxed mt-5 max-w-[24ch]">
             {t('aside')}
           </p>
         </div>
@@ -67,7 +67,7 @@ export function FAQSection() {
                   {q}
                 </span>
                 <span
-                  className="flex-shrink-0 font-mono text-paper/30 text-lg leading-none mt-0.5 transition-transform duration-200"
+                  className="flex-shrink-0 font-mono text-paper/55 text-lg leading-none mt-0.5 transition-transform duration-200"
                   style={{ transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)' }}
                   aria-hidden
                 >

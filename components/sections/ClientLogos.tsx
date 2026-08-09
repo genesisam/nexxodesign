@@ -131,10 +131,10 @@ export function ClientLogos() {
     >
       {/* Label */}
       <div className="px-6 md:px-16 lg:px-24 mb-6 flex items-center justify-between">
-        <span className="font-mono text-smoke/50 text-[10px] uppercase tracking-[0.25em]">
+        <span className="font-mono text-smoke/70 text-[10px] uppercase tracking-[0.25em]">
           Confían en Nexxo
         </span>
-        <span className="hidden md:inline font-mono text-smoke/20 text-[9px] uppercase tracking-[0.2em] border border-smoke/15 px-3 py-1.5">
+        <span className="hidden md:inline font-mono text-smoke/50 text-[9px] uppercase tracking-[0.2em] border border-smoke/15 px-3 py-1.5">
           {LOGOS.length} clientes
         </span>
       </div>
@@ -159,10 +159,10 @@ export function ClientLogos() {
               group cursor-default
             "
           >
-            <span className="w-11 h-11 text-smoke/35 transition-colors duration-300 group-hover:text-smoke/65">
+            <span className="w-11 h-11 text-smoke/60 transition-colors duration-300 group-hover:text-smoke/65">
               {logo.mark}
             </span>
-            <span className="font-mono text-[9px] text-smoke/25 uppercase tracking-[0.22em] transition-colors duration-300 group-hover:text-smoke/50">
+            <span className="font-mono text-[9px] text-smoke/55 uppercase tracking-[0.22em] transition-colors duration-300 group-hover:text-smoke/70">
               {logo.name}
             </span>
           </div>

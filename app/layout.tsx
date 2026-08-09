@@ -37,17 +37,43 @@ export const metadata: Metadata = {
   openGraph: {
     type:     'website',
     siteName: 'Nexxo',
+    locale:   'es_CO',
+    alternateLocale: ['en_US'],
     images:   [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Nexxo Design' }],
   },
   twitter: {
-    card:   'summary_large_image',
-    images: ['/opengraph-image'],
+    card:    'summary_large_image',
+    creator: '@alexmorenop',
+    images:  ['/opengraph-image'],
   },
+}
+
+// E-E-A-T leans hardest on a named, linkable human. Declared once here and
+// referenced by @id from the organisation so both nodes resolve to one entity.
+const founderJsonLd = {
+  '@context': 'https://schema.org',
+  '@type':    'Person',
+  '@id':      `${SITE_URL}/#founder`,
+  name:       'Alexander Moreno',
+  jobTitle:   'Senior UI/UX Designer · Fundador de Nexxo',
+  url:        `${SITE_URL}/nosotros`,
+  worksFor:   { '@id': `${SITE_URL}/#organization` },
+  knowsAbout: [
+    'Diseño de producto', 'UX/UI', 'Automatización con IA',
+    'CRO', 'Generación de leads', 'Next.js',
+  ],
+  sameAs: [
+    'https://www.linkedin.com/in/alexander-moreno-gp/',
+    'https://www.behance.net/alexander-moreno',
+    'https://www.instagram.com/alex.morenop/',
+  ],
 }
 
 const orgJsonLd = {
   '@context': 'https://schema.org',
   '@type':    ['Organization', 'ProfessionalService'],
+  '@id':      `${SITE_URL}/#organization`,
+  founder:    { '@id': `${SITE_URL}/#founder` },
   name:       'Nexxo',
   url:        SITE_URL,
   logo:       `${SITE_URL}/opengraph-image`,
@@ -83,6 +109,47 @@ const websiteJsonLd = {
   },
 }
 
+// Answer engines quote definitions far more readily than marketing claims.
+// These are the three terms a prospect most often arrives without.
+const glossaryJsonLd = {
+  '@context': 'https://schema.org',
+  '@type':    'DefinedTermSet',
+  name:       'Glosario Nexxo',
+  hasDefinedTerm: [
+    {
+      '@type': 'DefinedTerm',
+      name: 'Máquina de generación de leads',
+      description: 'Sistema que combina una landing optimizada para conversión, workflows de automatización y un CRM conectado, de modo que cada visitante interesado se captura, se califica y se asigna sin intervención manual.',
+    },
+    {
+      '@type': 'DefinedTerm',
+      name: 'CRO (Conversion Rate Optimization)',
+      description: 'Disciplina que aumenta el porcentaje de visitantes que completan una acción de negocio, mediante investigación, jerarquía visual, reducción de fricción y medición continua — no mediante cambios estéticos.',
+    },
+    {
+      '@type': 'DefinedTerm',
+      name: 'Nurturing automático',
+      description: 'Secuencia de mensajes que educa a un prospecto a lo largo del tiempo hasta que está listo para comprar, disparada por su comportamiento y ejecutada sin que nadie escriba cada correo.',
+    },
+  ],
+}
+
+const servicesJsonLd = {
+  '@context': 'https://schema.org',
+  '@type':    'OfferCatalog',
+  name:       'Servicios de Nexxo',
+  provider:   { '@id': `${SITE_URL}/#organization` },
+  itemListElement: [
+    ['Máquina de generación de leads', 'Landing de conversión, automatización y CRM conectados en un solo sistema.'],
+    ['Automatización con IA',          'Workflows que responden, califican y hacen seguimiento 24/7.'],
+    ['Diseño de producto SaaS',        'Interfaces que reducen el abandono en el onboarding y suben la activación.'],
+    ['Brand & web premium',            'Identidad y sitio construidos para convertir, con CRO y SEO técnico desde el inicio.'],
+  ].map(([name, description]) => ({
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Service', name, description, provider: { '@id': `${SITE_URL}/#organization` } },
+  })),
+}
+
 export const viewport: Viewport = {
   themeColor: '#0E0E0E',
 }
@@ -98,7 +165,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(founderJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(glossaryJsonLd) }} />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>

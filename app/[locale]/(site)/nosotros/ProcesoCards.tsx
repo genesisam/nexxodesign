@@ -114,7 +114,7 @@ export function ProcesoCards({ steps }: { steps: ProcesoStep[] }) {
 
               {/* Col 1-5: icon + title + sublabel */}
               <div className="col-span-12 md:col-span-5 flex flex-col gap-6 justify-between">
-                <div className="text-paper/40">
+                <div className="text-paper/65">
                   <Icon />
                 </div>
                 <div>
@@ -124,7 +124,7 @@ export function ProcesoCards({ steps }: { steps: ProcesoStep[] }) {
                   >
                     {step.title}
                   </h3>
-                  <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/35 mt-3">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 mt-3">
                     {step.sublabel}
                   </p>
                 </div>
@@ -144,7 +144,7 @@ export function ProcesoCards({ steps }: { steps: ProcesoStep[] }) {
               <div className="col-span-12 md:col-span-3 flex items-end">
                 {step.desc2 && (
                   <p
-                    className="font-sans text-paper/40 leading-relaxed"
+                    className="font-sans text-paper/65 leading-relaxed"
                     style={{ fontSize: 'clamp(0.875rem, 1.05vw, 0.95rem)' }}
                   >
                     {step.desc2}

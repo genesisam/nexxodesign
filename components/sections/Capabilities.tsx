@@ -43,7 +43,7 @@ function Deliverables({ items }: { items: string[] }) {
       {items.map(d => (
         <li
           key={d}
-          className="font-mono text-smoke/45 text-[10px] uppercase tracking-[0.16em] border border-line px-2.5 py-1"
+          className="font-mono text-smoke/65 text-[10px] uppercase tracking-[0.16em] border border-line px-2.5 py-1"
         >
           {d}
         </li>
@@ -87,7 +87,9 @@ export function Capabilities() {
                 <div className="max-w-[50%]">
                   <span
                     className={`block font-mono text-lg xl:text-xl tracking-[-0.01em] transition-colors duration-300 ${
-                      isActive ? 'text-paper' : 'text-smoke/25'
+                      // Service names are the primary content of this section:
+                      // the inactive state must stay readable, not disappear.
+                      isActive ? 'text-paper' : 'text-smoke/70'
                     }`}
                   >
                     {cap.label}
@@ -105,7 +107,7 @@ export function Capabilities() {
                 </div>
                 <span
                   className={`font-mono text-[10px] tracking-[0.22em] shrink-0 transition-colors duration-300 ${
-                    isActive ? 'text-smoke/50' : 'text-smoke/20'
+                    isActive ? 'text-paper' : 'text-smoke/70'
                   }`}
                 >
                   {num}
@@ -141,14 +143,14 @@ export function Capabilities() {
               >
                 <span
                   className={`font-mono text-[10px] tracking-[0.18em] shrink-0 transition-colors duration-300 ${
-                    isOpen ? 'text-accent' : 'text-smoke/25'
+                    isOpen ? 'text-accent' : 'text-smoke/55'
                   }`}
                 >
                   {num}
                 </span>
                 <span
                   className={`font-mono text-[1.05rem] leading-snug tracking-[-0.01em] flex-1 transition-colors duration-300 ${
-                    isOpen ? 'text-paper' : 'text-smoke/40'
+                    isOpen ? 'text-paper' : 'text-smoke/65'
                   }`}
                 >
                   {cap.label}

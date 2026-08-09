@@ -38,7 +38,7 @@ export default function Error({
         >
           Algo salió mal.
         </h1>
-        <p className="font-sans text-paper/45 text-base leading-relaxed mb-12 max-w-[42ch]">
+        <p className="font-sans text-paper/65 text-base leading-relaxed mb-12 max-w-[42ch]">
           Ocurrió un error inesperado. Puedes intentar de nuevo o volver al inicio.
         </p>
 

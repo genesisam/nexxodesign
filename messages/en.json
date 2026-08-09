@@ -51,7 +51,7 @@
   "selectedWork": {
     "seccion": "02 — Work",
     "headline": "Selected work",
-    "ctaTodo": "See all work"
+    "ctaTodo": "See all 6 design and automation case studies"
   },
   "capabilities": {
     "seccion": "03 — Services",
@@ -160,7 +160,7 @@
   "journal": {
     "seccion": "07 — Journal",
     "headline": "Ideas that\nmatter.",
-    "verTodos": "See all articles →",
+    "verTodos": "See every article in the Journal →",
     "leer": "Read →"
   },
   "nosotros": {
@@ -327,7 +327,8 @@
       "respuestaLabel": "Response",
       "respuestaText": "< 24 business hours",
       "siguenos": "Follow us"
-    }
+    },
+    "submitNote": "We reply within 24 business hours with a concrete proposal — not an autoresponder."
   },
   "work": {
     "meta": {

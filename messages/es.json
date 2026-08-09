@@ -51,7 +51,7 @@
   "selectedWork": {
     "seccion": "02 — Work",
     "headline": "Trabajo seleccionado",
-    "ctaTodo": "Ver todo el trabajo"
+    "ctaTodo": "Ver los 6 casos de diseño y automatización"
   },
   "capabilities": {
     "seccion": "03 — Servicios",
@@ -160,7 +160,7 @@
   "journal": {
     "seccion": "07 — Journal",
     "headline": "Ideas que\nimportan.",
-    "verTodos": "Ver todos los artículos →",
+    "verTodos": "Ver todos los artículos del Journal →",
     "leer": "Leer →"
   },
   "nosotros": {
@@ -327,7 +327,8 @@
       "respuestaLabel": "Respuesta",
       "respuestaText": "< 24h hábiles",
       "siguenos": "Síguenos"
-    }
+    },
+    "submitNote": "Te respondemos en menos de 24 horas hábiles, con una propuesta concreta — no con un correo automático."
   },
   "work": {
     "meta": {

@@ -14,7 +14,7 @@ function aiHref(service: 'chatgpt' | 'claude' | 'google' | 'grok' | 'perplexity'
   return map[service]
 }
 
-const iconCls = 'flex items-center justify-center w-9 h-9 rounded-full text-paper/50 hover:text-paper hover:bg-paper/8 transition-colors duration-200'
+const iconCls = 'flex items-center justify-center w-9 h-9 rounded-full text-paper/70 hover:text-paper hover:bg-paper/8 transition-colors duration-200'
 
 export function PostShareBar({
   slug,
@@ -146,13 +146,13 @@ export function PostShareBar({
     return (
       <div className="flex flex-col gap-5">
         <div>
-          <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/40 block mb-3">
+          <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/65 block mb-3">
             Resumir con:
           </span>
           {aiIcons}
         </div>
         <div className="border-t border-paper/10 pt-5">
-          <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/40 block mb-3">
+          <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/65 block mb-3">
             Compartir:
           </span>
           {shareIcons}
@@ -165,13 +165,13 @@ export function PostShareBar({
   return (
     <div className="border-t border-b border-paper/10 py-4 px-6 md:px-16 lg:px-24 flex items-center justify-between gap-6 flex-wrap">
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/40 mr-1">
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/65 mr-1">
           Resumir con:
         </span>
         {aiIcons}
       </div>
       <div className="flex items-center gap-2">
-        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/40 mr-1">
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/65 mr-1">
           Share:
         </span>
         {shareIcons}

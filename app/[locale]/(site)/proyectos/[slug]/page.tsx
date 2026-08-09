@@ -165,7 +165,7 @@ function ResultsBar({ metrics }: { metrics: Metric[] }) {
             >
               {m.value}
             </dd>
-            <dt className="font-mono text-smoke/35 text-[8.5px] uppercase tracking-[0.22em] mt-2.5">
+            <dt className="font-mono text-smoke/60 text-[8.5px] uppercase tracking-[0.22em] mt-2.5">
               {m.label}
             </dt>
           </div>
@@ -184,7 +184,7 @@ function CtaSection({
     <section className="bg-ink px-6 md:px-16 lg:px-24 py-20 md:py-28 border-t border-line">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
         <div>
-          <p className="font-mono text-smoke/30 text-[9px] uppercase tracking-[0.25em] mb-4">
+          <p className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-4">
             {label}
           </p>
           <h2
@@ -203,7 +203,7 @@ function CtaSection({
           </Link>
           <Link
             href="/proyectos"
-            className="inline-flex items-center justify-center font-mono text-[10px] uppercase tracking-[0.22em] border border-paper/20 text-paper/50 px-8 py-4 hover:border-paper/50 hover:text-paper transition-colors duration-200"
+            className="inline-flex items-center justify-center font-mono text-[10px] uppercase tracking-[0.22em] border border-paper/20 text-paper/70 px-8 py-4 hover:border-paper/50 hover:text-paper transition-colors duration-200"
           >
             {moreBtn}
           </Link>
@@ -223,7 +223,7 @@ function OverviewRenderer({ block }: { block: OverviewBlock }) {
         {hasLeft && (
           <div className="md:pt-1">
             {block.label && (
-              <p className="font-mono text-smoke/35 text-[9px] uppercase tracking-[0.25em] mb-4">
+              <p className="font-mono text-smoke/60 text-[9px] uppercase tracking-[0.25em] mb-4">
                 {block.label}
               </p>
             )}
@@ -244,7 +244,7 @@ function OverviewRenderer({ block }: { block: OverviewBlock }) {
               href={block.link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-paper/45 hover:text-accent mt-5 transition-colors duration-200"
+              className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-paper/65 hover:text-accent mt-5 transition-colors duration-200"
             >
               {block.link.label} →
             </a>
@@ -299,7 +299,7 @@ function MediaRenderer({ block, bg }: { block: MediaBlock; bg: string }) {
           )}
         </div>
         {block.caption && (
-          <figcaption className="mt-4 font-mono text-smoke/40 text-[9px] uppercase tracking-[0.2em]">
+          <figcaption className="mt-4 font-mono text-smoke/65 text-[9px] uppercase tracking-[0.2em]">
             {block.caption}
           </figcaption>
         )}
@@ -338,7 +338,7 @@ function SplitItemCard({ item, bg }: { item: SplitItem; bg: string }) {
         )}
       </div>
       {item.caption && (
-        <figcaption className="mt-4 mb-4 font-mono text-smoke/50 text-[14px] leading-snug max-w-[88%]">
+        <figcaption className="mt-4 mb-4 font-mono text-smoke/70 text-[14px] leading-snug max-w-[88%]">
           {item.caption}
         </figcaption>
       )}
@@ -387,7 +387,7 @@ function FeedbackRenderer({ block, feedbackLabel }: { block: FeedbackBlock; feed
     <section className="bg-ink px-6 md:px-16 lg:px-24 py-14 md:py-20 border-t border-line">
       <div className="grid md:grid-cols-[0.85fr_2fr] gap-10 lg:gap-20 items-start">
         <div className="md:pt-1">
-          <p className="font-mono text-smoke/35 text-[9px] uppercase tracking-[0.25em]">
+          <p className="font-mono text-smoke/60 text-[9px] uppercase tracking-[0.25em]">
             {feedbackLabel}
           </p>
         </div>
@@ -398,7 +398,7 @@ function FeedbackRenderer({ block, feedbackLabel }: { block: FeedbackBlock; feed
           >
             "{block.quote}"
           </p>
-          <p className="font-mono text-smoke/45 text-[9px] uppercase tracking-[0.2em]">
+          <p className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.2em]">
             {block.name} · {block.role}{block.company ? `, ${block.company}` : ''}
           </p>
           {block.link && (
@@ -406,7 +406,7 @@ function FeedbackRenderer({ block, feedbackLabel }: { block: FeedbackBlock; feed
               href={block.link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-paper/45 hover:text-accent mt-5 transition-colors duration-200"
+              className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-paper/65 hover:text-accent mt-5 transition-colors duration-200"
             >
               {block.link.label} →
             </a>
@@ -443,7 +443,7 @@ function NextProjectSection({
   const bg = getBg(next.vertical)
   return (
     <section className="bg-ink px-6 md:px-16 lg:px-24 py-16 md:py-20 border-t border-line">
-      <p className="font-mono text-smoke/30 text-[9px] uppercase tracking-[0.25em] mb-8">
+      <p className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-8">
         {nextLabel}
       </p>
 
@@ -479,14 +479,14 @@ function NextProjectSection({
           style={{ fontSize: 'clamp(2.4rem, 6vw, 6.5rem)' }}
         >
           {next.title}
-          <span className="text-smoke/30 group-hover:text-accent transition-colors duration-300"> →</span>
+          <span className="text-smoke/55 group-hover:text-accent transition-colors duration-300"> →</span>
         </h3>
       </Link>
 
       <div className="mt-10">
         <Link
           href="/proyectos"
-          className="font-mono text-smoke/30 hover:text-paper text-[9px] uppercase tracking-[0.22em] transition-colors duration-200"
+          className="font-mono text-smoke/55 hover:text-paper text-[9px] uppercase tracking-[0.22em] transition-colors duration-200"
         >
           {backLabel}
         </Link>
@@ -564,16 +564,16 @@ export default async function CaseStudyPage({ params }: Props) {
 
         {/* Breadcrumb visual */}
         <nav aria-label="Breadcrumb" className="absolute top-[5.5rem] left-6 md:left-16 lg:left-24">
-          <ol className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.2em] text-paper/25">
+          <ol className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.2em] text-paper/55">
             <li><Link href={`/${locale}`} className="hover:text-paper/60 transition-colors">Inicio</Link></li>
             <li aria-hidden className="text-paper/15">›</li>
             <li><Link href={`/${locale}/proyectos`} className="hover:text-paper/60 transition-colors">{t('volver').replace('← Volver a ', '')}</Link></li>
             <li aria-hidden className="text-paper/15">›</li>
-            <li className="text-paper/50">{project.title}</li>
+            <li className="text-paper/70">{project.title}</li>
           </ol>
         </nav>
 
-        <p className="font-mono text-smoke/35 text-[9px] uppercase tracking-[0.28em] mb-7">
+        <p className="font-mono text-smoke/60 text-[9px] uppercase tracking-[0.28em] mb-7">
           {/* Every part is optional in the schema — join only what exists so a
               missing field doesn't leave a dangling separator. */}
           {[project.client, project.year, project.vertical, project.timeline]
@@ -590,7 +590,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
         {subtitle && (
           <p
-            className="font-display font-light text-paper/50 leading-tight tracking-[-0.025em] mt-5 md:mt-7 max-w-[56ch]"
+            className="font-display font-light text-paper/70 leading-tight tracking-[-0.025em] mt-5 md:mt-7 max-w-[56ch]"
             style={{ fontSize: 'clamp(1.3rem, 2.8vw, 2.6rem)' }}
           >
             {subtitle}
@@ -608,7 +608,7 @@ export default async function CaseStudyPage({ params }: Props) {
           {project.services.map(s => (
             <span
               key={s}
-              className="font-mono text-paper/40 text-[8px] uppercase tracking-[0.2em] border border-paper/15 px-3 py-1.5"
+              className="font-mono text-paper/65 text-[8px] uppercase tracking-[0.2em] border border-paper/15 px-3 py-1.5"
             >
               {s}
             </span>

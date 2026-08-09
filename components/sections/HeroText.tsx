@@ -80,7 +80,7 @@ export function HeroText() {
 
       <span
         ref={eyebrowRef}
-        className="relative z-10 pointer-events-none mt-[7vh] text-center font-mono text-smoke/50 text-[10px] uppercase tracking-[0.2em] block"
+        className="relative z-10 pointer-events-none mt-[7vh] text-center font-mono text-smoke/70 text-[10px] uppercase tracking-[0.2em] block"
       >
         {t('eyebrow')}
       </span>

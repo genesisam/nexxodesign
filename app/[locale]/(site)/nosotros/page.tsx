@@ -34,7 +34,7 @@ export default async function NosotrosPage({ params }: Props) {
       <section className="w-full">
         <div className="flex items-end justify-between gap-10 px-6 md:px-16 lg:px-24 pt-32 md:pt-[18vh] max-lg:flex-col max-lg:items-start max-lg:gap-6">
           <div>
-            <p className={`${eyebrow} text-paper/40 mb-5`}>
+            <p className={`${eyebrow} text-paper/65 mb-5`}>
               {t('tophead.eyebrow')}
             </p>
             <h1
@@ -46,7 +46,7 @@ export default async function NosotrosPage({ params }: Props) {
             </h1>
           </div>
           <p
-            className="font-mono text-paper/50 leading-relaxed shrink-0 max-w-[28vw] pb-1 max-lg:max-w-full"
+            className="font-mono text-paper/70 leading-relaxed shrink-0 max-w-[28vw] pb-1 max-lg:max-w-full"
             style={{ fontSize: 'clamp(0.8rem, 1.1vw, 1rem)' }}
             data-reveal
           >
@@ -77,7 +77,7 @@ export default async function NosotrosPage({ params }: Props) {
 
           {/* Label sticky */}
           <div className="md:sticky md:top-32">
-            <p className={`${eyebrow} text-paper/35`}>{t('manifiesto.label')}</p>
+            <p className={`${eyebrow} text-paper/60`}>{t('manifiesto.label')}</p>
           </div>
 
           {/* Texto editorial con dos tonos */}
@@ -86,7 +86,7 @@ export default async function NosotrosPage({ params }: Props) {
               className="font-display font-semibold leading-[1.0] tracking-[-0.04em]"
               style={{ fontSize: 'clamp(2rem, 4.2vw, 4.8rem)' }}
             >
-              <span className="text-paper/30">{t('manifiesto.p1muted')} </span>
+              <span className="text-paper/55">{t('manifiesto.p1muted')} </span>
               <span className="text-paper">{t('manifiesto.p1accent')}</span>
             </p>
 
@@ -95,7 +95,7 @@ export default async function NosotrosPage({ params }: Props) {
               style={{ fontSize: 'clamp(2rem, 4.2vw, 4.8rem)' }}
             >
               <span className="text-paper">{t('manifiesto.p2accent')} </span>
-              <span className="text-paper/30">{t('manifiesto.p2muted')}</span>
+              <span className="text-paper/55">{t('manifiesto.p2muted')}</span>
             </p>
 
             <p
@@ -112,7 +112,7 @@ export default async function NosotrosPage({ params }: Props) {
       {/* ══ 4. PROCESO ═══════════════════════════════════════════════════════ */}
       <section className="pt-20 md:pt-28 pb-0">
         <div className="px-6 md:px-16 lg:px-24 mb-10 md:mb-14">
-          <p className={`${eyebrow} text-paper/40`}>{t('proceso.label')}</p>
+          <p className={`${eyebrow} text-paper/65`}>{t('proceso.label')}</p>
         </div>
         <ProcesoCards steps={steps} />
       </section>
@@ -121,7 +121,7 @@ export default async function NosotrosPage({ params }: Props) {
       <section className="px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-20 md:pb-28 border-t border-paper/10">
         <div className="flex items-end justify-between gap-6 mb-12 md:mb-16 max-sm:flex-col max-sm:items-start">
           <div>
-            <p className={`${eyebrow} text-paper/40 mb-4`}>
+            <p className={`${eyebrow} text-paper/65 mb-4`}>
               {t('trabajo.seccionLabel')}
             </p>
             <h2
@@ -133,7 +133,7 @@ export default async function NosotrosPage({ params }: Props) {
           </div>
           <Link
             href="/proyectos"
-            className="shrink-0 pb-1 font-mono text-[9px] uppercase tracking-[0.22em] text-paper/40 hover:text-paper transition-colors duration-200 max-sm:self-start"
+            className="shrink-0 pb-1 font-mono text-[9px] uppercase tracking-[0.22em] text-paper/65 hover:text-paper transition-colors duration-200 max-sm:self-start"
           >
             {t('trabajo.ctaTodo')}
           </Link>

@@ -26,7 +26,7 @@ export function StatsBar() {
             >
               {value}
             </span>
-            <span className="font-mono text-paper/35 uppercase tracking-[0.18em] text-center leading-snug"
+            <span className="font-mono text-paper/60 uppercase tracking-[0.18em] text-center leading-snug"
               style={{ fontSize: 'clamp(7px, 0.65vw, 9px)' }}>
               {label}
             </span>

@@ -15,12 +15,12 @@ import type { EstimateValue } from '@/components/contact/ProjectEstimator'
 // ─── Shared style helpers ─────────────────────────────────────────────────────
 
 const labelCls =
-  'block font-mono text-[9px] uppercase tracking-[0.22em] text-paper/45 mb-2.5'
+  'block font-mono text-[9px] uppercase tracking-[0.22em] text-paper/65 mb-2.5'
 
 const inputCls = (hasError?: boolean) =>
   [
     'w-full bg-transparent border-b py-3 font-sans text-paper text-[15px] leading-relaxed',
-    'placeholder:text-paper/25 outline-none transition-colors duration-200',
+    'placeholder:text-paper/55 outline-none transition-colors duration-200',
     'focus:border-accent',
     hasError ? 'border-red-500' : 'border-paper/20',
   ].join(' ')
@@ -59,7 +59,7 @@ export function ContactChannels() {
             <span className="block font-display font-semibold text-[1.3rem] leading-tight tracking-[-0.025em]">
               {t('waTitle')}
             </span>
-            <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-paper/45 mt-1.5 group-hover:text-paper/70 transition-colors duration-200">
+            <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-paper/65 mt-1.5 group-hover:text-paper/70 transition-colors duration-200">
               {t('waSubtitle')}
             </span>
           </div>
@@ -125,7 +125,7 @@ export function ContactChannels() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/40 hover:text-paper transition-colors duration-200"
+              className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/65 hover:text-paper transition-colors duration-200"
             >
               {label}
             </a>
@@ -161,7 +161,7 @@ function SuccessMessage({ onReset }: { onReset: () => void }) {
       </div>
       <button
         onClick={onReset}
-        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/35 hover:text-paper transition-colors duration-200 self-start"
+        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-paper transition-colors duration-200 self-start"
       >
         {t('otroMensaje')}
       </button>
@@ -259,7 +259,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
             <span className="font-display font-semibold text-paper text-[1.6rem] leading-none tracking-[-0.03em]">
               {estimateSummary.formatted}
             </span>
-            <span className="font-mono text-[9px] text-paper/40 tracking-[0.1em]">{t('desdUSD')}</span>
+            <span className="font-mono text-[9px] text-paper/65 tracking-[0.1em]">{t('desdUSD')}</span>
           </div>
           <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
             {[
@@ -272,7 +272,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
                 : []),
             ].map(([k, v]) => (
               <div key={k} className="flex items-baseline gap-2">
-                <span className="font-mono text-[8px] uppercase tracking-[0.15em] text-paper/35 shrink-0">{k}</span>
+                <span className="font-mono text-[8px] uppercase tracking-[0.15em] text-paper/60 shrink-0">{k}</span>
                 <span className="font-sans text-paper/70 text-[12px] truncate">{v}</span>
               </div>
             ))}
@@ -333,7 +333,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
         {/* Company */}
         <div>
           <label htmlFor="empresa" className={labelCls}>
-            {t('empresa')} <span className="text-paper/30">{t('opcional')}</span>
+            {t('empresa')} <span className="text-paper/55">{t('opcional')}</span>
           </label>
           <input
             id="empresa"
@@ -362,7 +362,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
                 ))}
               </select>
               <span
-                className="absolute right-0 top-1/2 -translate-y-1/2 text-paper/35 pointer-events-none font-mono text-[11px]"
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-paper/60 pointer-events-none font-mono text-[11px]"
                 aria-hidden="true"
               >
                 ↓
@@ -385,7 +385,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
                 ))}
               </select>
               <span
-                className="absolute right-0 top-1/2 -translate-y-1/2 text-paper/35 pointer-events-none font-mono text-[11px]"
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-paper/60 pointer-events-none font-mono text-[11px]"
                 aria-hidden="true"
               >
                 ↓
@@ -456,6 +456,11 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
               t('enviar')
             )}
           </button>
+          {/* Says what happens next, next to the button that does it — the
+              response-time promise was buried in the side column. */}
+          <p className="font-mono text-smoke/70 text-[10px] leading-relaxed mt-3 max-w-[38ch]">
+            {t('submitNote')}
+          </p>
         </div>
 
       </div>

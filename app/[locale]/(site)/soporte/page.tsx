@@ -47,7 +47,7 @@ export default function SoportePage() {
 
       <Link
         href="/"
-        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/35 hover:text-accent transition-colors duration-200 inline-flex items-center gap-2 mb-12 md:mb-16"
+        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent transition-colors duration-200 inline-flex items-center gap-2 mb-12 md:mb-16"
       >
         ← Volver al inicio
       </Link>
@@ -62,14 +62,14 @@ export default function SoportePage() {
         >
           Soporte
         </h1>
-        <p className="font-sans text-paper/50 text-base leading-relaxed mb-16 max-w-[52ch]">
+        <p className="font-sans text-paper/70 text-base leading-relaxed mb-16 max-w-[52ch]">
           Encuentra respuestas a las preguntas más frecuentes o contáctanos directamente.
           Respondemos en menos de 24 horas hábiles.
         </p>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
         <section className="mb-16 md:mb-20">
-          <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/35 mb-10">
+          <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/60 mb-10">
             Preguntas frecuentes
           </p>
           <dl className="divide-y divide-paper/10 border-t border-paper/10">
@@ -88,7 +88,7 @@ export default function SoportePage() {
 
         {/* ── Contacto directo ──────────────────────────────────────────────── */}
         <section className="border-t border-paper/10 pt-12">
-          <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/35 mb-8">
+          <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/60 mb-8">
             Contacto directo
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -125,7 +125,7 @@ export default function SoportePage() {
                 <p className="font-display font-semibold text-paper text-base tracking-[-0.02em] mb-1">
                   {label}
                 </p>
-                <p className="font-sans text-paper/40 text-[12px] mb-5">{desc}</p>
+                <p className="font-sans text-paper/65 text-[12px] mb-5">{desc}</p>
                 <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent group-hover:text-paper transition-colors duration-200">
                   {cta} →
                 </p>

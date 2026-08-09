@@ -17,7 +17,9 @@ type Props = { params: Promise<{ locale: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   return {
-    title:       'Nexxo — Automatización con IA & Diseño que genera leads',
+    // `absolute` skips the root `%s | Nexxo` template — without it the brand
+    // lands twice and the tail of the title gets truncated in the SERP.
+    title:       { absolute: 'Nexxo — Automatización con IA & Diseño que genera leads' },
     description: 'Construimos máquinas de generación de leads para startups: diseño premium + automatización con IA + CRO. Pipeline lleno en piloto automático.',
     alternates:  buildAlternates(locale, ''),
   }

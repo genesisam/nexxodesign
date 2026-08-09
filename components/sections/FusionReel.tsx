@@ -294,7 +294,7 @@ export function FusionReel() {
             aria-hidden
             className="absolute top-8 md:top-10 left-6 md:left-16 lg:left-24 z-20"
           >
-            <span className="font-mono text-smoke/25 text-[9px] uppercase tracking-[0.25em]">
+            <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em]">
               02 — Showreel
             </span>
           </div>
@@ -340,7 +340,7 @@ export function FusionReel() {
                 <span className="font-mono text-smoke text-[11px] uppercase tracking-[0.2em]">
                   Video próximamente
                 </span>
-                <p className="font-mono text-smoke/40 text-[10px] text-center max-w-[32ch] leading-relaxed">
+                <p className="font-mono text-smoke/65 text-[10px] text-center max-w-[32ch] leading-relaxed">
                   Sube tu showreel a{' '}
                   <code className="text-accent">/public/video/showreel.mp4</code>
                   {' '}y actualiza{' '}

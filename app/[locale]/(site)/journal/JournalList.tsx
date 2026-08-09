@@ -106,7 +106,7 @@ export function JournalList({ posts }: { posts: PostSummary[] }) {
         </ul>
       ) : (
         <div id="journal-panel" role="tabpanel" aria-labelledby={`tab-${active}`} className="py-20 flex items-center justify-center">
-          <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-paper/25">
+          <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-paper/55">
             Sin artículos en esta categoría
           </p>
         </div>

@@ -116,7 +116,7 @@ export function Nav() {
             {/* Selector de idioma */}
             <button
               onClick={switchLocale}
-              className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/50 hover:text-paper transition-colors duration-200"
+              className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/70 hover:text-paper transition-colors duration-200"
               aria-label={`Switch to ${t('switchLang')}`}
             >
               {t('switchLang')}

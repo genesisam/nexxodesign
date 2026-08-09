@@ -158,7 +158,7 @@ export default async function PostPage({ params }: Props) {
           >
             {post.title}
           </h1>
-          <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/35">
+          <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/60">
             {formatDate(post.publishedAt)}
             {' · '}
             {post.readingTime} min de lectura
@@ -206,7 +206,7 @@ export default async function PostPage({ params }: Props) {
 
               {/* Author bio */}
               <div>
-                <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/35 mb-5">
+                <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/60 mb-5">
                   Escrito por
                 </p>
                 <div className="flex items-center gap-4">
@@ -226,7 +226,7 @@ export default async function PostPage({ params }: Props) {
                     >
                       {post.author.name}
                     </p>
-                    <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/40 mt-0.5">
+                    <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/65 mt-0.5">
                       {post.author.role}
                     </p>
                   </div>
@@ -243,7 +243,7 @@ export default async function PostPage({ params }: Props) {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/35 hover:text-accent transition-colors duration-200"
+                      className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/60 hover:text-accent transition-colors duration-200"
                     >
                       {label}
                     </a>
@@ -259,12 +259,12 @@ export default async function PostPage({ params }: Props) {
         {relatedPosts.length > 0 && (
           <section className="px-6 md:px-16 lg:px-24 py-14 md:py-20 border-t border-paper/10">
             <div className="flex items-end justify-between gap-4 mb-10">
-              <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/35">
+              <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/60">
                 Seguir leyendo
               </p>
               <Link
                 href="/journal"
-                className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/35 hover:text-accent transition-colors duration-200"
+                className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/60 hover:text-accent transition-colors duration-200"
               >
                 Ver todo →
               </Link>
@@ -295,7 +295,7 @@ export default async function PostPage({ params }: Props) {
                   >
                     {rel.title}
                   </h3>
-                  <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/35">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/60">
                     {formatDate(rel.publishedAt)} · {rel.readingTime} min
                   </p>
                 </Link>

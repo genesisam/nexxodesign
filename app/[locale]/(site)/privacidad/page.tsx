@@ -19,7 +19,7 @@ export default function PrivacidadPage() {
 
       <Link
         href="/"
-        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/35 hover:text-accent transition-colors duration-200 inline-flex items-center gap-2 mb-12 md:mb-16"
+        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent transition-colors duration-200 inline-flex items-center gap-2 mb-12 md:mb-16"
       >
         ← Volver al inicio
       </Link>
@@ -37,7 +37,7 @@ export default function PrivacidadPage() {
 
         <div className="font-sans text-paper/65 text-[15px] leading-relaxed space-y-8">
 
-          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/35">
+          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/60">
             Última actualización: junio 2026
           </p>
 

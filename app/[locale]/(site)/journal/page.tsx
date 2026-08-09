@@ -36,7 +36,7 @@ export default async function JournalPage() {
 
       {/* ══ TOPHEAD ═══════════════════════════════════════════════════════════ */}
       <section className="px-6 md:px-16 lg:px-24 pt-32 md:pt-44 pb-16 md:pb-20 border-b border-paper/10">
-        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/40 mb-6">
+        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/65 mb-6">
           Journal · Nexxo
         </p>
         <h1
@@ -47,7 +47,7 @@ export default async function JournalPage() {
           producto e IA.
         </h1>
         <p
-          className="font-sans text-paper/50 leading-relaxed max-w-[48ch]"
+          className="font-sans text-paper/70 leading-relaxed max-w-[48ch]"
           style={{ fontSize: 'clamp(0.95rem, 1.3vw, 1.05rem)' }}
         >
           Lo que aprendemos en proyectos reales. Sin relleno de contenido, sin posts de LinkedIn
@@ -96,7 +96,7 @@ export default async function JournalPage() {
               >
                 {featured.excerpt}
               </p>
-              <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/35">
+              <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/60">
                 {formatDate(featured.publishedAt)} · {featured.readingTime} min de lectura
               </p>
             </div>
@@ -108,7 +108,7 @@ export default async function JournalPage() {
       {rest.length > 0 && (
         <div className="pt-14 md:pt-20">
           <div className="px-6 md:px-16 lg:px-24 mb-0">
-            <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/35">
+            <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/60">
               Todos los artículos
             </p>
           </div>

@@ -223,14 +223,14 @@ export default function TransformacionInner() {
 
         {/* ── Eyebrow ── */}
         <div className="absolute top-8 left-6 md:left-10 z-30 pointer-events-none">
-          <span className="font-mono text-smoke/25 text-[9px] uppercase tracking-[0.25em]">
+          <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em]">
             {t('seccion')}
           </span>
         </div>
 
         {/* ── Mobile copy — shown above frame on small screens ── */}
         <div className="lg:hidden absolute top-14 left-6 right-6 z-30 pointer-events-none flex flex-col gap-1">
-          <span ref={mLabelRef} className="font-mono text-smoke/40 text-[9px] uppercase tracking-[0.22em]">
+          <span ref={mLabelRef} className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.22em]">
             {SLOTS[0].label}
           </span>
           <h2
@@ -245,7 +245,7 @@ export default function TransformacionInner() {
           className="hidden lg:flex flex-col absolute z-30 gap-3"
           style={{ left: 'clamp(28px, 4vw, 64px)', top: '18%', maxWidth: 'min(340px, 23vw)' }}
         >
-          <span ref={labelRef} className="font-mono text-smoke/40 text-[9px] uppercase tracking-[0.22em]">
+          <span ref={labelRef} className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.22em]">
             {SLOTS[0].label}
           </span>
           <h2
@@ -256,7 +256,7 @@ export default function TransformacionInner() {
           />
           <p
             ref={subRef}
-            className="font-mono text-smoke/50 text-[13px] leading-relaxed mt-2"
+            className="font-mono text-smoke/70 text-[13px] leading-relaxed mt-2"
             style={{ maxWidth: '28ch' }}
           >
             {SLOTS[0].sub}
@@ -401,7 +401,7 @@ export default function TransformacionInner() {
               />
             </svg>
           </div>
-          <span className="font-mono text-smoke/45 text-[8px] uppercase tracking-[0.28em]">
+          <span className="font-mono text-smoke/65 text-[8px] uppercase tracking-[0.28em]">
             {t('scrollHint')}
           </span>
         </div>

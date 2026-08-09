@@ -185,7 +185,7 @@ export function ProjectCard({
 
         {/* Year — bottom left */}
         <div className="absolute bottom-3.5 left-3.5 z-20">
-          <span className="font-mono text-paper/35 tracking-[0.12em]" style={{ fontSize: '8px' }}>
+          <span className="font-mono text-paper/60 tracking-[0.12em]" style={{ fontSize: '8px' }}>
             {project.year}
           </span>
         </div>
@@ -273,7 +273,7 @@ export function ProjectCard({
           </h3>
           {project.client && (
             <p
-              className="font-mono text-smoke/35 uppercase tracking-[0.14em] mt-0.5 truncate"
+              className="font-mono text-smoke/60 uppercase tracking-[0.14em] mt-0.5 truncate"
               style={{ fontSize: '7.5px' }}
             >
               {project.client}
@@ -322,7 +322,7 @@ export function WorkIndex({ projects: initialProjects }: { projects?: Project[] 
       {/* ── Hero editorial ───────────────────────────────────────────────────── */}
       <section className="px-6 md:px-16 lg:px-24 pt-32 md:pt-40 pb-14 md:pb-20">
 
-        <span className="font-mono text-smoke/30 text-[9px] uppercase tracking-[0.25em] block mb-7 md:mb-9">
+        <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] block mb-7 md:mb-9">
           {t('hero.eyebrow')}
         </span>
 
@@ -338,18 +338,18 @@ export function WorkIndex({ projects: initialProjects }: { projects?: Project[] 
 
         {/* Contador + filtro activo */}
         <div className="flex items-center gap-3 mt-7 md:mt-10">
-          <span className="font-mono text-smoke/30 text-[9px] uppercase tracking-[0.2em]">
+          <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.2em]">
             {t('counter', { count: filtered.length })}
           </span>
           {!isAll && (
             <>
-              <span className="text-smoke/20 text-[9px]">·</span>
+              <span className="text-smoke/50 text-[9px]">·</span>
               <span className="font-mono text-accent text-[9px] uppercase tracking-[0.2em]">
                 {activeFilter}
               </span>
               <button
                 onClick={() => setFilter(todosLabel)}
-                className="font-mono text-smoke/30 hover:text-smoke/60 text-[9px] uppercase tracking-[0.2em] transition-colors duration-200"
+                className="font-mono text-smoke/55 hover:text-smoke/60 text-[9px] uppercase tracking-[0.2em] transition-colors duration-200"
               >
                 {t('filtros.limpiar')}
               </button>
@@ -403,7 +403,7 @@ export function WorkIndex({ projects: initialProjects }: { projects?: Project[] 
           </div>
         ) : (
           <div className="py-24 flex items-center justify-center">
-            <span className="font-mono text-smoke/25 text-[9px] uppercase tracking-[0.25em]">
+            <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em]">
               {t('empty')}
             </span>
           </div>

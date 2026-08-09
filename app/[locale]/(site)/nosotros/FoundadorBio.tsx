@@ -68,7 +68,7 @@ export function FoundadorBio({ bioText, photoAlt }: Props) {
         />
       ) : (
         <div className="aspect-[3/4] bg-gradient-to-b from-paper/20 to-paper/5 flex items-end p-4">
-          <span className="font-mono text-[7px] uppercase tracking-[0.15em] text-paper/25">
+          <span className="font-mono text-[7px] uppercase tracking-[0.15em] text-paper/55">
             {photoAlt}
           </span>
         </div>
@@ -108,7 +108,7 @@ export function FoundadorBio({ bioText, photoAlt }: Props) {
           />
         ) : (
           <div className="aspect-[3/4] bg-gradient-to-b from-paper/18 to-paper/5 flex items-end p-4">
-            <span className="font-mono text-[7px] uppercase tracking-[0.15em] text-paper/25">
+            <span className="font-mono text-[7px] uppercase tracking-[0.15em] text-paper/55">
               {photoAlt}
             </span>
           </div>

@@ -27,7 +27,7 @@
   /* ── RGB channels (space-separated) — habilitan text-ink/75, bg-paper/50, etc. ── */
   --color-ink-rgb:    14 14 14;
   --color-paper-rgb:  239 235 227;
-  --color-smoke-rgb:  139 139 133;
+  --color-smoke-rgb:  186 186 174;
   --color-accent-rgb: 91 61 245;
   --color-line-rgb:   35 35 35;
   --color-clay-rgb:   201 168 143;

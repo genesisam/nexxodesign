@@ -92,7 +92,7 @@ function makeComponents(t: Theme): Partial<PortableTextReactComponents> {
               draggable={false}
             />
             {value.caption && (
-              <figcaption className="font-mono text-smoke/40 text-[9px] uppercase tracking-[0.2em] mt-2">
+              <figcaption className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.2em] mt-2">
                 {value.caption}
               </figcaption>
             )}

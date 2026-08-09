@@ -22,7 +22,7 @@ export default function NotFound() {
         >
           Esta página<br />no existe.
         </h1>
-        <p className="font-sans text-paper/45 text-base leading-relaxed mb-12 max-w-[40ch]">
+        <p className="font-sans text-paper/65 text-base leading-relaxed mb-12 max-w-[40ch]">
           La URL que buscas no existe o fue movida. Vuelve al inicio o explora el trabajo.
         </p>
 

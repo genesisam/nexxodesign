@@ -18,10 +18,10 @@ export function Hero() {
 
       {/* ── Top bar (sits below the nav visually) ── */}
       <div className="absolute top-0 left-6 right-6 md:left-16 md:right-16 lg:left-24 lg:right-24 h-16 md:h-20 flex items-center justify-between pointer-events-none">
-        <span className="font-mono text-smoke/50 text-[10px] uppercase tracking-[0.25em]">
+        <span className="font-mono text-smoke/70 text-[10px] uppercase tracking-[0.25em]">
           Diseño de producto · 2026
         </span>
-        <span className="hidden md:block font-mono text-smoke/50 text-[10px] uppercase tracking-[0.25em]">
+        <span className="hidden md:block font-mono text-smoke/70 text-[10px] uppercase tracking-[0.25em]">
           LatAm + Global
         </span>
       </div>
@@ -99,7 +99,7 @@ export function Hero() {
           />
         </div>
         <span
-          className="font-mono text-smoke/40 text-[9px] uppercase tracking-[0.2em]"
+          className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.2em]"
           style={{ writingMode: 'vertical-rl' }}
         >
           scroll

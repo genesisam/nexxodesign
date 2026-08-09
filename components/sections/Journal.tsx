@@ -142,7 +142,7 @@ export function Journal() {
       {/* ── Cabecera ─────────────────────────────────────────────────────────── */}
       <div className="px-6 md:px-16 lg:px-24 flex items-end justify-between mb-10 md:mb-14">
         <div>
-          <span className="block font-mono text-smoke/30 text-[9px] uppercase tracking-[0.25em] mb-3">
+          <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-3">
             07 — Journal
           </span>
           <h2
@@ -156,7 +156,7 @@ export function Journal() {
 
         <Link
           href={JOURNAL_PATH}
-          className="hidden md:block font-mono text-smoke/40 hover:text-paper text-[10px] uppercase tracking-[0.22em] transition-colors duration-200 shrink-0 mb-1.5"
+          className="hidden md:block font-mono text-smoke/65 hover:text-paper text-[10px] uppercase tracking-[0.22em] transition-colors duration-200 shrink-0 mb-1.5"
         >
           Ver todos los artículos →
         </Link>
@@ -300,7 +300,7 @@ export function Journal() {
                       }}
                     >
                       <span
-                        className="font-display font-semibold text-paper/50 leading-none block"
+                        className="font-display font-semibold text-paper/70 leading-none block"
                         style={{
                           fontSize:    'clamp(0.7rem, 0.85vw, 0.9rem)',
                           writingMode: 'vertical-rl',
@@ -339,9 +339,12 @@ export function Journal() {
                       {post.excerpt}
                     </p>
 
-                    {/* Link "Leer más" */}
+                    {/* The visible label stays short, but the accessible name
+                        carries the article title — "Leer más" tells neither a
+                        screen reader nor a crawler where the link goes. */}
                     <Link
                       href={`/journal/${post.slug.current}`}
+                      aria-label={`Leer el artículo: ${post.title}`}
                       className="inline-flex items-center gap-2 font-mono text-paper text-[9px] uppercase tracking-[0.22em] border-b border-paper/30 pb-px hover:border-paper transition-colors duration-200"
                       onClick={e => e.stopPropagation()}
                       tabIndex={isActive || isMobile ? 0 : -1}
@@ -366,7 +369,7 @@ export function Journal() {
       <div className="mt-8 px-6 md:hidden">
         <Link
           href={JOURNAL_PATH}
-          className="font-mono text-smoke/40 text-[9px] uppercase tracking-[0.22em]"
+          className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.22em]"
         >
           Ver todos los artículos →
         </Link>
