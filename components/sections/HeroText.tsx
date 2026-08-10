@@ -75,11 +75,13 @@ export function HeroText() {
       aria-label="Nexxo — estudio de diseño y desarrollo"
       className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-ink px-6 md:px-16 lg:px-24 pt-28 md:pt-32"
     >
+      {/* Sticker size is desktop-only: mobile stays at 100 so the pieces still
+          fit the narrower stage instead of piling into a wall. */}
       <PhysicsStickerWall
         imageUrls={[...HERO_STICKERS]}
         backgroundColor="var(--color-ink)"
         stickerCount={isMobile ? 5 : 11}
-        stickerSize={isMobile ? 100 : 142}
+        stickerSize={isMobile ? 100 : 180}
         sizeRandomness={isMobile ? 0.15 : 0.3}
         gravity={1.35}
         restitution={0.42}
