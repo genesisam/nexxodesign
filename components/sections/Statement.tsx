@@ -19,9 +19,13 @@ export async function Statement() {
         <span className="text-accent">{t('acento')}</span>
       </p>
 
-      <div className="mt-12 md:mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-16">
+      <div className="mt-12 md:mt-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 lg:gap-20">
 
-        <p className="font-body text-smoke text-base md:text-lg leading-relaxed max-w-[42ch]">
+        {/* Two columns from lg up: at 120 words a single 42ch column left the
+            right half of the section empty and the text running very tall.
+            Each column keeps a readable measure instead of one long line. */}
+        <p className="font-body text-smoke text-base md:text-lg leading-relaxed
+                      max-w-[52ch] lg:max-w-none lg:columns-2 lg:gap-16 lg:[column-fill:balance]">
           {t('body')}
         </p>
 

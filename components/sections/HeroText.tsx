@@ -12,13 +12,23 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(SplitText)
 }
 
+/**
+ * Real client work, one sticker per project. The wall draws eleven on desktop,
+ * so the list is eleven long and nothing repeats. Served at 420px square —
+ * they render at 142px, and the originals were 3.4 MB together.
+ */
 const HERO_STICKERS = [
-  '/images/crystal-1.jpg',
-  '/images/crystal-2.jpg',
-  '/images/crystal-3.jpg',
-  '/images/projects/solivus/brand-sticker.png',
-  '/images/projects/solivus/analytics-cards.png',
-  '/images/projects/solivus/mobile-phones.webp',
+  '/images/hero/virtualpits.webp',
+  '/images/hero/solivus.webp',
+  '/images/hero/greenery.webp',
+  '/images/hero/hanara.webp',
+  '/images/hero/mente.webp',
+  '/images/hero/merxo.webp',
+  '/images/hero/maison-oliva.webp',
+  '/images/hero/nexo-go.webp',
+  '/images/hero/clear-numbers.webp',
+  '/images/hero/greenery-02.webp',
+  '/images/hero/mente-02.webp',
 ] as const
 
 export function HeroText() {

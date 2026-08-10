@@ -8,8 +8,8 @@ const COLS = 7
 const ROWS = 4
 const TILES = COLS * ROWS // 28
 
-const HERO_IMAGE        = '/images/hero-bg.png'
-const HERO_IMAGE_MOBILE = '/images/hero-bg-mobile.png'
+const HERO_IMAGE        = '/images/hero-bg.webp'
+const HERO_IMAGE_MOBILE = '/images/hero-bg-mobile.webp'
 const SHOWREEL_SRC      = '' // '/video/showreel.mp4'  ← sube tu video aquí
 
 function sr(i: number, seed: number): number {
