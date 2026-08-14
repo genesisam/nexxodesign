@@ -74,7 +74,7 @@ export function Nav() {
             wrap the links in a blurred pill there and nowhere else, and flip
             the CTA between solid and outline — three separate identities for
             the same component. */}
-        <div className="flex items-center justify-between px-6 md:px-16 lg:px-24 h-16 md:h-20 pointer-events-auto">
+        <div className="flex items-center justify-between gutter-x h-16 md:h-20 pointer-events-auto">
 
           <Link
             href="/"

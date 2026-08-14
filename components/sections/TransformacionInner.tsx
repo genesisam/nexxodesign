@@ -228,14 +228,14 @@ export default function TransformacionInner() {
       <div className="sticky top-0 h-screen w-full bg-ink overflow-hidden">
 
         {/* ── Eyebrow ── */}
-        <div className="absolute top-8 left-6 md:left-10 z-30 pointer-events-none">
+        <div className="absolute top-8 gutter-l z-30 pointer-events-none">
           <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em]">
             {t('seccion')}
           </span>
         </div>
 
         {/* ── Mobile copy — shown above frame on small screens ── */}
-        <div className="lg:hidden absolute top-14 left-6 right-6 z-30 pointer-events-none flex flex-col gap-1">
+        <div className="lg:hidden absolute top-14 gutter-l gutter-r z-30 pointer-events-none flex flex-col gap-1">
           <span ref={mLabelRef} className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.22em]">
             {SLOTS[0].label}
           </span>
@@ -248,8 +248,8 @@ export default function TransformacionInner() {
 
         {/* ── Desktop left copy ── */}
         <div
-          className="hidden lg:flex flex-col absolute z-30 gap-3"
-          style={{ left: 'clamp(28px, 4vw, 64px)', top: '18%', maxWidth: 'min(340px, 23vw)' }}
+          className="hidden lg:flex flex-col absolute z-30 gap-3 gutter-l"
+          style={{ top: '18%', maxWidth: 'min(340px, 23vw)' }}
         >
           <span ref={labelRef} className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.22em]">
             {SLOTS[0].label}

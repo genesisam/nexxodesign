@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-ink px-6 md:px-16 lg:px-24 pt-24 md:pt-28">
+    <div className="min-h-screen bg-ink gutter-x pt-24 md:pt-28">
       {/* Eyebrow */}
       <div className="skeleton h-3 w-40 rounded-sm mb-[8vh]" />
 

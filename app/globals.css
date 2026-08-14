@@ -97,6 +97,23 @@ html.lenis body {
   to   { transform: translateX(-50%); }
 }
 
+/* ─── Page gutter ───
+   One lateral padding for the whole site. It used to be `px-6 md:px-16 lg:px-24`
+   in fifty-five places, which stepped from 24px to 64px to 96px and left the
+   wide breakpoints noticeably emptier than the Transformación section beside
+   them. This is that section's own measure, promoted to the site standard: it
+   scales continuously instead of jumping, and stops growing at 64px so a very
+   wide screen doesn't push the content into a narrow column. */
+.gutter-x {
+  padding-left:  clamp(28px, 4vw, 64px);
+  padding-right: clamp(28px, 4vw, 64px);
+}
+
+/* Same measure as an offset, for the labels and controls that are positioned
+   against a section edge rather than padded inside it. */
+.gutter-l { left:  clamp(28px, 4vw, 64px); }
+.gutter-r { right: clamp(28px, 4vw, 64px); }
+
 /* ─── Hero typing caret ───
    Blink lives in CSS so GSAP never has to own `opacity` on this element: the
    timeline only moves it and, at the end, removes it with `display`. Two

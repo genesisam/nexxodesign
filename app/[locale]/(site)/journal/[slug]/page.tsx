@@ -148,7 +148,7 @@ export default async function PostPage({ params }: Props) {
       <main className="bg-ink">
 
         {/* ══ TOPHEAD ═══════════════════════════════════════════════════════ */}
-        <section className="px-6 md:px-16 lg:px-24 pt-32 md:pt-44 pb-12 md:pb-16">
+        <section className="gutter-x pt-32 md:pt-44 pb-12 md:pb-16">
           <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent mb-6">
             {post.category}
           </p>
@@ -168,7 +168,7 @@ export default async function PostPage({ params }: Props) {
         </section>
 
         {/* ══ COVER ═════════════════════════════════════════════════════════ */}
-        <section className="px-6 md:px-16 lg:px-24 pb-14 md:pb-20">
+        <section className="gutter-x pb-14 md:pb-20">
           <div
             className="rounded-[2rem] overflow-hidden aspect-[16/9]"
             style={{ background: COVER_GRADIENT[post.category] }}
@@ -187,7 +187,7 @@ export default async function PostPage({ params }: Props) {
         </section>
 
         {/* ══ BODY + SIDEBAR ════════════════════════════════════════════════ */}
-        <section className="px-6 md:px-16 lg:px-24 pb-14 md:pb-20">
+        <section className="gutter-x pb-14 md:pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] xl:grid-cols-[1fr_280px] gap-12 lg:gap-14 xl:gap-20 items-start">
 
             {/* ── Article body ── */}
@@ -257,7 +257,7 @@ export default async function PostPage({ params }: Props) {
 
         {/* ══ RELATED POSTS ═════════════════════════════════════════════════ */}
         {relatedPosts.length > 0 && (
-          <section className="px-6 md:px-16 lg:px-24 py-14 md:py-20 border-t border-paper/10">
+          <section className="gutter-x py-14 md:py-20 border-t border-paper/10">
             <div className="flex items-end justify-between gap-4 mb-10">
               <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/60">
                 Seguir leyendo

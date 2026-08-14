@@ -64,7 +64,7 @@ export async function SelectedWork() {
   return (
     <section aria-label={t('headline')} className="border-t border-line">
 
-      <div className="flex items-end justify-between px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-14 md:pb-20">
+      <div className="flex items-end justify-between gutter-x pt-20 md:pt-28 pb-14 md:pb-20">
         <div>
           <span className="font-mono text-smoke text-[10px] uppercase tracking-[0.25em] block mb-4">
             {t('seccion')}
@@ -84,7 +84,7 @@ export async function SelectedWork() {
         </Link>
       </div>
 
-      <div className="px-6 md:px-16 lg:px-24 pb-24 md:pb-36 flex flex-col gap-6 md:gap-[11vh]">
+      <div className="gutter-x pb-24 md:pb-36 flex flex-col gap-6 md:gap-[11vh]">
 
         {/* Fila 1: Solivus (grande) + Merxo (pequeño, alineado abajo) */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-[1.4vw]">

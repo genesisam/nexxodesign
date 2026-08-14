@@ -23,7 +23,7 @@ export default async function ContactPage({ params }: Props) {
   return (
     <main className="bg-ink min-h-screen">
 
-      <section className="px-6 md:px-16 lg:px-24 pt-32 md:pt-44 pb-16 md:pb-20 border-b border-paper/10">
+      <section className="gutter-x pt-32 md:pt-44 pb-16 md:pb-20 border-b border-paper/10">
         <p className="font-mono text-paper/65 text-[9px] uppercase tracking-[0.28em] mb-6">
           {t('eyebrow')}
         </p>

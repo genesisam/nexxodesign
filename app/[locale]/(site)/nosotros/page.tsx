@@ -32,7 +32,7 @@ export default async function NosotrosPage({ params }: Props) {
 
       {/* ══ 1. TOPHEAD ═══════════════════════════════════════════════════════ */}
       <section className="w-full">
-        <div className="flex items-end justify-between gap-10 px-6 md:px-16 lg:px-24 pt-32 md:pt-[18vh] max-lg:flex-col max-lg:items-start max-lg:gap-6">
+        <div className="flex items-end justify-between gap-10 gutter-x pt-32 md:pt-[18vh] max-lg:flex-col max-lg:items-start max-lg:gap-6">
           <div>
             <p className={`${eyebrow} text-paper/65 mb-5`}>
               {t('tophead.eyebrow')}
@@ -72,7 +72,7 @@ export default async function NosotrosPage({ params }: Props) {
       </section>
 
       {/* ══ 2. MANIFIESTO EDITORIAL ══════════════════════════════════════════ */}
-      <section className="px-6 md:px-16 lg:px-24 py-24 md:py-36 border-b border-paper/10">
+      <section className="gutter-x py-24 md:py-36 border-b border-paper/10">
         <div className="grid md:grid-cols-[0.7fr_2.3fr] gap-10 md:gap-20 items-start">
 
           {/* Label sticky */}
@@ -111,14 +111,14 @@ export default async function NosotrosPage({ params }: Props) {
 
       {/* ══ 4. PROCESO ═══════════════════════════════════════════════════════ */}
       <section className="pt-20 md:pt-28 pb-0">
-        <div className="px-6 md:px-16 lg:px-24 mb-10 md:mb-14">
+        <div className="gutter-x mb-10 md:mb-14">
           <p className={`${eyebrow} text-paper/65`}>{t('proceso.label')}</p>
         </div>
         <ProcesoCards steps={steps} />
       </section>
 
       {/* ══ 5. TRABAJO SELECCIONADO ══════════════════════════════════════════ */}
-      <section className="px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-20 md:pb-28 border-t border-paper/10">
+      <section className="gutter-x pt-20 md:pt-28 pb-20 md:pb-28 border-t border-paper/10">
         <div className="flex items-end justify-between gap-6 mb-12 md:mb-16 max-sm:flex-col max-sm:items-start">
           <div>
             <p className={`${eyebrow} text-paper/65 mb-4`}>
@@ -142,7 +142,7 @@ export default async function NosotrosPage({ params }: Props) {
       </section>
 
       {/* ══ 6. CTA ═══════════════════════════════════════════════════════════ */}
-      <section className="px-6 md:px-16 lg:px-24 py-24 md:py-36 border-t border-paper/10" data-reveal>
+      <section className="gutter-x py-24 md:py-36 border-t border-paper/10" data-reveal>
         <h2
           className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-10"
           style={{ fontSize: 'clamp(2.8rem, 6vw, 6.5rem)' }}

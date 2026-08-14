@@ -292,7 +292,7 @@ export function FusionReel() {
           {/* Label de sección */}
           <div
             aria-hidden
-            className="absolute top-8 md:top-10 left-6 md:left-16 lg:left-24 z-20"
+            className="absolute top-8 md:top-10 gutter-l z-20"
           >
             <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em]">
               02 — Showreel

@@ -26,7 +26,7 @@ export function ContactClient() {
     <>
       {/* ── Estimador ────────────────────────────────────────────────────────── */}
       {SHOW_ESTIMATOR && (
-        <section className="px-6 md:px-16 lg:px-24 py-16 md:py-20 border-b border-paper/10">
+        <section className="gutter-x py-16 md:py-20 border-b border-paper/10">
           <ProjectEstimator
             onEstimateChange={handleEstimateChange}
             onCtaClick={handleCtaClick}
@@ -35,7 +35,7 @@ export function ContactClient() {
       )}
 
       {/* ── Formulario + canales ─────────────────────────────────────────────── */}
-      <section ref={formRef} id="contact-form" className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
+      <section ref={formRef} id="contact-form" className="gutter-x py-16 md:py-24">
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-12 lg:gap-24 items-start">
           <ContactForm estimateSummary={estimate} />
           <ContactChannels />

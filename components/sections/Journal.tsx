@@ -140,7 +140,7 @@ export function Journal() {
     <section aria-label="Journal" className="py-20 md:py-28 bg-ink">
 
       {/* ── Cabecera ─────────────────────────────────────────────────────────── */}
-      <div className="px-6 md:px-16 lg:px-24 flex items-end justify-between mb-10 md:mb-14">
+      <div className="gutter-x flex items-end justify-between mb-10 md:mb-14">
         <div>
           <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-3">
             07 — Journal
@@ -170,7 +170,7 @@ export function Journal() {
       */}
       <div
         className={[
-          'flex px-6 md:px-16 lg:px-24',
+          'flex gutter-x',
           isMobile
             ? 'overflow-x-auto snap-x snap-mandatory gap-3 [&::-webkit-scrollbar]:hidden'
             : 'overflow-hidden',
@@ -366,7 +366,7 @@ export function Journal() {
       </div>
 
       {/* ── Link "Ver todos" — mobile ──────────────────────────────────────── */}
-      <div className="mt-8 px-6 md:hidden">
+      <div className="mt-8 gutter-x md:hidden">
         <Link
           href={JOURNAL_PATH}
           className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.22em]"

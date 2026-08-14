@@ -110,7 +110,7 @@ const getBg = (vertical: string) => VERTICAL_BG[vertical] ?? VERTICAL_BG['SaaS']
 
 function ResultsBar({ metrics }: { metrics: Metric[] }) {
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 py-12 md:py-16 border-y border-line">
+    <section className="bg-ink gutter-x py-12 md:py-16 border-y border-line">
       <dl className="grid grid-cols-2 md:grid-cols-4 gap-y-8 md:divide-x md:divide-line">
         {metrics.map((m, i) => (
           <div key={m._key} className={i > 0 ? 'md:pl-10' : ''}>
@@ -136,7 +136,7 @@ function CtaSection({
   label: string; heading: string; ctaBtn: string; moreBtn: string
 }) {
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 py-20 md:py-28 border-t border-line">
+    <section className="bg-ink gutter-x py-20 md:py-28 border-t border-line">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
         <div>
           <p className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-4">
@@ -173,7 +173,7 @@ function CtaSection({
 function OverviewRenderer({ block }: { block: OverviewBlock }) {
   const hasLeft = !!(block.label || block.heading)
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 py-14 md:py-20">
+    <section className="bg-ink gutter-x py-14 md:py-20">
       <div className={`grid gap-10 lg:gap-20 items-start ${hasLeft ? 'md:grid-cols-[1.4fr_1fr]' : ''}`}>
         {hasLeft && (
           <div className="md:pt-1">
@@ -212,7 +212,7 @@ function OverviewRenderer({ block }: { block: OverviewBlock }) {
 
 function SectionHeaderRenderer({ block }: { block: SectionHeaderBlock }) {
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-10 md:pb-14">
+    <section className="bg-ink gutter-x pt-20 md:pt-28 pb-10 md:pb-14">
       <h2
         className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] max-w-[16ch]"
         style={{ fontSize: 'clamp(2.8rem, 6vw, 6.5rem)' }}
@@ -229,7 +229,7 @@ function SectionHeaderRenderer({ block }: { block: SectionHeaderBlock }) {
 function MediaRenderer({ block, bg }: { block: MediaBlock; bg: string }) {
   const isSmall = block.size === 'sm'
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 py-5 md:py-8">
+    <section className="bg-ink gutter-x py-5 md:py-8">
       <figure className={isSmall ? 'max-w-[75%]' : 'w-full'}>
         <div className="relative overflow-hidden rounded-[2rem]" style={{ aspectRatio: '16/9' }} data-parallax="media">
           {block.url ? (
@@ -306,7 +306,7 @@ function SplitShowRenderer({ block, bg }: { block: SplitShowBlock; bg: string })
   const rightItems = block.items.filter((_, i) => i % 2 !== 0)
 
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 py-10 md:py-14">
+    <section className="bg-ink gutter-x py-10 md:py-14">
       <div className="hidden md:grid grid-cols-2 gap-10 lg:gap-14">
         <div className="flex flex-col gap-10 lg:gap-14">
           {leftItems.map(item => <SplitItemCard key={item._key} item={item} bg={bg} />)}
@@ -324,7 +324,7 @@ function SplitShowRenderer({ block, bg }: { block: SplitShowBlock; bg: string })
 
 function QuoteRenderer({ block }: { block: QuoteBlock }) {
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 py-16 md:py-24">
+    <section className="bg-ink gutter-x py-16 md:py-24">
       <blockquote className="w-full max-w-4xl border-l-2 border-accent pl-8 md:pl-12">
         <p
           className="font-display font-semibold text-paper leading-[0.95] tracking-[-0.035em]"
@@ -339,7 +339,7 @@ function QuoteRenderer({ block }: { block: QuoteBlock }) {
 
 function FeedbackRenderer({ block, feedbackLabel }: { block: FeedbackBlock; feedbackLabel: string }) {
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 py-14 md:py-20 border-t border-line">
+    <section className="bg-ink gutter-x py-14 md:py-20 border-t border-line">
       <div className="grid md:grid-cols-[0.85fr_2fr] gap-10 lg:gap-20 items-start">
         <div className="md:pt-1">
           <p className="font-mono text-smoke/60 text-[9px] uppercase tracking-[0.25em]">
@@ -397,7 +397,7 @@ function NextProjectSection({
 }) {
   const bg = getBg(next.vertical)
   return (
-    <section className="bg-ink px-6 md:px-16 lg:px-24 py-16 md:py-20 border-t border-line">
+    <section className="bg-ink gutter-x py-16 md:py-20 border-t border-line">
       <p className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-8">
         {nextLabel}
       </p>
@@ -508,10 +508,10 @@ export default async function CaseStudyPage({ params }: Props) {
     <main>
 
       {/* ── 1. Tophead ─────────────────────────────────────────────────────── */}
-      <section className="bg-ink px-6 md:px-16 lg:px-24 pt-32 md:pt-44 pb-12 md:pb-16 flex flex-col items-center text-center">
+      <section className="bg-ink gutter-x pt-32 md:pt-44 pb-12 md:pb-16 flex flex-col items-center text-center">
 
         {/* Breadcrumb visual */}
-        <nav aria-label="Breadcrumb" className="absolute top-[5.5rem] left-6 md:left-16 lg:left-24">
+        <nav aria-label="Breadcrumb" className="absolute top-[5.5rem] gutter-l">
           <ol className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.2em] text-paper/55">
             <li><Link href={`/${locale}`} className="hover:text-paper/60 transition-colors">Inicio</Link></li>
             <li aria-hidden className="text-paper/15">›</li>
@@ -575,7 +575,7 @@ export default async function CaseStudyPage({ params }: Props) {
       </section>
 
       {/* ── 2. Preview cover ───────────────────────────────────────────────── */}
-      <section className="bg-ink px-6 md:px-16 lg:px-24 pb-14 md:pb-20">
+      <section className="bg-ink gutter-x pb-14 md:pb-20">
         <div
           className="relative overflow-hidden rounded-[2rem]"
           style={{ aspectRatio: '16/9' }}

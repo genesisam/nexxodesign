@@ -56,7 +56,7 @@ export function Capabilities() {
   return (
     <section aria-label="Lo que hacemos" className="border-t border-line">
 
-      <ScrollReveal stagger className="px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-10 md:pb-14">
+      <ScrollReveal stagger className="gutter-x pt-20 md:pt-28 pb-10 md:pb-14">
         <span className="font-mono text-smoke text-[10px] uppercase tracking-[0.25em] block mb-4">
           {t('seccion')}
         </span>
@@ -69,7 +69,7 @@ export function Capabilities() {
       </ScrollReveal>
 
       {/* Desktop */}
-      <div className="hidden lg:block px-6 md:px-16 lg:px-24 pb-28 md:pb-36">
+      <div className="hidden lg:block gutter-x pb-28 md:pb-36">
         <div onMouseLeave={() => setActive(null)}>
           {items.map((cap, i) => {
             const isActive = active === i
@@ -126,7 +126,7 @@ export function Capabilities() {
       </div>
 
       {/* Mobile: acordeón */}
-      <div className="lg:hidden px-6 pt-2 pb-16">
+      <div className="lg:hidden gutter-x pt-2 pb-16">
         {items.map((cap, i) => {
           const isOpen = active === i
           const num = NUMBERS[i]

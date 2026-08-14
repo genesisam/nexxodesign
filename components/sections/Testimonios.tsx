@@ -234,7 +234,7 @@ export function Testimonios() {
       />
 
       {/* ── Cabecera ─────────────────────────────────────────────────────────── */}
-      <div className="px-6 md:px-16 lg:px-24 shrink-0 flex items-start justify-between mb-6 md:mb-8">
+      <div className="gutter-x shrink-0 flex items-start justify-between mb-6 md:mb-8">
         <div>
           <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] block mb-2.5">
             {t('seccion')}
@@ -289,7 +289,7 @@ export function Testimonios() {
       </div>
 
       {/* ── Link — solo mobile ────────────────────────────────────────────────── */}
-      <div className="mt-5 px-6 md:hidden">
+      <div className="mt-5 gutter-x md:hidden">
         <Link
           href={REVIEWS_URL}
           className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.22em]"

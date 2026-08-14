@@ -18,7 +18,7 @@ export default function Error({
   }, [error])
 
   return (
-    <main className="bg-ink min-h-screen flex flex-col items-start justify-center px-6 md:px-16 lg:px-24">
+    <main className="bg-ink min-h-screen flex flex-col items-start justify-center gutter-x">
 
       <p
         aria-hidden

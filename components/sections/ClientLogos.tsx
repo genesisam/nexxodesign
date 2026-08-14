@@ -130,7 +130,7 @@ export function ClientLogos() {
       className="border-t border-line overflow-hidden py-10 md:py-14"
     >
       {/* Label */}
-      <div className="px-6 md:px-16 lg:px-24 mb-6 flex items-center justify-between">
+      <div className="gutter-x mb-6 flex items-center justify-between">
         <span className="font-mono text-smoke/70 text-[10px] uppercase tracking-[0.25em]">
           Confían en Nexxo
         </span>

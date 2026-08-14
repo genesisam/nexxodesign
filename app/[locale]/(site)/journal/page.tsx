@@ -35,7 +35,7 @@ export default async function JournalPage() {
     <main className="bg-ink min-h-screen">
 
       {/* ══ TOPHEAD ═══════════════════════════════════════════════════════════ */}
-      <section className="px-6 md:px-16 lg:px-24 pt-32 md:pt-44 pb-16 md:pb-20 border-b border-paper/10">
+      <section className="gutter-x pt-32 md:pt-44 pb-16 md:pb-20 border-b border-paper/10">
         <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/65 mb-6">
           Journal · Nexxo
         </p>
@@ -57,7 +57,7 @@ export default async function JournalPage() {
 
       {/* ══ FEATURED POST ══════════════════════════════════════════════════════ */}
       {featured && (
-        <section className="px-6 md:px-16 lg:px-24 py-14 md:py-20 border-b border-paper/10">
+        <section className="gutter-x py-14 md:py-20 border-b border-paper/10">
           <Link
             href={`/journal/${featured.slug.current}`}
             className="group block md:grid md:grid-cols-2 gap-12 lg:gap-20 items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-ink"
@@ -107,7 +107,7 @@ export default async function JournalPage() {
       {/* ══ POST LIST (client — filter tabs) ══════════════════════════════════ */}
       {rest.length > 0 && (
         <div className="pt-14 md:pt-20">
-          <div className="px-6 md:px-16 lg:px-24 mb-0">
+          <div className="gutter-x mb-0">
             <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/60">
               Todos los artículos
             </p>

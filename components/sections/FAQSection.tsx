@@ -26,7 +26,7 @@ export function FAQSection() {
     <section
       id="faq"
       aria-label={t('aria')}
-      className="bg-ink border-t border-paper/10 px-6 md:px-16 lg:px-24 py-20 md:py-28"
+      className="bg-ink border-t border-paper/10 gutter-x py-20 md:py-28"
     >
       <script
         type="application/ld+json"

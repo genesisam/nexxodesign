@@ -43,7 +43,7 @@ const FAQS = [
 
 export default function SoportePage() {
   return (
-    <main className="bg-ink min-h-screen px-6 md:px-16 lg:px-24 pt-32 md:pt-44 pb-24 md:pb-32">
+    <main className="bg-ink min-h-screen gutter-x pt-32 md:pt-44 pb-24 md:pb-32">
 
       <Link
         href="/"

@@ -320,7 +320,7 @@ export function WorkIndex({ projects: initialProjects }: { projects?: Project[] 
     <main className="bg-ink min-h-screen">
 
       {/* ── Hero editorial ───────────────────────────────────────────────────── */}
-      <section className="px-6 md:px-16 lg:px-24 pt-32 md:pt-40 pb-14 md:pb-20">
+      <section className="gutter-x pt-32 md:pt-40 pb-14 md:pb-20">
 
         <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] block mb-7 md:mb-9">
           {t('hero.eyebrow')}
@@ -359,7 +359,7 @@ export function WorkIndex({ projects: initialProjects }: { projects?: Project[] 
       </section>
 
       {/* ── Filter tabs ──────────────────────────────────────────────────────── */}
-      <section className="px-6 md:px-16 lg:px-24 pb-10 md:pb-12">
+      <section className="gutter-x pb-10 md:pb-12">
         <div
           role="tablist"
           aria-label={t('filtros.aria')}
@@ -388,7 +388,7 @@ export function WorkIndex({ projects: initialProjects }: { projects?: Project[] 
       </section>
 
       {/* ── Project grid ─────────────────────────────────────────────────────── */}
-      <section className="px-6 md:px-16 lg:px-24 pb-28 md:pb-36">
+      <section className="gutter-x pb-28 md:pb-36">
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-5 md:gap-x-6 xl:gap-x-8 gap-y-12 md:gap-y-16">
             {filtered.map(project => (

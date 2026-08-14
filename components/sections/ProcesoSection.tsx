@@ -7,7 +7,7 @@ export async function ProcesoSection() {
   const steps = t.raw('steps') as Step[]
 
   return (
-    <section className="border-t border-line px-6 md:px-16 lg:px-24 py-20 md:py-28">
+    <section className="border-t border-line gutter-x py-20 md:py-28">
 
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 mb-14 md:mb-20">
         <div>

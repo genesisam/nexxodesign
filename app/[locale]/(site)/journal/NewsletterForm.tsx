@@ -10,7 +10,7 @@ export function NewsletterForm() {
 
   if (state.status === 'success') {
     return (
-      <div className="py-20 md:py-28 px-6 md:px-16 lg:px-24 bg-ink" role="status" aria-live="polite">
+      <div className="py-20 md:py-28 gutter-x bg-ink" role="status" aria-live="polite">
         <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/65 mb-5">
           Newsletter · Nexxo
         </p>
@@ -23,7 +23,7 @@ export function NewsletterForm() {
   }
 
   return (
-    <div className="py-20 md:py-28 px-6 md:px-16 lg:px-24 bg-ink">
+    <div className="py-20 md:py-28 gutter-x bg-ink">
       <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-paper/65 mb-5">
         Newsletter · Nexxo
       </p>

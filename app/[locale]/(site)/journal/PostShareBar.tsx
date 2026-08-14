@@ -163,7 +163,7 @@ export function PostShareBar({
 
   // ── Bar layout (horizontal, full-width) ──────────────────────────────────────
   return (
-    <div className="border-t border-b border-paper/10 py-4 px-6 md:px-16 lg:px-24 flex items-center justify-between gap-6 flex-wrap">
+    <div className="border-t border-b border-paper/10 py-4 gutter-x flex items-center justify-between gap-6 flex-wrap">
       <div className="flex items-center gap-2 flex-wrap">
         <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/65 mr-1">
           Resumir con:

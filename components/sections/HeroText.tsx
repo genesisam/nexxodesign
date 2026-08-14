@@ -134,7 +134,7 @@ export function HeroText() {
   return (
     <section
       aria-label="Nexxo — estudio de diseño y desarrollo"
-      className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-ink px-6 md:px-16 lg:px-24 pt-28 md:pt-32"
+      className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-ink gutter-x pt-28 md:pt-32"
     >
       {/* Sticker size is desktop-only: mobile stays at 100 so the pieces still
           fit the narrower stage instead of piling into a wall. */}

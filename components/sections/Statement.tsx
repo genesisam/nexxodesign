@@ -6,7 +6,7 @@ export async function Statement() {
   const t = await getTranslations('statement')
 
   return (
-    <section aria-label="Manifiesto" className="border-t border-line px-6 md:px-16 lg:px-24 py-24 md:py-36">
+    <section aria-label="Manifiesto" className="border-t border-line gutter-x py-24 md:py-36">
 
       <ScrollReveal stagger>
         <span className="font-mono text-smoke text-[10px] uppercase tracking-[0.25em] block mb-12 md:mb-16">

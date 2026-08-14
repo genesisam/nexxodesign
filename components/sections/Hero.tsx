@@ -13,11 +13,11 @@ export function Hero() {
   return (
     <section
       aria-label="Hero"
-      className="relative min-h-[100svh] bg-ink flex flex-col justify-end px-6 md:px-16 lg:px-24 pb-12 md:pb-20 border-b border-line"
+      className="relative min-h-[100svh] bg-ink flex flex-col justify-end gutter-x pb-12 md:pb-20 border-b border-line"
     >
 
       {/* ── Top bar (sits below the nav visually) ── */}
-      <div className="absolute top-0 left-6 right-6 md:left-16 md:right-16 lg:left-24 lg:right-24 h-16 md:h-20 flex items-center justify-between pointer-events-none">
+      <div className="absolute top-0 gutter-l gutter-r h-16 md:h-20 flex items-center justify-between pointer-events-none">
         <span className="font-mono text-smoke/70 text-[10px] uppercase tracking-[0.25em]">
           Diseño de producto · 2026
         </span>
@@ -91,7 +91,7 @@ export function Hero() {
       </div>
 
       {/* ── Scroll indicator ── */}
-      <div className="absolute bottom-10 right-6 md:right-16 lg:right-24 flex flex-col items-center gap-3">
+      <div className="absolute bottom-10 gutter-r flex flex-col items-center gap-3">
         <div className="w-px h-12 bg-line relative overflow-hidden">
           <div
             className="absolute inset-x-0 top-0 h-1/2 bg-smoke/40"

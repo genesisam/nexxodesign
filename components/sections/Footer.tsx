@@ -104,7 +104,7 @@ export function Footer() {
   return (
     <footer aria-label="Footer" className="bg-ink">
 
-      <div className="px-6 md:px-16 lg:px-24 pt-20 md:pt-28 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10 md:gap-x-14 lg:gap-x-20">
+      <div className="gutter-x pt-20 md:pt-28 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10 md:gap-x-14 lg:gap-x-20">
 
         <div>
           <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-6">
@@ -162,7 +162,7 @@ export function Footer() {
 
       </div>
 
-      <div className="px-6 md:px-16 lg:px-24 mt-16 md:mt-24 overflow-hidden">
+      <div className="gutter-x mt-16 md:mt-24 overflow-hidden">
         <p
           aria-hidden
           className="font-display font-semibold text-paper leading-none select-none"
@@ -172,7 +172,7 @@ export function Footer() {
         </p>
       </div>
 
-      <div className="px-6 md:px-16 lg:px-24 mt-5 pt-5 pb-8 border-t border-line flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <div className="gutter-x mt-5 pt-5 pb-8 border-t border-line flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
         <div className="flex items-center gap-6">
           <Link
             href="/privacidad"

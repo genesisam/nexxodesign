@@ -17,7 +17,7 @@ export function JournalList({ posts }: { posts: PostSummary[] }) {
   const filtered = active === 'Todos' ? posts : posts.filter(p => p.category === active)
 
   return (
-    <section className="px-6 md:px-16 lg:px-24 pb-20 md:pb-28">
+    <section className="gutter-x pb-20 md:pb-28">
 
       {/* Filter tabs */}
       <div
