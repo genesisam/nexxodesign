@@ -14,26 +14,21 @@ type CapabilityItem = {
 
 const NUMBERS = ['01', '02', '03', '04']
 
-/** Artwork for a service, with the numeral kept over it as before. */
-function CapabilityArt({ src, hint, number }: { src: string; hint: string; number: string }) {
+/**
+ * Artwork for a service. Nothing sits on top of it — the numeral that used to
+ * be ghosted into the corner fought the render underneath, and the row already
+ * carries its number at the right edge.
+ */
+function CapabilityArt({ src, hint }: { src: string; hint: string }) {
   return (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt={hint}
-        className="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
-        draggable={false}
-      />
-      <span
-        className="absolute bottom-2 right-3 font-display font-bold text-paper/[0.07] leading-none select-none"
-        style={{ fontSize: 'clamp(3.5rem, 8vw, 7rem)' }}
-        aria-hidden
-      >
-        {number}
-      </span>
-    </>
+    /* eslint-disable-next-line @next/next/no-img-element */
+    <img
+      src={src}
+      alt={hint}
+      className="absolute inset-0 w-full h-full object-cover"
+      loading="lazy"
+      draggable={false}
+    />
   )
 }
 
@@ -120,7 +115,7 @@ export function Capabilities() {
                   }`}
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-line">
-                    <CapabilityArt src={cap.image} hint={cap.imageHint} number={num} />
+                    <CapabilityArt src={cap.image} hint={cap.imageHint} />
                   </div>
                 </div>
               </div>
@@ -172,7 +167,7 @@ export function Capabilities() {
               >
                 <div className="pb-7 space-y-4">
                   <div className="relative aspect-video bg-line overflow-hidden">
-                    <CapabilityArt src={cap.image} hint={cap.imageHint} number={num} />
+                    <CapabilityArt src={cap.image} hint={cap.imageHint} />
                   </div>
                   <p className="font-body text-smoke text-[15px] leading-relaxed">
                     {cap.outcome}
