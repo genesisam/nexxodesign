@@ -21,37 +21,37 @@ export type Testimonial = {
 const TESTIMONIALS: Testimonial[] = [
   {
     _id: 't1', name: 'Laura Muñoz', role: 'CEO', company: 'Tolvia',
-    avatar: null,
+    avatar: '/images/testimonios/laura-munoz.webp',
     quote:  'Alexander transformó nuestras ideas en un producto final impresionante. Su habilidad para dar vida a nuestra visión y asegurarse de que cada detalle encajara perfectamente con la identidad de nuestra marca fue realmente extraordinaria.',
     result: 'Producto lanzado en 3 sem.',
   },
   {
     _id: 't2', name: 'Jordi Pérez', role: 'CTO', company: 'Adictic',
-    avatar: null,
+    avatar: '/images/testimonios/jordi-perez.webp',
     quote:  'La experiencia y dedicación de Alexander marcaron toda la diferencia. Se comunicó con claridad y entregó resultados que superaron ampliamente nuestras expectativas. Un verdadero punto de inflexión para el negocio.',
     result: '+180% MRR',
   },
   {
     _id: 't3', name: 'Luis Fernando', role: 'CEO', company: 'Kontrolo',
-    avatar: null,
+    avatar: '/images/testimonios/luis-fernando.webp',
     quote:  'El diseño de la landing page superó por completo lo que imaginábamos. Alexander captó la esencia de nuestra marca y la convirtió en una experiencia visual limpia, atractiva y orientada a resultados.',
     result: '+72% leads calificados',
   },
   {
     _id: 't4', name: 'Petar Bojkovic', role: 'CEO', company: 'Sturia',
-    avatar: null,
+    avatar: '/images/testimonios/petar-bojkovic.webp',
     quote:  'Trabajar con Alexander fue un proceso eficiente y creativo. La landing page no solo refleja nuestra visión, sino que ha tenido un impacto significativo y medible en la conversión de clientes potenciales.',
     result: '2.8× conversión',
   },
   {
     _id: 't5', name: 'María Sierra', role: 'General Director', company: 'Deuslink Software',
-    avatar: null,
+    avatar: '/images/testimonios/maria-sierra.webp',
     quote:  'Alexander entendió nuestra propuesta de valor desde el primer día y la tradujo en un diseño limpio, moderno y funcional. La landing ha mejorado enormemente la manera en que nos presentamos ante los clientes.',
     result: '+38% tasa de cierre',
   },
   {
     _id: 't6', name: 'Sonia Jiménez', role: 'Designer', company: 'Tricolors',
-    avatar: null,
+    avatar: '/images/testimonios/sonia-jimenez.webp',
     quote:  'Alexander captó perfectamente la esencia de nuestra marca en un diseño visualmente atractivo y enfocado en la conversión. La landing no solo es impactante, sino también intuitiva y fácil de navegar.',
     result: '+61% CTR orgánico',
   },
@@ -63,13 +63,13 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     _id: 't8', name: 'Clara Tirado', role: 'Graphic Designer', company: 'CTJ Studio',
-    avatar: null,
+    avatar: '/images/testimonios/clara-tirado.webp',
     quote:  'La landing que Alexander diseñó superó nuestras expectativas. El resultado transmite profesionalismo y modernidad, captando de inmediato la atención de nuestra audiencia objetivo.',
     result: 'Entregado en 5 días',
   },
   {
     _id: 't9', name: 'Carlos Eduardo', role: 'CM Director', company: 'Ingenium Holding',
-    avatar: null,
+    avatar: '/images/testimonios/carlos-eduardo.webp',
     quote:  'El diseño transmite profesionalismo y modernidad desde el primer scroll. Alexander tiene una capacidad única para entender el brief y convertirlo en algo que realmente comunica.',
     result: 'Lanzamiento en 2 sem.',
   },
@@ -156,7 +156,16 @@ function TestimonialCard({
         >
           {t.avatar ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" draggable={false} />
+            <img
+              src={t.avatar}
+              alt={t.name}
+              width={144}
+              height={144}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover"
+              draggable={false}
+            />
           ) : (
             <span
               className="font-display font-semibold leading-none select-none"
