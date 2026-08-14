@@ -9,23 +9,26 @@ const handleI18n = createMiddleware(routing)
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Redirect legacy /work and /en/work to /proyectos and /en/proyectos
+  // The English tree is gone. Anything still pointing at /en/... lands on the
+  // Spanish equivalent rather than a 404 — a permanent redirect, because the
+  // move is permanent.
+  if (pathname === '/en' || pathname.startsWith('/en/')) {
+    const url = request.nextUrl.clone()
+    url.pathname = pathname.replace(/^\/en/, '') || '/'
+    return NR.redirect(url, 301)
+  }
+
+  // Legacy /work → /proyectos
   if (pathname === '/work' || pathname.startsWith('/work/')) {
     const url = request.nextUrl.clone()
     url.pathname = pathname.replace(/^\/work/, '/proyectos')
     return NR.redirect(url, 301)
   }
-  if (pathname === '/en/work' || pathname.startsWith('/en/work/')) {
-    const url = request.nextUrl.clone()
-    url.pathname = pathname.replace(/^\/en\/work/, '/en/proyectos')
-    return NR.redirect(url, 301)
-  }
 
   const response = handleI18n(request)
 
-  // Detect locale from URL for the x-locale header (used by root layout for lang attr)
-  const locale = pathname.startsWith('/en') ? 'en' : 'es'
-  response.headers.set('x-locale', locale)
+  // Kept so the root layout still has a locale to put on <html lang>.
+  response.headers.set('x-locale', 'es')
 
   // Soft launch: strongest of the three noindex layers — applies to every
   // response the middleware touches, not just rendered HTML.

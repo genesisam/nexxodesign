@@ -118,7 +118,6 @@ export const project = defineType({
   groups: [
     { name: 'general', title: 'General', default: true },
     { name: 'es', title: 'Español' },
-    { name: 'en', title: 'English' },
   ],
   fields: [
     // ── Identity ────────────────────────────────────────────────────────────
@@ -162,11 +161,6 @@ export const project = defineType({
     // The case study page falls back to the Spanish field when its EN twin is
     // empty, so translating is incremental — a half-translated project still
     // renders, it just shows Spanish where EN is missing.
-    defineField({ name: 'subtitle_en', title: 'Tagline (EN)',        type: 'string', group: 'en' }),
-    defineField({ name: 'excerpt_en',  title: 'Resumen (EN)',        type: 'text', rows: 4, group: 'en' }),
-    defineField({ name: 'metric_en',   title: 'Métrica principal (EN)', type: 'string', group: 'en' }),
-    defineField({ name: 'metrics_en',  title: 'Barra de resultados (EN)', type: 'array', group: 'en', of: metricFields }),
-    defineField({ name: 'story_en',    title: 'Historia del caso (EN)',   type: 'array', group: 'en', of: storyBlocks }),
 
     // ── Order / visibility ──────────────────────────────────────────────────
     defineField({ name: 'order',    title: 'Orden manual',  type: 'number',  group: 'general', description: 'Menor = primero en la grilla' }),

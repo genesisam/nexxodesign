@@ -32,9 +32,6 @@ const projectBySlugQuery = groq`
     "heroMedia": heroMedia,
     "metrics":  metrics[]{ _key, label, value },
     "story": story[]${storyProjection},
-    subtitle_en, excerpt_en, metric_en,
-    "metrics_en": metrics_en[]{ _key, label, value },
-    "story_en": story_en[]${storyProjection},
     "nextProject": *[_type == "project" && order > ^.order] | order(order asc)[0] {
       title, slug, "cover": coverImage.asset->url, "vertical": vertical
     }

@@ -132,11 +132,6 @@ export type Project = {
   metric:       string | null
   metrics?:     Metric[]
   excerpt:      string
-  excerpt_en?:  string
-  subtitle_en?: string
-  metric_en?:   string | null
-  metrics_en?:  Metric[]
-  story_en?:    StoryBlock[]
   liveUrl?:     string | null
   story:        StoryBlock[]
   nextProject?: ProjectPreview | null

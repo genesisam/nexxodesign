@@ -9,7 +9,6 @@ import type {
 } from '@/types/project'
 import { buildAlternates, absoluteUrl, SITE_URL } from '@/lib/seo'
 import { getProjectBySlug, getAllProjectSlugs } from '@/sanity/lib/project-data'
-import { MOCK_PROJECTS } from '@/sanity/mock/projects'
 import { NexxoPortableText } from '@/components/portable-text'
 
 // ─── ISR ─────────────────────────────────────────────────────────────────────
@@ -29,12 +28,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project          = await getProjectBySlug(slug)
   if (!project) return { title: 'Proyecto — Nexxo' }
 
-  const isEn = locale === 'en'
-  const META = isEn ? SEO_META_EN : SEO_META
-  const meta = META[slug]
+  const meta = SEO_META[slug]
 
   const title       = meta?.title       ?? `${project.title} — Diseño de Producto | Nexxo`
-  const description = meta?.description ?? (isEn ? project.excerpt_en : undefined) ?? project.excerpt
+  const description = meta?.description ?? project.excerpt
 
   return {
     title,
@@ -84,35 +81,6 @@ const SEO_META: Record<string, { title: string; description: string }> = {
   },
 }
 
-// ─── SEO meta — EN ───────────────────────────────────────────────────────────
-
-const SEO_META_EN: Record<string, { title: string; description: string }> = {
-  'solivus': {
-    title:       'Solivus — UX for Industrial Solar Monitoring Software | Nexxo',
-    description: 'How we designed the Solivus dashboard and mobile app, an AI solar monitoring platform. −47% critical alert response time.',
-  },
-  'merxo': {
-    title:       'Merxo CRM — Product Design for B2B Commercial Pipeline | Nexxo',
-    description: 'We designed the Merxo brand and CRM platform that turned commercial chaos into predictable pipeline. +280% deal velocity in 90 days.',
-  },
-  'nexo-go': {
-    title:       'Nexo Go — IoT Tracking App for Electric Bikes | Nexxo',
-    description: 'IoT mobile app design for security and tracking of electric bikes. 0 thefts reported among active Nexo Go users.',
-  },
-  'greenery-420': {
-    title:       'Greenery 420 CBD — E-commerce in a Regulated Sector | Nexxo',
-    description: 'Premium CBD e-commerce for Greenery 420 Madrid. Design that meets regulation and converts: +185% vs wellness benchmark.',
-  },
-  'maison-oliva': {
-    title:       'Maison Oliva — Haute Couture E-commerce on Shopify | Nexxo',
-    description: 'Editorial haute couture e-commerce on Shopify. Art direction for Maison Oliva: desktop and mobile design with +240% time on site.',
-  },
-  'tolvia': {
-    title:       'Tolvia — Conversational AI that Humanizes Customer Service | Nexxo',
-    description: 'We designed the brand, website, desktop app and audiovisual assets for Tolvia — the conversational AI that automates 87% of conversations with natural voice and real context.',
-  },
-}
-
 // ─── Contextual CTA — ES ─────────────────────────────────────────────────────
 
 const CTA_DATA: Record<string, { label: string; heading: string }> = {
@@ -125,19 +93,6 @@ const CTA_DATA: Record<string, { label: string; heading: string }> = {
 }
 
 const DEFAULT_CTA = { label: '¿Tu proyecto?', heading: 'Un resultado así te puede tocar.' }
-
-// ─── Contextual CTA — EN ─────────────────────────────────────────────────────
-
-const CTA_DATA_EN: Record<string, { label: string; heading: string }> = {
-  'solivus':      { label: 'Your industrial software?', heading: 'Critical data deserves an interface that makes it understandable.' },
-  'merxo':        { label: 'Your sales team?',          heading: "A CRM your team abandons isn't a CRM. It's expensive noise." },
-  'nexo-go':      { label: 'Your IoT app?',             heading: 'The experience defines whether the hardware gets used or forgotten.' },
-  'greenery-420': { label: 'Your e-commerce?',          heading: "A regulated sector is no excuse for a design that doesn't convert." },
-  'maison-oliva': { label: 'Your brand?',               heading: 'Your product deserves an e-commerce at its level.' },
-  'tolvia':       { label: 'Your customer service?',    heading: 'The AI that understands context is the one that keeps customers.' },
-}
-
-const DEFAULT_CTA_EN = { label: 'Your project?', heading: 'A result like this could be yours.' }
 
 // ─── Design constants ─────────────────────────────────────────────────────────
 
@@ -502,24 +457,17 @@ export default async function CaseStudyPage({ params }: Props) {
   const project: Project | null = await getProjectBySlug(slug)
   if (!project) notFound()
 
-  const isEn = locale === 'en'
   const t    = await getTranslations('proyectos')
 
-  // EN resolution order: Sanity first, then the mock, then the Spanish field.
-  // Sanity now carries the `_en` fields, so the CMS is the source of truth and
-  // the mock is only a fallback for the projects that predate it. A project
-  // translated only halfway still renders — untranslated fields show Spanish.
-  const enMock = isEn ? (MOCK_PROJECTS.find(p => p.slug.current === slug) ?? null) : null
-
-  const subtitle = (isEn ? project.subtitle_en ?? enMock?.subtitle_en : null) ?? project.subtitle
-  const excerpt  = (isEn ? project.excerpt_en  ?? enMock?.excerpt_en  : null) ?? project.excerpt
-  const metrics  = (isEn ? project.metrics_en  ?? enMock?.metrics_en  : null) ?? project.metrics
-  const story    = (isEn ? project.story_en    ?? enMock?.story_en    : null) ?? project.story
+  // One locale, one source: whatever the CMS holds is what the page shows.
+  // This used to pick between Spanish and English arrays wholesale, and the
+  // English side was a mock that carried the prose but none of the image
+  // blocks — which is why every English case study rendered without its work.
+  const { subtitle, excerpt, metrics, story } = project
 
   const bg = getBg(project.vertical)
 
-  const ctaMap  = isEn ? CTA_DATA_EN : CTA_DATA
-  const ctaData = ctaMap[slug] ?? (isEn ? DEFAULT_CTA_EN : DEFAULT_CTA)
+  const ctaData = CTA_DATA[slug] ?? DEFAULT_CTA
 
   // JSON-LD — Quick Win #5
   const jsonLd = {

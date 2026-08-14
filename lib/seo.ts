@@ -37,10 +37,17 @@ export function absoluteUrl(locale: string, path = ''): string {
  *
  * Every page must declare its own, otherwise it inherits the nearest layout's
  * canonical and reports itself as a duplicate of that page.
+ *
+ * `languages` is emitted only when there is more than one locale. A single-locale
+ * site that still ships hreflang is pointing every alternate at the page itself,
+ * which says nothing and reads as a mistake to anyone auditing it.
  */
 export function buildAlternates(locale: string, path = '') {
+  const canonical = absoluteUrl(locale, path)
+  if (routing.locales.length < 2) return { canonical }
+
   return {
-    canonical: absoluteUrl(locale, path),
+    canonical,
     languages: {
       ...Object.fromEntries(routing.locales.map(l => [l, absoluteUrl(l, path)])),
       'x-default': absoluteUrl(routing.defaultLocale, path),

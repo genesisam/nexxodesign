@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useTransition } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
-import { Link, usePathname, useRouter } from '@/lib/navigation'
+import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
+import { Link, usePathname } from '@/lib/navigation'
 import { CONTACT_CALENDLY } from '@/lib/constants'
 import { NexxoLogo } from '@/components/ui/NexxoLogo'
 import { useLenis } from '@/components/motion/SmoothScrollProvider'
@@ -17,10 +17,7 @@ const NAV_KEYS = [
 export function Nav() {
   const [open, setOpen]         = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [, startTransition]     = useTransition()
   const pathname              = usePathname()
-  const router                = useRouter()
-  const locale                = useLocale()
   const lenis                 = useLenis()
   const t                     = useTranslations('nav')
 
@@ -55,12 +52,6 @@ export function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [lenis])
 
-  function switchLocale() {
-    const next = locale === 'es' ? 'en' : 'es'
-    startTransition(() => {
-      router.replace(pathname, { locale: next })
-    })
-  }
 
   return (
     <>
@@ -123,15 +114,6 @@ export function Nav() {
           </ul>
 
           <div className="hidden md:flex items-center gap-5">
-            {/* Selector de idioma */}
-            <button
-              onClick={switchLocale}
-              className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/70 hover:text-paper transition-colors duration-200"
-              aria-label={`Switch to ${t('switchLang')}`}
-            >
-              {t('switchLang')}
-            </button>
-
             <Link
               href="/contact"
               className="group relative inline-flex items-center overflow-hidden rounded-xl
@@ -212,14 +194,6 @@ export function Nav() {
         </ul>
 
         <div className="space-y-3">
-          {/* Selector de idioma mobile */}
-          <button
-            onClick={() => { switchLocale(); setOpen(false) }}
-            className="flex items-center justify-center font-mono text-xs uppercase tracking-widest border border-line text-smoke/60 w-full py-3"
-          >
-            {t('switchLang')} — {locale === 'es' ? 'English' : 'Español'}
-          </button>
-
           <Link
             href="/contact"
             className="flex items-center justify-center font-mono text-xs uppercase tracking-widest bg-accent text-paper w-full py-4"
