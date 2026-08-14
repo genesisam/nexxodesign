@@ -3,81 +3,27 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 // Locale-aware: plain next/link would send /en visitors to the unprefixed path.
 import { Link, useRouter } from '@/lib/navigation'
+import type { PostCategory } from '@/types/post'
 
 const JOURNAL_PATH = '/journal'
 
-// ── Schema Post (compatible con Sanity) ───────────────────────────────────────
-// En producción, reemplazar POSTS por:
-// const data = await sanityFetch<Post[]>({
-//   query: `*[_type=="post"] | order(publishedAt desc)[0...5]{
-//     _id, title, slug, excerpt, category, publishedAt,
-//     "cover": cover.asset->url, "videoSrc": video.asset->url
-//   }`,
-// })
+// The cards used to come from a list written out right here, five entries long,
+// while the articles themselves came from the post data. The two drifted: two
+// cards pointed at slugs no article had, so the home page linked twice into a
+// 404. The section now takes its posts from the caller, which reads the same
+// source the article pages do — the mismatch can't come back.
 
 export type Post = {
   _id:         string
   title:       string
   slug:        { current: string }
   excerpt:     string
-  category:    'Diseño' | 'IA' | 'UX' | 'Proceso'
+  category:    PostCategory
   cover:       string | null
   videoSrc?:   string | null
   publishedAt: string
 }
 
-const POSTS: Post[] = [
-  {
-    _id:         'p1',
-    title:       'El diseño como ventaja competitiva',
-    slug:        { current: 'diseno-ventaja-competitiva' },
-    excerpt:     'Cómo una interfaz premium puede ser la diferencia entre convertir o perder a un usuario en los primeros 3 segundos.',
-    category:    'Diseño',
-    cover:       '/images/journal/diseno-ventaja-competitiva.webp',
-    videoSrc:    null,
-    publishedAt: '2025-03-10',
-  },
-  {
-    _id:         'p2',
-    title:       'IA generativa en el workflow de producto',
-    slug:        { current: 'ia-generativa-workflow-producto' },
-    excerpt:     'Las herramientas de IA no reemplazan al diseñador; lo amplifican. Así integramos modelos generativos sin perder criterio de diseño.',
-    category:    'IA',
-    cover:       '/images/journal/ia-generativa-workflow-producto.webp',
-    videoSrc:    null,
-    publishedAt: '2025-02-28',
-  },
-  {
-    _id:         'p3',
-    title:       'Jerarquía visual: el arte de guiar la mirada',
-    slug:        { current: 'jerarquia-visual-guiar-mirada' },
-    excerpt:     'Sin jerarquía no hay diseño, solo ruido. Principios para estructurar pantallas que comunican instantáneamente.',
-    category:    'UX',
-    cover:       '/images/journal/jerarquia-visual-guiar-mirada.webp',
-    videoSrc:    null,
-    publishedAt: '2025-02-14',
-  },
-  {
-    _id:         'p4',
-    title:       'De brief a entrega en 4 semanas',
-    slug:        { current: 'proceso-brief-entrega-4-semanas' },
-    excerpt:     'El sprint de diseño que desarrollamos internamente para pasar de cero a producto premium sin pérdida de calidad.',
-    category:    'Proceso',
-    cover:       '/images/journal/proceso-brief-entrega-4-semanas.webp',
-    videoSrc:    null,
-    publishedAt: '2025-01-30',
-  },
-  {
-    _id:         'p5',
-    title:       'Motion que convierte: micro-interacciones',
-    slug:        { current: 'motion-design-microinteracciones' },
-    excerpt:     'Las animaciones decorativas son ruido. Las funcionales reducen la carga cognitiva y aumentan el deleite percibido.',
-    category:    'Diseño',
-    cover:       '/images/journal/motion-design-microinteracciones.webp',
-    videoSrc:    null,
-    publishedAt: '2025-01-15',
-  },
-]
 
 // Gradientes placeholder (se reemplazan al conectar Sanity con imágenes reales)
 const CARD_BG = [
@@ -89,11 +35,13 @@ const CARD_BG = [
 ]
 
 // Badge de categoría — color de acento por tipo
-const CATEGORY_COLOR: Record<Post['category'], string> = {
-  Diseño:  '#5B3DF5',
-  IA:      '#1B6B5A',
-  UX:      '#C9A88F',
-  Proceso: '#8B8B85',
+const CATEGORY_COLOR: Record<PostCategory, string> = {
+  Diseño:        '#5B3DF5',
+  IA:            '#1B6B5A',
+  UX:            '#C9A88F',
+  Proceso:       '#8B8B85',
+  Producto:      '#2B7A4A',
+  'E-commerce':  '#C94B38',
 }
 
 // Ancho de cards: 1 activa al 40%, resto se reparten el 60%
@@ -102,7 +50,7 @@ const getInactivePct = (n: number) => (100 - ACTIVE_PCT) / (n - 1)  // 15% cuand
 
 // ── Componente ────────────────────────────────────────────────────────────────
 
-export function Journal() {
+export function Journal({ posts }: { posts: Post[] }) {
   const router = useRouter()
   const [activeIdx,  setActiveIdx]  = useState(0)
   const [isMobile,   setIsMobile]   = useState(false)
@@ -133,7 +81,7 @@ export function Journal() {
 
   const activate = useCallback((i: number) => setActiveIdx(i), [])
 
-  const N          = POSTS.length
+  const N          = posts.length
   const inactivePct = getInactivePct(N)
 
   return (
@@ -180,7 +128,7 @@ export function Journal() {
           scrollbarWidth: 'none',
         }}
       >
-        {POSTS.map((post, i) => {
+        {posts.map((post, i) => {
           const isActive = !isMobile && activeIdx === i
           const bg       = CARD_BG[i % CARD_BG.length]
           const noAnim   = prefersRef.current

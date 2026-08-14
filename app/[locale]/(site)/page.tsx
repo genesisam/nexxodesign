@@ -1,5 +1,6 @@
 import type { Metadata }  from 'next'
 import { buildAlternates } from '@/lib/seo'
+import { getAllPosts }     from '@/sanity/lib/post-data'
 import { HeroText }       from '@/components/sections/HeroText'
 import { StatsBar }       from '@/components/sections/StatsBar'
 import { Capabilities }   from '@/components/sections/Capabilities'
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <main>
       <HeroText />
@@ -38,7 +39,9 @@ export default function HomePage() {
       <Transformacion />
       <FusionReel />
       <FAQSection />
-      <Journal />
+      {/* Same source the article pages read, so a card can only ever
+          link to a post that exists. */}
+      <Journal posts={(await getAllPosts()).slice(0, 5)} />
     </main>
   )
 }
