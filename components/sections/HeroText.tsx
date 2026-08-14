@@ -161,10 +161,13 @@ export function HeroText() {
       {/* The wrapper carries the positioning so the caret can be placed from a
           character's offsetLeft/offsetTop. The h1 itself must stay unpositioned
           for those offsets to resolve against this box. */}
-      <div ref={h1WrapRef} className="relative z-10 pointer-events-none mx-auto mt-5 w-full max-w-[13ch]">
+      {/* The measure stays on the h1: `13ch` has to resolve against the headline's
+          own font-size. On the wrapper it would resolve against the body font and
+          crush the title into a one-letter column. */}
+      <div ref={h1WrapRef} className="relative z-10 pointer-events-none mt-5 w-full">
         <h1
           ref={h1Ref}
-          className="text-center font-display font-semibold text-paper leading-[0.9] tracking-[-0.045em]"
+          className="mx-auto max-w-[13ch] text-center font-display font-semibold text-paper leading-[0.9] tracking-[-0.045em]"
           style={{ fontSize: 'clamp(2.8rem, 5.8vw, 6.5rem)' }}
         >
           {t('headline1')}
