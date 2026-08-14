@@ -31,9 +31,14 @@ const HERO_STICKERS = [
   '/images/hero/mente-02.webp',
 ] as const
 
+/** Seconds between characters. ~31 per second reads as brisk typing, not a crawl. */
+const CHAR_STAGGER = 0.032
+
 export function HeroText() {
   const eyebrowRef = useRef<HTMLSpanElement>(null)
   const h1Ref      = useRef<HTMLHeadingElement>(null)
+  const h1WrapRef  = useRef<HTMLDivElement>(null)
+  const caretRef   = useRef<HTMLSpanElement>(null)
   const subRef     = useRef<HTMLDivElement>(null)
   const t          = useTranslations('hero')
   const [isMobile, setIsMobile] = useState(true)
@@ -46,27 +51,83 @@ export function HeroText() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
+  /**
+   * The headline types itself in, with a caret that follows the last character
+   * and disappears once the line is finished.
+   *
+   * Everything is wrapped: if SplitText or the timeline throws, the catch puts
+   * the headline back to full opacity. The one outcome this animation must
+   * never produce is an invisible h1 — that is the whole message of the page.
+   */
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const h1      = h1Ref.current
     const eyebrow = eyebrowRef.current
     const sub     = subRef.current
+    const caret   = caretRef.current
     if (!h1) return
 
-    const split = new SplitText(h1, { type: 'chars,words' })
+    let split: SplitText | undefined
+    let tl:    gsap.core.Timeline | undefined
 
-    gsap.set(split.chars, { y: 60, opacity: 0 })
-    gsap.set([eyebrow, sub], { y: 18, opacity: 0 })
+    try {
+      split = new SplitText(h1, { type: 'chars,words' })
+      const chars  = split.chars
+      const cursor = { i: 0 }
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    tl
-      .to(eyebrow, { y: 0, opacity: 1, duration: 0.7 })
-      .to(split.chars, { y: 0, opacity: 1, duration: 0.85, stagger: 0.014 }, '-=0.4')
-      .to(sub, { y: 0, opacity: 1, duration: 0.7 }, '-=0.5')
+      gsap.set(chars, { opacity: 0 })
+      gsap.set([eyebrow, sub].filter(Boolean), { y: 16, opacity: 0 })
+
+      // The caret sits in the h1's positioned wrapper, so a character's
+      // offsetLeft/offsetTop are already in the caret's coordinate space.
+      const parkCaret = (el: Element) => {
+        if (!caret || !(el instanceof HTMLElement)) return
+        gsap.set(caret, {
+          x:      el.offsetLeft + el.offsetWidth,
+          y:      el.offsetTop,
+          height: el.offsetHeight,
+        })
+      }
+      if (caret && chars[0]) {
+        parkCaret(chars[0])
+        // visibility, not autoAlpha — autoAlpha would write opacity and fight
+        // the blink keyframes for control of it.
+        gsap.set(caret, { visibility: 'visible' })
+      }
+
+      tl = gsap.timeline()
+      tl.to(eyebrow, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' })
+        .to(chars, {
+          opacity:  1,
+          // Each character lands instantly; the rhythm comes from the stagger,
+          // which is what makes this read as typing rather than as a fade.
+          duration: 0.01,
+          ease:     'none',
+          stagger:  CHAR_STAGGER,
+        }, '-=0.15')
+        // The caret rides a proxy index over the same span as the stagger, so
+        // it tracks the character being typed without depending on per-target
+        // callbacks.
+        .to(cursor, {
+          i:        chars.length - 1,
+          duration: chars.length * CHAR_STAGGER,
+          ease:     'none',
+          onUpdate: () => parkCaret(chars[Math.round(cursor.i)]),
+        }, '<')
+        .to(sub, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }, '+=0.1')
+        // display, not opacity: the blink keyframes own opacity on this element.
+        .set(caret, { display: 'none' }, '<')
+    } catch {
+      tl?.kill()
+      split?.revert()
+      gsap.set(h1, { opacity: 1, clearProps: 'transform' })
+      if (caret) caret.style.display = 'none'
+      return
+    }
 
     return () => {
-      tl.kill()
-      split.revert()
+      tl?.kill()
+      split?.revert()
     }
   }, [])
 
@@ -97,15 +158,27 @@ export function HeroText() {
         {t('eyebrow')}
       </span>
 
-      <h1
-        ref={h1Ref}
-        className="relative z-10 pointer-events-none mx-auto mt-5 max-w-[13ch] text-center font-display font-semibold text-paper leading-[0.9] tracking-[-0.045em]"
-        style={{ fontSize: 'clamp(2.8rem, 5.8vw, 6.5rem)' }}
-      >
-        {t('headline1')}
-        <br />
-        {t('headline2')}
-      </h1>
+      {/* The wrapper carries the positioning so the caret can be placed from a
+          character's offsetLeft/offsetTop. The h1 itself must stay unpositioned
+          for those offsets to resolve against this box. */}
+      <div ref={h1WrapRef} className="relative z-10 pointer-events-none mx-auto mt-5 w-full max-w-[13ch]">
+        <h1
+          ref={h1Ref}
+          className="text-center font-display font-semibold text-paper leading-[0.9] tracking-[-0.045em]"
+          style={{ fontSize: 'clamp(2.8rem, 5.8vw, 6.5rem)' }}
+        >
+          {t('headline1')}
+          <br />
+          {t('headline2')}
+        </h1>
+
+        <span
+          ref={caretRef}
+          aria-hidden
+          className="hero-caret absolute left-0 top-0 bg-accent"
+          style={{ width: 'clamp(3px, 0.35vw, 7px)', height: '1em', visibility: 'hidden' }}
+        />
+      </div>
 
       <div
         ref={subRef}

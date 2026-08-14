@@ -97,6 +97,20 @@ html.lenis body {
   to   { transform: translateX(-50%); }
 }
 
+/* ─── Hero typing caret ───
+   Blink lives in CSS so GSAP never has to own `opacity` on this element: the
+   timeline only moves it and, at the end, removes it with `display`. Two
+   owners of one property is how carets end up stuck half-visible. */
+@keyframes hero-caret-blink {
+  0%, 45%   { opacity: 1; }
+  50%, 95%  { opacity: 0; }
+  100%      { opacity: 1; }
+}
+
+.hero-caret {
+  animation: hero-caret-blink 1s steps(1, end) infinite;
+}
+
 /* ─── Testimonios marquee (§5.6) ─── */
 @keyframes testimonios-scroll {
   from { transform: translateX(0); }

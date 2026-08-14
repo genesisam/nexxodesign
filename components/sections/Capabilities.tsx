@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { ScrollReveal } from '@/components/motion/ScrollReveal'
 
 type CapabilityItem = {
   label:        string
@@ -60,7 +61,7 @@ export function Capabilities() {
   return (
     <section aria-label="Lo que hacemos" className="border-t border-line">
 
-      <div className="px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-10 md:pb-14">
+      <ScrollReveal stagger className="px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-10 md:pb-14">
         <span className="font-mono text-smoke text-[10px] uppercase tracking-[0.25em] block mb-4">
           {t('seccion')}
         </span>
@@ -70,7 +71,7 @@ export function Capabilities() {
         >
           {t('headline1')}<br />{t('headline2')}
         </h2>
-      </div>
+      </ScrollReveal>
 
       {/* Desktop */}
       <div className="hidden lg:block px-6 md:px-16 lg:px-24 pb-28 md:pb-36">
