@@ -68,7 +68,7 @@
           "Panel de métricas"
         ],
         "image": "/images/system/servicio-01-leads.webp",
-        "imageHint": "Dashboard de leads / pipeline"
+        "imageHint": "Embudo que recoge esferas y las entrega ordenadas por un conducto"
       },
       {
         "label": "Automatización con IA",
@@ -80,7 +80,7 @@
           "Reportes automáticos"
         ],
         "image": "/images/system/servicio-02-automatizacion.webp",
-        "imageHint": "Pipeline de automatización IA"
+        "imageHint": "Brazo robótico colocando piezas sobre una cinta transportadora iluminada"
       },
       {
         "label": "Diseño de producto SaaS",
@@ -92,7 +92,7 @@
           "Handoff a desarrollo"
         ],
         "image": "/images/system/servicio-03-producto.webp",
-        "imageHint": "Dashboard / pantalla de producto"
+        "imageHint": "Capas de una interfaz en vidrio, apiladas y separadas en el aire"
       },
       {
         "label": "Brand & web premium",
@@ -104,7 +104,7 @@
           "Medición y analítica"
         ],
         "image": "/images/system/servicio-04-brand.webp",
-        "imageHint": "Landing de alta conversión"
+        "imageHint": "Esfera pulida sostenida entre una lámina de vidrio y un bloque de piedra"
       }
     ]
   },

@@ -68,7 +68,7 @@
           "Metrics dashboard"
         ],
         "image": "/images/system/servicio-01-leads.webp",
-        "imageHint": "Lead dashboard / pipeline"
+        "imageHint": "A funnel gathering spheres and releasing them in order through a channel"
       },
       {
         "label": "AI automation",
@@ -80,7 +80,7 @@
           "Automated reporting"
         ],
         "image": "/images/system/servicio-02-automatizacion.webp",
-        "imageHint": "AI automation pipeline"
+        "imageHint": "A robotic arm placing parts onto a lit conveyor belt"
       },
       {
         "label": "SaaS product design",
@@ -92,7 +92,7 @@
           "Developer handoff"
         ],
         "image": "/images/system/servicio-03-producto.webp",
-        "imageHint": "Dashboard / product screen"
+        "imageHint": "Layers of an interface in glass, stacked and held apart in the air"
       },
       {
         "label": "Premium brand & web",
@@ -104,7 +104,7 @@
           "Measurement and analytics"
         ],
         "image": "/images/system/servicio-04-brand.webp",
-        "imageHint": "High-conversion landing"
+        "imageHint": "A polished sphere held between a pane of glass and a block of stone"
       }
     ]
   },
