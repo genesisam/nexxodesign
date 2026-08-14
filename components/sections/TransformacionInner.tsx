@@ -30,6 +30,12 @@ const SLOT_SRC = [
 // Thumbnail scale relative to main frame (matches Oryzo --thumb-scale: .35)
 const THUMB_SCALE = 0.35
 
+// Thumbnails get their real px size from JS, but that runs inside a rAF — so on
+// the first paint they'd measure 0×0 and every `Image fill` inside would warn
+// about a zero height. A CSS-only placeholder in the right proportion keeps them
+// laid out until the measured values land on top.
+const THUMB_FALLBACK = { width: '15vw', aspectRatio: '3 / 4' } as const
+
 type SlotData = { label: string; title: string; sub: string }
 
 export default function TransformacionInner() {
@@ -297,6 +303,7 @@ export default function TransformacionInner() {
                 key={i}
                 ref={el => { leftItemRefs.current[i] = el }}
                 className="relative flex-shrink-0 overflow-hidden"
+                style={THUMB_FALLBACK}
               >
                 {cardContent(slot, i, false)}
               </div>
@@ -359,6 +366,7 @@ export default function TransformacionInner() {
                 key={i}
                 ref={el => { rightItemRefs.current[i] = el }}
                 className="relative flex-shrink-0 overflow-hidden"
+                style={THUMB_FALLBACK}
               >
                 {cardContent(slot, i, false)}
               </div>
