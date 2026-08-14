@@ -23,7 +23,6 @@ export function Nav() {
   const locale                = useLocale()
   const lenis                 = useLenis()
   const t                     = useTranslations('nav')
-  const isHome                = pathname === '/'
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -67,13 +66,11 @@ export function Nav() {
     <>
       <nav
         aria-label="Navegación principal"
-        className={[
-          'fixed top-0 left-0 right-0 z-50 pointer-events-none',
-          'transition-[background-color,backdrop-filter] duration-300',
-          // The blend trick only works while the bar is transparent — once the
-          // backdrop is on it would invert against our own surface.
-          open || isHome || scrolled ? '' : 'md:mix-blend-difference',
-        ].join(' ')}
+        // `mix-blend-difference` used to carry legibility on inner pages, where
+        // the links sat bare over the content. Now the pill gives them a
+        // surface of their own on every page, and blending would invert that
+        // surface against whatever scrolled behind it.
+        className="fixed top-0 left-0 right-0 z-50 pointer-events-none transition-[background-color,backdrop-filter] duration-300"
         // Inline rather than a utility class: the surface is state-driven and
         // must not depend on the class being present in the generated CSS.
         style={scrolled ? {
@@ -82,7 +79,11 @@ export function Nav() {
           borderBottom:    '1px solid rgb(var(--color-line-rgb) / 1)',
         } : undefined}
       >
-        <div className={`flex items-center justify-between px-6 md:px-16 lg:px-24 h-16 md:h-20 pointer-events-auto ${isHome ? 'md:h-24' : ''}`}>
+        {/* One header everywhere. The bar used to grow to h-24 on the home,
+            wrap the links in a blurred pill there and nowhere else, and flip
+            the CTA between solid and outline — three separate identities for
+            the same component. */}
+        <div className="flex items-center justify-between px-6 md:px-16 lg:px-24 h-16 md:h-20 pointer-events-auto">
 
           <Link
             href="/"
@@ -93,7 +94,7 @@ export function Nav() {
             <NexxoLogo className="h-6 md:h-7 w-auto" />
           </Link>
 
-          <ul className={`hidden md:flex items-center ${isHome ? 'gap-6 rounded-xl border border-paper/15 bg-ink/65 px-5 py-3 shadow-sm backdrop-blur-md' : 'gap-10'}`} role="list">
+          <ul className="hidden md:flex items-center gap-6 rounded-xl border border-paper/15 bg-ink/65 px-5 py-3 shadow-sm backdrop-blur-md" role="list">
             {NAV_KEYS.map(({ href, key }) => {
               const isActive =
                 pathname === href || pathname.startsWith(href)
@@ -102,10 +103,19 @@ export function Nav() {
                   <Link
                     href={href}
                     aria-current={isActive ? 'page' : undefined}
-                    className="font-mono text-[10px] uppercase tracking-[0.22em] text-paper transition-opacity duration-200"
-                    style={{ opacity: isActive ? 1 : 0.7 }}
+                    className={`group relative block font-mono text-[10px] uppercase tracking-[0.22em] py-0.5
+                                transition-colors duration-200 ${isActive ? 'text-paper' : 'text-paper/70 hover:text-paper'}`}
                   >
                     {t(key)}
+                    {/* Rule wipes in from the left on hover and stays put on the
+                        current page, so the active item is legible without
+                        relying on a 30% opacity difference alone. */}
+                    <span
+                      aria-hidden
+                      className={`absolute left-0 -bottom-0.5 h-px bg-accent origin-left
+                                  transition-transform duration-300 ease-out w-full
+                                  ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+                    />
                   </Link>
                 </li>
               )
@@ -124,9 +134,22 @@ export function Nav() {
 
             <Link
               href="/contact"
-              className={`inline-flex items-center font-mono text-[10px] uppercase tracking-[0.22em] px-5 py-2.5 transition-colors duration-200 ${isHome ? 'rounded-xl bg-paper text-ink hover:bg-paper/80' : 'text-paper border border-paper/60 hover:border-paper'}`}
+              className="group relative inline-flex items-center overflow-hidden rounded-xl
+                         bg-paper text-ink font-mono text-[10px] uppercase tracking-[0.22em]
+                         px-5 py-2.5 transition-transform duration-300 ease-out
+                         hover:-translate-y-0.5 active:translate-y-0
+                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
             >
-              {t('cotiza')}
+              {/* Accent floods up from the bottom instead of the fill simply
+                  dimming. The label sits above it and flips to paper. */}
+              <span
+                aria-hidden
+                className="absolute inset-0 bg-accent origin-bottom scale-y-0
+                           transition-transform duration-300 ease-out group-hover:scale-y-100"
+              />
+              <span className="relative transition-colors duration-300 group-hover:text-paper">
+                {t('cotiza')}
+              </span>
             </Link>
           </div>
 
