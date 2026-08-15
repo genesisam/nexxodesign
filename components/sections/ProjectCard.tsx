@@ -92,13 +92,14 @@ export function ProjectCard({ project, n, variant = 'pair' }: Props) {
           {label}
         </span>
 
-        {/* VIEW overlay */}
+        {/* Hover overlay. The label is Spanish like the rest of the interface —
+            it was the one string left in English. */}
         <div
           className="absolute inset-0 bg-ink/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           aria-hidden
         >
           <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-paper border border-paper/50 px-6 py-3">
-            View
+            Ver
           </span>
         </div>
       </div>
