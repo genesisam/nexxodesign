@@ -7,7 +7,10 @@ import { MOCK_PROJECTS } from '../mock/projects'
 const storyProjection = `{
   _type, _key,
   label, heading, text, divider, caption, size, mediaType,
-  name, role, company, link,
+  // "text" belongs to the pull-quote block, "quote" to the client-feedback one.
+  // Selecting only the first left every feedback block rendering a bare pair of
+  // quotation marks above the client name, on every case study.
+  quote, name, role, company, link,
   _type == "overview" => {
     "body": body[]{
       ...,
