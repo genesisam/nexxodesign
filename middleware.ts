@@ -62,5 +62,9 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|studio|api|.*\\..*).*)'],
+  // `_vercel` is excluded because the analytics and speed-insights beacons post
+  // to /_vercel/insights/view and /_vercel/speed-insights/vitals. Those carry no
+  // file extension, so the trailing `.*\..*` rule does not catch them, and
+  // next-intl would try to localise the path and redirect the beacon away.
+  matcher: ['/((?!_next/static|_next/image|_vercel|favicon.ico|studio|api|.*\\..*).*)'],
 }

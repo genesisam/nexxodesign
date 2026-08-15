@@ -4,6 +4,8 @@ import { headers } from 'next/headers'
 import { Preloader }    from '@/components/motion/Preloader'
 import { CustomCursor } from '@/components/motion/CustomCursor'
 import { SmoothScrollProvider } from '@/components/motion/SmoothScrollProvider'
+import { Analytics }     from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const dmSans = DM_Sans({
@@ -187,6 +189,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(glossaryJsonLd) }} />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+
+        {/* Both serve their script and post their beacons from this same
+            origin under /_vercel, so the strict CSP in middleware.ts needs
+            no third-party allowance — and an ad blocker has nothing
+            cross-origin to block. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
