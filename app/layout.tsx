@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { DM_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { headers } from 'next/headers'
+import { Preloader }    from '@/components/motion/Preloader'
+import { CustomCursor } from '@/components/motion/CustomCursor'
 import { SmoothScrollProvider } from '@/components/motion/SmoothScrollProvider'
 import './globals.css'
 
@@ -164,6 +166,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={`${dmSans.variable} ${ibmPlexMono.variable}`}
     >
       <body>
+        {/* Runs before the curtain markup below is parsed, so a returning
+            visitor never sees it flash. Deciding this after hydration would
+            mean showing the hero and then covering it. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: `(function(){try{
+            var seen=sessionStorage.getItem('nexxo:intro');
+            var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var studio=location.pathname.indexOf('/studio')===0;
+            if(seen||still||studio)document.documentElement.dataset.intro='skip';
+          }catch(e){}})();` }}
+        />
+
+        <Preloader />
+        <CustomCursor />
+
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(founderJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />

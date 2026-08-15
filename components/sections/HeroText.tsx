@@ -7,6 +7,7 @@ import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
 import { CONTACT_CALENDLY } from '@/lib/constants'
 import { PhysicsStickerWall } from './PhysicsStickerWall'
+import { whenIntroDone } from '@/lib/intro'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(SplitText)
@@ -69,6 +70,7 @@ export function HeroText() {
 
     let split: SplitText | undefined
     let tl:    gsap.core.Timeline | undefined
+    let killed = false
 
     try {
       split = new SplitText(h1, { type: 'chars,words' })
@@ -95,7 +97,13 @@ export function HeroText() {
         gsap.set(caret, { visibility: 'visible' })
       }
 
-      tl = gsap.timeline()
+      // Held until the curtain lifts, otherwise the headline types itself out
+      // of sight and the visitor arrives on a finished line. whenIntroDone()
+      // always settles — on the curtain's completion, its error path, or a
+      // timeout — so the pause can never become a permanent one.
+      tl = gsap.timeline({ paused: true })
+      whenIntroDone().then(() => { if (!killed) tl?.play() })
+
       tl.to(eyebrow, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' })
         .to(chars, {
           opacity:  1,
@@ -126,6 +134,7 @@ export function HeroText() {
     }
 
     return () => {
+      killed = true
       tl?.kill()
       split?.revert()
     }

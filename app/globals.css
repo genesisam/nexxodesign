@@ -114,6 +114,87 @@ html.lenis body {
 .gutter-l { left:  clamp(28px, 4vw, 64px); }
 .gutter-r { right: clamp(28px, 4vw, 64px); }
 
+/* ─── First-load curtain ───
+   Ships in the server HTML so it is already covering the page at first paint;
+   an inline script sets data-intro="skip" before this ever renders when the
+   visitor has seen it this session, asked for reduced motion, or is in the
+   Studio.
+
+   The failsafe is the important line. It clears the curtain at 4s using only
+   CSS, so a script error, a blocked bundle or a failed hydration costs four
+   seconds instead of locking the site behind a black panel forever. It touches
+   visibility and pointer-events only, never opacity or transform, so it can't
+   fight the GSAP timeline that normally lifts it much sooner. */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(var(--color-ink-rgb));
+  animation: intro-failsafe 0s linear 4s forwards;
+}
+
+@keyframes intro-failsafe {
+  to { visibility: hidden; pointer-events: none; }
+}
+
+:root[data-intro="skip"] .intro { display: none; }
+
+.intro-mark {
+  height: clamp(56px, 9vw, 104px);
+  clip-path: inset(100% 0 0 0);
+}
+
+.intro-count {
+  position: absolute;
+  bottom: clamp(24px, 4vw, 56px);
+  left: clamp(28px, 4vw, 64px);
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: rgb(var(--color-smoke-rgb) / 0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Custom cursor ───
+   The native cursor is hidden only while data-cursor="on" is present, and that
+   attribute is set from JS after the component has mounted and confirmed a
+   fine pointer. No script, no attribute, real cursor — which is the difference
+   between a flourish and a site nobody can use. */
+:root[data-cursor="on"],
+:root[data-cursor="on"] * { cursor: none !important; }
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: 999px;
+  visibility: hidden;
+  opacity: 0;
+  will-change: transform;
+  z-index: 95;
+  /* Centring lives in the negative margins, not in a transform: GSAP writes
+     x/y into `transform` and would overwrite a translate() set here. */
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: rgb(var(--color-paper-rgb));
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1px solid rgb(var(--color-paper-rgb) / 0.45);
+}
+
 /* ─── Hero typing caret ───
    Blink lives in CSS so GSAP never has to own `opacity` on this element: the
    timeline only moves it and, at the end, removes it with `display`. Two
