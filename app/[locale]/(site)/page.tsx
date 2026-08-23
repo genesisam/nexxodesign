@@ -1,6 +1,7 @@
 import type { Metadata }  from 'next'
 import { buildAlternates } from '@/lib/seo'
 import { getAllPosts }     from '@/sanity/lib/post-data'
+import { getReelShots }    from '@/sanity/lib/reel-data'
 import { HeroText }       from '@/components/sections/HeroText'
 import { StatsBar }       from '@/components/sections/StatsBar'
 import { Capabilities }   from '@/components/sections/Capabilities'
@@ -37,7 +38,7 @@ export default async function HomePage() {
       <ProcesoSection />
       <Statement />
       <Transformacion />
-      <FusionReel />
+      <FusionReel shots={await getReelShots()} />
       <FAQSection />
       {/* Same source the article pages read, so a card can only ever
           link to a post that exists. */}

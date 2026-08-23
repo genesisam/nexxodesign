@@ -1,6 +1,8 @@
 'use client'
 
 import { useRef, useEffect, useState, useCallback } from 'react'
+import { Showreel } from './Showreel'
+import type { ReelShot } from '@/sanity/lib/reel-data'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -17,7 +19,7 @@ function sr(i: number, seed: number): number {
   return x - Math.floor(x)
 }
 
-export function FusionReel() {
+export function FusionReel({ shots = [] }: { shots?: ReelShot[] }) {
   const sectionRef    = useRef<HTMLElement>(null)
   const gridRef       = useRef<HTMLDivElement>(null)
   const tilesRef      = useRef<(HTMLDivElement | null)[]>([])
@@ -335,19 +337,9 @@ export function FusionReel() {
                 autoPlay
               />
             ) : (
-              /* Placeholder mientras no hay video */
-              <div className="w-full aspect-video bg-line flex flex-col items-center justify-center gap-4">
-                <span className="font-mono text-smoke text-[11px] uppercase tracking-[0.2em]">
-                  Video próximamente
-                </span>
-                <p className="font-mono text-smoke/65 text-[10px] text-center max-w-[32ch] leading-relaxed">
-                  Sube tu showreel a{' '}
-                  <code className="text-accent">/public/video/showreel.mp4</code>
-                  {' '}y actualiza{' '}
-                  <code className="text-accent">SHOWREEL_SRC</code>
-                  {' '}en FusionReel.tsx
-                </p>
-              </div>
+              /* No encoded file: the reel is cut in the browser from the real
+                 project images. See Showreel.tsx for why. */
+              <Showreel shots={shots} />
             )}
           </div>
         </div>
