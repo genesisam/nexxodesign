@@ -39,14 +39,6 @@
     "ctaAgendar": "Agendar llamada",
     "ctaTrabajo": "Ver resultados →"
   },
-  "fusionReel": {
-    "label": "02 — Showreel",
-    "playReel": "Play reel",
-    "ariaShowreel": "Reproducir showreel",
-    "cerrar": "Cerrar",
-    "ariaShowreelDialog": "Showreel",
-    "videoProximamente": "Video próximamente"
-  },
   "selectedWork": {
     "seccion": "02 — Work",
     "headline": "Trabajo seleccionado",
