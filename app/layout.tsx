@@ -70,6 +70,7 @@ const founderJsonLd = {
     'https://www.linkedin.com/in/alexander-moreno-gp/',
     'https://www.behance.net/alexander-moreno',
     'https://www.instagram.com/alex.morenop/',
+    'https://www.youtube.com/@ALEXUI-UX',
   ],
 }
 
@@ -91,6 +92,7 @@ const orgJsonLd = {
     'https://www.instagram.com/alex.morenop/',
     'https://www.linkedin.com/in/alexander-moreno-gp/',
     'https://www.behance.net/alexander-moreno',
+    'https://www.youtube.com/@ALEXUI-UX',
   ],
   contactPoint: {
     '@type':           'ContactPoint',

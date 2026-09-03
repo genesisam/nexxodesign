@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/navigation'
 import { useActionState } from 'react'
 import { subscribeNewsletter } from '@/app/[locale]/(site)/journal/actions'
-import { SOCIAL_INSTAGRAM, SOCIAL_BEHANCE, SOCIAL_LINKEDIN } from '@/lib/constants'
+import { SOCIAL_INSTAGRAM, SOCIAL_BEHANCE, SOCIAL_LINKEDIN, SOCIAL_YOUTUBE } from '@/lib/constants'
 
 function IconInstagram() {
   return (
@@ -36,10 +36,20 @@ function IconLinkedIn() {
   )
 }
 
+function IconYouTube() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23 12s0-3.9-.5-5.8a3 3 0 0 0-2.1-2.1C18.5 3.6 12 3.6 12 3.6s-6.5 0-8.4.5a3 3 0 0 0-2.1 2.1C1 8.1 1 12 1 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 8.4.5 8.4.5s6.5 0 8.4-.5a3 3 0 0 0 2.1-2.1C23 15.9 23 12 23 12z"/>
+      <path d="M9.9 15.4V8.6l5.8 3.4-5.8 3.4z" fill="#0E0E0E"/>
+    </svg>
+  )
+}
+
 const SOCIALS = [
   { label: 'Instagram', href: SOCIAL_INSTAGRAM, Icon: IconInstagram },
   { label: 'Behance',   href: SOCIAL_BEHANCE,   Icon: IconBehance },
   { label: 'LinkedIn',  href: SOCIAL_LINKEDIN,  Icon: IconLinkedIn },
+  { label: 'YouTube',   href: SOCIAL_YOUTUBE,   Icon: IconYouTube },
 ]
 
 function FooterNewsletter() {
