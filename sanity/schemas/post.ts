@@ -26,6 +26,16 @@ export const post = defineType({
     }),
     defineField({ name: 'body', title: 'Cuerpo', type: 'array', of: [{ type: 'block' }, { type: 'image' }] }),
     defineField({ name: 'tags', title: 'Etiquetas', type: 'array', of: [{ type: 'string' }] }),
+    // Set by the YouTube job. It is how a video is known to have been turned
+    // into a post already, so the same one is never written twice — and it lets
+    // the article link back to the video it came from.
+    defineField({
+      name:        'youtubeId',
+      title:       'ID del video de YouTube',
+      type:        'string',
+      readOnly:    true,
+      description: 'Lo rellena la automatización. No hace falta tocarlo a mano.',
+    }),
   ],
   orderings: [
     { title: 'Más reciente', name: 'publishedDesc', by: [{ field: 'publishedAt', direction: 'desc' }] },
