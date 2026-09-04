@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { fetchFeed, fetchDetail, isLongForm, thumbnailUrl, watchUrl, LONG_FORM_SECONDS } from '@/lib/youtube'
+import { fetchCatalogue, fetchDetail, hasEnoughMaterial, thumbnailUrl, watchUrl } from '@/lib/youtube'
 import { writeArticle, toPortableText, slugify } from '@/lib/article-writer'
 import { SITE_URL } from '@/lib/constants'
 
@@ -22,9 +22,14 @@ const SANITY = 'https://h169b4gl.api.sanity.io/v2024-01-01'
  * 2. One video per run. The function has 60 seconds and a model call is most of
  *    it; a backlog drains a day at a time rather than timing out halfway and
  *    leaving a half-written document behind.
- * 3. Shorts are excluded by duration read from the video itself, not by
- *    guessing from the title. Eleven of the fifteen videos on this channel are
- *    Shorts, so getting that filter wrong would mean mostly noise.
+ * 3. Shorts are excluded by where the list comes from, not by a rule about
+ *    length. The channel's /videos tab holds long-form and /shorts holds the
+ *    rest, so reading the former filters them at the source. A duration
+ *    threshold looked equivalent and was not: it would have let a long vertical
+ *    Short through and thrown out a short horizontal upload.
+ *
+ * Run daily it does double duty — it picks up new uploads, and until it catches
+ * up it walks the back catalogue one article a day.
  */
 
 type SanityPost = { youtubeId?: string }
@@ -97,32 +102,36 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'no autorizado' }, { status: 401 })
   }
 
-  const channelId = process.env.YOUTUBE_CHANNEL_ID
-  if (!channelId) {
-    return NextResponse.json({ error: 'YOUTUBE_CHANNEL_ID no configurado' }, { status: 500 })
-  }
+  // The handle, not the channel id: the /videos tab is addressed by handle and
+  // is what keeps Shorts out of the catalogue in the first place.
+  const handle = process.env.YOUTUBE_HANDLE ?? 'ALEXUI-UX'
 
   try {
-    const [feed, done] = await Promise.all([fetchFeed(channelId), processedIds()])
-    const pending = feed.filter(v => !done.has(v.id))
+    const [catalogue, done] = await Promise.all([fetchCatalogue(handle), processedIds()])
+    const pending = catalogue.filter(id => !done.has(id))
 
     if (!pending.length) {
-      return NextResponse.json({ ok: true, revisados: feed.length, nuevos: 0 })
+      return NextResponse.json({ ok: true, catalogo: catalogue.length, pendientes: 0 })
     }
 
-    // Newest first, and stop at the first long-form one.
+    // Newest first, stopping at the first one there is enough to write from.
+    // Running daily, this also walks the back catalogue one article at a time
+    // and then idles once it has caught up.
     let target = null
     const skipped: string[] = []
-    for (const item of pending) {
-      const detail = await fetchDetail(item)
-      if (!detail) continue
-      if (!isLongForm(detail)) { skipped.push(`${detail.title} (${detail.seconds}s)`); continue }
+    for (const id of pending) {
+      const detail = await fetchDetail(id)
+      if (!detail) { skipped.push(`${id} (vertical o ilegible)`); continue }
+      if (!hasEnoughMaterial(detail)) {
+        skipped.push(`${detail.title.slice(0, 40)} (${detail.seconds}s, desc ${detail.description.length})`)
+        continue
+      }
       target = detail
       break
     }
 
     if (!target) {
-      return NextResponse.json({ ok: true, nuevos: pending.length, largos: 0, descartados: skipped })
+      return NextResponse.json({ ok: true, pendientes: pending.length, aptos: 0, descartados: skipped })
     }
 
     const article  = await writeArticle(target)
@@ -174,6 +183,7 @@ export async function GET(request: Request) {
       desdeVideo:  target.id,
       duracion:    target.seconds,
       portada:     !!coverRef,
+      pendientes:  pending.length - 1,
       descartados: skipped,
     })
   } catch (err) {
