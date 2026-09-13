@@ -5,6 +5,8 @@ import { getAllPostSlugs, getAllPosts, getPostBySlug } from '@/sanity/lib/post-d
 import { COVER_GRADIENT } from '@/types/post'
 import { buildAlternates, absoluteUrl, SITE_URL } from '@/lib/seo'
 import { NexxoPortableText } from '@/components/portable-text'
+import { YouTubeEmbed } from '@/components/ui/YouTubeEmbed'
+import { SOCIAL_INSTAGRAM, SOCIAL_YOUTUBE, SOCIAL_LINKEDIN } from '@/lib/constants'
 import { NewsletterForm } from '../NewsletterForm'
 import { PostShareBar } from '../PostShareBar'
 
@@ -96,6 +98,20 @@ export default async function PostPage({ params }: Props) {
     // edit tracking in the CMS the publish date is the honest answer.
     dateModified:  post.publishedAt,
     image:         post.cover ? [post.cover] : undefined,
+    // A post written from a video declares it, which is what makes it
+    // eligible for video results and ties the article to the channel.
+    video: post.youtubeId ? {
+      '@type':      'VideoObject',
+      name:         post.title,
+      description:  post.excerpt,
+      thumbnailUrl: [
+        `https://i.ytimg.com/vi/${post.youtubeId}/maxresdefault.jpg`,
+        `https://i.ytimg.com/vi/${post.youtubeId}/hqdefault.jpg`,
+      ],
+      uploadDate:   post.publishedAt,
+      embedUrl:     `https://www.youtube.com/embed/${post.youtubeId}`,
+      contentUrl:   `https://www.youtube.com/watch?v=${post.youtubeId}`,
+    } : undefined,
     url:           postUrl,
     mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
     inLanguage:    locale,
@@ -167,23 +183,41 @@ export default async function PostPage({ params }: Props) {
           </p>
         </section>
 
-        {/* ══ COVER ═════════════════════════════════════════════════════════ */}
+        {/* ══ COVER / VIDEO ═════════════════════════════════════════════════
+            A post written from a video leads with the video: the thumbnail is
+            already the cover, so showing both would be the same picture twice. */}
         <section className="gutter-x pb-14 md:pb-20">
-          <div
-            className="rounded-[2rem] overflow-hidden aspect-[16/9]"
-            style={{ background: COVER_GRADIENT[post.category] }}
-          >
-            {post.cover && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={post.cover}
-                alt={post.title}
-                className="w-full h-full object-cover"
-                loading="eager"
-                draggable={false}
-              />
-            )}
-          </div>
+          {post.youtubeId ? (
+            <>
+              <div className="relative rounded-[2rem] overflow-hidden aspect-[16/9] bg-line">
+                <YouTubeEmbed id={post.youtubeId} title={post.title} poster={post.cover} />
+              </div>
+              <a
+                href={`https://www.youtube.com/watch?v=${post.youtubeId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-5 font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent transition-colors duration-200"
+              >
+                Ver en YouTube <span aria-hidden>→</span>
+              </a>
+            </>
+          ) : (
+            <div
+              className="rounded-[2rem] overflow-hidden aspect-[16/9]"
+              style={{ background: COVER_GRADIENT[post.category] }}
+            >
+              {post.cover && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={post.cover}
+                  alt={post.title}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  draggable={false}
+                />
+              )}
+            </div>
+          )}
         </section>
 
         {/* ══ BODY + SIDEBAR ════════════════════════════════════════════════ */}
@@ -231,12 +265,11 @@ export default async function PostPage({ params }: Props) {
                     </p>
                   </div>
                 </div>
-                {/* Social links — TODO: reemplaza href con URLs reales */}
                 <div className="flex items-center gap-5 mt-5 flex-wrap">
                   {[
-                    { label: 'Instagram', href: '/' },
-                    { label: 'YouTube',   href: '/' },
-                    { label: 'LinkedIn',  href: '/' },
+                    { label: 'Instagram', href: SOCIAL_INSTAGRAM },
+                    { label: 'YouTube',   href: SOCIAL_YOUTUBE },
+                    { label: 'LinkedIn',  href: SOCIAL_LINKEDIN },
                   ].map(({ label, href }) => (
                     <a
                       key={label}

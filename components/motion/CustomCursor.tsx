@@ -64,9 +64,11 @@ export function CustomCursor() {
       const ry = gsap.quickTo(ring, 'y', { duration: speed, ease: 'power3.out' })
 
       let seen = false
+      let inFrame = false
       const onMove = (e: PointerEvent) => {
-        if (!seen) {
+        if (!seen || inFrame) {
           seen = true
+          inFrame = false
           gsap.set([dot, ring], { x: e.clientX, y: e.clientY })
           gsap.to([dot, ring], { autoAlpha: 1, duration: 0.2 })
         }
@@ -78,6 +80,14 @@ export function CustomCursor() {
       // pointer-move rate is what makes these feel heavy on long pages.
       const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, summary, [data-cursor-hover]'
       const onOver = (e: Event) => {
+        // An embedded player is another document: pointer events stop
+        // reaching this one, so the dot would freeze at the frame's edge
+        // while the player shows its own cursor. Step aside instead.
+        if ((e.target as Element)?.tagName === 'IFRAME') {
+          inFrame = true
+          gsap.to([dot, ring], { autoAlpha: 0, duration: 0.15 })
+          return
+        }
         const hit = (e.target as Element)?.closest?.(INTERACTIVE)
         gsap.to(ring, { scale: hit ? 1.9 : 1, duration: 0.28, ease: 'power3.out' })
         gsap.to(dot,  { scale: hit ? 0 : 1,   duration: 0.28, ease: 'power3.out' })

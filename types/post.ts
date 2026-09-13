@@ -32,6 +32,8 @@ export type Post = {
   readingTime: number
   author:      PostAuthor
   body:        PTContent[]
+  /** Set when the post was written from one of Alexander's videos. */
+  youtubeId?:  string | null
 }
 
 // List view — omits heavy fields not needed for index rendering
