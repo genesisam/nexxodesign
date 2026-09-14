@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 import {
   getAccessToken, listUploads, getDetails, isShort, getTranscript,
-  hasEnoughMaterial, thumbnailUrl, watchUrl, YouTubeAuthError, REQUIRED_YOUTUBE_ENV,
+  hasEnoughMaterial, watchUrl, YouTubeAuthError, REQUIRED_YOUTUBE_ENV,
   type VideoDetail, type TranscriptSource,
 } from '@/lib/youtube'
-import { writeArticle, toPortableText, slugify } from '@/lib/article-writer'
+import { writeArticle, toPortableText, slugify, captureSuggestions, readingMinutes } from '@/lib/article-writer'
 import { SITE_URL } from '@/lib/constants'
 
 export const runtime     = 'nodejs'
@@ -86,26 +86,6 @@ async function uniqueSlug(base: string): Promise<string> {
   const taken = new Set((result as string[]).filter(Boolean))
   if (!taken.has(base)) return base
   for (let n = 2; ; n++) if (!taken.has(`${base}-${n}`)) return `${base}-${n}`
-}
-
-async function uploadThumbnail(videoId: string): Promise<string | null> {
-  try {
-    const img = await fetch(thumbnailUrl(videoId), { cache: 'no-store' })
-    if (!img.ok) return null
-    const bytes = await img.arrayBuffer()
-    // YouTube answers 200 with a tiny placeholder when maxres does not exist.
-    if (bytes.byteLength < 5_000) return null
-
-    const res = await fetch(`${SANITY}/assets/images/production?filename=${videoId}.jpg`, {
-      method:  'POST',
-      headers: { Authorization: `Bearer ${process.env.SANITY_API_WRITE_TOKEN}`, 'Content-Type': 'image/jpeg' },
-      body:    bytes,
-    })
-    const json = await res.json()
-    return json?.document?._id ?? null
-  } catch {
-    return null
-  }
 }
 
 // ─── Notifications ────────────────────────────────────────────────────────────
@@ -281,7 +261,6 @@ export async function GET(request: Request) {
 
     const article  = await writeArticle(target, transcript.text, transcript.source)
     const slug     = await uniqueSlug(slugify(article.title) || `video-${target.id.toLowerCase()}`)
-    const coverRef = await uploadThumbnail(target.id)
 
     await sanity('/data/mutate/production', {
       method: 'POST',
@@ -299,17 +278,22 @@ export async function GET(request: Request) {
             category:    article.category,
             tags:        article.tags ?? [],
             featured:    false,
-            readingTime: article.readingTime ?? 5,
+            readingTime: readingMinutes(article),
             youtubeId:   target.id,
             author:      { name: 'Alexander Moreno', role: 'Senior UI/UX Designer · Fundador de Nexxo' },
             body:        toPortableText(article),
-            ...(coverRef && { coverImage: { _type: 'image', asset: { _type: 'reference', _ref: coverRef } } }),
+            // No coverImage, on purpose. Journal covers are designed 3:4 images
+            // in one visual style; a YouTube thumbnail is 16:9 and made for
+            // YouTube. The post already shows the video, and the cover is
+            // added by hand before publishing.
           },
         }],
       }),
     })
 
     await markHealthy(true)
+
+    const captures = captureSuggestions(article)
 
     await notify(`Borrador listo: ${article.title}`, [
       'Se generó un borrador a partir de uno de tus videos.',
@@ -318,9 +302,12 @@ export async function GET(request: Request) {
       `           ${watchUrl(target.id)}`,
       `Artículo:  ${article.title}`,
       `Fuente:    ${SOURCE_NOTE[transcript.source]}`,
-      `Portada:   ${coverRef ? 'miniatura del video' : 'sin portada, ponla a mano'}`,
+      'Portada:   pendiente. Súbela en el Studio con el estilo del journal (vertical 3:4).',
+      ...(captures.length
+        ? ['', 'Capturas de tu propio material que acompañarían el texto:', ...captures]
+        : []),
       '',
-      `Revísalo y publícalo desde el Studio: ${SITE_URL}/studio`,
+      `Revísalo y publícalo desde el Studio: ${SITE_URL}/studio/structure/post;post-yt-${target.id}`,
       'Está como BORRADOR: no sale en la web hasta que lo publiques.',
     ])
 
@@ -329,7 +316,7 @@ export async function GET(request: Request) {
       creado:      slug,
       desdeVideo:  target.id,
       fuente:      transcript.source,
-      portada:     !!coverRef,
+      capturas:    captures.length,
       descartados: skipped,
     })
   } catch (err) {

@@ -24,7 +24,27 @@ export const post = defineType({
         defineField({ name: 'avatar', title: 'Avatar', type: 'image', options: { hotspot: true } }),
       ],
     }),
-    defineField({ name: 'body', title: 'Cuerpo', type: 'array', of: [{ type: 'block' }, { type: 'image' }] }),
+    defineField({
+      name: 'body', title: 'Cuerpo', type: 'array',
+      of: [
+        { type: 'block' },
+        {
+          type:    'image',
+          options: { hotspot: true },
+          // The article page already renders alt and caption; without these
+          // fields there was no way to fill them in, so every image in an
+          // article went out with an empty alt.
+          fields: [
+            defineField({
+              name: 'alt', title: 'Texto alternativo', type: 'string',
+              description: 'Qué muestra la imagen, en una frase. Lo leen Google y los lectores de pantalla.',
+              validation: R => R.required().warning('Sin texto alternativo la imagen no cuenta para SEO ni accesibilidad.'),
+            }),
+            defineField({ name: 'caption', title: 'Pie de foto', type: 'string' }),
+          ],
+        },
+      ],
+    }),
     defineField({ name: 'tags', title: 'Etiquetas', type: 'array', of: [{ type: 'string' }] }),
     // Set by the YouTube job. It is how a video is known to have been turned
     // into a post already, so the same one is never written twice — and it lets

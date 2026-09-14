@@ -19,8 +19,9 @@ export type DraftArticle = {
   excerpt:     string
   category:    'Diseño' | 'IA' | 'UX' | 'Proceso' | 'Producto' | 'E-commerce'
   tags:        string[]
-  readingTime: number
   blocks:      { style: 'normal' | 'h2' | 'blockquote'; text: string; bullet?: boolean }[]
+  /** Screenshots Alexander could add from his own material, by section. */
+  images?:     { after: string; capture: string }[]
 }
 
 /** A 26-minute video is ~25k characters of speech; this leaves headroom. */
@@ -52,12 +53,12 @@ ESTRUCTURA
 - Entre 5 y 8 secciones h2. Una cita destacada como máximo. Viñetas solo si enumeran algo real.
 
 Devuelve SOLO un objeto JSON válido, sin markdown ni explicación, con esta forma exacta:
-{"title":string,"excerpt":string,"category":"Diseño"|"IA"|"UX"|"Proceso"|"Producto"|"E-commerce","tags":string[],"readingTime":number,"blocks":[{"style":"normal"|"h2"|"blockquote","text":string,"bullet":boolean}]}
+{"title":string,"excerpt":string,"category":"Diseño"|"IA"|"UX"|"Proceso"|"Producto"|"E-commerce","tags":string[],"blocks":[{"style":"normal"|"h2"|"blockquote","text":string,"bullet":boolean}],"images":[{"after":string,"capture":string}]}
 
 title: distinto al del video, escrito para quien llega desde Google.
 excerpt: una frase, máximo 160 caracteres.
-readingTime: minutos, entero.
-bullet: true solo en los items de una lista.`
+bullet: true solo en los items de una lista.
+images: 2 o 3 capturas que Alexander puede sacar de su propio material para acompañar el texto: pantallas, renders o resultados de herramientas que aparezcan en la transcripción. after: el texto exacto de un h2 del artículo. capture: qué debe mostrar la captura, en una frase. Nada decorativo ni genérico; si el material no da para capturas concretas, devuelve una lista vacía.`
 
 export async function writeArticle(
   video: VideoDetail,
@@ -168,6 +169,29 @@ export function readArticle(response: unknown): DraftArticle {
     throw new Error('El modelo devolvió un artículo vacío o mal formado')
   }
   return parsed
+}
+
+/**
+ * Capture suggestions as email lines. They go in the email, never in the body:
+ * a placeholder in the text gets published the one time it is forgotten. Only
+ * suggestions pinned to a heading the article actually has survive — one that
+ * names a section it didn't write sends Alexander looking for nothing.
+ */
+export function captureSuggestions(article: DraftArticle): string[] {
+  const headings = new Set(article.blocks.filter(b => b.style === 'h2').map(b => b.text.trim()))
+  return (article.images ?? [])
+    .filter(i => i?.capture?.trim() && headings.has(String(i.after ?? '').trim()))
+    .slice(0, 3)
+    .map(i => `  · Tras «${i.after.trim()}»: ${i.capture.trim()}`)
+}
+
+/**
+ * Minutes at 200 words a minute, counted from the article itself. The model's
+ * own estimate put an 810-word article at 6 minutes.
+ */
+export function readingMinutes(article: DraftArticle): number {
+  const words = article.blocks.map(b => b.text).join(' ').split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.round(words / 200))
 }
 
 /** Flat blocks → Portable Text, with keys generated here so they cannot collide. */

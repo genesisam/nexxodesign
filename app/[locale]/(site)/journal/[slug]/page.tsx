@@ -190,7 +190,9 @@ export default async function PostPage({ params }: Props) {
           {post.youtubeId ? (
             <>
               <div className="relative rounded-[2rem] overflow-hidden aspect-[16/9] bg-line">
-                <YouTubeEmbed id={post.youtubeId} title={post.title} poster={post.cover} />
+                {/* The video's own frame, not the post cover: covers are 3:4
+                    and designed for the journal grid, the player is 16:9. */}
+                <YouTubeEmbed id={post.youtubeId} title={post.title} />
               </div>
               <a
                 href={`https://www.youtube.com/watch?v=${post.youtubeId}`}

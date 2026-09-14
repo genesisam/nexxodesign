@@ -261,5 +261,4 @@ export function hasEnoughMaterial(v: VideoDetail, transcript: string): boolean {
   return transcript.length >= 1500 || v.description.length >= 400
 }
 
-export const thumbnailUrl = (id: string) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`
 export const watchUrl     = (id: string) => `https://www.youtube.com/watch?v=${id}`
