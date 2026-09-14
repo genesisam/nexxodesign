@@ -84,7 +84,14 @@ export async function writeArticle(
     },
     body: JSON.stringify({
       model:      process.env.ARTICLE_MODEL ?? 'claude-sonnet-5',
-      max_tokens: 3500,
+      // Sonnet 5 thinks by default, its thinking block comes first, and
+      // thinking tokens count toward max_tokens. The first production run
+      // failed reading that block as the article; the second hit the old
+      // 3,500-token ceiling before the article was done. Writing from a
+      // transcript doesn't need the reasoning pass, so it is off, and the
+      // ceiling leaves room for a long article in Spanish plus its JSON.
+      thinking:   { type: 'disabled' },
+      max_tokens: 8000,
       system:     SYSTEM,
       messages: [{
         role: 'user',
@@ -112,16 +119,24 @@ type ContentBlock = { type?: string; text?: string }
  * read `content[0].text`; when that first block is not text — a thinking
  * block, or no block at all on a refusal — it is undefined, JSON.parse('')
  * throws "Unexpected end of JSON input", and the email said nothing about what
- * the model had actually sent. Every failure here names the stop reason and the
- * block types, so the next one can be fixed from the email alone.
+ * the model had actually sent. Every failure here names the stop reason, the
+ * block types and the output tokens, so the next one can be fixed from the
+ * email alone.
  */
 export function readArticle(response: unknown): DraftArticle {
-  const res    = (response ?? {}) as { stop_reason?: string; content?: ContentBlock[] }
+  const res = (response ?? {}) as {
+    stop_reason?: string
+    content?:     ContentBlock[]
+    usage?:       { output_tokens?: number }
+  }
   const blocks = Array.isArray(res.content) ? res.content : []
-  const shape  = `stop_reason: ${res.stop_reason ?? '?'}; bloques: ${blocks.map(b => b.type).join(', ') || 'ninguno'}`
+  const shape  =
+    `stop_reason: ${res.stop_reason ?? '?'}; ` +
+    `bloques: ${blocks.map(b => b.type).join(', ') || 'ninguno'}; ` +
+    `tokens de salida: ${res.usage?.output_tokens ?? '?'}`
 
   if (res.stop_reason === 'max_tokens') {
-    throw new Error('El artículo generado se cortó por longitud antes de terminar.')
+    throw new Error(`El artículo generado se cortó por longitud antes de terminar (${shape}).`)
   }
   if (res.stop_reason === 'refusal') {
     throw new Error(`El modelo se negó a escribir este artículo (${shape}).`)

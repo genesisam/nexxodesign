@@ -9,7 +9,9 @@ import { SITE_URL } from '@/lib/constants'
 
 export const runtime     = 'nodejs'
 export const dynamic     = 'force-dynamic'
-export const maxDuration = 60
+// The Hobby ceiling with Fluid compute. Writing a long article takes well over
+// the 60 seconds this used to allow once the output limit has room for it.
+export const maxDuration = 300
 
 /**
  * Turns a long-form upload into a draft article, once a day.
@@ -29,8 +31,8 @@ export const maxDuration = 60
  *   chapters for structure.
  *
  * Unchanged: it writes a draft, never a published post, and handles one video
- * per run — the model call takes most of the 60 seconds, so a backlog drains a
- * day at a time instead of timing out mid-write.
+ * per run — the model call takes most of the run, so a backlog drains a day at
+ * a time instead of timing out mid-write.
  */
 
 const SANITY = 'https://h169b4gl.api.sanity.io/v2024-01-01'
