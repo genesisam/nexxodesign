@@ -102,20 +102,65 @@ const server = http.createServer(async (req, res) => {
       throw new Error(tokens.error_description || tokens.error || 'Google no devolvió un refresh token.')
     }
 
-    // Confirm which channel was authorised — an account can own several.
-    const me = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true', {
+    // Google lets people untick individual permissions on the consent screen.
+    // A token issued without this scope looks fine and only fails days later.
+    const granted = String(tokens.scope ?? '').split(' ')
+    if (!granted.includes(SCOPE)) {
+      page(res, 'Falta el permiso de YouTube. Vuelve a la terminal.')
+      console.error(
+        '\nNo se concedió el permiso de YouTube.\n' +
+        'Repite el proceso y, en la pantalla de permisos, marca la casilla de YouTube antes de Continuar.\n',
+      )
+      process.exitCode = 1
+      return
+    }
+
+    // Confirm which channel was authorised. Each way this can fail has a
+    // different fix, so each one says what it is — the first version only
+    // printed "couldn't read" and left the cause to guesswork.
+    const meRes = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true', {
       headers: { Authorization: `Bearer ${tokens.access_token}` },
-    }).then(r => r.json())
+    })
+    const me = await meRes.json().catch(() => ({}))
+
+    if (!meRes.ok) {
+      const reason  = me?.error?.errors?.[0]?.reason ?? me?.error?.status ?? ''
+      const message = me?.error?.message ?? ''
+      page(res, 'Hay un problema con la API de YouTube. Vuelve a la terminal.')
+      console.error(`\nYouTube respondió ${meRes.status} ${reason}\n${message}\n`)
+      if (/accessNotConfigured|SERVICE_DISABLED|has not been used|disabled/i.test(`${reason} ${message}`)) {
+        console.error(
+          'La API de YouTube no está activada en este proyecto.\n' +
+          'Actívala con nexxo-youtube seleccionado arriba:\n' +
+          '  https://console.cloud.google.com/apis/library/youtube.googleapis.com\n' +
+          'Espera un par de minutos y vuelve a ejecutar este script.\n',
+        )
+      }
+      process.exitCode = 1
+      return
+    }
+
     const channel = me?.items?.[0]?.snippet?.title
+    if (!channel) {
+      page(res, 'Esa cuenta no tiene canal. Vuelve a la terminal.')
+      console.error(
+        '\nLa cuenta que elegiste no tiene un canal de YouTube.\n' +
+        'Si ALEXUI-UX es un canal de marca, repite y, al elegir cuenta, selecciona ALEXUI-UX en lugar de tu perfil personal.\n',
+      )
+      process.exitCode = 1
+      return
+    }
 
     page(res, 'Listo. Puedes cerrar esta pestaña y volver a la terminal.')
 
-    console.log('\nCanal autorizado:', channel ?? '(no se pudo leer — ¿elegiste la cuenta correcta?)')
-    if (channel && channel !== 'ALEXUI-UX') {
+    console.log('\nCanal autorizado:', channel)
+    if (channel !== 'ALEXUI-UX') {
       console.log('Ojo: no es ALEXUI-UX. Si no es el canal correcto, repite y elige el otro.')
     }
-    console.log('\nAñade esta variable en Vercel (solo Production):\n')
-    console.log(`YOUTUBE_REFRESH_TOKEN=${tokens.refresh_token}\n`)
+    // The value on a line of its own. Printing it as NAME=value invited
+    // copying the whole line into Vercel's value field.
+    console.log('\nEn Vercel crea YOUTUBE_REFRESH_TOKEN (Secret, Production) y pega como valor esta línea:\n')
+    console.log(tokens.refresh_token + '\n')
   } catch (e) {
     page(res, 'Algo falló. Mira la terminal.')
     console.error('\n' + (e instanceof Error ? e.message : String(e)) + '\n')
