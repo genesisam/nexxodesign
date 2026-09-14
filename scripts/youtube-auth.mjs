@@ -6,7 +6,7 @@
 //
 //   1. Put YOUTUBE_CLIENT_ID and YOUTUBE_CLIENT_SECRET in .env.local
 //   2. node scripts/youtube-auth.mjs
-//   3. Choose the ALEXUI-UX channel in the browser and allow access
+//   3. Choose the channel "Alexander Moreno — Design & AI" (@AlexMorenoDesign)
 //   4. Copy the printed YOUTUBE_REFRESH_TOKEN into Vercel
 //
 // The token is a password to your channel. Don't paste it anywhere but Vercel.
@@ -145,7 +145,7 @@ const server = http.createServer(async (req, res) => {
       page(res, 'Esa cuenta no tiene canal. Vuelve a la terminal.')
       console.error(
         '\nLa cuenta que elegiste no tiene un canal de YouTube.\n' +
-        'Si ALEXUI-UX es un canal de marca, repite y, al elegir cuenta, selecciona ALEXUI-UX en lugar de tu perfil personal.\n',
+        'Si tu canal es de marca, repite y, al elegir cuenta, selecciona «Alexander Moreno — Design & AI» en lugar de tu perfil personal.\n',
       )
       process.exitCode = 1
       return
@@ -153,9 +153,14 @@ const server = http.createServer(async (req, res) => {
 
     page(res, 'Listo. Puedes cerrar esta pestaña y volver a la terminal.')
 
+    // Compared by id, not by name. Handles and titles change — this one went
+    // from @ALEXUI-UX to @AlexMorenoDesign, and the title was never "ALEXUI-UX"
+    // to begin with, so a name check warned on the right channel. The id never
+    // changes.
+    const EXPECTED_CHANNEL = 'UC8x2WXcMmPgk-r-osTOlJEg'
     console.log('\nCanal autorizado:', channel)
-    if (channel !== 'ALEXUI-UX') {
-      console.log('Ojo: no es ALEXUI-UX. Si no es el canal correcto, repite y elige el otro.')
+    if (me.items[0].id !== EXPECTED_CHANNEL) {
+      console.log('Ojo: no es el canal de Nexxo (@AlexMorenoDesign). Si te equivocaste de cuenta, repite y elige la correcta.')
     }
     // The value on a line of its own. Printing it as NAME=value invited
     // copying the whole line into Vercel's value field.

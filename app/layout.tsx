@@ -22,6 +22,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 import { SITE_URL, NOINDEX } from '@/lib/seo'
+import { SOCIAL_INSTAGRAM, SOCIAL_BEHANCE, SOCIAL_LINKEDIN, SOCIAL_YOUTUBE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: {
@@ -66,12 +67,9 @@ const founderJsonLd = {
     'Diseño de producto', 'UX/UI', 'Automatización con IA',
     'CRO', 'Generación de leads', 'Next.js',
   ],
-  sameAs: [
-    'https://www.linkedin.com/in/alexander-moreno-gp/',
-    'https://www.behance.net/alexander-moreno',
-    'https://www.instagram.com/alex.morenop/',
-    'https://www.youtube.com/@ALEXUI-UX',
-  ],
+  // Read from lib/constants so a changed profile is edited in one place —
+  // the YouTube handle rename had to touch three copies of the same URL.
+  sameAs: [SOCIAL_LINKEDIN, SOCIAL_BEHANCE, SOCIAL_INSTAGRAM, SOCIAL_YOUTUBE],
 }
 
 const orgJsonLd = {
@@ -88,12 +86,7 @@ const orgJsonLd = {
     'CRO', 'UI/UX', 'Next.js', 'Sanity CMS', 'Growth design',
   ],
   areaServed: ['CO', 'MX', 'AR', 'CL', 'PE', 'US'],
-  sameAs: [
-    'https://www.instagram.com/alex.morenop/',
-    'https://www.linkedin.com/in/alexander-moreno-gp/',
-    'https://www.behance.net/alexander-moreno',
-    'https://www.youtube.com/@ALEXUI-UX',
-  ],
+  sameAs: [SOCIAL_INSTAGRAM, SOCIAL_LINKEDIN, SOCIAL_BEHANCE, SOCIAL_YOUTUBE],
   contactPoint: {
     '@type':           'ContactPoint',
     telephone:         '+573183795352',
