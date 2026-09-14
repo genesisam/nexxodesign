@@ -100,16 +100,55 @@ export async function writeArticle(
 
   if (!res.ok) throw new Error(`Anthropic ${res.status}: ${(await res.text()).slice(0, 300)}`)
 
-  const json = await res.json()
-  if (json?.stop_reason === 'max_tokens') {
+  return readArticle(await res.json())
+}
+
+type ContentBlock = { type?: string; text?: string }
+
+/**
+ * The article out of a Messages API response.
+ *
+ * Reads every text block rather than `content[0]`. The first production run
+ * read `content[0].text`; when that first block is not text — a thinking
+ * block, or no block at all on a refusal — it is undefined, JSON.parse('')
+ * throws "Unexpected end of JSON input", and the email said nothing about what
+ * the model had actually sent. Every failure here names the stop reason and the
+ * block types, so the next one can be fixed from the email alone.
+ */
+export function readArticle(response: unknown): DraftArticle {
+  const res    = (response ?? {}) as { stop_reason?: string; content?: ContentBlock[] }
+  const blocks = Array.isArray(res.content) ? res.content : []
+  const shape  = `stop_reason: ${res.stop_reason ?? '?'}; bloques: ${blocks.map(b => b.type).join(', ') || 'ninguno'}`
+
+  if (res.stop_reason === 'max_tokens') {
     throw new Error('El artículo generado se cortó por longitud antes de terminar.')
   }
+  if (res.stop_reason === 'refusal') {
+    throw new Error(`El modelo se negó a escribir este artículo (${shape}).`)
+  }
 
-  const text = json?.content?.[0]?.text ?? ''
-  // Models sometimes wrap JSON in a fence even when told not to.
-  const raw = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '')
+  const text = blocks
+    .filter(b => b.type === 'text' && typeof b.text === 'string')
+    .map(b => b.text)
+    .join('')
+    .trim()
+  if (!text) throw new Error(`El modelo no devolvió texto (${shape}).`)
 
-  const parsed = JSON.parse(raw) as DraftArticle
+  // Models sometimes wrap the object in a fence or a sentence even when told
+  // not to; the object itself runs from the first brace to the last.
+  const start = text.indexOf('{')
+  const end   = text.lastIndexOf('}')
+  if (start === -1 || end <= start) {
+    throw new Error(`El modelo no devolvió un objeto JSON (${shape}). Empieza por: ${JSON.stringify(text.slice(0, 120))}`)
+  }
+
+  let parsed: DraftArticle
+  try {
+    parsed = JSON.parse(text.slice(start, end + 1))
+  } catch (e) {
+    throw new Error(`El modelo devolvió JSON inválido: ${e instanceof Error ? e.message : String(e)} (${shape}).`)
+  }
+
   if (!parsed?.title || !Array.isArray(parsed.blocks) || !parsed.blocks.length) {
     throw new Error('El modelo devolvió un artículo vacío o mal formado')
   }
