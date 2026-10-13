@@ -46,15 +46,17 @@ export function middleware(request: NextRequest) {
     'Content-Security-Policy',
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      // lemon.js draws the store's checkout overlay; it is only loaded on a
+      // product page that actually has a checkout.
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.lemonsqueezy.com",
       "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",
       "font-src 'self' https://api.fontshare.com https://fonts.gstatic.com",
-      "img-src 'self' data: blob: https://cdn.sanity.io https://i.ytimg.com",
+      "img-src 'self' data: blob: https://cdn.sanity.io https://i.ytimg.com https://assets.lemonsqueezy.com",
       "media-src 'self' https://cdn.sanity.io blob:",
       "worker-src blob:",
-      "connect-src 'self' https://cdn.sanity.io https://*.sanity.io",
-      // The only frame the site embeds is a journal post's own video.
-      "frame-src https://www.youtube-nocookie.com",
+      "connect-src 'self' https://cdn.sanity.io https://*.sanity.io https://app.lemonsqueezy.com",
+      // Two frames: a journal post's own video, and the checkout overlay.
+      "frame-src https://www.youtube-nocookie.com https://app.lemonsqueezy.com",
       "object-src 'none'",
     ].join('; '),
   )

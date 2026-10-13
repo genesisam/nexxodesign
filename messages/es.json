@@ -3,6 +3,7 @@
     "proyectos": "Proyectos",
     "estudio": "Estudio",
     "journal": "Journal",
+    "tienda": "Tienda",
     "contacto": "Contacto",
     "cotiza": "Cotiza",
     "cotizaProyecto": "Cotiza tu proyecto",
@@ -29,6 +30,7 @@
     "navProyectos": "Proyectos",
     "navEstudio": "Estudio",
     "navJournal": "Journal",
+    "navTienda": "Tienda",
     "navContacto": "Contacto"
   },
   "hero": {
