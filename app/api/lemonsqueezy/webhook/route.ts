@@ -1,6 +1,6 @@
-import crypto from 'node:crypto'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { verifyWebhookSignature } from '@/lib/lemonsqueezy-signature'
 
 /**
  * Lemon Squeezy webhook. Ready before the shop is: with no secret configured it
@@ -80,20 +80,6 @@ async function remember(eventId: string) {
   }
 }
 
-function verify(rawBody: string, signature: string | null, secret: string): boolean {
-  if (!signature) return false
-  const expected = crypto.createHmac('sha256', secret).update(rawBody, 'utf8').digest()
-  let received: Buffer
-  try {
-    received = Buffer.from(signature, 'hex')
-  } catch {
-    return false
-  }
-  // timingSafeEqual throws on a length mismatch, which would itself be a tell.
-  if (received.length !== expected.length) return false
-  return crypto.timingSafeEqual(expected, received)
-}
-
 type LemonPayload = {
   meta?: {
     event_name?: string
@@ -116,7 +102,7 @@ export async function POST(request: Request) {
   }
 
   const raw = await request.text()
-  if (!verify(raw, request.headers.get('x-signature'), secret)) {
+  if (!verifyWebhookSignature(raw, request.headers.get('x-signature'), secret)) {
     console.error('[lemonsqueezy] firma inválida')
     return NextResponse.json({ error: 'firma inválida' }, { status: 401 })
   }
