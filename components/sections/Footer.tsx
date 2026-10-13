@@ -108,7 +108,6 @@ export function Footer() {
     { href: '/proyectos' as const, label: t('navProyectos') },
     { href: '/nosotros' as const, label: t('navEstudio')   },
     { href: '/journal' as const,  label: t('navJournal')   },
-    { href: '/tienda' as const,   label: t('navTienda')    },
     { href: '/contact' as const,  label: t('navContacto')  },
   ]
 

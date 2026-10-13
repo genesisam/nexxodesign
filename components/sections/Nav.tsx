@@ -11,7 +11,6 @@ const NAV_KEYS = [
   { href: '/proyectos', key: 'proyectos' },
   { href: '/nosotros', key: 'estudio'   },
   { href: '/journal',  key: 'journal'   },
-  { href: '/tienda',   key: 'tienda'    },
   { href: '/contact',  key: 'contacto'  },
 ] as const
 
