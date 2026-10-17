@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { getAllProducts } from '@/sanity/lib/product-data'
-import { buildAlternates } from '@/lib/seo'
+import { buildAlternates, absoluteUrl } from '@/lib/seo'
 import { StoreCatalog } from '@/components/store/StoreCatalog'
 import { Accordion } from '@/components/store/Accordion'
 import type { ProductFaqItem } from '@/types/product'
@@ -9,16 +9,36 @@ type Props = { params: Promise<{ locale: string }> }
 
 export const revalidate = 3600
 
+// No "| Nexxo": the root layout's title template appends it. Social cards skip
+// that template, so OG_TITLE spells it out.
+const TITLE    = 'Componentes y templates para Framer en español'
+const OG_TITLE = `${TITLE} | Nexxo`
+const DESCRIPTION =
+  'Componentes de código y templates para Framer: reservas, calificación de leads, reseñas con Supabase, fichas técnicas y tiendas completas. Pago único, en español.'
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   return {
-    title:       'Tienda — Nexxo',
-    description: 'Componentes y templates de Framer hechos para proyectos reales. Pago único, actualizaciones incluidas.',
+    title:       TITLE,
+    description: DESCRIPTION,
+    keywords: [
+      'componentes para Framer',
+      'templates de Framer',
+      'componentes de Framer en español',
+      'plantillas Framer',
+      'Framer code components',
+      'comprar componentes Framer',
+    ],
     alternates:  buildAlternates(locale, '/tienda'),
     openGraph: {
-      title:       'Tienda — Nexxo',
-      description: 'Componentes y templates de Framer hechos para proyectos reales.',
+      title:       OG_TITLE,
+      description: DESCRIPTION,
       type:        'website',
+    },
+    twitter: {
+      card:        'summary_large_image',
+      title:       OG_TITLE,
+      description: DESCRIPTION,
     },
   }
 }
@@ -52,11 +72,47 @@ const STORE_FAQ: ProductFaqItem[] = [
   },
 ]
 
-export default async function TiendaPage() {
-  const products = await getAllProducts()
+export default async function TiendaPage({ params }: Props) {
+  const { locale } = await params
+  const products   = await getAllProducts()
+
+  // The catalogue as a list Google can read, so the products can surface
+  // individually rather than only as one page about a store.
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type':        'ItemList',
+        name:           'Componentes y templates para Framer',
+        numberOfItems:  products.length,
+        itemListElement: products.map((product, i) => ({
+          '@type':   'ListItem',
+          position:  i + 1,
+          name:      product.title,
+          url:       absoluteUrl(locale, `/tienda/${product.slug.current}`),
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: absoluteUrl(locale, '') },
+          { '@type': 'ListItem', position: 2, name: 'Tienda', item: absoluteUrl(locale, '/tienda') },
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: STORE_FAQ.map(item => ({
+          '@type':        'Question',
+          name:           item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      },
+    ],
+  }
 
   return (
     <main className="bg-ink min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ══ TOPHEAD ═══════════════════════════════════════════════════════════ */}
       <section className="gutter-x pt-32 md:pt-44 pb-16 md:pb-20 border-b border-paper/10">
@@ -83,6 +139,40 @@ export default async function TiendaPage() {
       <div className="pt-14 md:pt-20">
         <StoreCatalog products={products} />
       </div>
+
+      {/* ══ QUÉ ES ESTO ═══════════════════════════════════════════════════════ */}
+      {/* Plain text that says what the store sells, in the words someone would
+          use to search for it. It is also the only place that explains the
+          difference between a component and a template. */}
+      <section className="gutter-x py-20 md:py-28 border-t border-paper/10 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+        <div>
+          <h2
+            className="font-display font-semibold text-paper leading-[0.95] tracking-[-0.03em] mb-5"
+            style={{ fontSize: 'clamp(1.4rem, 2.4vw, 2.1rem)' }}
+          >
+            Componentes de código para Framer
+          </h2>
+          <p className="font-sans text-paper/65 text-[14px] leading-relaxed max-w-[52ch]">
+            Son piezas sueltas que arrastras a tu proyecto de Framer: un flujo de reservas, una
+            calculadora de presupuesto, una ficha técnica, un carrusel. Están escritas en React y se
+            configuran desde el panel de propiedades, así que puedes cambiar textos, colores y
+            tipografías sin tocar una línea de código.
+          </p>
+        </div>
+        <div>
+          <h2
+            className="font-display font-semibold text-paper leading-[0.95] tracking-[-0.03em] mb-5"
+            style={{ fontSize: 'clamp(1.4rem, 2.4vw, 2.1rem)' }}
+          >
+            Templates listos para publicar
+          </h2>
+          <p className="font-sans text-paper/65 text-[14px] leading-relaxed max-w-[52ch]">
+            Son sitios completos: varias páginas, colecciones de CMS ya montadas y diseños para
+            escritorio, tablet y teléfono. Llegan como remix link, los editas con tu marca y los
+            publicas. Dos de ellos son gratuitos.
+          </p>
+        </div>
+      </section>
 
       {/* ══ FAQ ═══════════════════════════════════════════════════════════════ */}
       <section className="gutter-x py-20 md:py-28 border-t border-paper/10">

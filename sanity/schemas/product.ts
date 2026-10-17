@@ -144,6 +144,11 @@ export const product = defineType({
       description: 'Remix link, README, SQL de Supabase…',
     }),
     defineField({
+      name: 'keywords', title: 'Palabras clave', type: 'array', group: 'content',
+      of: [{ type: 'string' }], options: { layout: 'tags' },
+      description: 'Cómo buscaría este producto alguien en Google. Van en la metadata de la página.',
+    }),
+    defineField({
       name: 'faq', title: 'FAQ', type: 'array', group: 'content',
       of: [defineArrayMember({
         type: 'object', name: 'faqItem',
