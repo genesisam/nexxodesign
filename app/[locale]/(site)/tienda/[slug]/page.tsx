@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { notFound } from 'next/navigation'
 import { getAllProducts, getAllProductSlugs, getProductBySlug } from '@/sanity/lib/product-data'
 import { buildAlternates, absoluteUrl } from '@/lib/seo'
@@ -306,9 +307,19 @@ export default async function ProductPage({ params }: Props) {
               <li key={item._id}>
                 <Link href={`/tienda/${item.slug.current}`} className="group block">
                   <div
-                    className="rounded-[1rem] aspect-[4/3] mb-4 overflow-hidden"
+                    className="relative rounded-[1rem] aspect-[4/3] mb-4 overflow-hidden"
                     style={{ background: PRODUCT_GRADIENT[item.type] }}
-                  />
+                  >
+                    {item.cover && (
+                      <NextImage
+                        src={item.cover}
+                        alt=""
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 22vw"
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
                   <h3 className="font-display font-semibold text-paper text-[1rem] leading-tight group-hover:text-accent transition-colors duration-200 mb-1">
                     {item.title}
                   </h3>
@@ -368,10 +379,22 @@ export default async function ProductPage({ params }: Props) {
               return (
                 <li key={item._id}>
                   <Link href={`/tienda/${item.slug.current}`} className="group block">
+                    {/* 4:3 like the catalogue cards: the covers are 4:3, and a
+                        16:9 crop was cutting the top and bottom off each one. */}
                     <div
-                      className="rounded-[1.25rem] aspect-[16/9] mb-4 overflow-hidden"
+                      className="relative rounded-[1.25rem] aspect-[4/3] mb-4 overflow-hidden"
                       style={{ background: PRODUCT_GRADIENT[item.type] }}
-                    />
+                    >
+                      {item.cover && (
+                        <NextImage
+                          src={item.cover}
+                          alt=""
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 30vw"
+                          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        />
+                      )}
+                    </div>
                     <h3 className="font-display font-semibold text-paper text-[1.05rem] leading-tight group-hover:text-accent transition-colors duration-200 mb-1.5">
                       {item.title}
                     </h3>
