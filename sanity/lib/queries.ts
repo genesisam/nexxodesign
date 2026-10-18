@@ -102,3 +102,48 @@ export const postBySlugQuery = groq`
 export const allPostSlugsQuery = groq`
   *[_type == "post"]{ "slug": slug.current }
 `
+
+// ── Tienda ────────────────────────────────────────────────
+// Returns ProductSummary shape — what a catalogue card needs and nothing else.
+export const productsQuery = groq`
+  *[_type == "product"] | order(order asc) {
+    _id, title, slug, type, status, tagline,
+    "cover": coverImage.asset->url,
+    "demoVideoUrl":  demoVideo.url,
+    "muxPlaybackId": demoVideo.muxPlaybackId,
+    price, compareAtPrice, compatibility, badge, featured, order, fallbackBuyUrl,
+    licenses[]{ _key, name, price, description, lemonCheckoutUrl }
+  }
+`
+
+// Full Product shape, with body image URLs flattened like the journal's.
+export const productBySlugQuery = groq`
+  *[_type == "product" && slug.current == $slug][0] {
+    _id, title, slug, type, status, tagline,
+    "cover": coverImage.asset->url,
+    "demoVideoUrl":  demoVideo.url,
+    "muxPlaybackId": demoVideo.muxPlaybackId,
+    price, compareAtPrice, compatibility, badge, featured, order,
+    fallbackBuyUrl, freeVersionUrl, demoUrl,
+    licenses[]{ _key, name, price, description, lemonCheckoutUrl },
+    "description": description[]{
+      ...,
+      _type == "image" => { _type, _key, alt, caption, "url": asset->url }
+    },
+    "gallery": gallery[]{ _key, alt, "url": asset->url },
+    features[]{ _key, title, description, isPro },
+    freeVsPro[]{ _key, feature, free, pro },
+    includes,
+    faq[]{ _key, question, answer },
+    changelog[]{ _key, version, date, notes },
+    "bundleItems": bundleItems[]->{
+      _id, title, slug, tagline, type, status, price,
+      "cover": coverImage.asset->url
+    }
+  }
+`
+
+// Used by generateStaticParams
+export const allProductSlugsQuery = groq`
+  *[_type == "product"]{ "slug": slug.current }
+`

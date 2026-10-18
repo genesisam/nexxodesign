@@ -3,6 +3,7 @@ import { routing } from '@/i18n/routing'
 import { absoluteUrl } from '@/lib/seo'
 import { getAllPostSlugs } from '@/sanity/lib/post-data'
 import { getAllProjectSlugs } from '@/sanity/lib/project-data'
+import { getAllProductSlugs } from '@/sanity/lib/product-data'
 
 function localized(path: string, freq: MetadataRoute.Sitemap[number]['changeFrequency'], priority: number): MetadataRoute.Sitemap {
   return routing.locales.map(locale => ({
@@ -16,9 +17,10 @@ function localized(path: string, freq: MetadataRoute.Sitemap[number]['changeFreq
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Both helpers fall back to the local mocks if Sanity is unreachable, so the
   // sitemap degrades to the known set rather than losing the entries entirely.
-  const [postSlugs, projectSlugs] = await Promise.all([
+  const [postSlugs, projectSlugs, productSlugs] = await Promise.all([
     getAllPostSlugs(),
     getAllProjectSlugs(),
+    getAllProductSlugs(),
   ])
 
   return [
@@ -27,6 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...localized('/nosotros',   'monthly', 0.8),
     ...localized('/contact',    'monthly', 0.8),
     ...localized('/journal',    'weekly',  0.7),
+    ...localized('/tienda',     'weekly',  0.8),
+    ...productSlugs.flatMap(slug => localized(`/tienda/${slug}`,    'weekly',  0.7)),
     ...projectSlugs.flatMap(slug => localized(`/proyectos/${slug}`, 'monthly', 0.7)),
     ...postSlugs.flatMap(slug => localized(`/journal/${slug}`,      'monthly', 0.6)),
     ...localized('/soporte',    'yearly',  0.3),
