@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import NextImage from 'next/image'
-import { formatUSD } from '@/lib/price'
+import { formatPrice } from '@/lib/price'
 import { NotifyForm } from '@/components/store/NotifyForm'
 import {
   PRODUCT_GRADIENT, PRODUCT_TYPE_LABEL, fromPrice, type ProductSummary,
@@ -124,7 +124,12 @@ export function ProductCard({ product }: { product: ProductSummary }) {
           )
         ) : (
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper/75">
-            {price !== null ? <>Desde {formatUSD(price)}</> : 'Consultar'}
+            {/* "Desde" only when there is more than one tier to be above. */}
+            {price === null
+              ? 'Consultar'
+              : (product.licenses?.length ?? 0) > 1
+                ? `Desde ${formatPrice(price)}`
+                : formatPrice(price)}
           </p>
         )}
       </div>

@@ -3,16 +3,20 @@
 import { useRef, useState } from 'react'
 import { BuyButton } from '@/components/store/BuyButton'
 import { NotifyForm } from '@/components/store/NotifyForm'
-import { formatUSD } from '@/lib/price'
+import { formatPrice } from '@/lib/price'
 import { fromPrice, type Product } from '@/types/product'
 
 /**
  * Licence picker and buy button, plus the sticky bar that carries both on a
  * phone.
  *
- * The picker is a real radiogroup: arrows move between tiers and the selection
- * follows focus, which is what a screen reader user expects from radios and
- * what a row of styled buttons usually gets wrong.
+ * Tiers are optional. A listing sold at one price on Framer shows that price
+ * and one button; the picker only appears once a product has real tiers, which
+ * is when Lemon Squeezy is involved.
+ *
+ * When it is there, the picker is a real radiogroup: arrows move between tiers
+ * and the selection follows focus, which is what a screen reader user expects
+ * from radios and what a row of styled buttons usually gets wrong.
  */
 export function BuyPanel({ product }: { product: Product }) {
   const licenses = product.licenses ?? []
@@ -22,6 +26,7 @@ export function BuyPanel({ product }: { product: Product }) {
   const selected = licenses[index] ?? null
   const soon     = product.status === 'coming_soon'
   const price    = selected?.price ?? fromPrice(product)
+  const free     = price === 0
 
   const move = (dir: 1 | -1) => {
     if (!licenses.length) return
@@ -29,6 +34,8 @@ export function BuyPanel({ product }: { product: Product }) {
     setIndex(next)
     refs.current[next]?.focus()
   }
+
+  const fallbackLabel = free ? 'Descargar gratis en Framer' : 'Comprar en Framer Marketplace'
 
   return (
     <div>
@@ -71,12 +78,23 @@ export function BuyPanel({ product }: { product: Product }) {
                   )}
                 </span>
                 <span className="shrink-0 font-display font-semibold text-paper text-[1.1rem] leading-none">
-                  {formatUSD(license.price)}
+                  {formatPrice(license.price)}
                 </span>
               </button>
             )
           })}
         </div>
+      )}
+
+      {/* With no tiers the price has nowhere else to live, so it goes here,
+          above the button. */}
+      {!soon && licenses.length === 0 && price !== null && (
+        <p
+          className="font-display font-semibold text-paper leading-none mb-6"
+          style={{ fontSize: 'clamp(1.6rem, 2.6vw, 2.2rem)' }}
+        >
+          {formatPrice(price)}
+        </p>
       )}
 
       {soon ? (
@@ -92,10 +110,11 @@ export function BuyPanel({ product }: { product: Product }) {
             productSlug={product.slug.current}
             license={selected}
             fallbackBuyUrl={product.fallbackBuyUrl}
+            fallbackLabel={fallbackLabel}
             className="w-full"
           />
           <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/45 mt-3">
-            Pago único · Actualizaciones incluidas
+            {free ? 'Descarga gratuita desde Framer' : 'Pago único · Actualizaciones incluidas'}
           </p>
         </>
       )}
@@ -135,13 +154,13 @@ export function BuyPanel({ product }: { product: Product }) {
                      border-t border-line bg-ink/95 backdrop-blur px-5 py-3"
         >
           <span className="font-display font-semibold text-paper text-[1.05rem] leading-none">
-            {price !== null ? formatUSD(price) : product.title}
+            {price !== null ? formatPrice(price) : product.title}
           </span>
           <BuyButton
             productSlug={product.slug.current}
             license={selected}
             fallbackBuyUrl={product.fallbackBuyUrl}
-            fallbackLabel="Comprar en Framer"
+            fallbackLabel={free ? 'Descargar' : 'Comprar'}
             className="px-5 py-3"
           />
         </div>

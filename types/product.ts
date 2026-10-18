@@ -47,6 +47,8 @@ export type ProductSummary = {
   price:           number | null
   compareAtPrice?: number | null
   compatibility:   string[]
+  /** Search terms this product should be findable by; used in <meta keywords>. */
+  keywords?:       string[]
   badge?:          string | null
   featured:        boolean
   order:           number

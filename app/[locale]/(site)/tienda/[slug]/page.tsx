@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { notFound } from 'next/navigation'
 import { getAllProducts, getAllProductSlugs, getProductBySlug } from '@/sanity/lib/product-data'
 import { buildAlternates, absoluteUrl } from '@/lib/seo'
@@ -7,7 +8,7 @@ import { NexxoPortableText } from '@/components/portable-text'
 import { ProductGallery } from '@/components/store/ProductGallery'
 import { BuyPanel } from '@/components/store/BuyPanel'
 import { Accordion } from '@/components/store/Accordion'
-import { formatUSD } from '@/lib/price'
+import { formatUSD, formatPrice } from '@/lib/price'
 import {
   PRODUCT_GRADIENT, PRODUCT_TYPE_LABEL, fromPrice, type ProductSummary,
 } from '@/types/product'
@@ -26,19 +27,41 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProductBySlug(slug)
   if (!product) return { title: 'Producto no encontrado — Nexxo' }
 
-  const title = `${product.title} — Tienda Nexxo`
+  // Written the way someone searches: the name, then what it is and where it
+  // runs. The tagline already reads as a description on its own, and the price
+  // belongs in the snippet — it is the first thing anyone wants to know.
+  // No "| Nexxo" here: the root layout's title template appends it. Social
+  // cards do not go through that template, so they get it spelled out.
+  const kind    = product.type === 'template' ? 'Template' : 'Componente'
+  const title   = `${product.title} — ${kind} para Framer`
+  const ogTitle = `${title} | Nexxo`
+  const price   = fromPrice(product)
+
+  const description = [
+    product.tagline,
+    price === 0        ? 'Descarga gratuita.'
+      : price !== null ? `Pago único de ${formatUSD(price)}.`
+      : '',
+  ].filter(Boolean).join(' ')
 
   return {
     title,
-    description: product.tagline,
+    description,
+    keywords:    product.keywords?.length ? product.keywords : undefined,
     alternates:  buildAlternates(locale, `/tienda/${slug}`),
     openGraph: {
-      title,
-      description: product.tagline,
+      title:       ogTitle,
+      description,
       type:        'website',
       images: product.cover
         ? [{ url: product.cover, alt: product.title, width: 1200, height: 630 }]
         : undefined,
+    },
+    twitter: {
+      card:        'summary_large_image',
+      title:       ogTitle,
+      description,
+      images:      product.cover ? [product.cover] : undefined,
     },
   }
 }
@@ -76,20 +99,48 @@ export default async function ProductPage({ params }: Props) {
     url,
   }))
 
-  const jsonLd = {
-    '@context':   'https://schema.org',
+  const productLd = {
     '@type':      'Product',
     name:         product.title,
     description:  product.tagline,
     url,
     category:     PRODUCT_TYPE_LABEL[product.type],
-    image:        product.cover ? [product.cover] : undefined,
+    image:        product.cover ? [absoluteUrl(locale, product.cover)] : undefined,
     brand:        { '@type': 'Brand', name: 'Nexxo' },
     offers: offers.length
       ? offers
       : price !== null
         ? [{ '@type': 'Offer', price, priceCurrency: 'USD', availability: soon ? 'https://schema.org/PreOrder' : 'https://schema.org/InStock', url }]
         : undefined,
+  }
+
+  // Breadcrumbs are what let Google print "nexxodesign.com › Tienda ›
+  // TechSpecsViewer" instead of a bare URL under the title.
+  const breadcrumbLd = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio',        item: absoluteUrl(locale, '') },
+      { '@type': 'ListItem', position: 2, name: 'Tienda',        item: absoluteUrl(locale, '/tienda') },
+      { '@type': 'ListItem', position: 3, name: product.title,   item: url },
+    ],
+  }
+
+  // Only when the page really shows those questions. Marking up an FAQ a
+  // visitor cannot read is the hidden content the guidelines penalise.
+  const faqLd = product.faq?.length
+    ? {
+        '@type': 'FAQPage',
+        mainEntity: product.faq.map(item => ({
+          '@type':        'Question',
+          name:           item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      }
+    : null
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph':   [productLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])],
   }
 
   return (
@@ -256,9 +307,19 @@ export default async function ProductPage({ params }: Props) {
               <li key={item._id}>
                 <Link href={`/tienda/${item.slug.current}`} className="group block">
                   <div
-                    className="rounded-[1rem] aspect-[4/3] mb-4 overflow-hidden"
+                    className="relative rounded-[1rem] aspect-[4/3] mb-4 overflow-hidden"
                     style={{ background: PRODUCT_GRADIENT[item.type] }}
-                  />
+                  >
+                    {item.cover && (
+                      <NextImage
+                        src={item.cover}
+                        alt=""
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 22vw"
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
                   <h3 className="font-display font-semibold text-paper text-[1rem] leading-tight group-hover:text-accent transition-colors duration-200 mb-1">
                     {item.title}
                   </h3>
@@ -318,10 +379,22 @@ export default async function ProductPage({ params }: Props) {
               return (
                 <li key={item._id}>
                   <Link href={`/tienda/${item.slug.current}`} className="group block">
+                    {/* 4:3 like the catalogue cards: the covers are 4:3, and a
+                        16:9 crop was cutting the top and bottom off each one. */}
                     <div
-                      className="rounded-[1.25rem] aspect-[16/9] mb-4 overflow-hidden"
+                      className="relative rounded-[1.25rem] aspect-[4/3] mb-4 overflow-hidden"
                       style={{ background: PRODUCT_GRADIENT[item.type] }}
-                    />
+                    >
+                      {item.cover && (
+                        <NextImage
+                          src={item.cover}
+                          alt=""
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 30vw"
+                          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        />
+                      )}
+                    </div>
                     <h3 className="font-display font-semibold text-paper text-[1.05rem] leading-tight group-hover:text-accent transition-colors duration-200 mb-1.5">
                       {item.title}
                     </h3>
@@ -331,7 +404,7 @@ export default async function ProductPage({ params }: Props) {
                     <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/70">
                       {item.status === 'coming_soon'
                         ? 'Próximamente'
-                        : itemPrice !== null ? `Desde ${formatUSD(itemPrice)}` : 'Consultar'}
+                        : itemPrice !== null ? formatPrice(itemPrice) : 'Consultar'}
                     </p>
                   </Link>
                 </li>

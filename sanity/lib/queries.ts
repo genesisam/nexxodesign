@@ -111,7 +111,7 @@ export const productsQuery = groq`
     "cover": coverImage.asset->url,
     "demoVideoUrl":  demoVideo.url,
     "muxPlaybackId": demoVideo.muxPlaybackId,
-    price, compareAtPrice, compatibility, badge, featured, order, fallbackBuyUrl,
+    price, compareAtPrice, compatibility, keywords, badge, featured, order, fallbackBuyUrl,
     licenses[]{ _key, name, price, description, lemonCheckoutUrl }
   }
 `
@@ -123,7 +123,7 @@ export const productBySlugQuery = groq`
     "cover": coverImage.asset->url,
     "demoVideoUrl":  demoVideo.url,
     "muxPlaybackId": demoVideo.muxPlaybackId,
-    price, compareAtPrice, compatibility, badge, featured, order,
+    price, compareAtPrice, compatibility, keywords, badge, featured, order,
     fallbackBuyUrl, freeVersionUrl, demoUrl,
     licenses[]{ _key, name, price, description, lemonCheckoutUrl },
     "description": description[]{
