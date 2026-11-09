@@ -36,13 +36,14 @@
   "hero": {
     "eyebrow": "Automatización con IA & diseño que convierte — 2025",
     "headline1": "Sistemas que generan",
-    "headline2": "leads en piloto automático.",
-    "body": "Construimos máquinas de adquisición: diseño premium + automatización con IA + CRO. No un sitio web — un activo que trabaja 24/7 para tu negocio.",
+    "headline2": "leads en piloto",
+    "headline3": "automático.",
+    "body": "Diseño premium, automatización con IA y CRO. No un sitio web: un activo que trabaja 24/7.",
     "ctaAgendar": "Agendar llamada",
     "ctaTrabajo": "Ver resultados →"
   },
   "selectedWork": {
-    "seccion": "02 — Work",
+    "seccion": "01 — Work",
     "headline": "Trabajo seleccionado",
     "ctaTodo": "Ver los 6 casos de diseño y automatización"
   },
@@ -145,7 +146,7 @@
     ]
   },
   "testimonios": {
-    "seccion": "06 — Clientes",
+    "seccion": "02 — Clientes",
     "headline1": "Más que clientes.",
     "headline2": "Socios.",
     "leerResenas": "Leer todas las reseñas →"

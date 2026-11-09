@@ -170,18 +170,25 @@ export function HeroText() {
       {/* The wrapper carries the positioning so the caret can be placed from a
           character's offsetLeft/offsetTop. The h1 itself must stay unpositioned
           for those offsets to resolve against this box. */}
-      {/* The measure stays on the h1: `13ch` has to resolve against the headline's
+      {/* The measure stays on the h1: `ch` has to resolve against the headline's
           own font-size. On the wrapper it would resolve against the body font and
-          crush the title into a one-letter column. */}
+          crush the title into a one-letter column.
+
+          It is wide enough to hold the longest of the two lines — 27 characters
+          — because the <br/> below is supposed to be the only break. At 13ch
+          each sentence wrapped as well, and the headline arrived in four lines
+          instead of two. The size cap comes down to pay for the extra width. */}
       <div ref={h1WrapRef} className="relative z-10 pointer-events-none mt-5 w-full">
         <h1
           ref={h1Ref}
-          className="mx-auto max-w-[13ch] text-center font-display font-semibold text-paper leading-[0.9] tracking-[-0.045em]"
-          style={{ fontSize: 'clamp(2.8rem, 5.8vw, 6.5rem)' }}
+          className="mx-auto max-w-[21ch] text-center font-display font-semibold text-paper leading-[0.92] tracking-[-0.045em]"
+          style={{ fontSize: 'clamp(2.4rem, 5.2vw, 5.6rem)' }}
         >
           {t('headline1')}
           <br />
           {t('headline2')}
+          <br />
+          {t('headline3')}
         </h1>
 
         <span
@@ -194,7 +201,7 @@ export function HeroText() {
 
       <div
         ref={subRef}
-        className="relative z-10 pointer-events-none mx-auto mt-6 flex max-w-[48ch] flex-col items-center gap-5 text-center"
+        className="relative z-10 pointer-events-none mx-auto mt-6 flex max-w-[46ch] flex-col items-center gap-5 text-center"
       >
         <p className="font-mono text-smoke text-[12px] md:text-[13px] tracking-[0.02em] leading-relaxed max-w-[42ch]">
           {t('body')}

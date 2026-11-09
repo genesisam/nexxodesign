@@ -133,9 +133,13 @@ function TestimonialCard({
       // ground, and the hairline keeps the edge defined at that low separation.
       className="flex-shrink-0 bg-line border border-paper/10 flex flex-col justify-between"
       style={{
-        width:       'clamp(280px, 28vw, 480px)',
-        aspectRatio: '0.95 / 1',
-        padding:     'clamp(1.25rem, 1.85vw, 2.1rem)',
+        // Shorter and narrower than it was: the card used to be taller than it
+        // was wide, which made the section a wall and showed barely three
+        // quotes at a time. Landscape fits more of them on screen at once and
+        // takes a good chunk of height out of the page.
+        width:       'clamp(260px, 23vw, 400px)',
+        aspectRatio: '1.12 / 1',
+        padding:     'clamp(1.1rem, 1.5vw, 1.75rem)',
         opacity:     isActive ? 1 : 0.3,
         filter:      isActive ? 'none' : 'blur(3px)',
         transition:  'opacity 0.35s ease, filter 0.35s ease',
@@ -149,8 +153,8 @@ function TestimonialCard({
         <div
           className="rounded-full flex-shrink-0 flex items-center justify-center overflow-hidden"
           style={{
-            width:      'clamp(46px, 3.5vw, 62px)',
-            height:     'clamp(46px, 3.5vw, 62px)',
+            width:      'clamp(40px, 2.9vw, 52px)',
+            height:     'clamp(40px, 2.9vw, 52px)',
             background: bg,
           }}
         >
@@ -195,12 +199,12 @@ function TestimonialCard({
       <div>
         <p
           className="font-sans text-paper/75 leading-snug"
-          style={{ fontSize: 'clamp(0.92rem, 1.55vw, 1.45rem)' }}
+          style={{ fontSize: 'clamp(0.84rem, 1.02vw, 1.05rem)' }}
         >
           {t.quote}
         </p>
         {t.result && (
-          <div className="mt-4 pt-4 border-t border-paper/10">
+          <div className="mt-3 pt-3 border-t border-paper/10">
             <span
               className="inline-block font-mono text-paper uppercase tracking-[0.22em] bg-accent"
               style={{ fontSize: 'clamp(7px, 0.62vw, 10px)', padding: '5px 10px' }}
