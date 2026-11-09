@@ -209,6 +209,28 @@ html.lenis body {
   animation: hero-caret-blink 1s steps(1, end) infinite;
 }
 
+/* ─── Footer wordmark ─── */
+/*
+ * The word measures itself against its own box, not the viewport.
+ *
+ * "NEXXO" is 3.33em wide at this tracking, so at 375px the old `27vw` came out
+ * 19px wider than the space between the gutters — and the box clips, so the
+ * last letter was simply gone. 29.6cqw is that 3.33em expressed as a share of
+ * the container, which lands the word just inside the gutters at every width
+ * while leaving the desktop size where it already was.
+ *
+ * The clamp() is the fallback for browsers without container queries.
+ */
+.footer-wordmark {
+  font-size:      clamp(56px, 23vw, 480px);
+  letter-spacing: -0.04em;
+}
+
+@supports (font-size: 1cqw) {
+  .footer-wordmark-box { container-type: inline-size; }
+  .footer-wordmark     { font-size: min(29.6cqw, 480px); }
+}
+
 /* ─── Testimonios marquee (§5.6) ─── */
 @keyframes testimonios-scroll {
   from { transform: translateX(0); }

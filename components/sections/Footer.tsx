@@ -287,12 +287,14 @@ export function Footer() {
 
       </div>
 
-      <div className="gutter-x mt-16 md:mt-24 overflow-hidden">
+      {/* Size and tracking live in globals.css, not here: the word has to
+          measure itself against this box to stay inside the gutters, and a
+          container query cannot be expressed as a React inline style. */}
+      <div className="footer-wordmark-box gutter-x mt-16 md:mt-24 overflow-hidden">
         <p
           ref={markRef}
           aria-hidden
-          className="font-display font-semibold text-paper leading-none select-none"
-          style={{ fontSize: 'clamp(80px, 27vw, 480px)', letterSpacing: '-0.04em' }}
+          className="footer-wordmark font-display font-semibold text-paper leading-none select-none"
         >
           NEXXO
         </p>

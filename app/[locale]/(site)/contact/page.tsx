@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { buildAlternates } from '@/lib/seo'
 import { ContactClient } from './ContactClient'
+import { FAQSection } from '@/components/sections/FAQSection'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -44,6 +45,10 @@ export default async function ContactPage({ params }: Props) {
       </section>
 
       <ContactClient />
+
+      {/* Came off the home: the questions people ask before writing, next to
+          the form where they would otherwise ask them. */}
+      <FAQSection />
 
     </main>
   )
