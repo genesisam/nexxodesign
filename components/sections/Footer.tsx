@@ -180,19 +180,32 @@ export function Footer() {
        *
        * So: once the footer is actually on screen, it has a second and a half
        * to animate itself in. After that, whatever happened, it is shown.
+       *
+       * It writes the finished values rather than clearing properties.
+       * `clearProps: 'all'` looks like the obvious way to undo an animation,
+       * but it wipes the element's whole inline style — and the wordmark keeps
+       * its `font-size: clamp(80px, 27vw, 480px)` there, so the rescue was
+       * shrinking the logo to the 16px body default. Naming the end state
+       * touches nothing the animation did not set.
        */
-      const hidden = [...columns, markRef.current, legalRef.current].filter(Boolean) as Element[]
       let timer = 0
+
+      const show = () => {
+        gsap.set(columns, { x: 0, opacity: 1 })
+        if (markRef.current)  gsap.set(markRef.current,  { clipPath: 'inset(0 0% 0 0)' })
+        if (legalRef.current) gsap.set(legalRef.current, { y: 0, opacity: 1 })
+      }
 
       const io = new IntersectionObserver(([entry]) => {
         if (!entry.isIntersecting) return
         timer = window.setTimeout(() => {
-          if (!tl.scrollTrigger || tl.scrollTrigger.progress === 0) {
-            gsap.set(hidden, { clearProps: 'all' })
-          }
+          if (!tl.scrollTrigger || tl.scrollTrigger.progress === 0) show()
         }, 1500)
         io.disconnect()
-      })
+      // A sliver of the footer is not "on screen": the trigger fires at
+      // `top 85%`, so a 1px threshold would start the clock before the
+      // animation was ever due and call a working footer broken.
+      }, { threshold: 0.2 })
 
       io.observe(root)
 
