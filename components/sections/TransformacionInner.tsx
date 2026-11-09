@@ -224,7 +224,10 @@ export default function TransformacionInner() {
     )
 
   return (
-    <section ref={sectionRef} className="relative h-[500vh]">
+    // Opted out of the site-wide section reveal: this is five viewports tall
+    // and drives a sticky child. A transform on it would be a containing block
+    // for that child, and the whole scene would come unstuck.
+    <section ref={sectionRef} data-no-reveal className="relative h-[500vh]">
       <div className="sticky top-0 h-screen w-full bg-ink overflow-hidden">
 
         {/* ── Eyebrow ── */}

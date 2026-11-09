@@ -4,7 +4,6 @@ import { HeroText }       from '@/components/sections/HeroText'
 import { StatsBar }       from '@/components/sections/StatsBar'
 import { SelectedWork }   from '@/components/sections/SelectedWork'
 import { Testimonios }    from '@/components/sections/Testimonios'
-import { ScrollReveal }   from '@/components/motion/ScrollReveal'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -30,23 +29,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default function HomePage() {
   return (
     <main>
-      {/* The hero has its own entrance; everything after it settles into place
-          as it comes into view. ScrollReveal applies the hidden state from JS,
-          never from CSS — if it fails to run, the sections are simply there,
-          which is the only acceptable failure for the page's own content. */}
+      {/* The hero has its own entrance. Everything after it settles in as it
+          is scrolled to, handled for the whole site by RevealSections in the
+          layout — no wrappers here, and no section left out by accident. */}
       <HeroText />
-
-      <ScrollReveal y={18}>
-        <StatsBar />
-      </ScrollReveal>
-
-      <ScrollReveal>
-        <SelectedWork />
-      </ScrollReveal>
-
-      <ScrollReveal>
-        <Testimonios />
-      </ScrollReveal>
+      <StatsBar />
+      <SelectedWork />
+      <Testimonios />
     </main>
   )
 }
