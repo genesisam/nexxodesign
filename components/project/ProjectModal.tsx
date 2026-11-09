@@ -92,7 +92,11 @@ export function ProjectModal({
       // The page you came from stays visible along the top, blurred back so
       // it reads as somewhere you are still standing rather than somewhere
       // you left. That strip is also the way out: clicking it closes.
-      className="fixed inset-0 z-[70] flex items-end justify-center bg-ink/35 backdrop-blur-2xl"
+      //
+      // The tint is darker than the panel, not lighter. This site is almost
+      // black, so a strip the same value as the case study simply vanished —
+      // the gap was there and measured 72px, and nobody could see it.
+      className="fixed inset-0 z-[70] flex items-end justify-center bg-black/75 backdrop-blur-2xl"
       // The backdrop closes, but only when it is the backdrop that was
       // clicked — not when a click inside the panel bubbles out to it.
       onMouseDown={event => { if (event.target === event.currentTarget) close() }}
@@ -105,10 +109,12 @@ export function ProjectModal({
         tabIndex={-1}
         // The full width, but not the full height: it rises from the bottom
         // and stops short of the top edge, which is what leaves the page
-        // behind showing.
-        className="relative flex h-[calc(100%-3rem)] w-full flex-col overflow-hidden
-                   rounded-t-[1.5rem] border-t border-paper/10 bg-ink outline-none
-                   md:h-[calc(100%-4.5rem)] md:rounded-t-[2rem]"
+        // behind showing. The lit top edge and the shadow above it are what
+        // make that edge readable on a page this dark.
+        className="relative flex h-[calc(100%-3.5rem)] w-full flex-col overflow-hidden
+                   rounded-t-[1.5rem] border-t border-paper/25 bg-ink outline-none
+                   shadow-[0_-24px_60px_rgba(0,0,0,0.9)]
+                   md:h-[calc(100%-5.5rem)] md:rounded-t-[2rem]"
       >
         <button
           type="button"
