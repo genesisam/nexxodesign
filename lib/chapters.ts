@@ -85,6 +85,34 @@ function isSectionHeader(block: StoryBlock): block is SectionHeaderBlock {
 }
 
 /**
+ * At most this many buttons.
+ *
+ * The bar is a way to move around a case study, not a table of contents. Past
+ * five it stops being scannable and starts being a second navigation — and it
+ * would be a different length on every project, which is the opposite of what
+ * a fixed element should be.
+ */
+const MAX_CHAPTERS = 5
+
+/**
+ * `true` when this heading introduces the client's own words.
+ *
+ * That section closes a case study rather than being a part of it you would
+ * navigate to, and its heading is usually a sentence about the client rather
+ * than a label — "Madrid ya tiene su tienda CBD de referencia" arrived in the
+ * bar as "Madrid", which tells a reader nothing.
+ *
+ * The section stays on the page. It is only left out of the bar.
+ */
+function introducesFeedback(story: StoryBlock[], index: number): boolean {
+  for (let i = index + 1; i < story.length; i++) {
+    if (isSectionHeader(story[i])) return false
+    if (story[i]._type === 'feedback') return true
+  }
+  return false
+}
+
+/**
  * Builds the chapter list: the opening, the figures if the project has any,
  * then every section heading in the story.
  */
@@ -103,6 +131,7 @@ export function buildChapters(
 
   story.forEach((block, i) => {
     if (!isSectionHeader(block) || !block.heading) return
+    if (introducesFeedback(story, i)) return
 
     let label = shortLabel(block.heading)
 
@@ -118,5 +147,7 @@ export function buildChapters(
     chapters.push({ id: chapterId(block.heading, i), label, full: block.heading })
   })
 
-  return chapters
+  // Every section keeps its heading and its id on the page — this only
+  // decides how many of them the bar offers.
+  return chapters.slice(0, MAX_CHAPTERS)
 }
