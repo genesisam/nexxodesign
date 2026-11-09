@@ -7,7 +7,13 @@ import { RevealSections } from '@/components/motion/RevealSections'
 // the segment report itself as a duplicate of the home page. Each page builds
 // its own via `buildAlternates` in lib/seo.ts.
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default function SiteLayout({
+  children, modal,
+}: {
+  children: React.ReactNode
+  /** The parallel slot a case study opens into, empty on every other route. */
+  modal:    React.ReactNode
+}) {
   return (
     <>
       <Nav />
@@ -16,6 +22,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           mounted. */}
       <RevealSections />
       {children}
+      {modal}
       <Footer />
     </>
   )
