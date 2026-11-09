@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useLenis } from '@/components/motion/SmoothScrollProvider'
 
 /**
  * The shell a case study opens in when you click it from the index.
@@ -23,6 +24,7 @@ export function ProjectModal({
   label: string
 }) {
   const router   = useRouter()
+  const lenis    = useLenis()
   const scroller = useRef<HTMLDivElement>(null)
   const panel    = useRef<HTMLDivElement>(null)
 
@@ -50,13 +52,22 @@ export function ProjectModal({
     document.addEventListener('keydown', onKey)
 
     /**
-     * The page behind must not scroll while the modal is open, or a scroll
-     * that overruns the end of the case study carries on down the index and
-     * leaves the reader somewhere they never asked to be.
+     * The page behind must not scroll while the modal is open, and stopping
+     * it takes two things, because two different mechanisms move it.
      *
-     * The scrollbar's width is handed back as padding: taking the scrollbar
-     * away without it shifts the whole page sideways as the modal opens.
+     * Lenis owns the wheel on this site: it listens globally and scrolls the
+     * window itself, so `overflow: hidden` does not reach it — the first
+     * version of this modal looked right and then scrolled the index behind
+     * it. `lenis.stop()` is what actually holds the page still, and
+     * `data-lenis-prevent` on the box below is what lets the wheel reach the
+     * case study instead of being swallowed.
+     *
+     * `overflow: hidden` still matters for the readers Lenis never runs for —
+     * anyone on `prefers-reduced-motion`. The scrollbar's width is handed back
+     * as padding, or taking it away shifts the whole page sideways.
      */
+    lenis?.stop()
+
     const { body } = document
     const gap = window.innerWidth - document.documentElement.clientWidth
     const previous = { overflow: body.style.overflow, paddingRight: body.style.paddingRight }
@@ -68,17 +79,17 @@ export function ProjectModal({
 
     return () => {
       document.removeEventListener('keydown', onKey)
+      lenis?.start()
       body.style.overflow     = previous.overflow
       body.style.paddingRight = previous.paddingRight
     }
-  }, [close, open])
+  }, [close, open, lenis])
 
   if (!open) return null
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-start justify-center
-                 bg-ink/80 p-0 backdrop-blur-sm md:p-6 lg:p-8"
+      className="fixed inset-0 z-[70] flex items-start justify-center bg-ink"
       // The backdrop closes, but only when it is the backdrop that was
       // clicked — not when a click inside the panel bubbles out to it.
       onMouseDown={event => { if (event.target === event.currentTarget) close() }}
@@ -89,8 +100,9 @@ export function ProjectModal({
         aria-modal="true"
         aria-label={label}
         tabIndex={-1}
-        className="relative flex h-full w-full max-w-[1600px] flex-col overflow-hidden
-                   border border-paper/10 bg-ink outline-none md:rounded-[1.75rem]"
+        // Full bleed. The case study is the thing being read; a frame around
+        // it only made the page it covers peek through at the edges.
+        className="relative flex h-full w-full flex-col overflow-hidden bg-ink outline-none"
       >
         <button
           type="button"
@@ -106,10 +118,13 @@ export function ProjectModal({
         </button>
 
         {/* The case study scrolls in here, not in the window. ChapterNav is
-            told to measure against this box by the same attribute. */}
+            told to measure against this box by the same attribute, and
+            `data-lenis-prevent` is what stops Lenis stealing the wheel on its
+            way in. */}
         <div
           ref={scroller}
           data-project-scroller
+          data-lenis-prevent
           className="h-full overflow-y-auto overscroll-contain"
         >
           {children}
