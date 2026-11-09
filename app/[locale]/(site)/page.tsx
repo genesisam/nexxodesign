@@ -1,16 +1,10 @@
 import type { Metadata }  from 'next'
 import { buildAlternates } from '@/lib/seo'
-import { getAllPosts }     from '@/sanity/lib/post-data'
 import { HeroText }       from '@/components/sections/HeroText'
 import { StatsBar }       from '@/components/sections/StatsBar'
-import { Capabilities }   from '@/components/sections/Capabilities'
 import { SelectedWork }   from '@/components/sections/SelectedWork'
 import { Testimonios }    from '@/components/sections/Testimonios'
-import { ProcesoSection } from '@/components/sections/ProcesoSection'
-import { Statement }      from '@/components/sections/Statement'
-import { Transformacion } from '@/components/sections/Transformacion'
-import { FAQSection }     from '@/components/sections/FAQSection'
-import { Journal }        from '@/components/sections/Journal'
+import { ScrollReveal }   from '@/components/motion/ScrollReveal'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -25,21 +19,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function HomePage() {
+/**
+ * The home, cut to five things: hero, the figures, the work, the clients and
+ * the footer the layout already supplies.
+ *
+ * The sections that came off — services, process, the manifesto, "El sistema",
+ * the FAQ and the journal — are untouched components that still render on
+ * their own pages. Nothing was deleted, only taken out of the way in.
+ */
+export default function HomePage() {
   return (
     <main>
+      {/* The hero has its own entrance; everything after it settles into place
+          as it comes into view. ScrollReveal applies the hidden state from JS,
+          never from CSS — if it fails to run, the sections are simply there,
+          which is the only acceptable failure for the page's own content. */}
       <HeroText />
-      <StatsBar />
-      <Capabilities />
-      <SelectedWork />
-      <Testimonios />
-      <ProcesoSection />
-      <Statement />
-      <Transformacion />
-      <FAQSection />
-      {/* Same source the article pages read, so a card can only ever
-          link to a post that exists. */}
-      <Journal posts={(await getAllPosts()).slice(0, 5)} />
+
+      <ScrollReveal y={18}>
+        <StatsBar />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <SelectedWork />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <Testimonios />
+      </ScrollReveal>
     </main>
   )
 }

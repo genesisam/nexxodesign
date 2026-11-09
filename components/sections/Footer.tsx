@@ -2,7 +2,9 @@
 
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/navigation'
-import { useActionState } from 'react'
+import { useActionState, useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { subscribeNewsletter } from '@/app/[locale]/(site)/journal/actions'
 import { SOCIAL_INSTAGRAM, SOCIAL_BEHANCE, SOCIAL_LINKEDIN, SOCIAL_YOUTUBE } from '@/lib/constants'
 
@@ -101,8 +103,107 @@ function FooterNewsletter() {
   )
 }
 
+gsap.registerPlugin(ScrollTrigger)
+
 export function Footer() {
   const t = useTranslations('footer')
+
+  const rootRef  = useRef<HTMLElement>(null)
+  const gridRef  = useRef<HTMLDivElement>(null)
+  const markRef  = useRef<HTMLParagraphElement>(null)
+  const legalRef = useRef<HTMLDivElement>(null)
+
+  /**
+   * The footer arrives instead of just being there: the columns come in from
+   * the sides they sit on, the wordmark wipes across, and the legal line
+   * settles last.
+   *
+   * The hidden state is applied from JS, never from CSS. If this effect never
+   * runs — no JS, an exception, a plugin that failed to register — the footer
+   * is simply visible, which is the only acceptable failure for the block that
+   * holds the contact details.
+   *
+   * ScrollTrigger is already synced to Lenis in SmoothScrollProvider, so this
+   * fires against the smoothed scroll position rather than the native one.
+   */
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const columns = gridRef.current ? Array.from(gridRef.current.children) : []
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: root,
+          // Early enough that the movement is over by the time the footer is
+          // settled in view, late enough that it is not wasted off screen.
+          start: 'top 85%',
+          once:  true,
+        },
+      })
+
+      columns.forEach((column, i) => {
+        // Each column enters from its own side of the page, so the footer
+        // closes in on itself rather than sliding as one slab.
+        const fromLeft = i < columns.length / 2
+        tl.fromTo(column,
+          { x: fromLeft ? -56 : 56, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.75, ease: 'power3.out' },
+          i * 0.08)
+      })
+
+      if (markRef.current) {
+        tl.fromTo(markRef.current,
+          { clipPath: 'inset(0 100% 0 0)' },
+          { clipPath: 'inset(0 0% 0 0)', duration: 0.9, ease: 'power4.inOut' },
+          0.18)
+      }
+
+      if (legalRef.current) {
+        tl.fromTo(legalRef.current,
+          { y: 18, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+          0.5)
+      }
+
+      /**
+       * The failsafe, and the reason it exists.
+       *
+       * These are `fromTo` tweens inside a timeline, so the hidden state is
+       * applied the moment the timeline is built — before anyone scrolls. The
+       * elements become visible only when ScrollTrigger fires. If it never
+       * does — a refresh that lands wrong, a plugin that failed to sync with
+       * Lenis, a throttled rAF — the footer stays invisible, taking the phone
+       * number, the address and the legal links with it.
+       *
+       * So: once the footer is actually on screen, it has a second and a half
+       * to animate itself in. After that, whatever happened, it is shown.
+       */
+      const hidden = [...columns, markRef.current, legalRef.current].filter(Boolean) as Element[]
+      let timer = 0
+
+      const io = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return
+        timer = window.setTimeout(() => {
+          if (!tl.scrollTrigger || tl.scrollTrigger.progress === 0) {
+            gsap.set(hidden, { clearProps: 'all' })
+          }
+        }, 1500)
+        io.disconnect()
+      })
+
+      io.observe(root)
+
+      return () => {
+        io.disconnect()
+        window.clearTimeout(timer)
+      }
+    }, root)
+
+    return () => ctx.revert()
+  }, [])
 
   const FOOTER_NAV = [
     { href: '/proyectos' as const, label: t('navProyectos') },
@@ -113,9 +214,9 @@ export function Footer() {
   ]
 
   return (
-    <footer aria-label="Footer" className="bg-ink">
+    <footer ref={rootRef} aria-label="Footer" className="bg-ink">
 
-      <div className="gutter-x pt-20 md:pt-28 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10 md:gap-x-14 lg:gap-x-20">
+      <div ref={gridRef} className="gutter-x pt-20 md:pt-28 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10 md:gap-x-14 lg:gap-x-20">
 
         <div>
           <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-6">
@@ -175,6 +276,7 @@ export function Footer() {
 
       <div className="gutter-x mt-16 md:mt-24 overflow-hidden">
         <p
+          ref={markRef}
           aria-hidden
           className="font-display font-semibold text-paper leading-none select-none"
           style={{ fontSize: 'clamp(80px, 27vw, 480px)', letterSpacing: '-0.04em' }}
@@ -183,7 +285,7 @@ export function Footer() {
         </p>
       </div>
 
-      <div className="gutter-x mt-5 pt-5 pb-8 border-t border-line flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <div ref={legalRef} className="gutter-x mt-5 pt-5 pb-8 border-t border-line flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
         <div className="flex items-center gap-6">
           <Link
             href="/privacidad"
