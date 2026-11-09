@@ -89,7 +89,10 @@ export function ProjectModal({
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-start justify-center bg-ink"
+      // The page you came from stays visible along the top, blurred back so
+      // it reads as somewhere you are still standing rather than somewhere
+      // you left. That strip is also the way out: clicking it closes.
+      className="fixed inset-0 z-[70] flex items-end justify-center bg-ink/35 backdrop-blur-2xl"
       // The backdrop closes, but only when it is the backdrop that was
       // clicked — not when a click inside the panel bubbles out to it.
       onMouseDown={event => { if (event.target === event.currentTarget) close() }}
@@ -100,9 +103,12 @@ export function ProjectModal({
         aria-modal="true"
         aria-label={label}
         tabIndex={-1}
-        // Full bleed. The case study is the thing being read; a frame around
-        // it only made the page it covers peek through at the edges.
-        className="relative flex h-full w-full flex-col overflow-hidden bg-ink outline-none"
+        // The full width, but not the full height: it rises from the bottom
+        // and stops short of the top edge, which is what leaves the page
+        // behind showing.
+        className="relative flex h-[calc(100%-3rem)] w-full flex-col overflow-hidden
+                   rounded-t-[1.5rem] border-t border-paper/10 bg-ink outline-none
+                   md:h-[calc(100%-4.5rem)] md:rounded-t-[2rem]"
       >
         <button
           type="button"

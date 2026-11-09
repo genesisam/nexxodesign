@@ -188,6 +188,11 @@ export function ChapterNav({
                     data-for={chapter.id}
                     onClick={event => jump(event, chapter.id)}
                     aria-current={isActive ? 'true' : undefined}
+                    // The button shows a word or two; the heading it leads to
+                    // is a sentence. Both are here, so the short form never
+                    // costs anyone the full one.
+                    title={chapter.full}
+                    aria-label={chapter.full}
                     className={`block whitespace-nowrap rounded-full px-4 py-2 font-mono text-[9px]
                                 uppercase tracking-[0.18em] transition-colors duration-200
                                 ${isActive
