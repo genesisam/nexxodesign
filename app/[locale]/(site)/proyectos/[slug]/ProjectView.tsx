@@ -10,6 +10,7 @@ import { absoluteUrl, SITE_URL } from '@/lib/seo'
 import { getProjectBySlug } from '@/sanity/lib/project-data'
 import { NexxoPortableText } from '@/components/portable-text'
 import { ChapterNav } from '@/components/project/ChapterNav'
+import { ProjectMotion } from '@/components/project/ProjectMotion'
 import { buildChapters, chapterId } from '@/lib/chapters'
 
 /**
@@ -226,7 +227,7 @@ function MediaRenderer({ block, bg }: { block: MediaBlock; bg: string }) {
           )}
         </div>
         {block.caption && (
-          <figcaption className="mt-4 font-mono text-smoke/65 text-[9px] uppercase tracking-[0.2em]">
+          <figcaption className="mt-4 font-mono text-smoke/75 text-[12px] uppercase tracking-[0.14em]">
             {block.caption}
           </figcaption>
         )}
@@ -265,7 +266,7 @@ function SplitItemCard({ item, bg }: { item: SplitItem; bg: string }) {
         )}
       </div>
       {item.caption && (
-        <figcaption className="mt-4 mb-4 font-mono text-smoke/70 text-[14px] leading-snug max-w-[88%]">
+        <figcaption className="mt-4 mb-4 font-mono text-smoke/80 text-[15px] leading-relaxed max-w-[88%]">
           {item.caption}
         </figcaption>
       )}
@@ -635,6 +636,10 @@ export async function ProjectView({
       {/* Room for the floating bar, so it never sits on top of the last line
           of the page it is navigating. */}
       <div aria-hidden className="h-20 bg-ink md:h-24" />
+
+      {/* Vive aquí y no en una página concreta: esta vista la comparten los
+          seis casos y el modal, así que todos entran igual. */}
+      <ProjectMotion />
 
       <ChapterNav
         chapters={chapters}

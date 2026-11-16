@@ -5,6 +5,230 @@ import type { Project } from '@/types/project'
 // null image/video URLs → gradient placeholders rendered by the UI layer.
 
 export const MOCK_PROJECTS: Project[] = [
+  // ── Cornish Arquitectos ───────────────────────────────────────────────────
+  // Published with permission. Cakao Studio led the engagement and designed the
+  // site; this case study is about building it, which is the only part that was
+  // mine. Every figure comes from the project's own handoff document.
+  //
+  // Same block sequence as the other case studies: overview, media, and a
+  // section header before each new idea, one pull quote, and the client's words
+  // at the end. Image slots are empty on purpose (`url: null` draws the
+  // gradient placeholder) and each carries a note with the image to create —
+  // none of them show the architecture, they show how the site was built.
+  {
+    _id:         'mock-cornish-arquitectos',
+    title:       'Cornish Arquitectos',
+    subtitle:    'Un diseño de Cakao Studio, construido para que el despacho lo llene solo durante años.',
+    slug:        { current: 'cornish-arquitectos' },
+    client:      'Cornish Arquitectos',
+    year:        2026,
+    timeline:    '4 hitos · 2026',
+    services:    ['Desarrollo web', 'Integración de CMS', 'SEO técnico', 'Despliegue'],
+    vertical:    'Arquitectura',
+    // Todo lo que sigue son capturas y grabaciones del sitio real, hechas
+    // sobre el proyecto corriendo en local. Nada está recreado ni simulado:
+    // las interacciones que se ven son las que se entregaron.
+    cover:       '/images/projects/cornish-arquitectos/home.webp',
+    // La rejilla revelando sus imágenes al pasar el cursor. Es la primera cosa
+    // que hace el sitio y la que mejor se entiende sin explicación.
+    heroMedia:   '/images/projects/cornish-arquitectos/rejilla-hover.mp4',
+    metric:      '13 rutas y un cliente que publica solo',
+    // Las cuatro cuentan una secuencia: cuánto se construyó, qué puede cambiar
+    // el cliente solo, con qué aprende a hacerlo y cómo se entregó.
+    //
+    // La tercera decía «Bases de datos propias: 0» — jerga interna, y un cero
+    // se lee como ausencia de logro. Los ocho tutoriales son un hecho
+    // verificable (están en el repositorio del sitio) y sostienen el argumento
+    // de la última sección: la entrega incluía que no dependieran de nosotros.
+    metrics: [
+      { _key: 'com1', label: 'Rutas en producción',          value: '13'   },
+      { _key: 'com2', label: 'Contenido editable por ellos', value: '100%' },
+      { _key: 'com3', label: 'Tutoriales para el cliente',   value: '8'    },
+      { _key: 'com4', label: 'Hitos entregados',             value: '4'    },
+    ],
+    excerpt:
+      'Cakao Studio diseñó el sitio del despacho y lideró el proyecto. Mi parte fue construirlo: ' +
+      'Next.js y Sanity, el contenido entero editable por el cliente, y un sitio estático que se ' +
+      'reconstruye solo cada vez que alguien publica.',
+    liveUrl: 'https://cornish-arquitectos-web.vercel.app',
+    story: [
+      {
+        _type: 'overview', _key: 'coo1', label: 'El encargo',
+        body: [
+          { _type: 'block', _key: 'cob1', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos1', marks: [],
+              text: 'Cakao Studio llegó con el proyecto de Cornish Arquitectos ya pensado: la identidad, las páginas y el criterio visual eran suyos. Lo que faltaba era convertir ese diseño en un sitio real, con un gestor de contenido que el despacho pudiera usar sin ayuda.',
+            }] },
+          { _type: 'block', _key: 'cob2', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos2', marks: [],
+              text: 'Ese fue mi trabajo: desarrollo, integración del CMS, SEO técnico y despliegue, entregados en cuatro hitos.',
+            }] },
+        ],
+      },
+      // El sitio y quién lo diseñó, uno al lado del otro y desde el principio.
+      { _type: 'splitShow', _key: 'cosp0', items: [
+        { _key: 'csp0a', mediaType: 'image', size: 'sm',
+          url: '/images/projects/cornish-arquitectos/par-encargo-escritorio.webp',
+          caption: 'La portada: una obra a pantalla completa, el nombre del despacho y nada más.' },
+        { _key: 'csp0b', mediaType: 'image', size: 'sm',
+          url: '/images/projects/cornish-arquitectos/par-encargo-logo.webp',
+          caption: 'La marca del despacho, tal como viaja en el sitio. La identidad y el criterio visual son de Cakao Studio; lo que sigue es cómo se construyó.' },
+      ] },
+
+      { _type: 'sectionHeader', _key: 'cosh1', heading: 'Del diseño al código', divider: true },
+      {
+        _type: 'overview', _key: 'coo2', label: 'Construcción', heading: 'Next.js 16, React 19 y Tailwind',
+        body: [
+          { _type: 'block', _key: 'cob3', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos3', marks: [],
+              text: 'El sitio se construyó con Next.js 16 sobre App Router, React 19, TypeScript y Tailwind CSS v4. Las rutas se separaron en dos grupos: las páginas normales, que llevan cabecera y pie, y una ruta inmersiva a pantalla completa que no los lleva, porque ahí estorban.',
+            }] },
+          { _type: 'block', _key: 'cob4', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos4', marks: [],
+              text: 'Cada sección vive en su propia carpeta, con sus consultas y sus componentes al lado. Quien entre después a tocar «proyectos» encuentra todo lo de proyectos en un solo lugar, en vez de perseguirlo por cinco carpetas técnicas.',
+            }] },
+        ],
+      },
+      // Cada pieza del sitio se muestra en los dos anchos en los que de verdad
+      // se usa. Van en dos columnas y compuestas en cuadrado, porque dos
+      // capturas grandes de escritorio seguidas no cuentan nada nuevo.
+      { _type: 'splitShow', _key: 'cosp1', items: [
+        { _key: 'csp1a', mediaType: 'image', size: 'sm',
+          url: '/images/projects/cornish-arquitectos/par-obra-escritorio.webp',
+          caption: 'Una obra entera en una sola caída: fotografía, ficha técnica y planos. Las rutas se separaron en dos grupos —las páginas normales llevan cabecera y pie; la vista inmersiva no, porque ahí estorban.' },
+        { _key: 'csp1b', mediaType: 'image', size: 'sm',
+          url: '/images/projects/cornish-arquitectos/par-obra-movil.webp',
+          caption: 'La misma obra en el teléfono, sin perder una sola pieza. Cada sección vive en su carpeta con sus consultas al lado: quien entre después a tocar «proyectos» lo encuentra todo en un sitio.' },
+      ] },
+
+      { _type: 'sectionHeader', _key: 'cosh5', heading: 'Veintinueve obras que hay que poder encontrar', divider: true },
+      {
+        _type: 'overview', _key: 'coo6', label: 'El archivo', heading: 'Un índice que se vuelve galería',
+        body: [
+          { _type: 'block', _key: 'cob13', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos13', marks: [],
+              text: 'Treinta años de obra son veintinueve proyectos publicados, y ahí aparece un problema que un despacho joven no tiene: quien entra buscando una casa en Valle de Bravo no debería recorrer veintiocho edificios de departamentos para encontrarla.',
+            }] },
+          { _type: 'block', _key: 'cob16', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos16', marks: [],
+              text: 'La rejilla se comporta como un índice y no como una galería: primero los nombres y los lugares, sobre blanco, y la fotografía solo cuando el visitante se detiene en una. La decisión es de Cakao Studio. Construirla es otra cosa: veintinueve fotografías de obra en una sola página, cada tarjeta con su propio estado, sin que ninguna se adelante ni la página se arrastre.',
+            }] },
+        ],
+      },
+      { _type: 'media', _key: 'com-6', mediaType: 'video', size: 'lg',
+        url: '/images/projects/cornish-arquitectos/filtros.mp4',
+        caption: 'La rejilla se rehace sin recargar la página' },
+      { _type: 'splitShow', _key: 'cosp2', items: [
+        { _key: 'csp2a', mediaType: 'image', size: 'sm',
+          url: '/images/projects/cornish-arquitectos/par-archivo-escritorio.webp',
+          caption: 'El archivo se filtra por lo que el visitante tiene en la cabeza, no por lo que la base de datos tiene en las tablas: por lo que es la obra —unifamiliar, plurifamiliar, sustentable, oficinas, concursos, club deportivo, experimentación— y por aquello de lo que está hecha —concreto, piedra, madera, acero, paisajismo, detalle.' },
+        { _key: 'csp2b', mediaType: 'image', size: 'sm',
+          url: '/images/projects/cornish-arquitectos/par-archivo-movil.webp',
+          caption: 'Trece criterios combinables, y un «limpiar» que solo existe cuando hay algo que limpiar. Ninguno está escrito en el código: son documentos del CMS, así que una categoría nueva la escribe el despacho y el archivo la filtra esa misma tarde.' },
+      ] },
+
+      { _type: 'sectionHeader', _key: 'cosh2', heading: 'El CMS como única fuente', divider: true },
+      {
+        _type: 'overview', _key: 'coo3', label: 'Sanity', heading: 'Publicar y que el sitio se rehaga solo',
+        body: [
+          { _type: 'block', _key: 'cob5', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos5', marks: [],
+              text: 'Todo el contenido vive en Sanity: proyectos, décadas, textos y fotografías. El Studio quedó montado dentro del mismo sitio, para que el despacho no tenga que entrar a otra herramienta ni recordar otra contraseña.',
+            }] },
+          { _type: 'block', _key: 'cob6', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos6', marks: [],
+              text: 'El sitio se genera estático a partir de ese contenido: no hay base de datos propia, ni servidor que mantener, ni sesiones de visitante. Cuando alguien publica, un webhook dispara la reconstrucción y el cambio queda en línea sin que nadie toque el código. Un proyecto nuevo es llenar un formulario.',
+            }] },
+          { _type: 'block', _key: 'cob7', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos7', marks: [],
+              text: 'Del mismo contenido salen el sitemap, los datos estructurados y las imágenes para compartir en redes. Cada obra que publiquen llega al mundo con su ficha para buscadores lista, sin que nadie tenga que acordarse de prepararla.',
+            }] },
+        ],
+      },
+      { _type: 'quote', _key: 'coq1',
+        text: '«Un CMS que el cliente no entiende es un sitio que vuelve a congelarse a los seis meses.»' },
+      { _type: 'media', _key: 'com-3', mediaType: 'video', size: 'lg',
+        url: '/images/projects/cornish-arquitectos/cms-mapa.mp4',
+        caption: 'El gestor habla el idioma del despacho' },
+      { _type: 'media', _key: 'com-8', mediaType: 'video', size: 'lg',
+        url: '/images/projects/cornish-arquitectos/cms-publicar.mp4',
+        caption: 'Borrador o publicado: la decisión que separa un texto a medias del sitio real' },
+
+      { _type: 'sectionHeader', _key: 'cosh3', heading: 'La parte difícil: explorar en plano', divider: true },
+      {
+        _type: 'overview', _key: 'coo4', label: 'Interacción', heading: 'Un plano navegable, armado desde el CMS',
+        body: [
+          { _type: 'block', _key: 'cob8', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos8', marks: [],
+              text: 'Para los proyectos con planta levantada, el sitio abre una vista a pantalla completa donde el plano funciona como navegación: cada punto marcado lleva a su espacio. La gracia técnica es que esos puntos no están escritos en el código, sino configurados en el CMS, así que el despacho puede sumar planos nuevos sin que nadie programe nada.',
+            }] },
+          { _type: 'block', _key: 'cob9', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos9', marks: [],
+              text: 'Se entregó funcionando sobre un proyecto y listo para el resto.',
+            }] },
+        ],
+      },
+      { _type: 'media', _key: 'com-4', mediaType: 'video', size: 'lg',
+        url: '/images/projects/cornish-arquitectos/plano.mp4',
+        caption: 'El plano es el menú: cada punto abre la fotografía del espacio en el que estás parado' },
+      { _type: 'splitShow', _key: 'cosp3', items: [
+        { _key: 'csp3a', mediaType: 'image', size: 'sm',
+          url: '/images/projects/cornish-arquitectos/par-plano-escritorio.webp',
+          caption: 'A pantalla completa y con sus propios controles de acercamiento, porque un plano que no se puede agrandar no se puede leer.' },
+        { _key: 'csp3b', mediaType: 'image', size: 'sm',
+          url: '/images/projects/cornish-arquitectos/par-plano-movil.webp',
+          caption: 'Y entero en el teléfono, que es donde alguien abre un plano estando dentro de la casa. Se entregó funcionando sobre una obra y listo para el resto.' },
+      ] },
+
+      { _type: 'sectionHeader', _key: 'cosh4', heading: 'Que no dependan de nosotros', divider: true },
+      {
+        _type: 'overview', _key: 'coo5', label: 'Entrega', heading: 'Un manual dentro del propio sitio',
+        body: [
+          { _type: 'block', _key: 'cob10', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos10', marks: [],
+              text: 'El sitio incluye un manual para el cliente, fuera del alcance de los buscadores, escrito para quien administra el contenido y no para quien escribe código: cómo entrar, cómo publicar, qué pasa después de darle al botón. Esa parte es la que decide si un CMS se usa o se abandona a los dos meses.',
+            }] },
+          { _type: 'block', _key: 'cob11', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos11', marks: [],
+              text: 'Al cierre se comprobó lo que suele darse por hecho: las trece rutas respondiendo en producción, la compilación y la revisión de tipos sin un solo aviso, los borradores del CMS sin filtrarse al sitio público, y el contenido publicado comparado página por página contra el repositorio.',
+            }] },
+          { _type: 'block', _key: 'cob12', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos12', marks: [],
+              text: 'También salió algo del sitio: el formulario de contacto estaba construido y funcionando, y el despacho prefirió teléfono, WhatsApp y redes, que es por donde de verdad le escriben. Trabajo hecho que se descarta, pero la decisión era la correcta.',
+            }] },
+        ],
+      },
+      { _type: 'media', _key: 'com-5', mediaType: 'image', size: 'lg',
+        url: '/images/projects/cornish-arquitectos/manual.webp',
+        caption: 'El manual vive dentro del propio sitio, y los buscadores no lo ven' },
+
+      // El crédito, al cierre y con su enlace. El caso entero habla de
+      // desarrollo porque eso fue lo que hice; que el sitio se vea como se ve
+      // es mérito de quien lo diseñó, y quien llegue hasta aquí debería poder
+      // ir a buscarlos.
+      {
+        _type: 'overview', _key: 'coo7', label: 'Créditos', heading: 'El diseño es de Cakao Studio',
+        body: [
+          { _type: 'block', _key: 'cob17', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'cos17', marks: [],
+              text: 'Cakao Studio diseñó el sitio de Cornish Arquitectos de principio a fin —identidad, páginas y criterio visual— y lideró el proyecto. Mi parte fue el desarrollo: convertir ese diseño en un sitio real, con un gestor de contenido que el despacho pudiera usar sin ayuda. Todo lo que se ve en esta página es obra suya; lo que se cuenta es cómo se construyó.',
+            }] },
+        ],
+        link: { label: 'Ver el trabajo de Cakao Studio', href: 'https://www.cakaostudio.com/' },
+      },
+
+      // PENDIENTE — cierre con las palabras del cliente, como en los demás
+      // casos. No lo escribo yo: tiene que venir de Cakao Studio o del
+      // despacho. Cuando llegue la frase, va aquí:
+      //
+      // { _type: 'feedback', _key: 'cofb1',
+      //   quote:   '…',
+      //   name:    'Equipo Cakao Studio',
+      //   role:    'Dirección de diseño',
+      //   company: 'Cakao Studio' },
+    ],
+  },
+
   // ── Merxo ─────────────────────────────────────────────────────────────────
   {
     _id:         'mock-merxo',
