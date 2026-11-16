@@ -135,4 +135,13 @@ export type Project = {
   liveUrl?:     string | null
   story:        StoryBlock[]
   nextProject?: ProjectPreview | null
+  /**
+   * Fuera del sitio, pero no del repositorio.
+   *
+   * Un caso marcado así no se lista, no se pre-renderiza, no entra en el
+   * sitemap y su URL responde 404: está despublicado en el sentido literal.
+   * El contenido se queda escrito para cuando se retome, que es la diferencia
+   * entre despublicar y borrar.
+   */
+  unlisted?:    boolean
 }

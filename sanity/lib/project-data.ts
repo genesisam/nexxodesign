@@ -116,9 +116,14 @@ export async function getProjectCards(): Promise<ProjectCardData[] | null> {
   }
 
   const enElCms = new Set(cms.map(card => card.slug?.current).filter(Boolean))
-  const soloRepo = MOCK_PROJECTS.filter(p => !enElCms.has(p.slug.current)).map(mockCard)
+  const soloRepo = MOCK_PROJECTS
+    .filter(p => !p.unlisted && !enElCms.has(p.slug.current))
+    .map(mockCard)
 
-  const todos = [...cms, ...soloRepo]
+  // Del más reciente al más antiguo. Dentro del mismo año se respeta el orden
+  // de origen, que en el CMS es el que decide el editor.
+  const todos = [...cms, ...soloRepo].sort((a, b) => (b.year ?? 0) - (a.year ?? 0))
+
   // `null` sigue significando «no hay nada»: quien llama conserva su respaldo.
   return todos.length ? todos : null
 }
@@ -130,7 +135,9 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   } catch {
     // Sanity unreachable in dev (SSL proxy) — fall through to mock
   }
-  return MOCK_PROJECTS.find(p => p.slug.current === slug) ?? null
+  const delRepo = MOCK_PROJECTS.find(p => p.slug.current === slug)
+  // Un caso despublicado no responde: devolver null hace que la ruta sea 404.
+  return delRepo && !delRepo.unlisted ? delRepo : null
 }
 
 /**
@@ -142,7 +149,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
  * sitemap and unprerendered — reachable but never advertised.
  */
 export async function getAllProjectSlugs(): Promise<string[]> {
-  const mockSlugs = MOCK_PROJECTS.map(p => p.slug.current)
+  const mockSlugs = MOCK_PROJECTS.filter(p => !p.unlisted).map(p => p.slug.current)
 
   let cmsSlugs: string[] = []
   try {

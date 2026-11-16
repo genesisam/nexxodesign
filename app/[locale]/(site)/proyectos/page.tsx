@@ -55,7 +55,7 @@ export default async function WorkPage({ params }: Props) {
 
   const enElCms = new Set(cms.map(p => p.slug?.current).filter(Boolean))
   const soloRepo: Project[] = MOCK_PROJECTS
-    .filter(p => !enElCms.has(p.slug.current))
+    .filter(p => !p.unlisted && !enElCms.has(p.slug.current))
     .map(p => ({
       _id:        p._id,
       title:      p.title,
@@ -70,7 +70,9 @@ export default async function WorkPage({ params }: Props) {
       client:     p.client,
     }))
 
-  const projects = [...cms, ...soloRepo]
+  // Del más reciente al más antiguo. Dentro del mismo año se respeta el orden
+  // de origen, que en el CMS es el que decide el editor.
+  const projects = [...cms, ...soloRepo].sort((a, b) => (b.year ?? 0) - (a.year ?? 0))
 
   return <WorkIndex projects={projects.length ? projects : undefined} />
 }

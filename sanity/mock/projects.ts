@@ -804,6 +804,10 @@ export const MOCK_PROJECTS: Project[] = [
     timeline:    '10 semanas · Q2 2025',
     services:    ['Brand Design', 'Logo', 'Web Design', 'App Design', 'Motion & Video', 'IA aplicada'],
     vertical:    'IA',
+    // Despublicado: el caso describe una versión del producto que ya no es la
+    // que está en línea. El sitio final vive en tolvia.com y se rehará desde
+    // ahí; hasta entonces no se lista ni responde.
+    unlisted:    true,
     cover:       null,
     heroMedia:   null,
     metric:      '87% conversaciones resueltas sin agente',
