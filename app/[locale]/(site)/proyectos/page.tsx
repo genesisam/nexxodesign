@@ -4,6 +4,7 @@ import { buildAlternates } from '@/lib/seo'
 import { WorkIndex } from '@/components/sections/WorkIndex'
 import type { Project } from '@/components/sections/WorkIndex'
 import { sanityClient } from '@/sanity/lib/client'
+import { MOCK_PROJECTS } from '@/sanity/mock/projects'
 import { groq } from 'next-sanity'
 
 type Props = { params: Promise<{ locale: string }> }
@@ -33,17 +34,43 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+/**
+ * El índice lista lo que hay en el CMS más los casos que solo viven en el
+ * repositorio.
+ *
+ * Sin esa unión, un caso escrito en `sanity/mock/projects.ts` tenía su página,
+ * quedaba pre-renderizado y entraba en el sitemap, pero nada lo enlazaba: solo
+ * se llegaba escribiendo la URL. Le pasaba a Cornish Arquitectos y a Tolvia.
+ */
 export default async function WorkPage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
 
-  let projects: Project[] | undefined
+  let cms: Project[] = []
   try {
-    const rows = await sanityClient.fetch<Project[]>(projectsQuery)
-    if (rows?.length) projects = rows
+    cms = await sanityClient.fetch<Project[]>(projectsQuery) ?? []
   } catch {
-    // Falls back to mock data inside WorkIndex
+    // Sanity inalcanzable — WorkIndex conserva su propio respaldo.
   }
 
-  return <WorkIndex projects={projects} />
+  const enElCms = new Set(cms.map(p => p.slug?.current).filter(Boolean))
+  const soloRepo: Project[] = MOCK_PROJECTS
+    .filter(p => !enElCms.has(p.slug.current))
+    .map(p => ({
+      _id:        p._id,
+      title:      p.title,
+      slug:       p.slug,
+      vertical:   p.vertical as Project['vertical'],
+      cover:      p.cover ?? null,
+      logo:       null,
+      thumbnail:  null,
+      thumbVideo: null,
+      blurb:      p.excerpt ?? '',
+      year:       p.year,
+      client:     p.client,
+    }))
+
+  const projects = [...cms, ...soloRepo]
+
+  return <WorkIndex projects={projects.length ? projects : undefined} />
 }

@@ -82,14 +82,45 @@ export type ProjectCardData = {
  * CMS appeared on /proyectos and nowhere else. Falls back to the caller's
  * static list when Sanity is unreachable.
  */
-export async function getProjectCards(): Promise<ProjectCardData[] | null> {
-  try {
-    const rows = await sanityClient.fetch<ProjectCardData[]>(projectCardsQuery)
-    if (rows?.length) return rows
-  } catch {
-    // Sanity unreachable — caller keeps its static fallback
+/** Un proyecto de los mocks, con la forma que espera una tarjeta. */
+function mockCard(project: (typeof MOCK_PROJECTS)[number]): ProjectCardData {
+  return {
+    _id:      project._id,
+    title:    project.title,
+    slug:     project.slug,
+    client:   project.client,
+    year:     project.year,
+    metric:   project.metric ?? '',
+    services: project.services,
+    coverUrl: project.cover ?? undefined,
   }
-  return null
+}
+
+/**
+ * Las tarjetas del índice y del home: lo que hay en el CMS, más los proyectos
+ * que solo viven en el repositorio.
+ *
+ * La unión no es un capricho. `getProjectBySlug` ya cae a los mocks y
+ * `getAllProjectSlugs` ya devuelve la unión, así que un caso escrito en el
+ * repositorio tenía página, estaba pre-renderizado y entraba en el sitemap
+ * — pero esta función solo miraba el CMS, de modo que ni el índice ni el home
+ * lo enlazaban nunca. Existía y no se podía llegar a él salvo escribiendo la
+ * URL. Le pasaba a Cornish Arquitectos y también a Tolvia.
+ */
+export async function getProjectCards(): Promise<ProjectCardData[] | null> {
+  let cms: ProjectCardData[] = []
+  try {
+    cms = await sanityClient.fetch<ProjectCardData[]>(projectCardsQuery) ?? []
+  } catch {
+    // Sanity inalcanzable — seguimos con lo que haya en el repositorio.
+  }
+
+  const enElCms = new Set(cms.map(card => card.slug?.current).filter(Boolean))
+  const soloRepo = MOCK_PROJECTS.filter(p => !enElCms.has(p.slug.current)).map(mockCard)
+
+  const todos = [...cms, ...soloRepo]
+  // `null` sigue significando «no hay nada»: quien llama conserva su respaldo.
+  return todos.length ? todos : null
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
