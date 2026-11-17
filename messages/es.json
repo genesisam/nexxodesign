@@ -167,13 +167,45 @@
       "headline": "Un estudio pequeño, obsesionado con que el diseño trabaje para el negocio.",
       "subhead": "Producto y web premium, de la estrategia al deploy. Pocos clientes, atención real."
     },
-    "manifiesto": {
-      "label": ">> Nuestra forma",
-      "p1muted": "¿En qué invertimos cada día?",
-      "p1accent": "En diseñar producto y web que hace crecer negocios — no solo portafolios.",
-      "p2accent": "Una manera distinta de trabajar.",
-      "p2muted": "Sin agencias grandes, sin intermediarios. Un estudio pequeño donde cada decisión tiene una razón de negocio detrás, no una reunión de validación interna.",
-      "p3": "Demostrar que el buen diseño se mide."
+    "estudio": {
+      "label": "Built by ideas",
+      "hint": "Toca un objeto o elige una historia:",
+      "loading": "Construyendo el estudio…",
+      "replay": "Repetir intro",
+      "back": "Volver al estudio",
+      "start": "Empieza aquí",
+      "drag": "Arrastra para girar",
+      "next": "Siguiente",
+      "objects": {
+        "notebook": "Cuaderno",
+        "computer": "Computador",
+        "bricks": "Bloques",
+        "lamp": "Lámpara"
+      },
+      "stories": {
+        "notebook": {
+          "eyebrow": "01 — El origen",
+          "title": "No empecé diseñando productos digitales.",
+          "subtitle": "Empecé aprendiendo a mirar.",
+          "body": "Mi historia comenzó con el diseño gráfico, estudiando en la Universidad Pontificia Bolivariana en Medellín. Aquí descubrí los fundamentos de composición, tipografía, comunicación visual y diseño."
+        },
+        "computer": {
+          "eyebrow": "02 — La evolución",
+          "title": "El diseño dejó de ser algo que solo se mira.",
+          "body": "Con el tiempo, el trabajo evolucionó hacia las interfaces digitales, la experiencia de usuario y el desarrollo frontend."
+        },
+        "bricks": {
+          "eyebrow": "03 — La filosofía",
+          "title": "Cada detalle construye algo mayor.",
+          "body": "Nexxo conecta estrategia, diseño y desarrollo para construir experiencias digitales funcionales."
+        },
+        "lamp": {
+          "eyebrow": "04 — Nexxo hoy",
+          "title": "Diseño con intención. Tecnología con propósito.",
+          "body": "Nexxo es un estudio enfocado en diseño y desarrollo de productos digitales, con atención directa y una visión que conecta el diseño con los objetivos del negocio.",
+          "cta": "Ver proyectos →"
+        }
+      }
     },
     "proceso": {
       "label": "Cómo trabajamos",
