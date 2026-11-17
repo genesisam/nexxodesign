@@ -5,6 +5,143 @@ import type { Project } from '@/types/project'
 // null image/video URLs → gradient placeholders rendered by the UI layer.
 
 export const MOCK_PROJECTS: Project[] = [
+  // ── National Beard League ─────────────────────────────────────────────────
+  // Diseño y desarrollo, los dos míos, que es lo que lo separa de Cornish.
+  // Todo el material son capturas y grabaciones de la tienda corriendo: la
+  // portada, el catálogo, la ficha, el megamenú y el carrito.
+  {
+    _id:         'mock-nbl',
+    title:       'National Beard League',
+    subtitle:    'Una tienda de cuidado de barba que explica el producto antes de pedir la tarjeta.',
+    slug:        { current: 'nbl' },
+    client:      'National Beard League',
+    year:        2026,
+    timeline:    'Diseño y desarrollo · 2026',
+    services:    ['Brand Design', 'E-commerce', 'UX/UI', 'Desarrollo web', 'CRO'],
+    vertical:    'Web',
+    cover:       '/images/projects/nbl/home.webp',
+    heroMedia:   '/images/projects/nbl/hero.mp4',
+    metric:      '5 productos, un precio, cero fricción',
+    metrics: [
+      { _key: 'nm1', label: 'Productos en catálogo',    value: '5'   },
+      { _key: 'nm2', label: 'Rutas en producción',      value: '12'  },
+      { _key: 'nm3', label: 'Ahorro por suscripción',   value: '15%' },
+      { _key: 'nm4', label: 'Umbral de envío gratis',   value: '$50' },
+    ],
+    excerpt:
+      'Cinco productos de cuidado de barba, todos al mismo precio, para una marca que vende por ' +
+      'Instagram desde 2019. Diseñé la tienda y la construí: Astro, catálogo con filtros, ficha con ' +
+      'suscripción y un carrito que trabaja para subir el pedido medio.',
+    liveUrl: 'https://nbl-home.vercel.app',
+    story: [
+      {
+        _type: 'overview', _key: 'nbo1', label: 'El encargo',
+        body: [
+          { _type: 'block', _key: 'nbb1', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs1', marks: [],
+              text: 'National Beard League vendía desde 2019 por Instagram y Facebook: fotos, mensajes directos y pedidos cerrados a mano. Funcionaba, pero no escala — cada venta cuesta una conversación, y las preguntas son siempre las mismas.',
+            }] },
+          { _type: 'block', _key: 'nbb2', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs2', marks: [],
+              text: 'El encargo fue el sitio entero: marca aplicada, diseño e implementación. Cinco productos, todos a $44,95, y una decisión de partida — la tienda tiene que responder las preguntas que hoy se responden por mensaje privado, antes de que nadie tenga que escribirlas.',
+            }] },
+        ],
+      },
+
+      { _type: 'sectionHeader', _key: 'nbsh1', heading: 'Cinco productos, una palabra cada uno', divider: true },
+      {
+        _type: 'overview', _key: 'nbo2', label: 'Catálogo', heading: 'Aceite, manteca, champú, gel y el kit',
+        body: [
+          { _type: 'block', _key: 'nbb3', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs3', marks: [],
+              text: 'Con cinco referencias y un precio único, el catálogo no tiene que ordenar por precio ni comparar gamas: tiene que decir en un vistazo cuál es cuál. Cada tarjeta lleva una sola palabra en grande —aceite, manteca, champú, cuerpo, kit—, el aroma en una píldora de color y una línea de para qué sirve.',
+            }] },
+          { _type: 'block', _key: 'nbb4', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs4', marks: [],
+              text: 'El aceite lleva la etiqueta «empieza aquí» y el kit «la rutina entera». Son las dos únicas señales de jerarquía que hay, y hacen el trabajo que en otras tiendas hace un comparador.',
+            }] },
+        ],
+      },
+      { _type: 'splitShow', _key: 'nbsp1', items: [
+        { _key: 'nbi1', mediaType: 'image', size: 'sm',
+          url: '/images/projects/nbl/par-catalogo-escritorio.webp',
+          caption: 'El catálogo entero cabe en una pantalla: cinco tarjetas, una palabra cada una, el aroma en color.' },
+        { _key: 'nbi2', mediaType: 'image', size: 'sm',
+          url: '/images/projects/nbl/par-catalogo-movil.webp',
+          caption: 'En el teléfono las cinco categorías se deslizan en una sola fila: repartidas en dos filas quedaban descentradas, y un producto cortado por el borde dice que hay más mejor que una fila a medias.' },
+      ] },
+      { _type: 'media', _key: 'nbm1', mediaType: 'video', size: 'lg',
+        url: '/images/projects/nbl/megamenu.mp4',
+        caption: 'El menú enseña los cinco con foto, aroma y precio' },
+
+      { _type: 'sectionHeader', _key: 'nbsh2', heading: 'La ficha que responde antes de que preguntes', divider: true },
+      {
+        _type: 'overview', _key: 'nbo3', label: 'Producto', heading: 'Ingredientes, tamaño y suscripción',
+        body: [
+          { _type: 'block', _key: 'nbb5', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs5', marks: [],
+              text: 'Las preguntas que llegaban por mensaje eran siempre tres: qué lleva, cuánto dura y cada cuánto hay que comprarlo. La ficha las contesta en ese orden — los ingredientes con nombre propio, el tamaño en onzas y mililitros, y la elección entre compra suelta o suscripción con un 15 % menos y la frecuencia que el cliente decida.',
+            }] },
+          { _type: 'block', _key: 'nbb6', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs6', marks: [],
+              text: 'La suscripción no está escondida en un desplegable: es una de las dos opciones, con el ahorro escrito al lado. Es la decisión que más mueve el valor de un cliente a lo largo del tiempo, así que se toma en la ficha y no en el carrito.',
+            }] },
+        ],
+      },
+      { _type: 'splitShow', _key: 'nbsp2', items: [
+        { _key: 'nbi3', mediaType: 'image', size: 'sm',
+          url: '/images/projects/nbl/par-ficha-escritorio.webp',
+          caption: 'Tamaño, suscripción o compra suelta, cantidad y beneficios, todo antes del primer scroll.' },
+        { _key: 'nbi4', mediaType: 'image', size: 'sm',
+          url: '/images/projects/nbl/par-ficha-movil.webp',
+          caption: 'La misma decisión en vertical, con el botón de compra siempre al alcance del pulgar.' },
+      ] },
+
+      { _type: 'sectionHeader', _key: 'nbsh3', heading: 'El carrito que también vende', divider: true },
+      {
+        _type: 'overview', _key: 'nbo4', label: 'Carrito', heading: 'Lo que falta para el envío gratis',
+        body: [
+          { _type: 'block', _key: 'nbb7', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs7', marks: [],
+              text: 'El carrito se abre al lado sin sacar a nadie de la página, y hace tres cosas además de sumar: dice cuánto falta para el envío gratis con una barra que avanza, recuerda si el artículo va por suscripción, y propone los otros productos de la rutina con un botón de añadir que no obliga a navegar.',
+            }] },
+          { _type: 'block', _key: 'nbb8', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs8', marks: [],
+              text: 'Con un precio único de $44,95 y el envío gratis a partir de $50, la distancia entre un pedido y el siguiente es de cinco dólares y noventa y cinco centavos. El carrito lo dice en voz alta en vez de esperar a que el cliente lo calcule.',
+            }] },
+        ],
+      },
+      { _type: 'media', _key: 'nbm2', mediaType: 'video', size: 'lg',
+        url: '/images/projects/nbl/carrito.mp4',
+        caption: 'La barra de envío gratis, la suscripción y la venta cruzada, en el mismo panel' },
+      { _type: 'quote', _key: 'nbq1',
+        text: '«Una tienda de cinco productos no necesita un buscador. Necesita que se entienda cuál es cuál.»' },
+
+      { _type: 'sectionHeader', _key: 'nbsh4', heading: 'El kit, que es el pedido que interesa', divider: true },
+      {
+        _type: 'overview', _key: 'nbo5', label: 'Construcción', heading: 'Astro, estático, sin panel que mantener',
+        body: [
+          { _type: 'block', _key: 'nbb9', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs9', marks: [],
+              text: 'La tienda se construyó con Astro y se publica estática: doce rutas —portada, catálogo, cinco fichas, preguntas frecuentes y cuatro páginas legales— que se sirven como archivos. El catálogo vive en un único archivo de datos, así que cambiar un precio o un aroma es editar una línea, no tocar cinco plantillas.',
+            }] },
+          { _type: 'block', _key: 'nbb10', style: 'normal', markDefs: [],
+            children: [{ _type: 'span', _key: 'nbs10', marks: [],
+              text: 'El kit de cuatro piezas tiene su propio lugar en la portada y su propia ficha, porque es el pedido que el negocio quiere: una sola compra que cubre la rutina completa y deja al cliente sin motivo para volver a elegir.',
+            }] },
+        ],
+      },
+      { _type: 'splitShow', _key: 'nbsp3', items: [
+        { _key: 'nbi5', mediaType: 'image', size: 'sm',
+          url: '/images/projects/nbl/par-kit-escritorio.webp',
+          caption: 'La ficha del kit: los cuatro productos y la caja de viaje, en una sola compra.' },
+        { _key: 'nbi6', mediaType: 'image', size: 'sm',
+          url: '/images/projects/nbl/par-kit-movil.webp',
+          caption: 'Y en el teléfono, que es por donde llega quien viene de Instagram.' },
+      ] },
+    ],
+  },
+
   // ── Cornish Arquitectos ───────────────────────────────────────────────────
   // Published with permission. Cakao Studio led the engagement and designed the
   // site; this case study is about building it, which is the only part that was
@@ -39,7 +176,7 @@ export const MOCK_PROJECTS: Project[] = [
     // La tercera decía «Bases de datos propias: 0» — jerga interna, y un cero
     // se lee como ausencia de logro. Los ocho tutoriales son un hecho
     // verificable (están en el repositorio del sitio) y sostienen el argumento
-    // de la última sección: la entrega incluía que no dependieran de nosotros.
+    // de la última sección: la entrega incluía que no dependieran de mí.
     metrics: [
       { _key: 'com1', label: 'Rutas en producción',          value: '13'   },
       { _key: 'com2', label: 'Contenido editable por ellos', value: '100%' },
@@ -180,7 +317,7 @@ export const MOCK_PROJECTS: Project[] = [
           caption: 'Y entero en el teléfono, que es donde alguien abre un plano estando dentro de la casa. Se entregó funcionando sobre una obra y listo para el resto.' },
       ] },
 
-      { _type: 'sectionHeader', _key: 'cosh4', heading: 'Que no dependan de nosotros', divider: true },
+      { _type: 'sectionHeader', _key: 'cosh4', heading: 'Que no dependan de mí', divider: true },
       {
         _type: 'overview', _key: 'coo5', label: 'Entrega', heading: 'Un manual dentro del propio sitio',
         body: [
@@ -251,7 +388,7 @@ export const MOCK_PROJECTS: Project[] = [
     ],
     excerpt:
       'Merxo llegó con un equipo de ventas que trabajaba en hojas de cálculo, correos sin hilo ' +
-      'y llamadas sin registro. Diseñamos la marca, el sistema de identidad y la plataforma CRM ' +
+      'y llamadas sin registro. Diseñé la marca, el sistema de identidad y la plataforma CRM ' +
       'completa — desde el pipeline de leads hasta el módulo de inventario y soporte.',
     liveUrl: null,
     story: [
@@ -274,7 +411,7 @@ export const MOCK_PROJECTS: Project[] = [
         body: [
           { _type: 'block', _key: 'b3', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's3', marks: [],
-              text: 'Antes de diseñar una sola pantalla, construimos la identidad de Merxo. Desarrollamos el logotipo, el sistema tipográfico, la paleta de color y el tono de voz: directo, sin tecnicismos, orientado a resultados.',
+              text: 'Antes de diseñar una sola pantalla, construí la identidad de Merxo. Desarrollé el logotipo, el sistema tipográfico, la paleta de color y el tono de voz: directo, sin tecnicismos, orientado a resultados.',
             }] },
         ],
       },
@@ -338,7 +475,7 @@ export const MOCK_PROJECTS: Project[] = [
     ],
     excerpt:
       'Las bicicletas eléctricas cuestan entre $800 y $3.000 USD. Sus dueños no saben dónde están ' +
-      'cuando las dejan estacionadas, ni reciben alertas si alguien las mueve. Diseñamos la app ' +
+      'cuando las dejan estacionadas, ni reciben alertas si alguien las mueve. Diseñé la app ' +
       'móvil y la identidad de Nexo Go desde cero: la compañera digital de tu e-bike.',
     liveUrl: null,
     story: [
@@ -444,7 +581,7 @@ export const MOCK_PROJECTS: Project[] = [
     excerpt:
       'Las tiendas CBD en España parecen una farmacia genérica o un head shop de los 90. ' +
       'Greenery 420 llegó con un brief claro: ser la primera marca de wellness de cáñamo en Madrid ' +
-      'que se ve y comunica como una casa de lujo accesible. Diseñamos la identidad y la tienda Shopify desde cero.',
+      'que se ve y comunica como una casa de lujo accesible. Diseñé la identidad y la tienda Shopify desde cero.',
     liveUrl: null,
     story: [
       {
@@ -472,7 +609,7 @@ export const MOCK_PROJECTS: Project[] = [
         body: [
           { _type: 'block', _key: 'b3', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's3', marks: [],
-              text: 'El 73% de los compradores de CBD llegan sin saber qué necesitan. Diseñamos la arquitectura de la tienda por beneficio: Sueño · Estrés · Dolor · Foco · Wellness. Dentro de cada categoría, el usuario ve los productos recomendados con una explicación de por qué ese formato funciona para ese objetivo.',
+              text: 'El 73% de los compradores de CBD llegan sin saber qué necesitan. Diseñé la arquitectura de la tienda por beneficio: Sueño · Estrés · Dolor · Foco · Wellness. Dentro de cada categoría, el usuario ve los productos recomendados con una explicación de por qué ese formato funciona para ese objetivo.',
             }] },
         ],
       },
@@ -516,7 +653,7 @@ export const MOCK_PROJECTS: Project[] = [
     ],
     excerpt:
       'La alta costura tiene una relación complicada con el e-commerce. Un Shopify genérico mata el ' +
-      'ritual de compra de una pieza de $800. Diseñamos e implementamos el e-commerce completo de ' +
+      'ritual de compra de una pieza de $800. Diseñé e implementé el e-commerce completo de ' +
       'Maison Oliva desde cero — desktop y móvil — para que la experiencia digital tenga el mismo peso que la física.',
     liveUrl: null,
     story: [
@@ -589,7 +726,7 @@ export const MOCK_PROJECTS: Project[] = [
     ],
     excerpt:
       'Solivus opera activos solares para empresas en 6 países. Su plataforma previa ' +
-      'requería capacitación de 3 semanas para interpretar los datos. Diseñamos el dashboard, ' +
+      'requería capacitación de 3 semanas para interpretar los datos. Diseñé el dashboard, ' +
       'la app móvil y el sistema de alertas desde cero — priorizando la densidad de información ' +
       'sin sacrificar la claridad operativa.',
     liveUrl: null,
@@ -635,7 +772,7 @@ export const MOCK_PROJECTS: Project[] = [
           {
             _type: 'block', _key: 'b3', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's3', marks: [],
-              text: 'Empezamos con un audit de las 48 métricas que la plataforma mostraba. Solo 9 requerían atención inmediata; el resto eran contexto. Diseñamos una jerarquía de tres capas: estado crítico (visible al primer vistazo), métricas operativas (accesibles con un clic) y datos históricos (bajo demanda).',
+              text: 'Empecé por auditar las 48 métricas que la plataforma mostraba. Solo 9 requerían atención inmediata; el resto eran contexto. Diseñé una jerarquía de tres capas: estado crítico (visible al primer vistazo), métricas operativas (accesibles con un clic) y datos históricos (bajo demanda).',
             }],
           },
           {
@@ -671,7 +808,7 @@ export const MOCK_PROJECTS: Project[] = [
           {
             _type: 'block', _key: 'b5', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's5', marks: [],
-              text: 'Los técnicos de campo necesitan diagnosticar un panel en segundos, con el sol de frente y guantes puestos. Diseñamos la app móvil con tap targets de mínimo 48px, modo alto contraste automático bajo luz solar y jerarquía de información invertida.',
+              text: 'Los técnicos de campo necesitan diagnosticar un panel en segundos, con el sol de frente y guantes puestos. Diseñé la app móvil con tap targets de mínimo 48px, modo alto contraste automático bajo luz solar y jerarquía de información invertida.',
             }],
           },
           {
@@ -705,7 +842,7 @@ export const MOCK_PROJECTS: Project[] = [
           {
             _type: 'block', _key: 'b7', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's7', marks: [],
-              text: 'Rediseñamos el sistema de notificaciones para que cada alerta incluya el contexto necesario para actuar sin abrir la app. El tiempo de respuesta cayó de 34 a 18 minutos (−47%).',
+              text: 'Rediseñé el sistema de notificaciones para que cada alerta incluya el contexto necesario para actuar sin abrir la app. El tiempo de respuesta cayó de 34 a 18 minutos (−47%).',
             }],
           },
         ],
@@ -750,7 +887,7 @@ export const MOCK_PROJECTS: Project[] = [
         ],
       },
 
-      { _type: 'quote', _key: 'q2', text: '"La energía solar es invisible. Nuestro trabajo fue hacer que los datos sean tan claros como el sol."' },
+      { _type: 'quote', _key: 'q2', text: '"La energía solar es invisible. Mi trabajo fue hacer que los datos sean tan claros como el sol."' },
 
       { _type: 'sectionHeader', _key: 'sh5', heading: 'Impacto medible', divider: true },
 
@@ -820,7 +957,7 @@ export const MOCK_PROJECTS: Project[] = [
     excerpt:
       'Los equipos de soporte de Tolvia respondían hasta 3.000 tickets al mes con agentes humanos. ' +
       'Los clientes esperaban horas. La IA genérica frustraba más de lo que ayudaba. ' +
-      'Diseñamos la marca completa, la web, la aplicación desktop y los materiales audiovisuales — ' +
+      'Diseñé la marca completa, la web, la aplicación desktop y los materiales audiovisuales — ' +
       'para posicionar a Tolvia como la voz de IA más natural del mercado latinoamericano.',
     liveUrl: null,
     story: [
@@ -843,7 +980,7 @@ export const MOCK_PROJECTS: Project[] = [
         body: [
           { _type: 'block', _key: 'b3', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's3', marks: [],
-              text: 'Diseñamos el logotipo, el sistema de identidad y el lenguaje visual de Tolvia desde cero. El brief era claro: nada de robots, nada de burbujas de chat genéricas. La marca debía transmitir calidez, precisión y confianza. Paleta oscura con acento verde — tecnología que no asusta.',
+              text: 'Diseñé el logotipo, el sistema de identidad y el lenguaje visual de Tolvia desde cero. El brief era claro: nada de robots, nada de burbujas de chat genéricas. La marca debía transmitir calidez, precisión y confianza. Paleta oscura con acento verde — tecnología que no asusta.',
             }] },
           { _type: 'block', _key: 'b4', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's4', marks: [],
@@ -873,7 +1010,7 @@ export const MOCK_PROJECTS: Project[] = [
         body: [
           { _type: 'block', _key: 'b7', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's7', marks: [],
-              text: 'La web de Tolvia tiene un único objetivo: que el VP de Operaciones entienda en 10 segundos por qué Tolvia es diferente y agende una demo. Diseñamos la arquitectura de contenido, las secciones de prueba social y las animaciones — incluyendo una demo interactiva de conversación IA embebida en la hero.',
+              text: 'La web de Tolvia tiene un único objetivo: que el VP de Operaciones entienda en 10 segundos por qué Tolvia es diferente y agende una demo. Diseñé la arquitectura de contenido, las secciones de prueba social y las animaciones — incluyendo una demo interactiva de conversación IA embebida en la hero.',
             }] },
           { _type: 'block', _key: 'b8', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's8', marks: [],
