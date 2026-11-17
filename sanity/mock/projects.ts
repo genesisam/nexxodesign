@@ -379,12 +379,12 @@ export const MOCK_PROJECTS: Project[] = [
     vertical:    'SaaS',
     cover:       null,
     heroMedia:   null,
-    metric:      '+280% velocidad de cierre',
+    metric:      'Un pipeline de cinco etapas y workflows en tres clics',
     metrics: [
-      { _key: 'm1', label: 'Velocidad de cierre',       value: '+280%' },
-      { _key: 'm2', label: 'Tiempo en tareas manuales', value: '−65%'  },
-      { _key: 'm3', label: 'Leads por vendedor',        value: '×2.8'  },
-      { _key: 'm4', label: 'Adopción mes 1',            value: '94%'   },
+      { _key: 'm1', label: 'Etapas del pipeline', value: '5' },
+      { _key: 'm2', label: 'Clics por workflow', value: '3' },
+      { _key: 'm3', label: 'Código para automatizar', value: '0' },
+      { _key: 'm4', label: 'CRMs abandonados antes', value: '2' },
     ],
     excerpt:
       'Merxo llegó con un equipo de ventas que trabajaba en hojas de cálculo, correos sin hilo ' +
@@ -427,13 +427,13 @@ export const MOCK_PROJECTS: Project[] = [
       },
       { _type: 'quote', _key: 'q1',
         text: '"Un CRM que el equipo abandona en dos semanas no es un CRM. Es un sistema de archivo caro."' },
-      { _type: 'sectionHeader', _key: 'sh3', heading: 'Resultados a 90 días', divider: true },
+      { _type: 'sectionHeader', _key: 'sh3', heading: 'Lo que el equipo usa a diario', divider: true },
       {
         _type: 'overview', _key: 'ob4', label: 'Impacto',
         body: [
           { _type: 'block', _key: 'b5', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's5', marks: [],
-              text: 'A los 90 días del lanzamiento, la velocidad de cierre aumentó 280%. Los vendedores pasaron de gestionar 12 leads activos en promedio a 34. La adopción fue del 94% en el primer mes, sin training obligatorio.',
+              text: 'La plataforma quedó en producción con cinco módulos que comparten una misma lógica: pipeline de cinco etapas, inventario atado a las oportunidades activas, soporte con historial y SLA, workflows sin código y reportes en tiempo real. El equipo había abandonado dos CRMs antes de la tercera semana; el criterio de diseño fue que esta vez la abrieran porque les ahorra trabajo.',
             }] },
         ],
       },
@@ -466,12 +466,12 @@ export const MOCK_PROJECTS: Project[] = [
     vertical:    'SaaS',
     cover:       '/images/projects/nexo-go/cover.webp',
     heroMedia:   null,
-    metric:      '0 robos entre usuarios activos',
+    metric:      'Una capa digital donde solo había hardware',
     metrics: [
-      { _key: 'm1', label: 'Robos (usuarios activos)', value: '0'      },
-      { _key: 'm2', label: 'Tiempo de uso diario',     value: '+340%'  },
-      { _key: 'm3', label: 'Valoración App Store',     value: '4.9 ★' },
-      { _key: 'm4', label: 'Respuesta a alertas',      value: '<2 min' },
+      { _key: 'm1', label: 'Resolución del geofencing', value: '±5 m' },
+      { _key: 'm2', label: 'Radio del modo anti-robo', value: '50 m' },
+      { _key: 'm3', label: 'Del movimiento al aviso', value: '<2 min' },
+      { _key: 'm4', label: 'Relojes compatibles', value: '2' },
     ],
     excerpt:
       'Las bicicletas eléctricas cuestan entre $800 y $3.000 USD. Sus dueños no saben dónde están ' +
@@ -488,7 +488,7 @@ export const MOCK_PROJECTS: Project[] = [
             }] },
           { _type: 'block', _key: 'b2', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's2', marks: [],
-              text: 'Los robos de e-bikes crecieron 340% en ciudades latinoamericanas en los últimos tres años. La respuesta del mercado era un candado. Nexo Go vio algo diferente: una categoría sin capa digital.',
+              text: 'El robo de e-bikes es el miedo que ordena la categoría en las ciudades latinoamericanas. La respuesta del mercado era un candado. Nexo Go vio algo diferente: una categoría sin capa digital.',
             }] },
         ],
       },
@@ -571,12 +571,12 @@ export const MOCK_PROJECTS: Project[] = [
     vertical:    'Web',
     cover:       null,
     heroMedia:   null,
-    metric:      '+185% conversión vs benchmark wellness',
+    metric:      'Cinco líneas ordenadas por beneficio, no por formato',
     metrics: [
-      { _key: 'm1', label: 'Conversión vs benchmark',  value: '+185%' },
-      { _key: 'm2', label: 'Valor medio del pedido',   value: '×3.2'  },
-      { _key: 'm3', label: 'Clientes recurrentes 90d', value: '68%'   },
-      { _key: 'm4', label: 'Valoración tienda',        value: '4.8 ★' },
+      { _key: 'm1', label: 'Líneas de producto', value: '5' },
+      { _key: 'm2', label: 'THC máximo, declarado en ficha', value: '0,3 %' },
+      { _key: 'm3', label: 'Líneas para responder «¿es legal?»', value: '3' },
+      { _key: 'm4', label: 'Pagos alternativos a tarjeta', value: '2' },
     ],
     excerpt:
       'Las tiendas CBD en España parecen una farmacia genérica o un head shop de los 90. ' +
@@ -589,7 +589,7 @@ export const MOCK_PROJECTS: Project[] = [
         body: [
           { _type: 'block', _key: 'b1', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's1', marks: [],
-              text: 'El mercado CBD en España creció un 340% entre 2020 y 2024. Pero la estética del sector no creció con él. Greenery 420 tenía los productos correctos: aceites de espectro completo, flores premium, hachís CBD artesanal, vapes y una línea wellness. El producto era serio. La marca necesitaba serlo también.',
+              text: 'El CBD dejó de ser un nicho en España. Pero la estética del sector no creció con él. Greenery 420 tenía los productos correctos: aceites de espectro completo, flores premium, hachís CBD artesanal, vapes y una línea wellness. El producto era serio. La marca necesitaba serlo también.',
             }] },
         ],
       },
@@ -609,7 +609,7 @@ export const MOCK_PROJECTS: Project[] = [
         body: [
           { _type: 'block', _key: 'b3', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's3', marks: [],
-              text: 'El 73% de los compradores de CBD llegan sin saber qué necesitan. Diseñé la arquitectura de la tienda por beneficio: Sueño · Estrés · Dolor · Foco · Wellness. Dentro de cada categoría, el usuario ve los productos recomendados con una explicación de por qué ese formato funciona para ese objetivo.',
+              text: 'La mayoría de los compradores de CBD llega sin saber qué necesita. Diseñé la arquitectura de la tienda por beneficio: Sueño · Estrés · Dolor · Foco · Wellness. Dentro de cada categoría, el usuario ve los productos recomendados con una explicación de por qué ese formato funciona para ese objetivo.',
             }] },
         ],
       },
@@ -644,16 +644,16 @@ export const MOCK_PROJECTS: Project[] = [
     vertical:    'Web',
     cover:       null,
     heroMedia:   null,
-    metric:      '+240% tiempo en sitio vs benchmark moda',
+    metric:      'Un tema Shopify a medida, sin una sola plantilla',
     metrics: [
-      { _key: 'm1', label: 'Tiempo en sitio vs benchmark', value: '+240%'      },
-      { _key: 'm2', label: 'Valor medio del pedido',       value: '×4.6'       },
-      { _key: 'm3', label: 'Tasa de retorno a 60 días',    value: '71%'        },
-      { _key: 'm4', label: 'Diseño 100% custom',           value: '0 templates' },
+      { _key: 'm1', label: 'Plantillas usadas', value: '0' },
+      { _key: 'm2', label: 'Actos en la homepage', value: '3' },
+      { _key: 'm3', label: 'Imágenes por pieza', value: '6' },
+      { _key: 'm4', label: 'Pasos en el checkout', value: '2' },
     ],
     excerpt:
       'La alta costura tiene una relación complicada con el e-commerce. Un Shopify genérico mata el ' +
-      'ritual de compra de una pieza de $800. Diseñé e implementé el e-commerce completo de ' +
+      'ritual de compra de una pieza de 800 €. Diseñé e implementé el e-commerce completo de ' +
       'Maison Oliva desde cero — desktop y móvil — para que la experiencia digital tenga el mismo peso que la física.',
     liveUrl: null,
     story: [
@@ -682,7 +682,7 @@ export const MOCK_PROJECTS: Project[] = [
         body: [
           { _type: 'block', _key: 'b3', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's3', marks: [],
-              text: 'El 74% del tráfico llega de Instagram. Galería con swipe horizontal nativo, carrito persistente como panel lateral, checkout en dos pasos. Sin crear cuenta obligatoria. La transición de Instagram a la ficha de producto en dos toques.',
+              text: 'Casi todo el tráfico llega de Instagram. Galería con swipe horizontal nativo, carrito persistente como panel lateral, checkout en dos pasos. Sin crear cuenta obligatoria. La transición de Instagram a la ficha de producto en dos toques.',
             }] },
         ],
       },
@@ -717,16 +717,16 @@ export const MOCK_PROJECTS: Project[] = [
     vertical:    'SaaS',
     cover:       '/images/projects/solivus/cover.png',
     heroMedia:   null,
-    metric:      '−47% tiempo de respuesta a alertas',
+    metric:      '48 métricas auditadas, 9 en primer plano',
     metrics: [
-      { _key: 'm1', label: 'Respuesta a alertas', value: '−47%'  },
-      { _key: 'm2', label: 'Adopción plataforma', value: '+210%' },
-      { _key: 'm3', label: 'Sesiones diarias',    value: '×3.1'  },
-      { _key: 'm4', label: 'NPS operadores',      value: '82'    },
+      { _key: 'm1', label: 'Métricas auditadas', value: '48' },
+      { _key: 'm2', label: 'Críticas al primer vistazo', value: '9' },
+      { _key: 'm3', label: 'Capas de jerarquía', value: '3' },
+      { _key: 'm4', label: 'Superficies diseñadas', value: '4' },
     ],
     excerpt:
       'Solivus opera activos solares para empresas en 6 países. Su plataforma previa ' +
-      'requería capacitación de 3 semanas para interpretar los datos. Diseñé el dashboard, ' +
+      'mostraba 48 métricas sin jerarquía: todo visible, nada legible. Diseñé el dashboard, ' +
       'la app móvil y el sistema de alertas desde cero — priorizando la densidad de información ' +
       'sin sacrificar la claridad operativa.',
     liveUrl: null,
@@ -746,7 +746,7 @@ export const MOCK_PROJECTS: Project[] = [
           {
             _type: 'block', _key: 'b2', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's2', marks: [],
-              text: 'El resultado: los operadores tardaban 3 semanas en capacitarse y, aun así, el tiempo medio de respuesta a alertas críticas era de 34 minutos. Cada minuto fuera de rango equivale a pérdida de energía generada y posibles daños de equipo.',
+              text: 'El resultado: cada alerta crítica obligaba a abrir la plataforma, buscar el panel, leer la tabla y recién entonces decidir qué hacer. Cada minuto fuera de rango equivale a pérdida de energía generada y posibles daños de equipo.',
             }],
           },
         ],
@@ -842,7 +842,7 @@ export const MOCK_PROJECTS: Project[] = [
           {
             _type: 'block', _key: 'b7', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's7', marks: [],
-              text: 'Rediseñé el sistema de notificaciones para que cada alerta incluya el contexto necesario para actuar sin abrir la app. El tiempo de respuesta cayó de 34 a 18 minutos (−47%).',
+              text: 'Rediseñé el sistema de notificaciones para que cada alerta incluya el contexto necesario para actuar sin abrir la app. La alerta llega con el panel, la lectura fuera de rango y la acción sugerida dentro.',
             }],
           },
         ],
@@ -889,17 +889,17 @@ export const MOCK_PROJECTS: Project[] = [
 
       { _type: 'quote', _key: 'q2', text: '"La energía solar es invisible. Mi trabajo fue hacer que los datos sean tan claros como el sol."' },
 
-      { _type: 'sectionHeader', _key: 'sh5', heading: 'Impacto medible', divider: true },
+      { _type: 'sectionHeader', _key: 'sh5', heading: 'Lo que quedó funcionando', divider: true },
 
       {
         _type:   'overview',
         _key:    'ob6',
-        label:   'Resultados a 90 días',
+        label:   'La entrega',
         body: [
           {
             _type: 'block', _key: 'b11', style: 'normal', markDefs: [],
             children: [{ _type: 'span', _key: 's11', marks: [],
-              text: 'A los 90 días del lanzamiento, el tiempo de respuesta a alertas cayó de 34 a 18 minutos (−47%). La adopción de la plataforma creció 210% trimestral. El NPS del equipo técnico pasó de 41 a 82.',
+              text: 'La plataforma quedó con una sola jerarquía de lectura: nueve métricas críticas al primer vistazo, las operativas a un clic y el histórico bajo demanda. Y el mismo sistema bajó a cuatro superficies: dashboard de control, app de campo, tablet y la identidad física de la planta.',
             }],
           },
           {

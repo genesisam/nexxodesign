@@ -7,7 +7,7 @@ type Props = { params: Promise<{ locale: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   return {
-    title:       'Política de privacidad — Nexxo',
+    title:       'Política de privacidad',
     description: 'Cómo recopilamos, usamos y protegemos tu información personal en Nexxo Design.',
     alternates:  buildAlternates(locale, '/privacidad'),
   }

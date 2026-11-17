@@ -8,7 +8,7 @@ type Props = { params: Promise<{ locale: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   return {
-    title:       'Soporte — Nexxo',
+    title:       'Soporte',
     description: 'Centro de soporte de Nexxo Design. Encuentra respuestas a preguntas frecuentes o contáctanos directamente.',
     alternates:  buildAlternates(locale, '/soporte'),
   }

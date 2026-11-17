@@ -11,7 +11,7 @@ const MOCK: Project[] = [
     slug: { current: 'solivus' },
     client: 'Solivus',
     year: 2025,
-    metric: '−47% tiempo de respuesta a alertas',
+    metric: '48 métricas auditadas, 9 en primer plano',
     services: ['Product Design', 'Dashboard UI', 'Mobile', 'Branding'],
     coverUrl: '/images/projects/solivus/cover.png',
   },
@@ -21,7 +21,7 @@ const MOCK: Project[] = [
     slug: { current: 'merxo' },
     client: 'Merxo',
     year: 2025,
-    metric: '+280% velocidad de cierre',
+    metric: 'Un pipeline de cinco etapas y workflows en tres clics',
     services: ['Brand Design', 'Product Design', 'Web App'],
   },
   {
@@ -30,7 +30,7 @@ const MOCK: Project[] = [
     slug: { current: 'nexo-go' },
     client: 'Nexo Go',
     year: 2025,
-    metric: '0 robos entre usuarios activos',
+    metric: 'Una capa digital donde solo había hardware',
     services: ['Brand Design', 'Mobile Design', 'IoT UX'],
   },
   {
@@ -39,7 +39,7 @@ const MOCK: Project[] = [
     slug: { current: 'greenery-420' },
     client: 'Greenery 420 CBD',
     year: 2025,
-    metric: '+185% conversión vs benchmark wellness',
+    metric: 'Cinco líneas ordenadas por beneficio, no por formato',
     services: ['Brand Design', 'E-commerce', 'Shopify'],
   },
   {
@@ -48,7 +48,7 @@ const MOCK: Project[] = [
     slug: { current: 'maison-oliva' },
     client: 'Maison Oliva',
     year: 2025,
-    metric: '+240% tiempo en sitio vs benchmark moda',
+    metric: 'Un tema Shopify a medida, sin una sola plantilla',
     services: ['Art Direction', 'E-commerce', 'Shopify'],
   },
 ]

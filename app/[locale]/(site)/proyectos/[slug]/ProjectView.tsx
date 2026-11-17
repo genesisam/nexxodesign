@@ -25,30 +25,47 @@ import { buildChapters, chapterId } from '@/lib/chapters'
 
 // ─── SEO meta — ES ───────────────────────────────────────────────────────────
 
+/**
+ * El `title` va sin « | Nexxo »: la plantilla de `app/layout.tsx` lo añade.
+ * Ponerlo aquí también dejaba el título del navegador en «… | Nexxo | Nexxo».
+ */
 export const SEO_META: Record<string, { title: string; description: string }> = {
   'solivus': {
-    title:       'Solivus — UX para Software Industrial de Monitoreo Solar | Nexxo',
-    description: 'Cómo diseñamos el dashboard y la app móvil de Solivus, plataforma AI de monitoreo solar. −47% tiempo de respuesta a alertas críticas.',
+    title:       'Solivus — UX para Software Industrial de Monitoreo Solar',
+    description: 'Rediseñé el dashboard y la app móvil de Solivus, plataforma de monitoreo solar: 48 métricas auditadas, 9 en primer plano y alertas que llegan con la acción dentro.',
   },
   'merxo': {
-    title:       'Merxo CRM — Diseño de Producto para Pipeline Comercial B2B | Nexxo',
-    description: 'Diseñamos la marca y plataforma CRM de Merxo que convirtió el caos comercial en pipeline predecible. +280% velocidad de cierre en 90 días.',
+    title:       'Merxo CRM — Diseño de Producto para Pipeline Comercial B2B',
+    description: 'Diseñé la marca y la plataforma CRM de Merxo: un pipeline de cinco etapas, inventario y soporte en un solo sitio, y workflows que se montan en tres clics.',
   },
   'nexo-go': {
-    title:       'Nexo Go — App IoT de Tracking para Bicicletas Eléctricas | Nexxo',
-    description: 'Diseño de app móvil IoT de seguridad y tracking para bicicletas eléctricas. 0 robos reportados entre usuarios activos de Nexo Go.',
+    title:       'Nexo Go — App IoT de Tracking para Bicicletas Eléctricas',
+    description: 'Diseño de app IoT y marca para bicicletas eléctricas: el estado de la bici en una pantalla, modo anti-robo que se arma solo y aviso con ubicación en menos de dos minutos.',
   },
   'greenery-420': {
-    title:       'Greenery 420 CBD — E-commerce en Sector Regulado | Nexxo',
-    description: 'E-commerce CBD premium para Greenery 420 Madrid. Diseño que cumple regulación y convierte: +185% vs benchmark wellness.',
+    title:       'Greenery 420 CBD — E-commerce en Sector Regulado',
+    description: 'E-commerce CBD premium para Greenery 420, en Madrid: cinco líneas de producto ordenadas por beneficio, análisis de laboratorio en cada ficha y pagos alternativos a tarjeta.',
   },
   'maison-oliva': {
-    title:       'Maison Oliva — E-commerce de Alta Costura en Shopify | Nexxo',
-    description: 'E-commerce editorial de alta costura en Shopify. Dirección de arte para Maison Oliva: diseño desktop y móvil con +240% tiempo en sitio.',
+    title:       'Maison Oliva — E-commerce de Alta Costura en Shopify',
+    description: 'E-commerce editorial de alta costura en Shopify. Dirección de arte e implementación para Maison Oliva: un tema a medida en Liquid, sin una sola plantilla.',
+  },
+  'mente': {
+    title:       'Mente — Marca y Portal de Factoring para Empresas',
+    description: 'Marca, web, portal de operación y app para Mente, fintech de factoring: el sistema completo salido de un mismo lenguaje, con una sola ruta por tarea.',
+  },
+  'nbl': {
+    title:       'NBL — E-commerce de Cuidado de Barba, Diseño y Desarrollo',
+    description: 'Diseñé y desarrollé la tienda de National Beard League: cinco productos, una ficha que responde antes de que preguntes y un kit que es el pedido que interesa.',
+  },
+  'cornish-arquitectos': {
+    // Solo desarrollo: el diseño es de Cakao Studio y el caso lo dice.
+    title:       'Cornish Arquitectos — Desarrollo Web para un Estudio de Arquitectura',
+    description: 'Implementación del sitio de Cornish Arquitectos sobre el diseño de Cakao Studio: 13 rutas en producción y un cliente que publica solo.',
   },
   'tolvia': {
-    title:       'Tolvia — IA Conversacional que Humaniza la Atención al Cliente | Nexxo',
-    description: 'Diseñamos la marca, web, app desktop y audiovisual de Tolvia — la IA conversacional que automatiza el 87% de conversaciones con voz natural y contexto real.',
+    title:       'Tolvia — IA Conversacional que Humaniza la Atención al Cliente',
+    description: 'Diseñé la marca, la web, la app de escritorio y el audiovisual de Tolvia, la IA conversacional que atiende con voz natural y contexto real.',
   },
 }
 
@@ -81,8 +98,8 @@ const getBg = (vertical: string) => VERTICAL_BG[vertical] ?? VERTICAL_BG['SaaS']
 
 function ResultsBar({ metrics }: { metrics: Metric[] }) {
   return (
-    <section id="resultados" className="bg-ink gutter-x py-12 md:py-16 border-y border-line scroll-mt-24">
-      <dl className="grid grid-cols-2 md:grid-cols-4 gap-y-8 md:divide-x md:divide-line">
+    <section id="resultados" aria-label="Cifras del proyecto" className="bg-ink gutter-x py-12 md:py-16 border-y border-line scroll-mt-24">
+      <dl className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-0 md:divide-x md:divide-line">
         {metrics.map((m, i) => (
           <div key={m._key} className={i > 0 ? 'md:pl-10' : ''}>
             <dd
@@ -199,8 +216,21 @@ function SectionHeaderRenderer({ block, id }: { block: SectionHeaderBlock; id?: 
   )
 }
 
-function MediaRenderer({ block, bg }: { block: MediaBlock; bg: string }) {
+/**
+ * Texto alternativo de una pieza del caso.
+ *
+ * El pie de foto ya describe la imagen, así que sirve de alternativa textual:
+ * un lector de pantalla no puede dar por hecha la relación entre `figure` y
+ * `figcaption`, y con `alt=""` la pieza desaparecía del todo. Cuando no hay
+ * pie, al menos queda dicho de qué proyecto es.
+ */
+function mediaAlt(caption: string | undefined, title: string) {
+  return caption?.trim() || `${title} — pieza del caso`
+}
+
+function MediaRenderer({ block, bg, title }: { block: MediaBlock; bg: string; title: string }) {
   const isSmall = block.size === 'sm'
+  const alt = mediaAlt(block.caption, title)
   return (
     <section className="bg-ink gutter-x py-5 md:py-8">
       <figure className={isSmall ? 'max-w-[75%]' : 'w-full'}>
@@ -210,13 +240,14 @@ function MediaRenderer({ block, bg }: { block: MediaBlock; bg: string }) {
               <video
                 src={block.url}
                 autoPlay muted loop playsInline
+                aria-label={alt}
                 className="w-full h-full object-cover"
               />
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={block.url}
-                alt=""
+                alt={alt}
                 className="w-full h-full object-cover"
                 loading="lazy"
                 draggable={false}
@@ -236,8 +267,9 @@ function MediaRenderer({ block, bg }: { block: MediaBlock; bg: string }) {
   )
 }
 
-function SplitItemCard({ item, bg }: { item: SplitItem; bg: string }) {
+function SplitItemCard({ item, bg, title }: { item: SplitItem; bg: string; title: string }) {
   const aspectRatio = item.size === 'sm' ? '1 / 1' : '100 / 128'
+  const alt = mediaAlt(item.caption, title)
   return (
     <figure>
       <div
@@ -249,13 +281,14 @@ function SplitItemCard({ item, bg }: { item: SplitItem; bg: string }) {
             <video
               src={item.url}
               autoPlay muted loop playsInline
+              aria-label={alt}
               className="w-full h-full object-cover"
             />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={item.url}
-              alt=""
+              alt={alt}
               className="w-full h-full object-cover"
               loading="lazy"
               draggable={false}
@@ -274,7 +307,7 @@ function SplitItemCard({ item, bg }: { item: SplitItem; bg: string }) {
   )
 }
 
-function SplitShowRenderer({ block, bg }: { block: SplitShowBlock; bg: string }) {
+function SplitShowRenderer({ block, bg, title }: { block: SplitShowBlock; bg: string; title: string }) {
   const leftItems  = block.items.filter((_, i) => i % 2 === 0)
   const rightItems = block.items.filter((_, i) => i % 2 !== 0)
 
@@ -282,14 +315,14 @@ function SplitShowRenderer({ block, bg }: { block: SplitShowBlock; bg: string })
     <section className="bg-ink gutter-x py-10 md:py-14">
       <div className="hidden md:grid grid-cols-2 gap-10 lg:gap-14">
         <div className="flex flex-col gap-10 lg:gap-14">
-          {leftItems.map(item => <SplitItemCard key={item._key} item={item} bg={bg} />)}
+          {leftItems.map(item => <SplitItemCard key={item._key} item={item} bg={bg} title={title} />)}
         </div>
         <div className="flex flex-col gap-10 lg:gap-14 mt-20">
-          {rightItems.map(item => <SplitItemCard key={item._key} item={item} bg={bg} />)}
+          {rightItems.map(item => <SplitItemCard key={item._key} item={item} bg={bg} title={title} />)}
         </div>
       </div>
       <div className="md:hidden flex flex-col gap-6">
-        {block.items.map(item => <SplitItemCard key={item._key} item={item} bg={bg} />)}
+        {block.items.map(item => <SplitItemCard key={item._key} item={item} bg={bg} title={title} />)}
       </div>
     </section>
   )
@@ -346,17 +379,17 @@ function FeedbackRenderer({ block, feedbackLabel }: { block: FeedbackBlock; feed
 }
 
 function StoryBlockRenderer({
-  block, bg, feedbackLabel, index,
+  block, bg, feedbackLabel, index, title,
 }: {
-  block: StoryBlock; bg: string; feedbackLabel: string; index: number
+  block: StoryBlock; bg: string; feedbackLabel: string; index: number; title: string
 }) {
   switch (block._type) {
     case 'overview':      return <OverviewRenderer      block={block} />
     // The id comes from the heading and its position, the same way the nav
     // builds it, so the two always agree on where a chapter is.
     case 'sectionHeader': return <SectionHeaderRenderer block={block} id={block.heading ? chapterId(block.heading, index) : undefined} />
-    case 'media':         return <MediaRenderer         block={block} bg={bg} />
-    case 'splitShow':     return <SplitShowRenderer     block={block} bg={bg} />
+    case 'media':         return <MediaRenderer         block={block} bg={bg} title={title} />
+    case 'splitShow':     return <SplitShowRenderer     block={block} bg={bg} title={title} />
     case 'quote':         return <QuoteRenderer         block={block} />
     case 'feedback':      return <FeedbackRenderer      block={block} feedbackLabel={feedbackLabel} />
     default:              return null
@@ -453,7 +486,8 @@ export async function ProjectView({
   // has rather than a fixed set every case study is assumed to follow.
   const chapters = buildChapters(story, {
     overviewLabel: 'Resumen',
-    resultsLabel:  'Resultados',
+    // La barra ya no promete resultados de negocio: enumera hechos del trabajo.
+    resultsLabel:  'Cifras',
     hasResults:    !!(metrics && metrics.length > 0),
   })
 
@@ -579,6 +613,7 @@ export async function ProjectView({
             <video
               src={project.heroMedia}
               autoPlay muted loop playsInline
+              aria-label={`${project.title} — apertura del caso`}
               className="w-full h-full object-cover"
             />
           ) : project.cover ? (
@@ -611,6 +646,7 @@ export async function ProjectView({
               index={i}
               bg={bg}
               feedbackLabel={t('feedbackLabel')}
+              title={project.title}
             />
           ))}
         </div>

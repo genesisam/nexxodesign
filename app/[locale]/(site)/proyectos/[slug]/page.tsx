@@ -27,11 +27,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params
   const project          = await getProjectBySlug(slug)
-  if (!project) return { title: 'Proyecto — Nexxo' }
+  if (!project) return { title: 'Proyecto no encontrado' }
 
   const meta = SEO_META[slug]
 
-  const title       = meta?.title       ?? `${project.title} — Diseño de Producto | Nexxo`
+  // Sin « | Nexxo »: la plantilla del layout raíz lo añade una sola vez.
+  const title       = meta?.title       ?? `${project.title} — Diseño de Producto`
   const description = meta?.description ?? project.excerpt
 
   return {

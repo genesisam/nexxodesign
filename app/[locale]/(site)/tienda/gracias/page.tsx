@@ -7,7 +7,7 @@ type Props = { params: Promise<{ locale: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   return {
-    title:       'Gracias por tu compra — Nexxo',
+    title:       'Gracias por tu compra',
     description: 'Tu compra está confirmada. Revisa tu correo para el acceso al componente.',
     alternates:  buildAlternates(locale, '/tienda/gracias'),
     // A receipt page has nothing to offer a search engine, and it would be an

@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params
   const product = await getProductBySlug(slug)
-  if (!product) return { title: 'Producto no encontrado — Nexxo' }
+  if (!product) return { title: 'Producto no encontrado' }
 
   // Written the way someone searches: the name, then what it is and where it
   // runs. The tagline already reads as a description on its own, and the price

@@ -9,12 +9,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
  * renders the finished string — crawlers, answer engines and anyone without JS
  * read the real number, never a zero.
  */
+/**
+ * Cada cifra tiene que poder comprobarse: los casos y los testimonios se
+ * cuentan en este mismo sitio, y las 24 h son un compromiso, no una medición.
+ * Nada de porcentajes de negocio sin fuente — es lo que se quitó de los casos.
+ */
 const STATS = [
-  { prefix: '',  num: 40,  decimals: 0, suffix: '+', label: 'proyectos entregados' },
-  { prefix: '+', num: 280, decimals: 0, suffix: '%', label: 'velocidad de cierre (Merxo)' },
-  { prefix: '×', num: 2.8, decimals: 1, suffix: '',  label: 'conversión promedio' },
-  { prefix: '',  num: 4.9, decimals: 1, suffix: '★', label: 'satisfacción de clientes' },
-  { prefix: '',  num: 24,  decimals: 0, suffix: 'h', label: 'respuesta máxima' },
+  { prefix: '',  num: 40, decimals: 0, suffix: '+', label: 'proyectos entregados' },
+  { prefix: '',  num: 8,  decimals: 0, suffix: '',  label: 'casos documentados aquí' },
+  { prefix: '',  num: 11, decimals: 0, suffix: '',  label: 'clientes que lo cuentan' },
+  { prefix: '',  num: 6,  decimals: 0, suffix: '',  label: 'disciplinas, del concepto al deploy' },
+  { prefix: '',  num: 24, decimals: 0, suffix: 'h', label: 'respuesta máxima' },
 ] as const
 
 const format = (s: typeof STATS[number], value: number) =>

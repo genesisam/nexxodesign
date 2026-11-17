@@ -159,7 +159,7 @@
   },
   "nosotros": {
     "meta": {
-      "title": "Estudio — Nexxo",
+      "title": "Estudio",
       "description": "Un estudio pequeño obsesionado con que el diseño trabaje para el negocio. Producto y web premium, de la estrategia al deploy."
     },
     "tophead": {
@@ -220,7 +220,7 @@
   },
   "contact": {
     "meta": {
-      "title": "Contacto — Nexxo",
+      "title": "Contacto",
       "description": "Tomamos pocos proyectos para darle a cada uno la atención que merece. Cuéntanos qué quieres construir."
     },
     "eyebrow": "Contacto · Hablemos",
@@ -326,7 +326,7 @@
   },
   "work": {
     "meta": {
-      "title": "Proyectos — Nexxo",
+      "title": "Proyectos",
       "description": "Proyectos de diseño de producto y web premium para SaaS, fintech e IA."
     },
     "hero": {

@@ -11,7 +11,7 @@ type Props = { params: Promise<{ locale: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   return {
-    title:       'Journal — Nexxo',
+    title:       'Journal',
     description: 'Ideas sobre diseño de producto, IA aplicada y SaaS. Cada artículo tiene que ganarse su lugar.',
     alternates:  buildAlternates(locale, '/journal'),
     openGraph: {

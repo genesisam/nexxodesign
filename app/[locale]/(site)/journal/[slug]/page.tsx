@@ -26,10 +26,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params
   const post = await getPostBySlug(slug)
-  if (!post) return { title: 'Artículo no encontrado — Nexxo' }
+  if (!post) return { title: 'Artículo no encontrado' }
 
   return {
-    title:       `${post.title} — Nexxo Journal`,
+    title:       `${post.title} — Journal`,
     description: post.excerpt,
     alternates:  buildAlternates(locale, `/journal/${slug}`),
     authors:     [{ name: post.author.name, url: absoluteUrl(locale, '/nosotros') }],
