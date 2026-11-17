@@ -14,7 +14,6 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'image.mux.com' },
     ],
   },
-  transpilePackages: ['three'],
 }
 
 export default withNextIntl(nextConfig)

@@ -195,6 +195,12 @@ html.lenis body {
   border: 1px solid rgb(var(--color-paper-rgb) / 0.45);
 }
 
+/* ─── Cursor "mano LEGO" (variante por página: data-cursor-variant="lego") ───
+   La mano de partículas la dibuja LegoCursor en su propio canvas; aquí solo se
+   apagan el punto y el anillo del cursor por defecto. */
+:root[data-cursor-variant="lego"] .cursor-dot,
+:root[data-cursor-variant="lego"] .cursor-ring { display: none; }
+
 /* ─── Hero typing caret ───
    Blink lives in CSS so GSAP never has to own `opacity` on this element: the
    timeline only moves it and, at the end, removes it with `display`. Two
