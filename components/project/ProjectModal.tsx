@@ -120,7 +120,11 @@ export function ProjectModal({
           type="button"
           onClick={close}
           aria-label="Cerrar proyecto"
-          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center
+          // z-30 y no z-10: las secciones del caso llevan 'relative z-10', y al
+          // ir después en el documento pintaban encima del botón. Con el
+          // mismo índice gana el último, así que la X desaparecía cada vez
+          // que una lámina a sangre pasaba por debajo.
+          className="absolute right-4 top-4 z-30 flex h-10 w-10 items-center justify-center
                      rounded-full border border-paper/15 bg-ink/70 text-paper/70 backdrop-blur-md
                      transition-colors duration-200 hover:border-paper/40 hover:text-paper md:right-6 md:top-6"
         >

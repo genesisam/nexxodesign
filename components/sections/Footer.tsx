@@ -148,9 +148,17 @@ export function Footer() {
         // Each column enters from its own side of the page, so the footer
         // closes in on itself rather than sliding as one slab.
         const fromLeft = i < columns.length / 2
+        /*
+         * `immediateRender: false` es lo que impide el scroll horizontal.
+         *
+         * Por defecto GSAP aplica el estado de partida en cuanto monta, no
+         * cuando el disparador llega: las columnas quedaban desplazadas 56 px
+         * mientras el pie estaba fuera de pantalla, y eso sacaba la página 28
+         * píxeles por la derecha en todo el sitio.
+         */
         tl.fromTo(column,
           { x: fromLeft ? -56 : 56, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.75, ease: 'power3.out' },
+          { x: 0, opacity: 1, duration: 0.75, ease: 'power3.out', immediateRender: false },
           i * 0.08)
       })
 
@@ -227,9 +235,14 @@ export function Footer() {
   ]
 
   return (
-    <footer ref={rootRef} aria-label="Footer" className="bg-ink">
+    <footer ref={rootRef} aria-label="Footer" className="bg-ink overflow-x-clip">
 
-      <div ref={gridRef} className="gutter-x pt-20 md:pt-28 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10 md:gap-x-14 lg:gap-x-20">
+      <div ref={gridRef} /* `min-w-0` en las columnas: por defecto una celda de rejilla mide
+         `min-width: auto`, así que un texto largo sin punto de corte la
+         ensancha y con ella la rejilla entera. En móvil eso sacaba el pie 28
+         píxeles fuera de la ventana y dejaba todo el sitio con scroll
+         horizontal. */
+      className="gutter-x pt-20 md:pt-28 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10 md:gap-x-14 lg:gap-x-20 [&>*]:min-w-0">
 
         <div>
           <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-6">

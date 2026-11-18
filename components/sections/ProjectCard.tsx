@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
+import { coverFor } from '@/lib/covers'
 
 // 'services' → 'tags' in GROQ: *[_type=="project"]{ ..., "services": tags }
 export type Project = {
@@ -39,7 +40,10 @@ export function ProjectCard({ project, n, variant = 'pair' }: Props) {
   const label = String(n).padStart(2, '0')
   const { w, h } = IMG_DIM[variant]
 
-  const imgSrc = project.coverUrl
+  // La portada compuesta en la proporción de esta tarjeta manda sobre la del
+  // CMS: está hecha para este encuadre, así que no hay que recortarla.
+  const imgSrc = coverFor(project.slug?.current, variant === 'featured' ? '16x9' : '1x1')
+    ?? project.coverUrl
     ?? (project.coverImage
       ? urlFor(project.coverImage).width(w).height(h).auto('format').url()
       : null)
