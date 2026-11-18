@@ -60,8 +60,9 @@ const projectCardsQuery = groq`
   *[_type == "project"] | order(order asc, _createdAt desc) {
     _id, title, slug, client, year,
     "metric":   coalesce(metric, ""),
+    excerpt,
     "services": coalesce(services, []),
-    "coverUrl": coverImage.asset->url + "?auto=format&q=75&w=1000"
+    "coverUrl": coverImage.asset->url + "?auto=format&q=75&w=1600"
   }
 `
 
@@ -72,6 +73,7 @@ export type ProjectCardData = {
   client: string
   year: number
   metric: string
+  excerpt?: string
   services: string[]
   coverUrl?: string
 }
@@ -91,6 +93,7 @@ function mockCard(project: (typeof MOCK_PROJECTS)[number]): ProjectCardData {
     client:   project.client,
     year:     project.year,
     metric:   project.metric ?? '',
+    excerpt:  project.excerpt ?? undefined,
     services: project.services,
     coverUrl: project.cover ?? undefined,
   }
