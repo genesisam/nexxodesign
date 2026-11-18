@@ -45,7 +45,10 @@ export function ProductCard({ product }: { product: ProductSummary }) {
         className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-ink"
       >
         <div
-          className="relative overflow-hidden rounded-[1.25rem] aspect-[4/3] mb-5"
+          /* Sin esquinas redondeadas: en el resto del sitio —proyectos,
+             journal, casos— las láminas van a canto vivo, y la tienda era
+             lo único que las redondeaba. */
+          className="relative overflow-hidden aspect-[4/3] mb-5"
           style={{ background: PRODUCT_GRADIENT[product.type] }}
         >
           {product.cover && (
