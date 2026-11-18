@@ -59,7 +59,7 @@ export function Hero() {
             que quieren escalar en LatAm y el mundo — con métricas, no con premios.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 md:shrink-0">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap max-w-full min-w-0 gap-3">
             <Link
               href="/contact"
               className="inline-flex items-center justify-center font-mono text-xs uppercase tracking-widest bg-accent text-paper px-7 py-3.5 hover:bg-accent/85 transition-colors duration-200"

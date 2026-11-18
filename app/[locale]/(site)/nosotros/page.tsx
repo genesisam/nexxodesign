@@ -8,7 +8,6 @@ import type { ProcesoStep } from './ProcesoCards'
 import { NexxoEstudio } from '@/components/estudio/NexxoEstudio'
 import { HeadlineReveal } from '@/components/motion/HeadlineReveal'
 import { BrickArrow } from '@/components/motion/BrickArrow'
-import { CursorVariant } from '@/components/motion/CursorVariant'
 import type { EstudioCopy } from '@/components/estudio/NexxoEstudio'
 
 type Props = { params: Promise<{ locale: string }> }
@@ -35,7 +34,6 @@ export default async function NosotrosPage({ params }: Props) {
   return (
     <main className="bg-ink">
       <HeadlineReveal />
-      <CursorVariant variant="lego" />
 
       {/* ══ 1. TOPHEAD ═══════════════════════════════════════════════════════ */}
       <section className="w-full">

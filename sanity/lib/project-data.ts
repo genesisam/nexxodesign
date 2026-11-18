@@ -32,15 +32,55 @@ const storyProjection = `{
       }
     }
   },
-  _type == "media" => { "url": asset.asset->url + "?auto=format&q=75&w=1800" },
+  _type == "media" => {
+    credito,
+    "ratio": coalesce(ratio, asset.asset->metadata.dimensions.aspectRatio),
+    // A sangre la pieza ocupa el alto entero de la pantalla: en una retina de
+    // 1440 eso son unos 3.000 píxeles reales, y a 1800 se veía estirada.
+    "url": asset.asset->url + "?auto=format&q=" + select(size == "bleed" => "72&w=2600", true => "75&w=1800")
+  },
+  // El campo "ratio" es la proporción real de la pieza. Las imágenes la traen
+  // medida en los metadatos del asset; los vídeos no —Sanity no abre los
+  // archivos de vídeo— así que la llevan escrita en el documento, y esa gana.
+  _type == "escenario" => {
+    credito, alt, forma,
+    "fondo":  fondo.asset->url  + "?auto=format&q=74&w=2600",
+    "centro": centro.asset->url + "?auto=format&q=86&w=1100",
+    "izq":    izq.asset->url    + "?auto=format&q=86&w=1100",
+    "der":    der.asset->url    + "?auto=format&q=86&w=1100"
+  },
   _type == "splitShow" => {
-    "items": items[]{ _key, mediaType, size, caption, "url": asset.asset->url + "?auto=format&q=75&w=1200" }
+    layout,
+    "items": items[]{
+      _key, mediaType, size, caption,
+      "ratio": coalesce(ratio, asset.asset->metadata.dimensions.aspectRatio),
+      "url": asset.asset->url + "?auto=format&q=75&w=1200"
+    }
+  },
+  // La proyección enumera los campos uno a uno, así que todo bloque nuevo tiene
+  // que pedir los suyos aquí: sin esto, la paleta llegaba sin sus colores.
+  _type == "palette" => {
+    note,
+    "colors": colors[]{
+      _key, name, hex, note,
+      "textura": textura.asset->url + "?auto=format&q=72&w=900"
+    }
+  },
+  _type == "statement" => { lead, body, fondo },
+  _type == "logo" => {
+    note, fondo, credito, fotoOscura, pie, logoBlanco,
+    "src":  src.asset->url,
+    "foto": foto.asset->url + "?auto=format&q=75&w=1600"
+  },
+  _type == "typography" => {
+    note, muestra,
+    "faces": faces[]{ _key, role, name, family, source, year, note, substitute }
   }
 }`
 
 const projectBySlugQuery = groq`
   *[_type == "project" && slug.current == $slug][0] {
-    _id, title, subtitle, slug, client, year, timeline, excerpt, metric, liveUrl,
+    _id, title, subtitle, slug, client, year, timeline, excerpt, metric, liveUrl, colorMarca,
     "services": coalesce(services, []),
     "vertical": vertical,
     "cover":    coverImage.asset->url + "?auto=format&q=75&w=1800",
