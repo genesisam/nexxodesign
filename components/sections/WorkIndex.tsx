@@ -1,23 +1,17 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { gsap } from 'gsap'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import Image from 'next/image'
-
-// ─── Types ───────────────────────────────────────────────────────────────────
+import { WorkStage, type StageChange } from './WorkStage'
+import { ProjectCursor } from './WorkShowcase'
+import { piecesFor } from '@/lib/project-pieces'
+import { inkFor, toneFor } from '@/lib/project-tones'
+import { lineFor } from '@/lib/project-lines'
 
 export type Vertical = 'SaaS' | 'Fintech' | 'Web' | 'Branding' | 'IA'
 
-// Schema shape — reemplaza el array mock por una query GROQ en page.tsx:
-//   const projects = await sanityClient.fetch<Project[]>(`
-//     *[_type=="project"] | order(orderRank) {
-//       _id, title, slug, vertical, year, client, blurb,
-//       "cover":      cover.asset->url,
-//       "thumbnail":  thumbnail.asset->url,
-//       "thumbVideo": thumbVideo.asset->url,
-//     }
-//   `)
 export type Project = {
   _id:        string
   title:      string
@@ -32,384 +26,251 @@ export type Project = {
   client?:    string
 }
 
-// ─── Mock data ────────────────────────────────────────────────────────────────
+/**
+ * /proyectos as an index: every case is one row of large type, and the image
+ * of whichever row is active sits pinned to the left.
+ *
+ * On desktop the section is taller than the screen and its content is sticky,
+ * so scrolling walks the active row down the list (half a screen per project)
+ * while nothing moves. Hovering takes over from scrolling: the row under the
+ * pointer fills with its project's tone, the others fade, the image climbs in
+ * as a staircase of blocks, and moving across the row steps through that
+ * project's images. The "Ver" tag trails the pointer over the rows and the
+ * image.
+ *
+ * At most PAGE rows are listed at a time on desktop, like the reference; with
+ * more projects than that, two arrows under the list page through them and
+ * the scroll walks the rows of the current page only.
+ *
+ * Below 768px there is no pin and no paging: each row shows its wide cover under the name
+ * instead.
+ */
 
-const PROJECTS: Project[] = [
-  {
-    _id: 'solivus', title: 'Solivus', slug: { current: 'solivus' }, vertical: 'SaaS',
-    cover: '/images/projects/solivus/cover.png', logo: '/images/projects/solivus/logo.png',
-    thumbnail: null, thumbVideo: null,
-    blurb: 'Plataforma AI de monitoreo solar — dashboard, mobile y brand', year: 2025, client: 'Solivus',
-  },
-  {
-    _id: 'merxo', title: 'Merxo', slug: { current: 'merxo' }, vertical: 'SaaS',
-    cover: null, logo: '/images/projects/merxo/logo.png',
-    thumbnail: null, thumbVideo: null,
-    blurb: 'CRM que convierte caos comercial en pipeline predecible', year: 2025, client: 'Merxo',
-  },
-  {
-    _id: 'nexo-go', title: 'Nexo Go', slug: { current: 'nexo-go' }, vertical: 'SaaS',
-    cover: '/images/projects/nexo-go/cover.webp', logo: '/images/projects/nexo-go/logo.png',
-    thumbnail: '/images/projects/nexo-go/story-2.webp', thumbVideo: null,
-    blurb: 'App móvil de tracking y seguridad para bicicletas eléctricas', year: 2025, client: 'Nexo Go',
-  },
-  {
-    _id: 'greenery-420', title: 'Greenery 420', slug: { current: 'greenery-420' }, vertical: 'Web',
-    cover: null, logo: '/images/projects/greenery-420/logo.png',
-    thumbnail: null, thumbVideo: null,
-    blurb: 'E-commerce CBD premium — flores, aceites, hachís y wellness. Madrid.', year: 2025, client: 'Greenery 420 CBD',
-  },
-  {
-    _id: 'maison-oliva', title: 'Maison Oliva', slug: { current: 'maison-oliva' }, vertical: 'Web',
-    cover: null, logo: '/images/projects/maison-oliva/logo.png',
-    thumbnail: null, thumbVideo: null,
-    blurb: 'E-commerce de alta costura en Shopify — diseño editorial desktop y móvil', year: 2025, client: 'Maison Oliva',
-  },
-  {
-    _id: 'tolvia', title: 'Tolvia', slug: { current: 'tolvia' }, vertical: 'IA',
-    cover: null, logo: '/images/projects/tolvia/logo.png',
-    thumbnail: null, thumbVideo: null,
-    blurb: 'IA conversacional con voz natural — marca, web, app desktop y audiovisual', year: 2025, client: 'Tolvia',
-  },
-]
+const SCROLL_STEP = 0.5 // of the viewport, per project
+/** Rows shown at once on desktop; the arrows under the list page through the rest. */
+const PAGE = 5
 
-// ─── Design constants ─────────────────────────────────────────────────────────
+type Active = { index: number; piece: number; change: StageChange }
 
-const FILTER_TABS: Array<'Todos' | Vertical> = ['Todos', 'SaaS', 'Fintech', 'Web', 'Branding', 'IA']
+export function WorkIndex({ projects = [] }: { projects?: Project[] }) {
+  const t = useTranslations('work')
 
-// Gradient placeholder por vertical — se reemplaza con cover real en Sanity
-const COVER_BG: Record<Vertical, string> = {
-  SaaS:     'linear-gradient(148deg, #0c0c1e 0%, #12112c 40%, #1c1050 72%, #5B3DF5 100%)',
-  Fintech:  'linear-gradient(148deg, #091410 0%, #0e1c17 40%, #0f2e24 72%, #1B6B5A 100%)',
-  Web:      'linear-gradient(148deg, #16100c 0%, #241710 40%, #3a2114 72%, #C9A88F 100%)',
-  Branding: 'linear-gradient(148deg, #0a0a0a 0%, #141414 40%, #222222 72%, #484848 100%)',
-  IA:       'linear-gradient(148deg, #0d0814 0%, #1e0f38 40%, #2e1268 72%, #6B35C8 100%)',
-}
+  const rows = useMemo(() => projects.map(p => ({
+    ...p,
+    tone:   toneFor(p.slug.current),
+    pieces: piecesFor(p.slug.current, p.cover),
+  })).filter(p => p.pieces.length > 0), [projects])
 
-// ─── ProjectCard ──────────────────────────────────────────────────────────────
+  const section = useRef<HTMLElement>(null)
+  const list    = useRef<HTMLUListElement>(null)
+  const stage   = useRef<HTMLDivElement>(null)
 
-export function ProjectCard({
-  project,
-  prefersReduced,
-  isMobile,
-  aspectRatio = '3 / 4',
-  verLabel = 'Ver proyecto →',
-}: {
-  project:        Project
-  prefersReduced: boolean
-  isMobile:       boolean
-  aspectRatio?:   string
-  verLabel?:      string
-}) {
-  const [cardHover,  setCardHover]  = useState(false)
-  const [thumbHover, setThumbHover] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const [active, setActive]   = useState<Active>({ index: 0, piece: 0, change: 'instant' })
+  const [peeking, setPeeking] = useState(false)
+  const [page, setPage]       = useState(0)
+  const [onStage, setOnStage] = useState(false)
+  const lastScroll = useRef(0)
+  const activeRef  = useRef(active)
+  activeRef.current = active
+  const pageRef = useRef(page)
+  pageRef.current = page
+  const pages = Math.ceil(rows.length / PAGE)
 
+  const activate = useCallback((index: number, piece = 0, change: StageChange = 'steps') => {
+    const cur = activeRef.current
+    if (cur.index === index && cur.piece === piece) return
+    setActive({ index, piece, change: cur.index === index ? 'wipe' : change })
+  }, [])
+
+  // ── Scroll walks the active row ───────────────────────────────────────────
   useEffect(() => {
-    const v = videoRef.current
-    if (!v || prefersReduced || isMobile || !project.thumbVideo) return
-    if (thumbHover) { v.play().catch(() => {}) }
-    else            { v.pause(); v.currentTime = 0 }
-  }, [thumbHover, prefersReduced, isMobile, project.thumbVideo])
+    const el = section.current
+    if (!el || !rows.length) return
+    const mq = window.matchMedia('(min-width: 768px)')
+    let raf = 0
+    let timer: ReturnType<typeof setTimeout> | undefined
 
-  const bg = COVER_BG[project.vertical]
-  // Helper: returns 'none' when user prefers reduced motion
-  const tr = (val: string) => (prefersReduced ? 'none' : val)
+    const update = () => {
+      raf = 0
+      if (!mq.matches) return
+      const top = el.getBoundingClientRect().top + window.scrollY
+      const seg = window.innerHeight * SCROLL_STEP
+      const first = pageRef.current * PAGE
+      const last  = Math.min(rows.length, first + PAGE) - 1
+      const i = Math.max(first, Math.min(last, first + Math.round((window.scrollY - top) / seg)))
+      if (i === activeRef.current.index) return
+      clearTimeout(timer)
+      timer = setTimeout(() => { setPeeking(false); activate(i) }, 120)
+    }
+    const onScroll = () => {
+      lastScroll.current = performance.now()
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(raf)
+      clearTimeout(timer)
+    }
+  }, [rows.length, activate])
+
+  // ── Paging ──────────────────────────────────────────────────────────────
+  const goTo = (next: number) => {
+    const p = (next + pages) % pages
+    if (p === pageRef.current) return
+    setPage(p)
+    setPeeking(false)
+    activate(p * PAGE)
+  }
+
+  // The new page's names rise into their rows, one after another.
+  const firstPaint = useRef(true)
+  useEffect(() => {
+    if (firstPaint.current) { firstPaint.current = false; return }
+    const ul = list.current
+    if (!ul || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const names = ul.querySelectorAll('.wl-item:not(.is-off) .wl-name, .wl-item:not(.is-off) .wl-sector')
+    gsap.fromTo(names, { yPercent: 60, opacity: 0 }, {
+      yPercent: 0, opacity: 1, duration: 0.7, ease: 'expo.out', stagger: 0.04, clearProps: 'transform,opacity',
+    })
+  }, [page])
+
+  // A row that slides under a still pointer while scrolling is not a hover.
+  const isHover = (e: React.PointerEvent) =>
+    e.pointerType === 'mouse' && performance.now() - lastScroll.current > 200
+
+  const onRowEnter = (i: number) => (e: React.PointerEvent) => {
+    if (!isHover(e)) return
+    setPeeking(true)
+    if (activeRef.current.index !== i) activate(i)
+  }
+
+  const onRowMove = (i: number) => (e: React.PointerEvent<HTMLAnchorElement>) => {
+    if (!isHover(e)) return
+    setPeeking(true)
+    if (activeRef.current.index !== i) return activate(i)
+    const r = e.currentTarget.getBoundingClientRect()
+    const n = rows[i].pieces.length
+    const piece = Math.min(n - 1, Math.floor(Math.max(0, (e.clientX - r.left) / r.width) * n))
+    activate(i, piece, 'wipe')
+  }
+
+  if (!rows.length) {
+    return (
+      <main className="min-h-screen bg-ink pt-40 gutter-x">
+        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-smoke/55">{t('empty')}</p>
+      </main>
+    )
+  }
+
+  const current = rows[active.index]
 
   return (
-    <Link
-      href={`/proyectos/${project.slug.current}`}
-      className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
-      onMouseEnter={() => setCardHover(true)}
-      onMouseLeave={() => { setCardHover(false); setThumbHover(false) }}
-    >
-      {/* ── Cover ─────────────────────────────────────────────────────────── */}
-      <div className="relative overflow-hidden" style={{ aspectRatio }}>
-
-        {/* Background: scaleable on hover */}
-        <div
-          className="absolute inset-0"
-          style={{
-            transform:  cardHover ? 'scale(1.06)' : 'scale(1)',
-            transition: tr('transform 0.75s cubic-bezier(0.16, 1, 0.3, 1)'),
-          }}
-        >
-          {project.cover ? (
-            <Image
-              src={project.cover}
-              alt={project.title}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              className="object-cover"
-            />
-          ) : (
-            <div className="w-full h-full relative" style={{ background: bg }}>
-              {project.logo && (
-                <div className="absolute inset-0 flex items-center justify-center p-10">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={project.logo}
-                    alt={project.title}
-                    className="w-auto max-h-[38%] max-w-[55%] object-contain"
-                    style={{ filter: 'brightness(0) invert(1)', opacity: 0.9 }}
-                    draggable={false}
-                  />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Bottom vignette — legibilidad del copy inferior */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none z-10"
-          style={{ background: 'linear-gradient(to top, rgba(14,14,14,0.85), transparent)' }}
-        />
-
-        {/* Vertical badge — top left, siempre visible */}
-        <div className="absolute top-3 left-3 z-20">
-          <span
-            className="font-mono text-paper/70 uppercase tracking-[0.2em]"
-            style={{
-              fontSize:            '7.5px',
-              padding:             '4px 9px',
-              background:          'rgba(14,14,14,0.6)',
-              backdropFilter:      'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-            }}
-          >
-            {project.vertical}
-          </span>
-        </div>
-
-        {/* Year — bottom left */}
-        <div className="absolute bottom-3.5 left-3.5 z-20">
-          <span className="font-mono text-paper/60 tracking-[0.12em]" style={{ fontSize: '8px' }}>
-            {project.year}
-          </span>
-        </div>
-
-        {/* Glass overlay + "Ver proyecto →" — visible on hover */}
-        <div
-          aria-hidden
-          className="absolute inset-0 z-20 pointer-events-none flex items-end justify-end"
-          style={{
-            background:           'rgba(14,14,14,0.5)',
-            backdropFilter:       'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
-            opacity:    cardHover ? 1 : 0,
-            transition: tr('opacity 0.35s ease'),
-          }}
-        >
-          <span
-            className="font-mono text-paper/90 uppercase tracking-[0.22em] m-4"
-            style={{ fontSize: '9px' }}
-          >
-            {verLabel}
-          </span>
-        </div>
-      </div>
-
-      {/* ── Footer row: thumb + text ──────────────────────────────────────── */}
-      <div className="flex items-start gap-3 mt-3">
-
-        {/* Thumbnail 85×85 — imagen → video en hover (solo desktop) */}
-        <div
-          className="flex-shrink-0 relative overflow-hidden"
-          style={{ width: 85, height: 85 }}
-          onMouseEnter={!isMobile ? () => setThumbHover(true) : undefined}
-          onMouseLeave={!isMobile ? () => setThumbHover(false) : undefined}
-        >
-          {/* Imagen estática */}
-          {project.thumbnail ? (
-            <Image
-              src={project.thumbnail}
-              alt=""
-              fill
-              sizes="85px"
-              className="object-cover"
-            />
-          ) : (
-            <div className="w-full h-full" style={{ background: bg }} />
-          )}
-
-          {/* Video loop (desktop + video disponible) */}
-          {project.thumbVideo && !isMobile && (
-            <video
-              ref={videoRef}
-              className="absolute inset-0 w-full h-full object-cover"
-              src={project.thumbVideo}
-              muted
-              loop
-              playsInline
-              preload="none"
-              style={{
-                opacity:    thumbHover && !prefersReduced ? 1 : 0,
-                transition: tr('opacity 0.3s ease'),
-              }}
-            />
-          )}
-
-          {/* Subtle hover darkening */}
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: 'rgba(14,14,14,0.25)',
-              opacity:    thumbHover ? 1 : 0,
-              transition: tr('opacity 0.25s ease'),
-            }}
-          />
-        </div>
-
-        {/* Metadata */}
-        <div className="min-w-0 pt-0.5">
-          <h3
-            className="font-display font-semibold text-paper leading-tight"
-            style={{ fontSize: 'clamp(0.88rem, 1.05vw, 1.1rem)' }}
-          >
-            {project.title}
-          </h3>
-          {project.client && (
-            <p
-              className="font-mono text-smoke/60 uppercase tracking-[0.14em] mt-0.5 truncate"
-              style={{ fontSize: '7.5px' }}
-            >
-              {project.client}
-            </p>
-          )}
-          <p
-            className="font-sans text-smoke/55 leading-snug mt-1.5 line-clamp-2"
-            style={{ fontSize: '0.75rem' }}
-          >
-            {project.blurb}
+    <main className="bg-ink text-paper">
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section className="wl-hero gutter-x pt-32 md:pt-40 pb-16 md:pb-24">
+        <h1 className="font-display font-medium leading-[0.92] tracking-[-0.055em] text-paper"
+            style={{ fontSize: 'clamp(2.6rem, 7vw, 9.5rem)' }}>
+          {t('hero.title')}
+        </h1>
+        <div className="mt-6 grid grid-cols-12 md:mt-8">
+          <p className="col-span-12 max-w-[34ch] font-body text-[clamp(1rem,1.35vw,1.4rem)] leading-snug text-smoke
+                        md:col-span-5 md:col-start-6">
+            {t('hero.lead')}
           </p>
         </div>
-      </div>
-    </Link>
+      </section>
+
+      {/* ── Index ────────────────────────────────────────────────────────── */}
+      <section
+        ref={section}
+        aria-label={t('meta.title')}
+        className={`wl ${peeking ? 'is-peeking' : ''}`}
+        style={{ '--wl-n': Math.min(PAGE, rows.length) } as React.CSSProperties}
+      >
+        <div className="wl-pin gutter-x">
+          <div className="wl-stage" aria-hidden>
+            {/* The image opens the active case too, with the same "Ver" tag.
+                Out of the tab order: the row link already carries it. */}
+            <Link
+              href={`/proyectos/${current.slug.current}`}
+              data-tone={current.tone}
+              tabIndex={-1}
+              className="block"
+              onPointerEnter={e => e.pointerType === 'mouse' && setOnStage(true)}
+              onPointerLeave={() => setOnStage(false)}
+            >
+              <div ref={stage} className="wl-frame">
+                <WorkStage src={current.pieces[active.piece] ?? current.pieces[0]} change={active.change} />
+              </div>
+            </Link>
+            <p className="wl-caption">
+              <span>{lineFor(current.slug.current) ?? current.blurb}</span>
+              <span>{current.year}</span>
+            </p>
+          </div>
+
+          <div className="wl-side">
+          <ul ref={list} className="wl-list" onPointerLeave={() => setPeeking(false)}>
+            {rows.map((p, i) => (
+              <li key={p._id} className={`wl-item ${Math.floor(i / PAGE) === page ? '' : 'is-off'}`}>
+                <Link
+                  href={`/proyectos/${p.slug.current}`}
+                  data-tone={p.tone}
+                  className={`wl-row ${i === active.index ? 'is-on' : ''}`}
+                  style={{ '--row-tone': p.tone, '--row-ink': inkFor(p.tone) } as React.CSSProperties}
+                  onPointerEnter={onRowEnter(i)}
+                  onPointerMove={onRowMove(i)}
+                  onFocus={() => activate(i)}
+                >
+                  <h2 className="wl-name">{p.title}</h2>
+                  <p className="wl-sector">{p.client && p.client !== p.title ? p.client : p.vertical}</p>
+                  <p className="wl-year">{p.year}</p>
+                  <span className="wl-pieces" aria-hidden>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/_next/image?url=${encodeURIComponent(p.pieces[p.pieces.length - 1])}&w=828&q=75`}
+                         alt="" loading="lazy" decoding="async" draggable={false} />
+                  </span>
+                </Link>
+              </li>
+            ))}
+            {/* Empty slots keep a short last page as tall as a full one, so the
+                arrows stay put under the pointer. */}
+            {pages > 1 && Array.from({ length: pages * PAGE - rows.length }, (_, i) => (
+              page === pages - 1 && (
+                <li key={`ghost-${i}`} className="wl-item wl-ghost" aria-hidden>
+                  <div className="wl-row"><span className="wl-name">&nbsp;</span></div>
+                </li>
+              )
+            ))}
+          </ul>
+
+          {pages > 1 && (
+            <nav className="wl-pager" aria-label={t('pager.aria')}>
+              <span className="wl-count">
+                {String(page + 1).padStart(2, '0')} / {String(pages).padStart(2, '0')}
+              </span>
+              <button type="button" onClick={() => goTo(page - 1)} aria-label={t('pager.prev')}>
+                <PagerArrow flip />
+              </button>
+              <button type="button" onClick={() => goTo(page + 1)} aria-label={t('pager.next')}>
+                <PagerArrow />
+              </button>
+            </nav>
+          )}
+          </div>
+        </div>
+      </section>
+
+      <ProjectCursor visible={peeking || onStage} />
+    </main>
   )
 }
 
-// ─── WorkIndex ────────────────────────────────────────────────────────────────
-
-export function WorkIndex({ projects: initialProjects }: { projects?: Project[] } = {}) {
-  const t       = useTranslations('work')
-  const projects = initialProjects ?? PROJECTS
-
-  const todosLabel = t('filtros.todos')
-
-  const [activeFilter, setFilter]  = useState<string>(todosLabel)
-  const [prefersReduced, setReduced] = useState(false)
-  const [isMobile, setMobile]      = useState(false)
-
-  useEffect(() => {
-    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-    const check = () => setMobile(window.innerWidth < 640)
-    check()
-    window.addEventListener('resize', check, { passive: true })
-    return () => window.removeEventListener('resize', check)
-  }, [])
-
-  const isAll    = activeFilter === todosLabel
-  const filtered = isAll
-    ? projects
-    : projects.filter(p => p.vertical === activeFilter)
-
+function PagerArrow({ flip }: { flip?: boolean }) {
   return (
-    <main className="bg-ink min-h-screen">
-
-      {/* ── Hero editorial ───────────────────────────────────────────────────── */}
-      <section className="gutter-x pt-32 md:pt-40 pb-14 md:pb-20">
-
-        <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] block mb-7 md:mb-9">
-          {t('hero.eyebrow')}
-        </span>
-
-        <h1
-          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em]"
-          style={{ fontSize: 'clamp(2.8rem, 7.5vw, 8rem)' }}
-        >
-          {t('hero.line1')}<br />
-          <span className="text-accent">premium</span> {t('hero.para')}<br />
-          SaaS, fintech {t('hero.conector')}{' '}
-          <span className="text-accent">{t('hero.acento2')}</span>
-        </h1>
-
-        {/* Contador + filtro activo */}
-        <div className="flex items-center gap-3 mt-7 md:mt-10">
-          <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.2em]">
-            {t('counter', { count: filtered.length })}
-          </span>
-          {!isAll && (
-            <>
-              <span className="text-smoke/50 text-[9px]">·</span>
-              <span className="font-mono text-accent text-[9px] uppercase tracking-[0.2em]">
-                {activeFilter}
-              </span>
-              <button
-                onClick={() => setFilter(todosLabel)}
-                className="font-mono text-smoke/55 hover:text-smoke/60 text-[9px] uppercase tracking-[0.2em] transition-colors duration-200"
-              >
-                {t('filtros.limpiar')}
-              </button>
-            </>
-          )}
-        </div>
-      </section>
-
-      {/* ── Filter tabs ──────────────────────────────────────────────────────── */}
-      <section className="gutter-x pb-10 md:pb-12">
-        <div
-          role="tablist"
-          aria-label={t('filtros.aria')}
-          className="flex items-center gap-2 flex-wrap"
-        >
-          {[todosLabel, ...FILTER_TABS.slice(1)].map(v => {
-            const active = activeFilter === v
-            return (
-              <button
-                key={v}
-                role="tab"
-                aria-selected={active}
-                onClick={() => setFilter(v)}
-                className="font-mono text-[9px] uppercase tracking-[0.22em] px-4 py-2 border transition-colors duration-200"
-                style={{
-                  borderColor: active ? 'rgb(239 235 227)' : 'rgba(139,139,133,0.25)',
-                  background:  active ? 'rgb(239 235 227)' : 'transparent',
-                  color:       active ? '#0E0E0E'          : 'rgba(139,139,133,0.55)',
-                }}
-              >
-                {v}
-              </button>
-            )
-          })}
-        </div>
-      </section>
-
-      {/* ── Project grid ─────────────────────────────────────────────────────── */}
-      <section className="gutter-x pb-28 md:pb-36">
-        {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-5 md:gap-x-6 xl:gap-x-8 gap-y-12 md:gap-y-16">
-            {filtered.map(project => (
-              <ProjectCard
-                key={project._id}
-                project={project}
-                prefersReduced={prefersReduced}
-                isMobile={isMobile}
-                verLabel={t('card.ver')}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="py-24 flex items-center justify-center">
-            <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em]">
-              {t('empty')}
-            </span>
-          </div>
-        )}
-      </section>
-
-    </main>
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden style={flip ? { transform: 'scaleX(-1)' } : undefined}>
+      <path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="square" />
+    </svg>
   )
 }
