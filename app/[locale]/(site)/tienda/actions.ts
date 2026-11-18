@@ -1,6 +1,7 @@
 'use server'
 
 import { z } from 'zod'
+import { resend } from '@/lib/resend'
 import { Resend } from 'resend'
 
 /**
@@ -11,7 +12,6 @@ import { Resend } from 'resend'
  * what makes this useful on day one — the audience is for the launch email.
  */
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 const FROM = process.env.RESEND_FROM_EMAIL ?? 'noreply@nexxodesign.com'
 const TO   = process.env.NOTIFY_EMAIL ?? process.env.RESEND_TO_EMAIL ?? 'info@nexxodesign.com'
@@ -51,14 +51,14 @@ export async function notifyWhenAvailable(
   try {
     const audienceId = process.env.RESEND_AUDIENCE_ID
     if (audienceId) {
-      await resend.contacts.create({ email, audienceId, unsubscribed: false })
+      await resend().contacts.create({ email, audienceId, unsubscribed: false })
     }
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') console.error('[Tienda] Resend audience:', err)
   }
 
   try {
-    await resend.emails.send({
+    await resend().emails.send({
       from:    `Nexxo Tienda <${FROM}>`,
       to:      TO,
       replyTo: email,

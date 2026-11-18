@@ -1,9 +1,9 @@
 'use server'
 
 import { z } from 'zod'
+import { resend } from '@/lib/resend'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 const FROM = process.env.RESEND_FROM_EMAIL ?? 'noreply@nexxodesign.com'
 const TO   = process.env.RESEND_TO_EMAIL   ?? 'info@nexxodesign.com'
@@ -33,15 +33,15 @@ export async function subscribeNewsletter(
   // Usa RESEND_AUDIENCE_ID del env, o busca el primer audience automáticamente
   let audienceId = process.env.RESEND_AUDIENCE_ID
   if (!audienceId) {
-    const { data: audiences } = await resend.audiences.list()
+    const { data: audiences } = await resend().audiences.list()
     audienceId = audiences?.data?.[0]?.id
   }
   if (audienceId) {
-    await resend.contacts.create({ email, audienceId, unsubscribed: false })
+    await resend().contacts.create({ email, audienceId, unsubscribed: false })
   }
 
   // ── Notificación al admin por cada nuevo suscriptor ───────────────────────
-  const { error } = await resend.emails.send({
+  const { error } = await resend().emails.send({
     from:    `Nexxo Newsletter <${FROM}>`,
     to:      TO,
     subject: `Nuevo suscriptor al newsletter — ${email}`,
