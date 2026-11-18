@@ -1,5 +1,7 @@
 import { notFound }          from 'next/navigation'
 import { coverFor }          from '@/lib/covers'
+import { PaletteGrid }       from '@/components/project/PaletteGrid'
+import { aRgb, esClaro, legibleSobre } from '@/lib/color'
 import Link                  from 'next/link'
 import { getTranslations }   from 'next-intl/server'
 import type {
@@ -276,74 +278,7 @@ function PaletteRenderer({ block }: { block: PaletteBlock }) {
         )}
       </div>
 
-      {/*
-        * Las columnas siguen a la cantidad de muestras. Con cuatro fijas, una
-        * paleta de seis caía en 4 + 2 y dejaba dos huecos negros en la
-        * segunda fila; en tres columnas cae 3 + 3 y la carta queda cerrada.
-        */}
-      <dl className={`grid grid-cols-2 gap-2 md:gap-3 ${
-        block.colors.length % 4 === 0 ? 'md:grid-cols-4'
-          : block.colors.length % 3 === 0 ? 'md:grid-cols-3'
-          : 'md:grid-cols-4'}`}>
-        {block.colors.map((c, i) => (
-          <div
-            key={c._key}
-            /* La ficha entera es la muestra: nombre y valores van dentro, como
-               en una carta de color. Antes el color era un recuadro y el texto
-               vivía debajo, de modo que la lámina se leía como una tabla. */
-            className="revelado group relative rounded-[1.25rem] border border-paper/10
-                       flex flex-col justify-end p-5 md:p-6"
-            style={{
-              background: c.hex,
-              aspectRatio: '1 / 1',
-              // Escalonado dentro de la fila: el ojo recorre de izquierda a
-              // derecha en vez de ver aparecer los cuatro de golpe.
-              animationDelay: `${(i % 4) * 90}ms`,
-              ['--retraso' as string]: `${(i % 4) * 2}%`,
-            }}
-          >
-            {/* La textura del material, al pasar por encima. El color es el
-                dato; esto solo dice de qué está hecho. */}
-            {c.textura && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={c.textura}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover rounded-[1.25rem]
-                           opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                loading="lazy"
-                draggable={false}
-              />
-            )}
-            <dt
-              className="relative font-mono text-[12px] md:text-[14px] uppercase tracking-[0.16em]"
-              style={{ color: legibleSobre(c.hex) }}
-            >
-              {c.name}
-            </dt>
-            <dd
-              className="relative font-mono text-[12px] md:text-[14px] tracking-[0.1em] mt-2 space-y-0.5"
-              style={{ color: legibleSobre(c.hex), opacity: 0.72 }}
-            >
-              <span className="block">{c.hex.toUpperCase()}</span>
-              <span className="block">RGB {aRgb(c.hex).join(' ')}</span>
-            </dd>
-            {c.note && (
-              /* La nota solo al pasar por encima: ocupa sitio y casi nunca es
-                 lo que se viene a mirar, pero cuando hace falta está. */
-              <p
-                className="relative font-sans text-[13px] leading-snug mt-3 max-w-[30ch] text-pretty
-                           opacity-0 translate-y-1 transition-all duration-300
-                           group-hover:opacity-90 group-hover:translate-y-0"
-                style={{ color: legibleSobre(c.hex) }}
-              >
-                {c.note}
-              </p>
-            )}
-          </div>
-        ))}
-      </dl>
+      <PaletteGrid colors={block.colors} />
     </section>
   )
 }
@@ -516,42 +451,6 @@ const REVELADO = `
   }
 `
 
-/** `#0B0C13` → `[11, 12, 19]`, para enseñar el valor también en RGB. */
-function aRgb(hex: string) {
-  const h = hex.replace('#', '')
-  const n = h.length === 3 ? h.split('').map(c => c + c).join('') : h
-  return [0, 2, 4].map(i => parseInt(n.slice(i, i + 2), 16))
-}
-
-/**
- * Blanco o negro sobre un color, según su luminancia.
- *
- * El valor tiene que leerse dentro de su propia muestra, y la paleta de un
- * proyecto lleva tonos muy claros y muy oscuros en la misma fila.
- */
-/**
- * ¿Es un color lo bastante claro como para escribir encima en negro?
- *
- * El corte está donde el blanco y el negro dan el mismo contraste. Sale de
- * igualar las dos razones de la fórmula de WCAG:
- *
- *   1,05 / (L + 0,05) = (L + 0,05) / 0,05   →   L = 0,179
- *
- * Estaba puesto en 0,42, que es ojo y no cuenta, y por eso los verdes medios
- * de Merxo (L = 0,36) y Greenery se llevaban texto blanco: 2,5:1 cuando en
- * negro habrían dado 8:1.
- */
-const CRUCE = 0.179
-
-function esClaro(hex: string) {
-  const [r, g, b] = aRgb(hex).map(v => v / 255)
-  const lin = (v: number) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)
-  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b) > CRUCE
-}
-
-function legibleSobre(hex: string) {
-  return esClaro(hex) ? 'rgba(0,0,0,0.86)' : 'rgba(255,255,255,0.97)'
-}
 
 /**
  * El espécimen tipográfico.
