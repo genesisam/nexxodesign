@@ -485,6 +485,57 @@ const REVELADO = `
       }
     }
   }
+
+  /*
+   * El escenario en el teléfono: una columna, no un escenario.
+   *
+   * El desplazamiento lateral va en porcentaje del ancho del propio aparato,
+   * que es lo que mantiene la escena compuesta de 768 para arriba. En 375 no:
+   * un teléfono de 70svh mide unos 215 de ancho, y el 120 % lo manda a 258
+   * píxeles del centro de una pantalla que solo tiene 187 a cada lado. Los
+   * dos laterales se quedaban fuera y solo asomaba una astilla por el borde.
+   *
+   * Así que en móvil la escena se deshace: los tres aparatos pasan a una
+   * columna, el central primero, y cada uno aparece subiendo al entrar en
+   * pantalla. El fondo sigue detrás de todos, cubriendo la columna entera.
+   */
+  @media (max-width: 767px) {
+    .escenario {
+      height: auto !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 3rem 1rem 3.5rem;
+    }
+    .escenario .aparato {
+      position: static;
+      height: auto;
+      width: min(72%, 290px);
+      transform: none;
+    }
+    /* El central sigue mandando: llega primero y llega más grande. */
+    .escenario .centro { order: 1; width: min(86%, 340px) }
+    .escenario .izq    { order: 2 }
+    .escenario .der    { order: 3 }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
+      @keyframes sube-al-entrar {
+        from { opacity: 0; transform: translateY(16%) scale(.94) }
+        to   { opacity: 1; transform: none }
+      }
+      /* Cada aparato contra su propio recorrido por la ventana, no contra el
+         del escenario: en una columna cada uno entra cuando le toca. */
+      .escenario .aparato {
+        animation: sube-al-entrar linear both;
+        animation-timeline: view();
+        animation-range: entry 6% entry 44%;
+        will-change: transform, opacity;
+      }
+    }
+  }
 `
 
 
