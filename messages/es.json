@@ -366,7 +366,9 @@
       "line1": "Producto y web",
       "para": "para",
       "conector": "e",
-      "acento2": "IA."
+      "acento2": "IA.",
+      "title": "Cosas que hemos construido.",
+      "lead": "Producto, web y marca para SaaS, fintech e IA. Hechos para convertir en pantalla y para funcionar fuera de ella."
     },
     "filtros": {
       "todos": "Todos",
@@ -377,6 +379,11 @@
     "empty": "Sin proyectos en este vertical",
     "card": {
       "ver": "Ver proyecto →"
+    },
+    "pager": {
+      "aria": "Más proyectos",
+      "prev": "Proyectos anteriores",
+      "next": "Siguientes proyectos"
     }
   },
   "proyectos": {

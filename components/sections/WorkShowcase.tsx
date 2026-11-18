@@ -254,7 +254,7 @@ const Card = memo(function Card({ project, slot, hovered, onHover }: CardProps) 
  * label, offset down-right of the pointer, catching up over 0.8s.
  * Portalled to <body> so no transformed or filtered ancestor can trap it.
  */
-function ProjectCursor({ visible }: { visible: boolean }) {
+export function ProjectCursor({ visible }: { visible: boolean }) {
   const el = useRef<HTMLDivElement>(null)
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])

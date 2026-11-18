@@ -74,5 +74,5 @@ export default async function WorkPage({ params }: Props) {
   // de origen, que en el CMS es el que decide el editor.
   const projects = [...cms, ...soloRepo].sort((a, b) => (b.year ?? 0) - (a.year ?? 0))
 
-  return <WorkIndex projects={projects.length ? projects : undefined} />
+  return <WorkIndex projects={projects} />
 }

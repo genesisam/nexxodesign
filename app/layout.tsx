@@ -3,6 +3,7 @@ import { DM_Sans, IBM_Plex_Mono } from 'next/font/google'
 import { headers } from 'next/headers'
 import { Preloader }    from '@/components/motion/Preloader'
 import { CustomCursor } from '@/components/motion/CustomCursor'
+import { PageTransition } from '@/components/motion/PageTransition'
 import { SmoothScrollProvider } from '@/components/motion/SmoothScrollProvider'
 import { Analytics }     from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -177,6 +178,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
         <Preloader />
         <CustomCursor />
+        <PageTransition />
 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(founderJsonLd) }} />

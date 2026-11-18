@@ -22,7 +22,7 @@ export function markIntroDone(): void {
 }
 
 /** Longest the curtain can hold before consumers give up and animate anyway. */
-const SAFETY_MS = 3200
+const SAFETY_MS = 4200
 
 export function whenIntroDone(): Promise<void> {
   if (done) return Promise.resolve()
