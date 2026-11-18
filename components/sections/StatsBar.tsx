@@ -71,7 +71,7 @@ export function StatsBar() {
         {STATS.map((stat, i) => (
           <div
             key={stat.label}
-            className="flex flex-col items-center justify-center gap-1 px-6 py-5 flex-1 min-w-[140px] max-md:border-b max-md:border-paper/8"
+            className="flex flex-col items-center justify-center gap-1 px-6 py-5 flex-1 min-w-[140px] max-md:border-b max-md:border-paper/8 max-md:[&:nth-child(odd)]:!border-l-0"
           >
             <span
               ref={el => { valueRefs.current[i] = el }}
