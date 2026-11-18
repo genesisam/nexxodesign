@@ -84,5 +84,14 @@ export function GalleryClient() {
     else host.current?.removeAttribute('aria-hidden')
   }, [modalOpen])
 
-  return null
+  // El <main> de la página. Va vacío (la escena está en el contenedor de <body>),
+  // pero tiene que existir: RevealSections y ProjectMotion trabajan sobre el
+  // primer <main> del documento, y sin este cogían el del pop up del caso,
+  // escondían sus secciones y las esperaban a un scroll de ventana que dentro
+  // del pop up no llega: cada bloque tardaba 1,5 s en aparecer.
+  return (
+    <main id="galeria-main" data-no-reveal>
+      <h1 className="sr-only">Galería 3D de proyectos de Nexxo</h1>
+    </main>
+  )
 }
