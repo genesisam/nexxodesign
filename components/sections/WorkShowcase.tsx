@@ -381,6 +381,11 @@ export function WorkShowcase({ projects, headline, cta, ctaHref }: Props) {
           duration: 0.8, ease: 'natureSway',
           scrollTrigger: { trigger: '.ws-header', start: 'top 65%', toggleActions: 'play none none none' },
         })
+        gsap.from('.ws-see-all-end', {
+          y: '2.34vh', rotateZ: -2, opacity: 0, filter: 'blur(4px)',
+          duration: 0.8, ease: 'natureSway',
+          scrollTrigger: { trigger: '.ws-see-all-end', start: 'top 95%', toggleActions: 'play none none none' },
+        })
       }
     }, el)
 
@@ -397,14 +402,13 @@ export function WorkShowcase({ projects, headline, cta, ctaHref }: Props) {
       className="text-paper px-[5.55vw] pb-[11.67vh] max-lg:px-[4.1vw] max-lg:pb-[8vh] max-sm:px-[5.97vw]"
     >
       <div ref={header} className="ws-header flex items-end justify-between gap-6 pt-[16.6vh] max-lg:pt-[11.7vh] max-sm:pt-[6.86vh]">
-        <h2
-          className="font-display font-semibold text-paper leading-[0.9] tracking-[-0.025em] max-w-[60%]"
-          style={{ fontSize: 'clamp(2rem, 4.2vw, 4.5rem)' }}
-        >
+        <h2 className="font-display font-semibold text-paper leading-[0.9] tracking-[-0.025em] max-w-[60%]
+                       text-[clamp(2rem,4.2vw,4.5rem)] max-sm:max-w-none max-sm:text-[13.5vw]">
           {headline}
         </h2>
-        <Link href={ctaHref} className="ws-see-all group/see mb-[1.17vh] w-fit shrink-0 font-mono uppercase text-paper text-[0.97vw] max-lg:text-[1.95vw] max-sm:mb-[1.5vh] max-sm:text-[3.48vw]">
-          <span className="flex items-center gap-[0.4vw] max-sm:gap-[1.49vw]">{cta}</span>
+        {/* On phones the link moves under the last project instead. */}
+        <Link href={ctaHref} className="ws-see-all group/see mb-[1.17vh] w-fit shrink-0 font-mono uppercase text-paper text-[0.97vw] max-lg:text-[1.95vw] max-sm:hidden">
+          <span className="flex items-center gap-[0.4vw]">{cta}</span>
           <span className="block h-px w-full translate-y-[0.39vh] origin-right bg-paper transition-transform duration-500 ease-out-expo group-hover/see:scale-x-0" />
         </Link>
       </div>
@@ -420,6 +424,11 @@ export function WorkShowcase({ projects, headline, cta, ctaHref }: Props) {
           {card(4)}
         </div>
       </div>
+
+      <Link href={ctaHref} className="ws-see-all-end group/see mt-[6vh] block w-fit font-mono text-[3.48vw] uppercase text-paper sm:hidden">
+        <span className="flex items-center gap-[1.49vw]">{cta}</span>
+        <span className="block h-px w-full translate-y-[0.39vh] origin-right bg-paper" />
+      </Link>
 
       <ProjectCursor visible={hovered !== null} />
     </section>
