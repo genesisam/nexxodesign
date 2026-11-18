@@ -294,6 +294,22 @@ function PaletteRenderer({ block }: { block: PaletteBlock }) {
  */
 const REVELADO = `
   /*
+   * En el teléfono la apertura no puede ser una tira de 16/9 metida entre
+   * márgenes. A 375 píxeles eso son 193 de imagen flotando en una pantalla
+   * negra de 667, y encima el recorte de la foto se decide contra una caja
+   * vertical, así que de una apertura apaisada solo se ve la banda central.
+   * Aquí va a sangre, en 3/4 y sin esquinas: la primera imagen del caso
+   * ocupa el teléfono, que es lo que tiene que hacer.
+   */
+  @media (max-width: 767px) {
+    .apertura-seccion { padding-left: 0; padding-right: 0 }
+    .apertura {
+      aspect-ratio: 3 / 4 !important;
+      border-radius: 0 !important;
+    }
+  }
+
+  /*
    * La apertura empieza contenida —16/9, con márgenes y esquinas— y se abre
    * al bajar hasta ocupar la pantalla entera, acercándose un poco.
    *
@@ -317,12 +333,32 @@ const REVELADO = `
            la imagen al 1,06 del acercamiento se salía de la ventana. */
         overflow: clip;
         --lado: clamp(1rem, 4vw, 4rem);
+        --redondeo: 2rem;
         --alto-tarjeta: calc((100vw - var(--lado) * 2) * 9 / 16);
         --arriba: max(0px, calc((100svh - var(--alto-tarjeta)) / 2));
       }
+
+      /*
+       * En el teléfono el recorte de partida no se calcula contra un 16/9:
+       * esa cuenta dejaba 237 píxeles de negro arriba y otros tantos abajo,
+       * y el gesto consistía en abrir una rendija. Aquí parte de una tarjeta
+       * que ya ocupa casi todo y se termina de soltar al bajar.
+       */
+      @media (max-width: 767px) {
+        .apertura {
+          height: 82svh;
+          --lado: 0.75rem;
+          --redondeo: 1.25rem;
+          --arriba: 3.5svh;
+        }
+        /* Un tramo más corto: en una pantalla de 667 el recorrido de salida
+           se agota antes, y con el 65% la apertura terminaba de abrirse ya
+           medio fuera de cuadro. */
+        .apertura .acerca { animation-range: exit 0% exit 50% }
+      }
       @keyframes abrir {
         from {
-          clip-path: inset(var(--arriba) var(--lado) var(--arriba) var(--lado) round 2rem);
+          clip-path: inset(var(--arriba) var(--lado) var(--arriba) var(--lado) round var(--redondeo));
           transform: scale(1);
         }
         to {
