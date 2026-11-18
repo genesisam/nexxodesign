@@ -137,7 +137,7 @@ export const MOCK_PROJECTS: Project[] = [
           caption: 'La ficha del kit: los cuatro productos y la caja de viaje, en una sola compra.' },
         { _key: 'nbi6', mediaType: 'image', size: 'sm',
           url: '/images/projects/nbl/par-kit-movil.webp',
-          caption: 'Y en el teléfono, que es por donde llega quien viene de Instagram.' },
+          caption: 'En vertical, la suscripción queda por encima del precio suelto: es el orden en el que conviene leer un kit.' },
       ] },
     ],
   },
