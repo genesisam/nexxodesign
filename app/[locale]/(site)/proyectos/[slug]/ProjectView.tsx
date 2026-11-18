@@ -1301,6 +1301,10 @@ function NextProjectSection({
   next: ProjectPreview; nextLabel: string; backLabel: string
 }) {
   const bg = getBg(next.vertical)
+  // La portada compuesta manda sobre la del CMS, igual que en la tarjeta del
+  // índice. Los casos que nacieron en el repositorio y pasaron al CMS no
+  // tienen `coverImage`, así que aquí salía el degradado de relleno.
+  const portada = coverFor(next.slug?.current, '1x1') ?? next.cover
   return (
     <section className="relative z-10 bg-ink gutter-x py-16 md:py-20 border-t border-line">
       <p className="font-mono text-smoke/95 text-[12px] md:text-[14px] uppercase tracking-[0.24em] mb-8">
@@ -1316,10 +1320,10 @@ function NextProjectSection({
           style={{ width: 'clamp(96px, 13vw, 190px)', aspectRatio: '1 / 1' }}
           aria-hidden
         >
-          {next.cover ? (
+          {portada ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={next.cover}
+              src={portada}
               alt=""
               className="w-full h-full object-cover"
               loading="lazy"
