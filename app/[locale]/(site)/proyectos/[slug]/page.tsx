@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { buildAlternates } from '@/lib/seo'
+import { buildAlternates, SITE_URL } from '@/lib/seo'
+import { coverFor } from '@/lib/covers'
 import { getProjectBySlug, getAllProjectSlugs } from '@/sanity/lib/project-data'
 import { ProjectView, SEO_META } from './ProjectView'
 
@@ -35,6 +36,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title       = meta?.title       ?? `${project.title} — Diseño de Producto`
   const description = meta?.description ?? project.excerpt
 
+  // La imagen para compartir: la portada compuesta primero, absoluta, porque
+  // una red social no resuelve rutas relativas. Los casos que nacieron en el
+  // repositorio no tienen `coverImage`, así que se compartían sin imagen.
+  const compuesta = coverFor(slug, '16x9')
+  const social    = compuesta ? `${SITE_URL}${compuesta}` : project.cover
+
   return {
     title,
     description,
@@ -43,13 +50,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       type:   'website',
-      images: project.cover ? [{ url: project.cover, alt: project.title }] : [],
+      images: social ? [{ url: social, alt: project.title }] : [],
     },
     twitter: {
       card:        'summary_large_image',
       title,
       description,
-      images:      project.cover ? [project.cover] : undefined,
+      images:      social ? [social] : undefined,
     },
   }
 }
