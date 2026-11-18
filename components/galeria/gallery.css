@@ -1,0 +1,61 @@
+/* Galería 3D (/galeria). Todo cuelga de #galeria / .nx-gal. */
+.nx-gal { --ink:#0E0E0E; --paper:#EFEBE3; --muted:#79716E; --violet:#A694E8; --accent:#5B3DF5; }
+  .nx-gal, .nx-gal * { box-sizing: border-box; }
+  .nx-gal { position: fixed; inset: 0; z-index: 65; background: var(--ink); color: var(--paper);
+    font: 14px/1.5 "IBM Plex Mono", ui-monospace, monospace; overflow: hidden; }
+  .nx-gal canvas { display: block; touch-action: pan-y; }
+  .eyebrow { font-size: 9px; text-transform: uppercase; letter-spacing: .28em; color: rgb(239 235 227 / .6); }
+  #vignette { position: fixed; inset: 0; pointer-events: none; opacity: 0; transition: opacity .9s;
+    background: radial-gradient(ellipse at 65% 45%, transparent 30%, rgb(14 14 14 / .78) 100%); }
+  #galeria.mobile #vignette { background: radial-gradient(ellipse at 50% 30%, transparent 30%, rgb(14 14 14 / .8) 100%); }
+  #top { position: fixed; top: 16px; left: 20px; right: 20px; display: flex; align-items: center; gap: 10px; pointer-events: none; z-index: 3; }
+  #top .brand { pointer-events: auto; color: var(--paper); text-decoration: none; display: flex; flex-direction: column; gap: 2px; margin-right: auto; }
+  #top .brand b { font: 600 15px/1 system-ui, sans-serif; letter-spacing: .02em; }
+  #portfolio { pointer-events: auto; font: inherit; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; text-decoration: none;
+    color: var(--paper); background: var(--accent); border: 1px solid var(--accent); padding: 8px 12px; white-space: nowrap; }
+  #portfolio:hover { background: #4a2fe0; }
+  #portfolio:focus-visible, #top .brand:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+  #galeria.mobile #portfolio { padding: 7px 10px; font-size: 9px; letter-spacing: .14em; }
+  #galeria.mobile #skip { display: none; }
+  #loader { position: fixed; inset: 0; z-index: 5; display: grid; place-items: center; background: var(--ink); transition: opacity .6s, visibility .6s; }
+  #loader.done { opacity: 0; visibility: hidden; }
+  #loader .box { width: min(260px, 70vw); text-align: center; }
+  #loader .track { height: 2px; background: rgb(239 235 227 / .15); margin-top: 14px; overflow: hidden; }
+  #lbar { height: 100%; background: var(--violet); transform: scaleX(.05); transform-origin: left; transition: transform .25s; }
+  #skip { pointer-events: auto; background: none; border: 1px solid rgb(239 235 227 / .3); color: var(--paper);
+    font: inherit; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; padding: 6px 10px; cursor: pointer; }
+  #tip { position: fixed; pointer-events: none; padding: 6px 10px; background: rgb(14 14 14 / .82); border: 1px solid rgb(239 235 227 / .18);
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase; opacity: 0; transform: translate(14px, 14px); transition: opacity .2s; }
+  #list { position: fixed; left: 20px; right: 20px; bottom: 18px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: opacity .4s; }
+  #list button, .btn { font: inherit; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgb(239 235 227 / .8);
+    background: rgb(14 14 14 / .55); border: 1px solid rgb(239 235 227 / .25); padding: 8px 12px; cursor: pointer; }
+  #list button:hover, #list button.on, .btn:hover { border-color: var(--paper); color: var(--paper); }
+  #list button:focus-visible, .btn:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+  #list .n { opacity: .5; margin-right: 6px; }
+  #panel { position: fixed; left: 20px; top: 50%; transform: translate(-16px, -50%); width: min(420px, 36vw); opacity: 0; pointer-events: none;
+    transition: opacity .5s, transform .6s cubic-bezier(.16,1,.3,1); background: rgb(14 14 14 / .62); backdrop-filter: blur(6px);
+    border: 1px solid rgb(239 235 227 / .12); padding: 26px; }
+  #panel.on { opacity: 1; transform: translate(0, -50%); pointer-events: auto; }
+  #panel h2 { font: 600 clamp(1.6rem, 2.4vw, 2.4rem)/1.02 system-ui, sans-serif; letter-spacing: -.035em; margin: 10px 0 6px; }
+  #panel .cat { color: rgb(239 235 227 / .7); margin: 0 0 14px; }
+  #panel .sum { color: rgb(239 235 227 / .78); font-size: 13px; }
+  #panel ul { list-style: none; padding: 0; margin: 14px 0 20px; display: flex; flex-wrap: wrap; gap: 6px; }
+  #panel li { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; border: 1px solid rgb(166 148 232 / .45); color: var(--violet); padding: 4px 8px; }
+  #panel .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  #panel a.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); text-decoration: none; }
+  #panel .nav { display: flex; gap: 8px; margin-left: auto; }
+  #galeria.mobile #panel { left: 12px; right: 12px; top: auto; bottom: 12px; width: auto; transform: translate(0, 24px); padding: 18px; }
+  #galeria.mobile #panel.on { transform: translate(0, 0); }
+  #galeria.mobile #panel .sum { font-size: 12px; }
+  #mnav { position: fixed; left: 12px; right: 12px; bottom: 14px; display: none; gap: 8px; align-items: center; justify-content: space-between; }
+  #galeria.mobile #mnav { display: flex; }
+  #galeria.mobile #list { display: none; }
+  #mnav .title { flex: 1; text-align: center; }
+  #mnav .title b { display: block; font: 600 18px/1.1 system-ui, sans-serif; letter-spacing: -.02em; }
+  #mnav button { min-width: 48px; min-height: 48px; }
+  #dots { position: fixed; left: 0; right: 0; bottom: 84px; display: none; justify-content: center; gap: 6px; }
+  #galeria.mobile #dots { display: flex; }
+  #dots i { width: 6px; height: 6px; border-radius: 50%; background: rgb(239 235 227 / .3); }
+  #dots i.on { background: var(--paper); }
+  .hide { opacity: 0 !important; pointer-events: none !important; }
+  #stats { position: fixed; right: 20px; bottom: 60px; font-size: 10px; color: var(--muted); white-space: pre; display: none; }

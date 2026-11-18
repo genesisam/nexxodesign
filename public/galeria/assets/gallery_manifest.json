@@ -1,0 +1,596 @@
+{
+  "project": "NEXXO — THE PROJECT GALLERY",
+  "units": "metros, glTF Y-up (Blender x, z, -y)",
+  "background": "#0E0E0E",
+  "palette": {
+    "ivory": "#EEE9DF",
+    "sand": "#C1B7AA",
+    "warm_grey": "#79716E",
+    "graphite": "#201F22",
+    "violet": "#A694E8"
+  },
+  "cameras": {
+    "CAM_GALLERY_DESKTOP": {
+      "eye": [
+        -1.5,
+        1.9,
+        4.0
+      ],
+      "target": [
+        -0.3,
+        2.2,
+        -3.1
+      ],
+      "lens_mm": 20.0,
+      "res": [
+        1920,
+        1080
+      ]
+    },
+    "CAM_GALLERY_MOBILE": {
+      "eye": [
+        0.0,
+        2.05,
+        2.9
+      ],
+      "target": [
+        0.0,
+        2.25,
+        -3.1
+      ],
+      "lens_mm": 26.0,
+      "res": [
+        1080,
+        1920
+      ]
+    },
+    "CAM_CHAIR_DETAIL": {
+      "eye": [
+        -1.7,
+        1.25,
+        2.1
+      ],
+      "target": [
+        -3.3,
+        0.3,
+        0.25
+      ],
+      "lens_mm": 40.0,
+      "res": [
+        1200,
+        900
+      ]
+    },
+    "CAM_CHARACTER_DETAIL": {
+      "eye": [
+        0.35,
+        1.25,
+        0.75
+      ],
+      "target": [
+        -0.7,
+        1.0,
+        -1.25
+      ],
+      "lens_mm": 55.0,
+      "res": [
+        1080,
+        1350
+      ]
+    },
+    "CAM_CHARACTER_SIDE": {
+      "eye": [
+        1.6,
+        1.15,
+        -1.9
+      ],
+      "target": [
+        -0.7,
+        1.0,
+        -1.3
+      ],
+      "lens_mm": 55.0,
+      "res": [
+        1080,
+        1350
+      ]
+    },
+    "CAM_PROJECT_FOCUS": {
+      "eye": [
+        0.0,
+        2.45,
+        1.0
+      ],
+      "target": [
+        0.0,
+        2.45,
+        -3.2
+      ],
+      "lens_mm": 40.0,
+      "res": [
+        1920,
+        1080
+      ]
+    }
+  },
+  "frames": [
+    {
+      "id": "PROJECT_FRAME_01",
+      "image_node": "PROJECT_IMAGE_01",
+      "collider": "COLLIDER_PROJECT_01",
+      "target": "TARGET_PROJECT_01",
+      "center": [
+        -5.0,
+        2.414,
+        -3.15
+      ],
+      "max_w": 1.44,
+      "max_h": 1.12,
+      "outer_w": 1.92,
+      "outer_h": 1.6,
+      "focus_desktop": {
+        "eye": [
+          -5.0,
+          2.364,
+          0.15
+        ],
+        "target": [
+          -5.0,
+          2.414,
+          -3.15
+        ],
+        "lens_mm": 40
+      },
+      "focus_mobile": {
+        "eye": [
+          -5.0,
+          2.114,
+          -0.25
+        ],
+        "target": [
+          -5.0,
+          2.064,
+          -3.15
+        ],
+        "lens_mm": 26
+      },
+      "browse_mobile": {
+        "eye": [
+          -5.0,
+          2.214,
+          1.15
+        ],
+        "target": [
+          -5.0,
+          2.214,
+          -3.15
+        ],
+        "lens_mm": 26
+      }
+    },
+    {
+      "id": "PROJECT_FRAME_02",
+      "image_node": "PROJECT_IMAGE_02",
+      "collider": "COLLIDER_PROJECT_02",
+      "target": "TARGET_PROJECT_02",
+      "center": [
+        -2.5,
+        2.414,
+        -3.15
+      ],
+      "max_w": 1.44,
+      "max_h": 1.12,
+      "outer_w": 1.92,
+      "outer_h": 1.6,
+      "focus_desktop": {
+        "eye": [
+          -2.5,
+          2.364,
+          0.15
+        ],
+        "target": [
+          -2.5,
+          2.414,
+          -3.15
+        ],
+        "lens_mm": 40
+      },
+      "focus_mobile": {
+        "eye": [
+          -2.5,
+          2.114,
+          -0.25
+        ],
+        "target": [
+          -2.5,
+          2.064,
+          -3.15
+        ],
+        "lens_mm": 26
+      },
+      "browse_mobile": {
+        "eye": [
+          -2.5,
+          2.214,
+          1.15
+        ],
+        "target": [
+          -2.5,
+          2.214,
+          -3.15
+        ],
+        "lens_mm": 26
+      }
+    },
+    {
+      "id": "PROJECT_FRAME_03",
+      "image_node": "PROJECT_IMAGE_03",
+      "collider": "COLLIDER_PROJECT_03",
+      "target": "TARGET_PROJECT_03",
+      "center": [
+        0.0,
+        2.414,
+        -3.15
+      ],
+      "max_w": 1.44,
+      "max_h": 1.12,
+      "outer_w": 1.92,
+      "outer_h": 1.6,
+      "focus_desktop": {
+        "eye": [
+          0.0,
+          2.364,
+          0.15
+        ],
+        "target": [
+          0.0,
+          2.414,
+          -3.15
+        ],
+        "lens_mm": 40
+      },
+      "focus_mobile": {
+        "eye": [
+          0.0,
+          2.114,
+          -0.25
+        ],
+        "target": [
+          0.0,
+          2.064,
+          -3.15
+        ],
+        "lens_mm": 26
+      },
+      "browse_mobile": {
+        "eye": [
+          0.0,
+          2.214,
+          1.15
+        ],
+        "target": [
+          0.0,
+          2.214,
+          -3.15
+        ],
+        "lens_mm": 26
+      }
+    },
+    {
+      "id": "PROJECT_FRAME_04",
+      "image_node": "PROJECT_IMAGE_04",
+      "collider": "COLLIDER_PROJECT_04",
+      "target": "TARGET_PROJECT_04",
+      "center": [
+        2.5,
+        2.414,
+        -3.15
+      ],
+      "max_w": 1.44,
+      "max_h": 1.12,
+      "outer_w": 1.92,
+      "outer_h": 1.6,
+      "focus_desktop": {
+        "eye": [
+          2.5,
+          2.364,
+          0.15
+        ],
+        "target": [
+          2.5,
+          2.414,
+          -3.15
+        ],
+        "lens_mm": 40
+      },
+      "focus_mobile": {
+        "eye": [
+          2.5,
+          2.114,
+          -0.25
+        ],
+        "target": [
+          2.5,
+          2.064,
+          -3.15
+        ],
+        "lens_mm": 26
+      },
+      "browse_mobile": {
+        "eye": [
+          2.5,
+          2.214,
+          1.15
+        ],
+        "target": [
+          2.5,
+          2.214,
+          -3.15
+        ],
+        "lens_mm": 26
+      }
+    },
+    {
+      "id": "PROJECT_FRAME_05",
+      "image_node": "PROJECT_IMAGE_05",
+      "collider": "COLLIDER_PROJECT_05",
+      "target": "TARGET_PROJECT_05",
+      "center": [
+        5.0,
+        2.414,
+        -3.15
+      ],
+      "max_w": 1.44,
+      "max_h": 1.12,
+      "outer_w": 1.92,
+      "outer_h": 1.6,
+      "focus_desktop": {
+        "eye": [
+          5.0,
+          2.364,
+          0.15
+        ],
+        "target": [
+          5.0,
+          2.414,
+          -3.15
+        ],
+        "lens_mm": 40
+      },
+      "focus_mobile": {
+        "eye": [
+          5.0,
+          2.114,
+          -0.25
+        ],
+        "target": [
+          5.0,
+          2.064,
+          -3.15
+        ],
+        "lens_mm": 26
+      },
+      "browse_mobile": {
+        "eye": [
+          5.0,
+          2.214,
+          1.15
+        ],
+        "target": [
+          5.0,
+          2.214,
+          -3.15
+        ],
+        "lens_mm": 26
+      }
+    }
+  ],
+  "lights": [
+    {
+      "name": "LGT_BOUNCE",
+      "type": "AREA",
+      "position": [
+        0.0,
+        0.25,
+        -1.0
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        -0.0
+      ],
+      "energy_cycles_w": 90.0,
+      "color": [
+        1.0,
+        0.75,
+        0.550000011920929
+      ],
+      "frame": null,
+      "angle_deg": null
+    },
+    {
+      "name": "LGT_FILL",
+      "type": "AREA",
+      "position": [
+        0.5,
+        3.6,
+        4.5
+      ],
+      "direction": [
+        -0.0727,
+        -0.3197,
+        -0.9447
+      ],
+      "energy_cycles_w": 240.0,
+      "color": [
+        1.0,
+        0.7799999713897705,
+        0.5799999833106995
+      ],
+      "frame": null,
+      "angle_deg": null
+    },
+    {
+      "name": "LGT_FRAME_01",
+      "type": "SPOT",
+      "position": [
+        -5.0,
+        4.5212,
+        -1.4895
+      ],
+      "direction": [
+        0.0,
+        -0.7854,
+        -0.6189
+      ],
+      "energy_cycles_w": 1100.0,
+      "color": [
+        1.0,
+        0.7799999713897705,
+        0.550000011920929
+      ],
+      "frame": "PROJECT_FRAME_01",
+      "angle_deg": 40.0
+    },
+    {
+      "name": "LGT_FRAME_02",
+      "type": "SPOT",
+      "position": [
+        -2.5,
+        4.5212,
+        -1.4895
+      ],
+      "direction": [
+        0.0,
+        -0.7854,
+        -0.6189
+      ],
+      "energy_cycles_w": 1100.0,
+      "color": [
+        1.0,
+        0.7799999713897705,
+        0.550000011920929
+      ],
+      "frame": "PROJECT_FRAME_02",
+      "angle_deg": 40.0
+    },
+    {
+      "name": "LGT_FRAME_03",
+      "type": "SPOT",
+      "position": [
+        0.0,
+        4.5212,
+        -1.4895
+      ],
+      "direction": [
+        0.0,
+        -0.7854,
+        -0.6189
+      ],
+      "energy_cycles_w": 1100.0,
+      "color": [
+        1.0,
+        0.7799999713897705,
+        0.550000011920929
+      ],
+      "frame": "PROJECT_FRAME_03",
+      "angle_deg": 40.0
+    },
+    {
+      "name": "LGT_FRAME_04",
+      "type": "SPOT",
+      "position": [
+        2.5,
+        4.5212,
+        -1.4895
+      ],
+      "direction": [
+        0.0,
+        -0.7854,
+        -0.6189
+      ],
+      "energy_cycles_w": 1100.0,
+      "color": [
+        1.0,
+        0.7799999713897705,
+        0.550000011920929
+      ],
+      "frame": "PROJECT_FRAME_04",
+      "angle_deg": 40.0
+    },
+    {
+      "name": "LGT_FRAME_05",
+      "type": "SPOT",
+      "position": [
+        5.0,
+        4.5212,
+        -1.4895
+      ],
+      "direction": [
+        0.0,
+        -0.7854,
+        -0.6189
+      ],
+      "energy_cycles_w": 1100.0,
+      "color": [
+        1.0,
+        0.7799999713897705,
+        0.550000011920929
+      ],
+      "frame": "PROJECT_FRAME_05",
+      "angle_deg": 40.0
+    },
+    {
+      "name": "LGT_WINDOW",
+      "type": "AREA",
+      "position": [
+        -9.4,
+        2.6,
+        0.3
+      ],
+      "direction": [
+        0.955,
+        -0.283,
+        -0.0884
+      ],
+      "energy_cycles_w": 700.0,
+      "color": [
+        0.7200000286102295,
+        0.6000000238418579,
+        1.0
+      ],
+      "frame": null,
+      "angle_deg": null
+    }
+  ],
+  "animations": {
+    "CHARACTER_IDLE": {
+      "loop": true,
+      "seconds": 8
+    }
+  },
+  "transitions": {
+    "GALLERY_INTRO": {
+      "seconds": 3.6,
+      "steps": [
+        "luces tenues",
+        "focos en cascada",
+        "dolly corto hacia la pared"
+      ]
+    },
+    "FRAME_HOVER": {
+      "lift_m": 0.03,
+      "spot_gain": 1.45,
+      "seconds": 0.35
+    },
+    "FRAME_SELECT": {
+      "seconds": 1.15,
+      "ease": "power3.inOut",
+      "dim_others": 0.3
+    },
+    "FRAME_DESELECT": {
+      "seconds": 1.0,
+      "ease": "power3.inOut"
+    }
+  }
+}

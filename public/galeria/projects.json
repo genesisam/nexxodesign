@@ -1,0 +1,167 @@
+{
+  "projects": [
+    {
+      "frame": "PROJECT_FRAME_01",
+      "slug": "nbl",
+      "title": "NBL",
+      "category": "E-commerce de cuidado de barba · Diseño y desarrollo",
+      "summary": "Diseñé y desarrollé la tienda de National Beard League: cinco productos, una ficha que responde antes de que preguntes y un kit que es el pedido que interesa.",
+      "services": [
+        "Brand Design",
+        "E-commerce",
+        "UX/UI",
+        "Desarrollo web",
+        "CRO"
+      ],
+      "year": 2026,
+      "image_url": "https://nexxodesign.com/images/projects/nbl/home.webp",
+      "image": "textures/nbl.webp",
+      "aspect": 1.6,
+      "href": "https://nexxodesign.com/proyectos/nbl",
+      "brand_color": "#1F3A6A",
+      "brand_color_source": "paleta NBL (navy)"
+    },
+    {
+      "frame": "PROJECT_FRAME_02",
+      "slug": "cornish-arquitectos",
+      "title": "Cornish Arquitectos",
+      "category": "Desarrollo web para un estudio de arquitectura",
+      "summary": "Implementación del sitio de Cornish Arquitectos sobre el diseño de Cakao Studio: 13 rutas en producción y un cliente que publica solo.",
+      "services": [
+        "Desarrollo web",
+        "Integración de CMS",
+        "SEO técnico",
+        "Despliegue"
+      ],
+      "year": 2026,
+      "image_url": "https://nexxodesign.com/images/projects/cornish-arquitectos/home.webp",
+      "image": "textures/cornish-arquitectos.webp",
+      "aspect": 1.6,
+      "href": "https://nexxodesign.com/proyectos/cornish-arquitectos",
+      "brand_color": "#8A8580",
+      "brand_color_source": "marca monocroma → gris hormigón"
+    },
+    {
+      "frame": "PROJECT_FRAME_03",
+      "slug": "solivus",
+      "title": "Solivus",
+      "category": "UX para software industrial de monitoreo solar",
+      "summary": "Rediseñé el dashboard y la app móvil de Solivus, plataforma de monitoreo solar: 48 métricas auditadas, 9 en primer plano y alertas que llegan con la acción dentro.",
+      "services": [
+        "Product design",
+        "Dashboard UI/UX",
+        "Mobile design",
+        "Branding"
+      ],
+      "year": 2025,
+      "image_url": "https://cdn.sanity.io/images/h169b4gl/production/6c87a2966453250f71fdcbd5d5712d995c84bbf5-2100x1208.png?auto=format&q=75&w=1800",
+      "image": "textures/solivus.webp",
+      "aspect": 1.7391,
+      "href": "https://nexxodesign.com/proyectos/solivus",
+      "brand_color": "#FF8C00",
+      "brand_color_source": "caso de estudio (#FF8C00)"
+    },
+    {
+      "frame": "PROJECT_FRAME_04",
+      "slug": "merxo",
+      "title": "Merxo CRM",
+      "category": "Diseño de producto para pipeline comercial B2B",
+      "summary": "Diseñé la marca y la plataforma CRM de Merxo: un pipeline de cinco etapas, inventario y soporte en un solo sitio, y workflows que se montan en tres clics.",
+      "services": [
+        "Brand Design",
+        "Logo",
+        "Product Design",
+        "UX/UI",
+        "Web App"
+      ],
+      "year": 2025,
+      "image_url": "https://cdn.sanity.io/images/h169b4gl/production/74ca167f10e9a1e47e55fec1b5f743283187bc12-2800x1898.jpg?auto=format&q=75&w=1800",
+      "image": "textures/merxo.webp",
+      "aspect": 1.476,
+      "href": "https://nexxodesign.com/proyectos/merxo",
+      "brand_color": "#3FAE9E",
+      "brand_color_source": "muestreado de la portada"
+    },
+    {
+      "frame": "PROJECT_FRAME_05",
+      "slug": "nexo-go",
+      "title": "Nexo Go",
+      "category": "App IoT de tracking para bicicletas eléctricas",
+      "summary": "Diseño de app IoT y marca para bicicletas eléctricas: el estado de la bici en una pantalla, modo anti-robo que se arma solo y aviso con ubicación en menos de dos minutos.",
+      "services": [
+        "Brand Design",
+        "Mobile Design",
+        "UX/UI",
+        "IoT UX",
+        "Wearable Integration"
+      ],
+      "year": 2025,
+      "image_url": "https://cdn.sanity.io/images/h169b4gl/production/ffedcae07d37b5adc03a5b1ce445ea8651c9befd-2100x1332.jpg?auto=format&q=75&w=1800",
+      "image": "textures/nexo-go.webp",
+      "aspect": 1.5764,
+      "href": "https://nexxodesign.com/proyectos/nexo-go",
+      "brand_color": "#00D97E",
+      "brand_color_source": "caso de estudio (#00D97E)"
+    },
+    {
+      "slug": "greenery-420",
+      "title": "Greenery 420",
+      "category": "El bienestar del cáñamo, sin disculpas · Marca y e-commerce",
+      "summary": "La primera marca de wellness de cáñamo en Madrid que se ve y comunica como una casa de lujo accesible: diseñé la identidad completa y la tienda Shopify desde cero.",
+      "services": [
+        "Brand Design",
+        "E-commerce",
+        "UX/UI",
+        "Shopify",
+        "Fotografía de producto"
+      ],
+      "year": 2025,
+      "image_url": "https://cdn.sanity.io/images/h169b4gl/production/9c60b87cb9fcb8068022dee97f9c7e339a69709c-2100x1377.jpg",
+      "brand_color": "#2D4A2B",
+      "brand_color_source": "caso de estudio (#2D4A2B)",
+      "image": "textures/greenery-420.webp",
+      "href": "https://nexxodesign.com/proyectos/greenery-420",
+      "frame": "PROJECT_FRAME_01"
+    },
+    {
+      "slug": "maison-oliva",
+      "title": "Maison Oliva",
+      "category": "Alta costura española · E-commerce",
+      "summary": "Diseñé e implementé el e-commerce completo de Maison Oliva desde cero — desktop y móvil — para que la experiencia digital tenga el mismo peso que la física.",
+      "services": [
+        "Art Direction",
+        "E-commerce Design",
+        "Shopify",
+        "UX/UI",
+        "Mobile Design"
+      ],
+      "year": 2025,
+      "image_url": "https://cdn.sanity.io/images/h169b4gl/production/d9f457450cc99e063bf5523fa6a01a18f5f89ae4-2880x1924.webp",
+      "brand_color": "#4F6B3A",
+      "brand_color_source": "aproximado: verde oliva de la portada (marca en blanco y negro)",
+      "image": "textures/maison-oliva.webp",
+      "href": "https://nexxodesign.com/proyectos/maison-oliva",
+      "frame": "PROJECT_FRAME_02"
+    },
+    {
+      "slug": "mente",
+      "title": "Mente",
+      "category": "Fintech de factoring · Marca y producto",
+      "summary": "Fintech colombiana de factoring. Diseñé la marca, el sistema de identidad y la experiencia completa, desde las páginas de producto hasta el portal conectado a factura electrónica.",
+      "services": [
+        "Brand Design",
+        "Logo",
+        "Product Design",
+        "UX/UI",
+        "Web"
+      ],
+      "year": 2022,
+      "image_url": "https://cdn.sanity.io/images/h169b4gl/production/ff94811ae7fee288f5f2f3b60c482592495a479a-2800x2032.webp",
+      "brand_color": "#0B2A8A",
+      "brand_color_source": "muestreado de la portada",
+      "image": "textures/mente.webp",
+      "href": "https://nexxodesign.com/proyectos/mente",
+      "frame": "PROJECT_FRAME_03"
+    }
+  ]
+}
