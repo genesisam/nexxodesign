@@ -415,6 +415,16 @@ body::after {
   .wl-stage { display: block; grid-column: 1 / 5; grid-row: 1; }
   .wl-frame {
     position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+    /* El mismo radio que cualquier otro marco de imagen del sitio. Esta era
+       la última pieza a escuadra: la vista previa del índice, que es además
+       la imagen más grande de toda la página. */
+    border-radius: clamp(.875rem, 1.4vw, 1.25rem);
+  }
+  /* Dentro va un lienzo de WebGL, que es una capa compositada aparte: el
+     recorte del padre no siempre llega hasta ella. Heredando el radio se
+     recorta sola y deja de depender de cómo lo resuelva cada navegador. */
+  .wl-frame > *, .wl-frame canvas {
+    border-radius: inherit;
     max-height: calc(100svh - var(--wl-nav) - 4em - 8vh);
     background: rgb(var(--color-paper-rgb) / .04);
   }
