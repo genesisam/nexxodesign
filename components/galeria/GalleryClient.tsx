@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import './gallery.css'
 
 /* Interfaz HTML de la galería; la escena (mountGallery) la rellena y la anima.
@@ -39,19 +39,17 @@ type GalleryApi = { destroy(): void; setPaused(p: boolean): void }
 /**
  * Galería 3D de proyectos a pantalla completa, encima de la navegación del sitio.
  * "Ver proyecto" navega a /proyectos/[slug] con el router: la ruta interceptada
- * @modal/(.)proyectos lo abre en el mismo pop up que el portafolio, sobre la
+ * Cada caso abre su propia página, igual que desde el portafolio, sobre la
  * galería, y al cerrarlo (router.back) se vuelve aquí sin recargar la escena.
  */
 export function GalleryClient() {
   const api      = useRef<GalleryApi | null>(null)
   const host     = useRef<HTMLDivElement | null>(null)
   const router   = useRouter()
-  const pathname = usePathname()
-  const modalOpen = pathname.includes('/proyectos/')
-
   useEffect(() => {
-    // El contenedor vive en <body>, fuera del árbol de React: al abrir el pop up,
-    // Next vuelve a montar el DOM de la página y se llevaba el canvas por delante.
+    // El contenedor vive en <body>, fuera del árbol de React: Next vuelve a
+    // montar el DOM de la página en cada navegación y se llevaba el canvas por
+    // delante.
     let dead = false
     const el = document.createElement('div')
     el.id = 'galeria'
@@ -78,17 +76,10 @@ export function GalleryClient() {
     }
   }, [router])
 
-  useEffect(() => {
-    api.current?.setPaused(modalOpen)
-    if (modalOpen) host.current?.setAttribute('aria-hidden', 'true')
-    else host.current?.removeAttribute('aria-hidden')
-  }, [modalOpen])
-
-  // El <main> de la página. Va vacío (la escena está en el contenedor de <body>),
-  // pero tiene que existir: RevealSections y ProjectMotion trabajan sobre el
-  // primer <main> del documento, y sin este cogían el del pop up del caso,
-  // escondían sus secciones y las esperaban a un scroll de ventana que dentro
-  // del pop up no llega: cada bloque tardaba 1,5 s en aparecer.
+  // El <main> de la página. Va vacío —la escena está en el contenedor de
+  // <body>— pero tiene que existir: RevealSections y ProjectMotion trabajan
+  // sobre el primer <main> del documento, y sin uno aquí no tendrían dónde
+  // mirar.
   return (
     <main id="galeria-main" data-no-reveal>
       <h1 className="sr-only">Galería 3D de proyectos de Nexxo</h1>
