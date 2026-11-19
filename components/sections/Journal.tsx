@@ -90,7 +90,7 @@ export function Journal({ posts }: { posts: Post[] }) {
       {/* ── Cabecera ─────────────────────────────────────────────────────────── */}
       <div className="gutter-x flex items-end justify-between mb-10 md:mb-14">
         <div>
-          <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-3">
+          <span className="block font-mono text-smoke/70 text-[9px] uppercase tracking-[0.25em] mb-3">
             07 — Journal
           </span>
           <h2

@@ -165,7 +165,7 @@ export default async function PostPage({ params }: Props) {
 
         {/* ══ TOPHEAD ═══════════════════════════════════════════════════════ */}
         <section className="gutter-x pt-32 md:pt-44 pb-12 md:pb-16">
-          <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent mb-6">
+          <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent-soft mb-6">
             {post.category}
           </p>
           <h1
@@ -197,7 +197,7 @@ export default async function PostPage({ params }: Props) {
                 href={`https://www.youtube.com/watch?v=${post.youtubeId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-5 font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent transition-colors duration-200"
+                className="inline-flex items-center gap-2 mt-5 font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent-soft transition-colors duration-200"
               >
                 Ver en YouTube <span aria-hidden>→</span>
               </a>
@@ -277,7 +277,7 @@ export default async function PostPage({ params }: Props) {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/60 hover:text-accent transition-colors duration-200"
+                      className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/60 hover:text-accent-soft transition-colors duration-200"
                     >
                       {label}
                     </a>
@@ -298,7 +298,7 @@ export default async function PostPage({ params }: Props) {
               </p>
               <Link
                 href="/journal"
-                className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/60 hover:text-accent transition-colors duration-200"
+                className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/60 hover:text-accent-soft transition-colors duration-200"
               >
                 Ver todo →
               </Link>
@@ -320,11 +320,11 @@ export default async function PostPage({ params }: Props) {
                       <img src={rel.cover} alt={rel.title} className="w-full h-full object-cover" loading="lazy" draggable={false} />
                     )}
                   </div>
-                  <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent mb-2">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent-soft mb-2">
                     {rel.category}
                   </p>
                   <h3
-                    className="font-display font-semibold text-paper leading-tight tracking-[-0.03em] group-hover:text-accent transition-colors duration-200 mb-2"
+                    className="font-display font-semibold text-paper leading-tight tracking-[-0.03em] group-hover:text-accent-soft transition-colors duration-200 mb-2"
                     style={{ fontSize: 'clamp(1rem, 1.6vw, 1.3rem)' }}
                   >
                     {rel.title}

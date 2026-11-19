@@ -232,7 +232,7 @@ export default function TransformacionInner() {
 
         {/* ── Eyebrow ── */}
         <div className="absolute top-8 gutter-l z-30 pointer-events-none">
-          <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em]">
+          <span className="font-mono text-smoke/70 text-[9px] uppercase tracking-[0.25em]">
             {t('seccion')}
           </span>
         </div>

@@ -29,7 +29,7 @@ export default function Error({
       </p>
 
       <div className="relative z-10">
-        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent mb-6">
+        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent-soft mb-6">
           Error del servidor
         </p>
         <h1

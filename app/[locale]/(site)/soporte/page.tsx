@@ -47,13 +47,13 @@ export default function SoportePage() {
 
       <Link
         href="/"
-        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent transition-colors duration-200 inline-flex items-center gap-2 mb-12 md:mb-16"
+        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent-soft transition-colors duration-200 inline-flex items-center gap-2 mb-12 md:mb-16"
       >
         ← Volver al inicio
       </Link>
 
       <div className="max-w-[80ch]">
-        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent mb-6">
+        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent-soft mb-6">
           Ayuda
         </p>
         <h1
@@ -126,7 +126,7 @@ export default function SoportePage() {
                   {label}
                 </p>
                 <p className="font-sans text-paper/65 text-[12px] mb-5">{desc}</p>
-                <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent group-hover:text-paper transition-colors duration-200">
+                <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent-soft group-hover:text-paper transition-colors duration-200">
                   {cta} →
                 </p>
               </a>

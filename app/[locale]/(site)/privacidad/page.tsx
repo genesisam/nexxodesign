@@ -19,13 +19,13 @@ export default function PrivacidadPage() {
 
       <Link
         href="/"
-        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent transition-colors duration-200 inline-flex items-center gap-2 mb-12 md:mb-16"
+        className="font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-accent-soft transition-colors duration-200 inline-flex items-center gap-2 mb-12 md:mb-16"
       >
         ← Volver al inicio
       </Link>
 
       <div className="max-w-[72ch]">
-        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent mb-6">
+        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent-soft mb-6">
           Legal
         </p>
         <h1
@@ -63,7 +63,7 @@ export default function PrivacidadPage() {
                 'Información del proyecto que compartes voluntariamente al solicitar una cotización.',
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-accent mt-1 shrink-0">—</span>
+                  <span className="text-accent-soft mt-1 shrink-0">—</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -82,7 +82,7 @@ export default function PrivacidadPage() {
                 'No vendemos, alquilamos ni compartimos tu información con terceros con fines comerciales.',
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-accent mt-1 shrink-0">—</span>
+                  <span className="text-accent-soft mt-1 shrink-0">—</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -109,7 +109,7 @@ export default function PrivacidadPage() {
               Para cualquier solicitud, escríbenos a{' '}
               <a
                 href="mailto:info@nexxodesign.com"
-                className="text-accent hover:underline"
+                className="text-accent-soft hover:underline"
               >
                 info@nexxodesign.com
               </a>
@@ -134,7 +134,7 @@ export default function PrivacidadPage() {
             </h2>
             <p>
               Para preguntas sobre privacidad:{' '}
-              <a href="mailto:info@nexxodesign.com" className="text-accent hover:underline">
+              <a href="mailto:info@nexxodesign.com" className="text-accent-soft hover:underline">
                 info@nexxodesign.com
               </a>
             </p>

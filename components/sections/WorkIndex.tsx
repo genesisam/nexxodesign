@@ -158,7 +158,7 @@ export function WorkIndex({ projects = [] }: { projects?: Project[] }) {
   if (!rows.length) {
     return (
       <main className="min-h-screen bg-ink pt-40 gutter-x">
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-smoke/55">{t('empty')}</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-smoke/70">{t('empty')}</p>
       </main>
     )
   }

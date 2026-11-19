@@ -17,7 +17,7 @@ export async function Statement() {
           className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.03em] max-w-[22ch] text-declaracion"
         >
           {t('texto')}{' '}
-          <span className="text-accent">{t('acento')}</span>
+          <span className="text-accent-soft">{t('acento')}</span>
         </p>
       </ScrollReveal>
 
@@ -37,7 +37,7 @@ export async function Statement() {
         >
           {t('cta')}
           <span
-            className="text-accent transition-transform duration-300 group-hover:translate-x-1"
+            className="text-accent-soft transition-transform duration-300 group-hover:translate-x-1"
             aria-hidden
           >
             →

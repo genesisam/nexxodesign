@@ -50,7 +50,14 @@ export function middleware(request: NextRequest) {
       // product page that actually has a checkout.
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.lemonsqueezy.com",
       "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",
-      "font-src 'self' https://api.fontshare.com https://fonts.gstatic.com",
+      // cdn.fontshare.com, not just api.fontshare.com: the API host serves the
+      // @font-face rules, but every .woff2 they point at is on the CDN host.
+      // Without it the browser fetched the stylesheet, parsed it, requested the
+      // fonts and had them refused — so Clash Display, the display face every
+      // headline on this site is set in, silently fell back to the generic
+      // sans-serif everywhere. It fails without a console error anyone notices
+      // and without anything looking broken, only slightly wrong.
+      "font-src 'self' https://api.fontshare.com https://cdn.fontshare.com https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://cdn.sanity.io https://i.ytimg.com https://assets.lemonsqueezy.com",
       "media-src 'self' https://cdn.sanity.io blob:",
       "worker-src blob:",

@@ -39,7 +39,7 @@ export function JournalList({ posts }: { posts: PostSummary[] }) {
               style={{
                 borderColor: isActive ? 'rgb(242,239,233)'        : 'rgba(242,239,233,0.15)',
                 background:  isActive ? 'rgb(242,239,233)'        : 'transparent',
-                color:       isActive ? '#0E0E0E'                 : 'rgba(242,239,233,0.4)',
+                color:       isActive ? '#0E0E0E'                 : 'rgba(242,239,233,0.65)',
               }}
             >
               {tab}
@@ -49,13 +49,13 @@ export function JournalList({ posts }: { posts: PostSummary[] }) {
       </div>
 
       {/* Post list */}
+      {/* The tabpanel role used to sit on the <ul> itself, which replaced the
+          list role: every <li> inside then had a parent that was not a list,
+          so assistive technology announced the items as loose text with no
+          count. The panel is now the wrapper and the list stays a list. */}
       {filtered.length > 0 ? (
-        <ul
-          id="journal-panel"
-          role="tabpanel"
-          aria-labelledby={`tab-${active}`}
-          className="divide-y divide-paper/10 border-t border-paper/10"
-        >
+        <div id="journal-panel" role="tabpanel" aria-labelledby={`tab-${active}`}>
+        <ul className="divide-y divide-paper/10 border-t border-paper/10">
           {filtered.map(post => (
             <li key={post._id}>
               <Link
@@ -84,11 +84,11 @@ export function JournalList({ posts }: { posts: PostSummary[] }) {
 
                 {/* Content */}
                 <div className="min-w-0 pt-1">
-                  <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent mb-2">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent-soft mb-2">
                     {post.category}
                   </p>
                   <h2
-                    className="font-display font-semibold text-paper leading-tight tracking-[-0.03em] group-hover:text-accent transition-colors duration-200 mb-2.5"
+                    className="font-display font-semibold text-paper leading-tight tracking-[-0.03em] group-hover:text-accent-soft transition-colors duration-200 mb-2.5"
                     style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.45rem)' }}
                   >
                     {post.title}
@@ -104,6 +104,7 @@ export function JournalList({ posts }: { posts: PostSummary[] }) {
             </li>
           ))}
         </ul>
+        </div>
       ) : (
         <div id="journal-panel" role="tabpanel" aria-labelledby={`tab-${active}`} className="py-20 flex items-center justify-center">
           <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-paper/55">

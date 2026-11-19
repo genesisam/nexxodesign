@@ -13,7 +13,7 @@ const MOCK: Project[] = [
     year: 2025,
     metric: '48 métricas auditadas, 9 en primer plano',
     services: ['Product Design', 'Dashboard UI', 'Mobile', 'Branding'],
-    coverUrl: '/images/projects/solivus/cover.png',
+    coverUrl: '/images/projects/solivus/cover.webp',
   },
   {
     _id: 'merxo',

@@ -80,11 +80,11 @@ export default async function JournalPage() {
 
             {/* Content */}
             <div>
-              <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent mb-4">
+              <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent-soft mb-4">
                 {featured.category} · Destacado
               </p>
               <h2
-                className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-5 group-hover:text-accent transition-colors duration-300"
+                className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-5 group-hover:text-accent-soft transition-colors duration-300"
                 style={{ fontSize: 'clamp(1.8rem, 3.4vw, 3.2rem)' }}
               >
                 {featured.title}

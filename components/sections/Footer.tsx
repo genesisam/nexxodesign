@@ -60,7 +60,7 @@ function FooterNewsletter() {
 
   return (
     <div className="max-w-[240px]">
-      <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-6">
+      <span className="block font-mono text-smoke/70 text-[9px] uppercase tracking-[0.25em] mb-6">
         {t('newsletterLabel')}
       </span>
       <p className="font-sans text-paper/60 text-[12px] leading-relaxed mb-5 max-w-[22ch]">
@@ -68,7 +68,7 @@ function FooterNewsletter() {
       </p>
 
       {state.status === 'success' ? (
-        <p role="status" className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
+        <p role="status" className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-soft">
           {t('exito')}
         </p>
       ) : (
@@ -81,13 +81,18 @@ function FooterNewsletter() {
               placeholder={t('emailPlaceholder')}
               aria-label={t('ariaEmail')}
               disabled={isPending}
-              className="flex-1 min-w-0 bg-transparent font-mono text-paper text-[11px] placeholder:text-smoke/55 outline-none disabled:opacity-50"
+              className="flex-1 min-w-0 bg-transparent font-mono text-paper text-[11px] placeholder:text-smoke/70 outline-none disabled:opacity-50"
             />
+            {/* WCAG 2.2 / 2.5.8: the arrow alone measured 16×18 px and sat 12px
+                from the input, so neither the size nor the spacing exception
+                applied. The glyph is unchanged — the hit area around it is not. */}
             <button
               type="submit"
               disabled={isPending}
               aria-label={t('ariaSuscribirse')}
-              className="ml-3 shrink-0 font-mono text-paper/65 text-[12px] hover:text-accent transition-colors duration-200 disabled:opacity-50"
+              className="ml-2 shrink-0 inline-flex h-6 w-6 items-center justify-center
+                         font-mono text-paper/65 text-[12px] hover:text-accent-soft
+                         transition-colors duration-200 disabled:opacity-50"
             >
               {isPending ? '…' : '→'}
             </button>
@@ -245,7 +250,7 @@ export function Footer() {
       className="gutter-x pt-20 md:pt-28 grid grid-cols-2 md:grid-cols-4 gap-y-14 gap-x-10 md:gap-x-14 lg:gap-x-20 [&>*]:min-w-0">
 
         <div>
-          <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-6">
+          <span className="block font-mono text-smoke/70 text-[9px] uppercase tracking-[0.25em] mb-6">
             {t('menuLabel')}
           </span>
           <nav aria-label="Navegación del footer">
@@ -265,7 +270,7 @@ export function Footer() {
         </div>
 
         <div>
-          <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-6">
+          <span className="block font-mono text-smoke/70 text-[9px] uppercase tracking-[0.25em] mb-6">
             {t('ubicacionLabel')}
           </span>
           <p className="font-sans text-paper/70 text-sm leading-relaxed">
@@ -276,7 +281,7 @@ export function Footer() {
         <FooterNewsletter />
 
         <div>
-          <span className="block font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] mb-6">
+          <span className="block font-mono text-smoke/70 text-[9px] uppercase tracking-[0.25em] mb-6">
             {t('socialsLabel')}
           </span>
           <ul className="flex flex-col gap-3.5">
@@ -288,7 +293,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 font-sans text-paper/70 text-sm hover:text-paper transition-colors duration-200 group"
                 >
-                  <span className="text-smoke/60 group-hover:text-paper/70 transition-colors duration-200">
+                  <span className="text-smoke/70 group-hover:text-paper/70 transition-colors duration-200">
                     <Icon />
                   </span>
                   {label}
@@ -317,18 +322,18 @@ export function Footer() {
         <div className="flex items-center gap-6">
           <Link
             href="/privacidad"
-            className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.2em] hover:text-smoke/70 transition-colors duration-200"
+            className="font-mono text-smoke/70 text-[9px] uppercase tracking-[0.2em] hover:text-paper/80 transition-colors duration-200"
           >
             {t('privacidad')}
           </Link>
           <Link
             href="/soporte"
-            className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.2em] hover:text-smoke/70 transition-colors duration-200"
+            className="font-mono text-smoke/70 text-[9px] uppercase tracking-[0.2em] hover:text-paper/80 transition-colors duration-200"
           >
             {t('soporte')}
           </Link>
         </div>
-        <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.2em]">
+        <span className="font-mono text-smoke/70 text-[9px] uppercase tracking-[0.2em]">
           {t('copyright')}
         </span>
       </div>

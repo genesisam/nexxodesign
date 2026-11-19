@@ -214,7 +214,11 @@ const Card = memo(function Card({ project, slot, hovered, onHover }: CardProps) 
           {project.services.map(s => (
             <span
               key={s}
-              className="ws-tag font-mono uppercase text-paper text-[0.69vw] leading-none tracking-[0.02em] border border-white/5 bg-black/25 p-[0.69vw] backdrop-blur-md max-lg:p-[0.97vw] max-lg:text-[0.97vw]"
+              /* bg-black/55 rather than /25: the chip is glass over the cover,
+                 so at 25% the label's contrast was the cover's contrast. The
+                 blur keeps the glass reading; the extra tint is what makes the
+                 text legible on a light frame. */
+              className="ws-tag font-mono uppercase text-paper text-[0.69vw] leading-none tracking-[0.02em] border border-white/5 bg-black/55 p-[0.69vw] backdrop-blur-md max-lg:p-[0.97vw] max-lg:text-[0.97vw]"
             >
               {s}
             </span>

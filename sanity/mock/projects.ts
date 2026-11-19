@@ -448,7 +448,7 @@ export const MOCK_PROJECTS: Project[] = [
     nextProject: {
       title:    'Nexo Go',
       slug:     { current: 'nexo-go' },
-      cover:    '/images/projects/nexo-go/cover.png',
+      cover:    '/images/projects/nexo-go/cover.webp',
       vertical: 'SaaS',
     },
   },
@@ -699,7 +699,7 @@ export const MOCK_PROJECTS: Project[] = [
     nextProject: {
       title:    'Solivus',
       slug:     { current: 'solivus' },
-      cover:    '/images/projects/solivus/cover.png',
+      cover:    '/images/projects/solivus/cover.webp',
       vertical: 'SaaS',
     },
   },
@@ -715,7 +715,7 @@ export const MOCK_PROJECTS: Project[] = [
     timeline:    '8 semanas · Q4 2024',
     services:    ['Product design', 'Dashboard UI/UX', 'Mobile design', 'Branding'],
     vertical:    'SaaS',
-    cover:       '/images/projects/solivus/cover.png',
+    cover:       '/images/projects/solivus/cover.webp',
     heroMedia:   null,
     metric:      '48 métricas auditadas, 9 en primer plano',
     metrics: [
@@ -756,7 +756,7 @@ export const MOCK_PROJECTS: Project[] = [
         _type:     'media',
         _key:      'm1',
         mediaType: 'image',
-        url:       '/images/projects/solivus/dashboard-imac.jpg',
+        url:       '/images/projects/solivus/dashboard-imac.webp',
         caption:   'Dashboard principal — Solar Plant Overview en iMac',
         size:      'lg',
       },
@@ -789,9 +789,9 @@ export const MOCK_PROJECTS: Project[] = [
         _key:  'ss1',
         items: [
           { _key: 'si1', mediaType: 'image', url: '/images/projects/solivus/analytics-desktop.webp', size: 'ms', caption: 'Analytics page — gráfico de generación vs consumo mensual' },
-          { _key: 'si2', mediaType: 'image', url: '/images/projects/solivus/ipad-tilted.png',       size: 'sm', caption: 'Vista tablet — modo operador de campo, rotación natural' },
-          { _key: 'si3', mediaType: 'image', url: '/images/projects/solivus/metric-cards.png',      size: 'sm', caption: 'Tarjetas de métricas — Energía generada y Consumo mensual' },
-          { _key: 'si4', mediaType: 'image', url: '/images/projects/solivus/widget-power.png',      size: 'ms', caption: 'Widget de potencia actual — Solar, Grid y Battery en tiempo real' },
+          { _key: 'si2', mediaType: 'image', url: '/images/projects/solivus/ipad-tilted.webp',       size: 'sm', caption: 'Vista tablet — modo operador de campo, rotación natural' },
+          { _key: 'si3', mediaType: 'image', url: '/images/projects/solivus/metric-cards.webp',      size: 'sm', caption: 'Tarjetas de métricas — Energía generada y Consumo mensual' },
+          { _key: 'si4', mediaType: 'image', url: '/images/projects/solivus/widget-power.webp',      size: 'ms', caption: 'Widget de potencia actual — Solar, Grid y Battery en tiempo real' },
         ],
       },
 
@@ -824,9 +824,9 @@ export const MOCK_PROJECTS: Project[] = [
         _type: 'splitShow',
         _key:  'ss2',
         items: [
-          { _key: 'si5', mediaType: 'image', url: '/images/projects/solivus/mobile-panels.png',    size: 'ms', caption: 'Panels screen — Beta-0296, estado Efficient, eficiencia 92%' },
+          { _key: 'si5', mediaType: 'image', url: '/images/projects/solivus/mobile-panels.webp',    size: 'ms', caption: 'Panels screen — Beta-0296, estado Efficient, eficiencia 92%' },
           { _key: 'si6', mediaType: 'image', url: '/images/projects/solivus/mobile-phones.webp',   size: 'sm', caption: 'Dashboard + Panels — flujo completo en iPhone 15 Pro' },
-          { _key: 'si7', mediaType: 'image', url: '/images/projects/solivus/mobile-analytics.png', size: 'sm', caption: 'Analytics móvil — resumen diario, generación y consumo mensual' },
+          { _key: 'si7', mediaType: 'image', url: '/images/projects/solivus/mobile-analytics.webp', size: 'sm', caption: 'Analytics móvil — resumen diario, generación y consumo mensual' },
           { _key: 'si8', mediaType: 'image', url: '/images/projects/solivus/mobile-landscape.webp',size: 'ms', caption: 'Dashboard en uso real — operador de campo, orientación paisaje' },
         ],
       },
@@ -852,10 +852,10 @@ export const MOCK_PROJECTS: Project[] = [
         _type: 'splitShow',
         _key:  'ss3',
         items: [
-          { _key: 'si9',  mediaType: 'image', url: '/images/projects/solivus/notification.png',    size: 'ms', caption: 'Push notification — alerta contextual con acción directa' },
-          { _key: 'si10', mediaType: 'image', url: '/images/projects/solivus/panels-desktop.png',  size: 'sm', caption: 'Panels desktop — selector de panel y métricas detalladas' },
-          { _key: 'si11', mediaType: 'image', url: '/images/projects/solivus/analytics-cards.png', size: 'sm', caption: 'Analytics cards — Autoconsumo 78%, Consumo $92/mes' },
-          { _key: 'si12', mediaType: 'image', url: '/images/projects/solivus/laptop-analytics.png',size: 'ms', caption: 'Analytics en laptop — estado de inversor y tarifa y ahorro' },
+          { _key: 'si9',  mediaType: 'image', url: '/images/projects/solivus/notification.webp',    size: 'ms', caption: 'Push notification — alerta contextual con acción directa' },
+          { _key: 'si10', mediaType: 'image', url: '/images/projects/solivus/panels-desktop.webp',  size: 'sm', caption: 'Panels desktop — selector de panel y métricas detalladas' },
+          { _key: 'si11', mediaType: 'image', url: '/images/projects/solivus/analytics-cards.webp', size: 'sm', caption: 'Analytics cards — Autoconsumo 78%, Consumo $92/mes' },
+          { _key: 'si12', mediaType: 'image', url: '/images/projects/solivus/laptop-analytics.webp',size: 'ms', caption: 'Analytics en laptop — estado de inversor y tarifa y ahorro' },
         ],
       },
 
@@ -880,10 +880,10 @@ export const MOCK_PROJECTS: Project[] = [
         _type: 'splitShow',
         _key:  'ss4',
         items: [
-          { _key: 'si13', mediaType: 'image', url: '/images/projects/solivus/brand-cubes.png',    size: 'ms', caption: '3D brand exploration — sistema en tres aplicaciones de color' },
-          { _key: 'si14', mediaType: 'image', url: '/images/projects/solivus/brand-wall.png',     size: 'sm', caption: 'Señalética de planta — "Optimizando energía solar."' },
-          { _key: 'si15', mediaType: 'image', url: '/images/projects/solivus/brand-sticker.png',  size: 'sm', caption: 'Stickers — sistema de marca en superficies físicas' },
-          { _key: 'si16', mediaType: 'image', url: '/images/projects/solivus/brand-signage.png',  size: 'ms', caption: 'Luz de caja — ícono neón en instalación permanente' },
+          { _key: 'si13', mediaType: 'image', url: '/images/projects/solivus/brand-cubes.webp',    size: 'ms', caption: '3D brand exploration — sistema en tres aplicaciones de color' },
+          { _key: 'si14', mediaType: 'image', url: '/images/projects/solivus/brand-wall.webp',     size: 'sm', caption: 'Señalética de planta — "Optimizando energía solar."' },
+          { _key: 'si15', mediaType: 'image', url: '/images/projects/solivus/brand-sticker.webp',  size: 'sm', caption: 'Stickers — sistema de marca en superficies físicas' },
+          { _key: 'si16', mediaType: 'image', url: '/images/projects/solivus/brand-signage.webp',  size: 'ms', caption: 'Luz de caja — ícono neón en instalación permanente' },
         ],
       },
 

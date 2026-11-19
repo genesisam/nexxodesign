@@ -11,6 +11,13 @@ type Theme = {
   body:  string   // paragraph body
   sub:   string   // h3/h4 slightly muted
   code:  string   // code bg + text
+  /* The brand violet clears 5.15:1 on paper but only 3.15:1 on ink, so the
+     accent is part of the theme rather than a constant. Each one is a literal
+     class string, never built by interpolation, because Tailwind's scanner
+     only generates what it can read in the source. */
+  accent:      string  // emphasis colour
+  accentHover: string  // `hover:` variant of the above
+  marker:      string  // `marker:` variant, for list bullets
 }
 
 /**
@@ -92,7 +99,7 @@ function makeComponents(t: Theme, e: Escala = 'lectura'): Partial<PortableTextRe
         <strong className={`font-semibold ${t.text}`}>{children}</strong>
       ),
       em: ({ children }) => (
-        <em className="text-accent not-italic">{children}</em>
+        <em className={`${t.accent} not-italic`}>{children}</em>
       ),
       code: ({ children }) => (
         <code className={`font-mono text-sm ${t.code} px-1.5 py-0.5 rounded`}>
@@ -104,7 +111,7 @@ function makeComponents(t: Theme, e: Escala = 'lectura'): Partial<PortableTextRe
           href={value?.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${t.text} underline underline-offset-2 decoration-smoke/40 hover:text-accent transition-colors duration-150`}
+          className={`${t.text} underline underline-offset-2 decoration-smoke/40 ${t.accentHover} transition-colors duration-150`}
         >
           {children}
         </a>
@@ -136,10 +143,10 @@ function makeComponents(t: Theme, e: Escala = 'lectura'): Partial<PortableTextRe
 
     list: {
       bullet: ({ children }) => (
-        <ul className="mb-5 space-y-1.5 pl-5 list-disc marker:text-accent">{children}</ul>
+        <ul className={`mb-5 space-y-1.5 pl-5 list-disc ${t.marker}`}>{children}</ul>
       ),
       number: ({ children }) => (
-        <ol className="mb-5 space-y-1.5 pl-5 list-decimal marker:text-accent marker:font-mono">{children}</ol>
+        <ol className={`mb-5 space-y-1.5 pl-5 list-decimal ${t.marker} marker:font-mono`}>{children}</ol>
       ),
     },
     listItem: {
@@ -153,8 +160,10 @@ function makeComponents(t: Theme, e: Escala = 'lectura'): Partial<PortableTextRe
   }
 }
 
-const CLARO = { text: 'text-ink',   body: 'text-ink/70',   sub: 'text-ink/80',   code: 'bg-ink/6 text-ink/80' }
-const OSCURO = { text: 'text-paper', body: 'text-paper/90', sub: 'text-paper/80', code: 'bg-paper/10 text-paper/80' }
+// `accent`/`marker` are part of the theme because the brand violet clears
+// 5.15:1 on paper but only 3.15:1 on ink. Same ink, two different grounds.
+const CLARO = { text: 'text-ink',   body: 'text-ink/70',   sub: 'text-ink/80',   code: 'bg-ink/6 text-ink/80',    accent: 'text-accent',      marker: 'marker:text-accent',      accentHover: 'hover:text-accent' }
+const OSCURO = { text: 'text-paper', body: 'text-paper/90', sub: 'text-paper/80', code: 'bg-paper/10 text-paper/80', accent: 'text-accent-soft', marker: 'marker:text-accent-soft', accentHover: 'hover:text-accent-soft' }
 
 // Cuatro juegos: dos temas por dos escalas. Se construyen una vez, fuera del
 // render, porque `PortableText` vuelve a montar todo si el objeto cambia.

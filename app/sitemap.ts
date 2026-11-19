@@ -29,6 +29,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...localized('/nosotros',   'monthly', 0.8),
     ...localized('/contact',    'monthly', 0.8),
     ...localized('/journal',    'weekly',  0.7),
+    // The 3D gallery declares its own title, description and canonical and is
+    // crawlable, but it was missing here — so the only way in was the nav.
+    ...localized('/galeria',    'monthly', 0.5),
     ...localized('/tienda',     'weekly',  0.8),
     ...productSlugs.flatMap(slug => localized(`/tienda/${slug}`,    'weekly',  0.7)),
     ...projectSlugs.flatMap(slug => localized(`/proyectos/${slug}`, 'monthly', 0.7)),

@@ -33,7 +33,7 @@ export function Accordion({ items, className = '' }: { items: ProductFaqItem[]; 
                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
                            focus-visible:ring-offset-4 focus-visible:ring-offset-ink"
               >
-                <span className="font-sans text-paper text-[15px] leading-snug group-hover:text-accent transition-colors duration-200">
+                <span className="font-sans text-paper text-[15px] leading-snug group-hover:text-accent-soft transition-colors duration-200">
                   {item.question}
                 </span>
                 <span

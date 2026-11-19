@@ -23,7 +23,7 @@ export async function ProcesoSection() {
           </h2>
         </div>
         <p
-          className="font-sans text-smoke/55 leading-relaxed max-w-[44ch]"
+          className="font-sans text-smoke/70 leading-relaxed max-w-[44ch]"
           style={{ fontSize: 'clamp(0.88rem, 1.2vw, 1rem)' }}
         >
           Cada proyecto sigue el mismo proceso riguroso. Cuatro fases, sin improvisación, con un solo dueño del resultado de principio a fin.
@@ -37,7 +37,7 @@ export async function ProcesoSection() {
             className="bg-ink p-8 md:p-10 flex flex-col gap-5"
           >
             <span
-              className="font-mono text-accent/60 tracking-[0.06em] leading-none"
+              className="font-mono text-accent-soft/60 tracking-[0.06em] leading-none"
               style={{ fontSize: 'clamp(2.4rem, 4vw, 3.5rem)' }}
               aria-hidden
             >
@@ -51,7 +51,7 @@ export async function ProcesoSection() {
                 {step.title}
               </h3>
               <p
-                className="font-sans text-smoke/55 leading-relaxed"
+                className="font-sans text-smoke/70 leading-relaxed"
                 style={{ fontSize: '0.8125rem' }}
               >
                 {step.desc}

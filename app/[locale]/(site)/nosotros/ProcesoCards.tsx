@@ -154,7 +154,7 @@ export function ProcesoCards({ steps }: { steps: ProcesoStep[] }) {
 
               {/* Col 12: number */}
               <div className="hidden md:flex col-span-1 items-start justify-end">
-                <span className="font-mono text-[9px] tracking-[0.1em] text-accent">
+                <span className="font-mono text-[9px] tracking-[0.1em] text-accent-soft">
                   {step.num}
                 </span>
               </div>

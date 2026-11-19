@@ -1,8 +1,19 @@
 /* ─── Clash Display via Fontshare CDN ───────────────────────────────────────
    Dev / staging: CDN works immediately, no files needed.
-   Production swap: download .woff2 from fontshare.com/fonts/clash-display,
-   place in /public/fonts/ClashDisplay/, then switch layout.tsx to
-   next/font/local and remove this @import.
+
+   The @import stays here for now, and it does cost a round trip: an @import is
+   only discovered once this stylesheet has downloaded and begun parsing, so
+   the chain runs HTML → globals.css → fontshare css → woff2. Moving it to a
+   <link> in the layout would shorten that, but it was not worth swapping a
+   known-good load path for an untested one inside an audit. app/layout.tsx
+   preconnects to both Fontshare hosts instead, which overlaps the two
+   handshakes with the CSS parse and recovers most of the latency without
+   touching how this file is loaded.
+
+   The real fix, and the one the chain above is a workaround for: download the
+   .woff2 from fontshare.com/fonts/clash-display into /public/fonts/, load it
+   with next/font/local, and delete this @import. That removes the third-party
+   origin, the extra round trip and the CSP allowance in one move.
    ─────────────────────────────────────────────────────────────────────────── */
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
 
@@ -19,8 +30,15 @@
   /* ── Palette (hex — used directly in CSS) ── */
   --color-ink:    #0E0E0E;   /* near-black base — primary background */
   --color-paper:  #EFEBE3;   /* warm cream — inverted sections, card surfaces */
-  --color-smoke:  #8B8B85;   /* muted mid-tone — secondary text, labels */
+  --color-smoke:  #BABAAE;   /* muted mid-tone — secondary text, labels */
   --color-accent: #5B3DF5;   /* electric violet — CTAs, hover states, highlights */
+  /* Same hue and saturation as --color-accent, lifted until it clears 4.5:1 on
+     ink (4.62:1). The brand violet reads at 3.15:1 there, which is fine for a
+     fill or an icon but fails WCAG 1.4.3 for text — and almost every piece of
+     accent-coloured text on this site sits on ink. Use `accent` for fills and
+     borders, `accent-soft` for text on a dark ground. On paper the brand violet
+     already clears 5.15:1, so light surfaces keep using `accent`. */
+  --color-accent-soft: #7C64F7;
   --color-line:   #232323;   /* hairline borders on ink */
   --color-clay:   #C9A88F;   /* warm terracotta — accents on paper sections */
 
@@ -29,6 +47,7 @@
   --color-paper-rgb:  239 235 227;
   --color-smoke-rgb:  186 186 174;
   --color-accent-rgb: 91 61 245;
+  --color-accent-soft-rgb: 124 100 247;
   --color-line-rgb:   35 35 35;
   --color-clay-rgb:   201 168 143;
 
@@ -82,6 +101,40 @@ html.lenis body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ─── Skip link (WCAG 2.4.1) ───
+   Off-screen rather than `display: none`, so it is reachable by Tab and by a
+   screen reader's link list, and visible the moment it takes focus. It must not
+   affect layout while hidden, hence the fixed position and clip. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  transform: translateY(-120%);
+  background: var(--color-accent);
+  color: var(--color-paper);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  transition: transform 0.18s ease-out;
+}
+
+.skip-link:focus-visible,
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--color-paper);
+  outline-offset: 2px;
+}
+
+/* The wrapper the skip link targets must not draw a ring of its own when it
+   receives programmatic focus — the page itself is the feedback. */
+#contenido-principal:focus,
+#contenido-principal:focus-visible {
+  outline: none;
 }
 
 /* ─── Focus ─── */
@@ -295,6 +348,18 @@ html.lenis body {
   to   { transform: translateX(-50%); }
 }
 
+/* The blanket reduced-motion rule above collapses every animation to 0.01ms
+   and one iteration, which for a marquee means it lands on its end state —
+   translateX(-50%) — and sits there showing the duplicated half of the track
+   while the real, announced half is parked off-screen to the left. Cancel the
+   animation outright instead, so the first copy stays where it started. */
+@media (prefers-reduced-motion: reduce) {
+  .testimonios-track {
+    animation: none !important;
+    transform: translateX(0) !important;
+  }
+}
+
 /* ─── Page transitions — CSS View Transitions API (Chrome/Edge 126+) ─── */
 @view-transition {
   navigation: auto;
@@ -422,8 +487,10 @@ body::after {
   }
   .wl-caption span:first-child { flex: 1; max-width: 88%; }
   .wl-caption span:last-child {
+    /* Same reason as .wl-count: 10px is normal-size text at 4.5:1, and .6 of
+       smoke on ink measures 4.16:1. */
     flex: none; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .16em;
-    color: rgb(var(--color-smoke-rgb) / .6);
+    color: rgb(var(--color-smoke-rgb) / .75);
   }
 
   .wl-side { grid-column: 6 / 13; grid-row: 1; }
@@ -437,8 +504,10 @@ body::after {
     display: flex; align-items: center; justify-content: flex-end; gap: .5rem; margin-top: 1.4rem;
   }
   .wl-count {
+    /* .75 and not .6: at 10px this is normal-size text, so it needs 4.5:1 and
+       60% of smoke on ink gives 4.16:1. */
     margin-right: auto; font-family: var(--font-mono), monospace; font-size: 10px;
-    letter-spacing: .2em; color: rgb(var(--color-smoke-rgb) / .6); font-variant-numeric: tabular-nums;
+    letter-spacing: .2em; color: rgb(var(--color-smoke-rgb) / .75); font-variant-numeric: tabular-nums;
   }
   .wl-pager button {
     display: grid; place-items: center; width: 3rem; height: 3rem;

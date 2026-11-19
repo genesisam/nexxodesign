@@ -87,7 +87,7 @@ export function ContactChannels() {
         <p className={labelCls}>{t('emailLabel')}</p>
         <a
           href="mailto:info@nexxodesign.com"
-          className="font-sans text-paper text-[15px] underline underline-offset-2 decoration-paper/25 hover:decoration-accent hover:text-accent transition-colors duration-200"
+          className="font-sans text-paper text-[15px] underline underline-offset-2 decoration-paper/25 hover:decoration-accent hover:text-accent-soft transition-colors duration-200"
         >
           info@nexxodesign.com
         </a>
@@ -147,7 +147,7 @@ function SuccessMessage({ onReset }: { onReset: () => void }) {
         className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center"
         aria-hidden="true"
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent-soft">
           <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
@@ -252,7 +252,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
       {/* Estimate summary card */}
       {estimateSummary && (
         <div className="mb-8 border border-accent/25 bg-accent/4 px-5 py-4 flex flex-col gap-3">
-          <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent">
+          <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent-soft">
             {t('estimadoLabel')}
           </p>
           <div className="flex items-baseline gap-3">
@@ -287,7 +287,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
         <div className="grid sm:grid-cols-2 gap-6">
           <div>
             <label htmlFor="name" className={labelCls}>
-              {t('nombre')} <span className="text-accent">*</span>
+              {t('nombre')} <span className="text-accent-soft">*</span>
             </label>
             <input
               id="name"
@@ -309,7 +309,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
 
           <div>
             <label htmlFor="email" className={labelCls}>
-              Email <span className="text-accent">*</span>
+              Email <span className="text-accent-soft">*</span>
             </label>
             <input
               id="email"
@@ -397,7 +397,7 @@ export function ContactForm({ estimateSummary }: { estimateSummary?: EstimateVal
         {/* Message */}
         <div>
           <label htmlFor="mensaje" className={labelCls}>
-            {t('mensaje')} <span className="text-accent">*</span>
+            {t('mensaje')} <span className="text-accent-soft">*</span>
           </label>
           <textarea
             id="mensaje"
