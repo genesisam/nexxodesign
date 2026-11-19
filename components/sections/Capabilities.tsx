@@ -61,8 +61,7 @@ export function Capabilities() {
           {t('seccion')}
         </span>
         <h2
-          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.03em]"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 6rem)' }}
+          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.03em] text-declaracion"
         >
           {t('headline1')}<br />{t('headline2')}
         </h2>

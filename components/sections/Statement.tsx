@@ -14,8 +14,7 @@ export async function Statement() {
         </span>
 
         <p
-          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.03em] max-w-[22ch]"
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
+          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.03em] max-w-[22ch] text-declaracion"
         >
           {t('texto')}{' '}
           <span className="text-accent">{t('acento')}</span>

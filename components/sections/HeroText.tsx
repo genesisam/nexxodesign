@@ -181,8 +181,7 @@ export function HeroText() {
       <div ref={h1WrapRef} className="relative z-10 pointer-events-none mt-5 w-full">
         <h1
           ref={h1Ref}
-          className="mx-auto max-w-[21ch] text-center font-display font-semibold text-paper leading-[0.92] tracking-[-0.045em]"
-          style={{ fontSize: 'clamp(2.4rem, 5.2vw, 5.6rem)' }}
+          className="mx-auto max-w-[21ch] text-center font-display font-semibold text-paper leading-[0.92] tracking-[-0.045em] text-portada"
         >
           {t('headline1')}
           <br />

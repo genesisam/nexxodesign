@@ -403,7 +403,7 @@ export function WorkShowcase({ projects, headline, cta, ctaHref }: Props) {
     >
       <div ref={header} className="ws-header flex items-end justify-between gap-6 pt-[16.6vh] max-lg:pt-[11.7vh] max-sm:pt-[6.86vh]">
         <h2 className="font-display font-semibold text-paper leading-[0.9] tracking-[-0.025em] max-w-[60%]
-                       text-[clamp(2rem,4.2vw,4.5rem)] max-sm:max-w-none max-sm:text-[13.5vw]">
+                       text-seccion max-sm:max-w-none">
           {headline}
         </h2>
         {/* On phones the link moves under the last project instead. */}

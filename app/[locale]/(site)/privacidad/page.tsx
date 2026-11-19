@@ -29,8 +29,7 @@ export default function PrivacidadPage() {
           Legal
         </p>
         <h1
-          className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-12"
-          style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+          className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-12 text-seccion"
         >
           Política de privacidad
         </h1>

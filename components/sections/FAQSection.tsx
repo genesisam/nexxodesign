@@ -41,8 +41,7 @@ export function FAQSection() {
             {t('eyebrow')}
           </p>
           <h2
-            className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em]"
-            style={{ fontSize: 'clamp(1.8rem, 3.2vw, 3.2rem)' }}
+            className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] text-seccion"
           >
             {t('heading1')}<br />{t('heading2')}
           </h2>

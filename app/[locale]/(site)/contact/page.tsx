@@ -30,8 +30,7 @@ export default async function ContactPage({ params }: Props) {
         </p>
 
         <h1
-          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] mb-7 max-w-[16ch]"
-          style={{ fontSize: 'clamp(3rem, 8vw, 8rem)' }}
+          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] mb-7 max-w-[16ch] text-portada"
         >
           {t('headline')}
         </h1>

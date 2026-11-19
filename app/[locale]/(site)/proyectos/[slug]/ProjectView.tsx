@@ -135,8 +135,7 @@ function CtaSection({
             {label}
           </p>
           <h2
-            className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em]"
-            style={{ fontSize: 'clamp(2rem, 5.5vw, 5.5rem)' }}
+            className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] text-seccion"
           >
             {heading}
           </h2>
@@ -220,8 +219,7 @@ function SectionHeaderRenderer({ block, id }: { block: SectionHeaderBlock; id?: 
     // to — without it the chapter you asked for lands under the top bar.
     <section id={id} className="relative z-10 bg-ink gutter-x pt-20 md:pt-28 pb-5 md:pb-7 scroll-mt-24">
       <h2
-        className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] max-w-[16ch] text-balance"
-        style={{ fontSize: 'clamp(2.8rem, 6vw, 6.5rem)' }}
+        className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] max-w-[16ch] text-balance text-declaracion"
       >
         {block.heading}
       </h2>
@@ -1461,8 +1459,7 @@ export async function ProjectView({
         </p>
 
         <h1
-          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em]"
-          style={{ fontSize: 'clamp(4rem, 11vw, 11rem)' }}
+          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] text-cubierta"
         >
           {project.title}
         </h1>
