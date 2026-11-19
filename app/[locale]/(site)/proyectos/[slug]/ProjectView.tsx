@@ -1285,7 +1285,7 @@ function LogoRenderer({ block, claro }: { block: LogoBlock; claro: boolean }) {
           * `brightness(0)` e `invert(1)`, así que el cambio daría un salto.
           */}
         <figure className="pareja group relative" style={{ ['--marca' as string]: fondo }}>
-          <div className="relative flex items-center justify-center p-10 md:p-16 overflow-hidden"
+          <div className="relative flex items-center justify-center p-10 md:p-16 overflow-hidden rounded-pieza"
                style={{ aspectRatio: '4 / 3' }}>
             <span className="velo absolute inset-0" aria-hidden="true" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
