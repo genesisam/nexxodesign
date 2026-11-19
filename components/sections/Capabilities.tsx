@@ -139,7 +139,7 @@ export function Capabilities() {
               >
                 <span
                   className={`font-mono text-[10px] tracking-[0.18em] shrink-0 transition-colors duration-300 ${
-                    isOpen ? 'text-accent' : 'text-smoke/55'
+                    isOpen ? 'text-accent-soft' : 'text-smoke/70'
                   }`}
                 >
                   {num}

@@ -161,7 +161,7 @@ export default async function ProductPage({ params }: Props) {
 
           <div className="lg:sticky lg:top-28">
             <div className="flex items-center gap-3 mb-5">
-              <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent">
+              <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-accent-soft">
                 {PRODUCT_TYPE_LABEL[product.type]}
               </span>
               {(product.badge || soon) && (
@@ -182,7 +182,7 @@ export default async function ProductPage({ params }: Props) {
             </p>
 
             {product.compareAtPrice && price !== null && (
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper/45 mb-6">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper/60 mb-6">
                 <span className="line-through">{formatUSD(product.compareAtPrice)}</span>
                 <span className="text-paper/75 ml-2">Ahorras {formatUSD(product.compareAtPrice - price)}</span>
               </p>
@@ -216,7 +216,7 @@ export default async function ProductPage({ params }: Props) {
                     {feature.title}
                   </h2>
                   {feature.isPro && (
-                    <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-accent border border-accent/40 px-2 py-0.5">
+                    <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-accent-soft border border-accent/40 px-2 py-0.5">
                       Pro
                     </span>
                   )}
@@ -243,7 +243,7 @@ export default async function ProductPage({ params }: Props) {
                 <tr className="border-b border-paper/15">
                   <th scope="col" className="text-left font-mono text-[9px] uppercase tracking-[0.2em] text-paper/55 pb-4">Característica</th>
                   <th scope="col" className="text-left font-mono text-[9px] uppercase tracking-[0.2em] text-paper/55 pb-4 w-[22%]">Free</th>
-                  <th scope="col" className="text-left font-mono text-[9px] uppercase tracking-[0.2em] text-accent pb-4 w-[22%]">Pro</th>
+                  <th scope="col" className="text-left font-mono text-[9px] uppercase tracking-[0.2em] text-accent-soft pb-4 w-[22%]">Pro</th>
                 </tr>
               </thead>
               <tbody>
@@ -271,7 +271,7 @@ export default async function ProductPage({ params }: Props) {
               <ul className="flex flex-col gap-3" role="list">
                 {product.includes.map(item => (
                   <li key={item} className="flex items-start gap-3 font-sans text-paper/75 text-[14px] leading-relaxed">
-                    <span aria-hidden className="text-accent mt-0.5">→</span>
+                    <span aria-hidden className="text-accent-soft mt-0.5">→</span>
                     {item}
                   </li>
                 ))}
@@ -320,7 +320,7 @@ export default async function ProductPage({ params }: Props) {
                       />
                     )}
                   </div>
-                  <h3 className="font-display font-semibold text-paper text-[1rem] leading-tight group-hover:text-accent transition-colors duration-200 mb-1">
+                  <h3 className="font-display font-semibold text-paper text-[1rem] leading-tight group-hover:text-accent-soft transition-colors duration-200 mb-1">
                     {item.title}
                   </h3>
                   <p className="font-sans text-paper/55 text-[13px] leading-relaxed line-clamp-2">
@@ -355,7 +355,7 @@ export default async function ProductPage({ params }: Props) {
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper w-24 shrink-0">
                   {entry.version}
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/45 w-28 shrink-0">
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/60 w-28 shrink-0">
                   {entry.date ? formatDate(entry.date) : ''}
                 </span>
                 <span className="font-sans text-paper/70 text-[14px] leading-relaxed">
@@ -395,7 +395,7 @@ export default async function ProductPage({ params }: Props) {
                         />
                       )}
                     </div>
-                    <h3 className="font-display font-semibold text-paper text-[1.05rem] leading-tight group-hover:text-accent transition-colors duration-200 mb-1.5">
+                    <h3 className="font-display font-semibold text-paper text-[1.05rem] leading-tight group-hover:text-accent-soft transition-colors duration-200 mb-1.5">
                       {item.title}
                     </h3>
                     <p className="font-sans text-paper/55 text-[13px] leading-relaxed line-clamp-2 mb-2">

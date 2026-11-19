@@ -23,7 +23,13 @@ export function StoreCatalog({ products }: { products: ProductSummary[] }) {
   const filtered = active === 'all' ? products : products.filter(p => p.type === active)
 
   return (
-    <section className="gutter-x pb-20 md:pb-28">
+    <section className="gutter-x pb-20 md:pb-28" aria-labelledby="catalogo-titulo">
+      {/* Each product title is an <h3>, and the only heading above them was the
+          page's <h1> — a skipped level, and an unnamed region. The catalogue's
+          heading is already carried visually by the page title and the filter
+          tabs, so this names the section without adding a second title to the
+          design. */}
+      <h2 id="catalogo-titulo" className="sr-only">Catálogo de productos</h2>
       <div
         role="tablist"
         aria-label="Filtrar por tipo de producto"
@@ -43,7 +49,7 @@ export function StoreCatalog({ products }: { products: ProductSummary[] }) {
               style={{
                 borderColor: isActive ? 'rgb(242,239,233)' : 'rgba(242,239,233,0.15)',
                 background:  isActive ? 'rgb(242,239,233)' : 'transparent',
-                color:       isActive ? '#0E0E0E'          : 'rgba(242,239,233,0.4)',
+                color:       isActive ? '#0E0E0E'          : 'rgba(242,239,233,0.65)',
               }}
             >
               {label}
@@ -52,13 +58,13 @@ export function StoreCatalog({ products }: { products: ProductSummary[] }) {
         })}
       </div>
 
+      {/* The tabpanel role used to sit on the <ul> itself, which replaced the
+          list role: every <li> inside then had a parent that was not a list,
+          so assistive technology announced the items as loose text with no
+          count. The panel is now the wrapper and the list stays a list. */}
       {filtered.length > 0 ? (
-        <ul
-          id="store-panel"
-          role="tabpanel"
-          aria-labelledby={`tab-${active}`}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14"
-        >
+        <div id="store-panel" role="tabpanel" aria-labelledby={`tab-${active}`}>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
           {filtered.map(product => (
             <li key={product._id} className="flex">
               <div className="flex w-full flex-col">
@@ -67,6 +73,7 @@ export function StoreCatalog({ products }: { products: ProductSummary[] }) {
             </li>
           ))}
         </ul>
+        </div>
       ) : (
         <div id="store-panel" role="tabpanel" aria-labelledby={`tab-${active}`} className="py-20 flex items-center justify-center">
           <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-paper/55">

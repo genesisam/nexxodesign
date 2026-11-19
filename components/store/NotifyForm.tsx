@@ -18,7 +18,7 @@ export function NotifyForm({ product, compact = false }: { product: string; comp
       <p
         role="status"
         aria-live="polite"
-        className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent"
+        className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent-soft"
       >
         Listo. Te aviso cuando salga →
       </p>

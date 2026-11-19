@@ -164,6 +164,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={`${dmSans.variable} ${ibmPlexMono.variable}`}
     >
       <body>
+        {/* Clash Display is the display face — every H1 is set in it, so it is
+            an LCP dependency — and it comes from Fontshare over two hosts: the
+            @font-face rules from api, the .woff2 files from cdn. Opening both
+            connections here overlaps two DNS+TLS handshakes with the CSS parse
+            instead of paying for them serially afterwards.
+
+            These stay inside <body>: as siblings of <body> they are not valid
+            document structure, and React then emitted a head that dropped the
+            app's own stylesheet — the whole site rendered unstyled. React
+            hoists them to <head> from here.
+
+            DM Sans and IBM Plex Mono go through next/font and are served from
+            this origin, so they need none of this. */}
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         {/* Runs before the curtain markup below is parsed, so a returning
             visitor never sees it flash. Deciding this after hydration would
             mean showing the hero and then covering it. */}

@@ -20,7 +20,7 @@ export default function GraciasPage() {
   return (
     <main className="bg-ink min-h-screen flex items-center">
       <section className="gutter-x py-32 md:py-44">
-        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent mb-6">
+        <p className="font-mono text-[9px] uppercase tracking-[0.28em] text-accent-soft mb-6">
           Compra confirmada
         </p>
         <h1

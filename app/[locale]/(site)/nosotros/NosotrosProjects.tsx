@@ -25,7 +25,7 @@ const FALLBACK: Project[] = [
     year: 2025,
     metric: '−47% tiempo de respuesta',
     services: ['Product Design', 'Dashboard UI', 'Mobile'],
-    coverUrl: '/images/projects/solivus/cover.png',
+    coverUrl: '/images/projects/solivus/cover.webp',
   },
   {
     _id: 'p1',

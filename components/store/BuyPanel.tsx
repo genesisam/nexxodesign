@@ -113,7 +113,7 @@ export function BuyPanel({ product }: { product: Product }) {
             fallbackLabel={fallbackLabel}
             className="w-full"
           />
-          <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/45 mt-3">
+          <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-paper/60 mt-3">
             {free ? 'Descarga gratuita desde Framer' : 'Pago único · Actualizaciones incluidas'}
           </p>
         </>

@@ -168,13 +168,13 @@ export function NexxoEstudio({ copy }: { copy: EstudioCopy }) {
               hover === id ? 'border-paper text-paper' : 'border-paper/25 text-paper/70 hover:border-paper hover:text-paper',
             )}
           >
-            <span className="text-paper/45 mr-2">{String(ORDER.indexOf(id) + 1).padStart(2, '0')}</span>
+            <span className="text-paper/60 mr-2">{String(ORDER.indexOf(id) + 1).padStart(2, '0')}</span>
             {copy.objects[id]}
-            {visited.includes(id) && <span className="ml-2 text-paper/45" aria-hidden>✓</span>}
+            {visited.includes(id) && <span className="ml-2 text-paper/60" aria-hidden>✓</span>}
           </button>
         ))}
         {env && !env.lowPower && !env.reduced && (
-          <span className={`${eyebrow} text-paper/40 ml-auto max-md:hidden`} aria-hidden>
+          <span className={`${eyebrow} text-paper/60 ml-auto max-md:hidden`} aria-hidden>
             ⟷ {copy.drag}
           </span>
         )}
@@ -182,7 +182,7 @@ export function NexxoEstudio({ copy }: { copy: EstudioCopy }) {
           <button
             type="button"
             onClick={() => { sessionStorage.removeItem(SEEN_KEY); setReplay((r) => r + 1) }}
-            className="ml-4 font-mono text-[9px] uppercase tracking-[0.22em] text-paper/45 hover:text-paper transition-colors max-md:ml-auto max-sm:ml-0"
+            className="ml-4 font-mono text-[9px] uppercase tracking-[0.22em] text-paper/60 hover:text-paper transition-colors max-md:ml-auto max-sm:ml-0"
           >
             {copy.replay}
           </button>
@@ -234,7 +234,7 @@ export function NexxoEstudio({ copy }: { copy: EstudioCopy }) {
                 </button>
               )}
               {story.cta && (
-                <Link href="/proyectos" className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent hover:text-paper transition-colors">
+                <Link href="/proyectos" className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent-soft hover:text-paper transition-colors">
                   {story.cta}
                 </Link>
               )}

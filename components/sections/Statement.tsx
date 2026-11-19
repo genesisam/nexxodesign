@@ -18,7 +18,7 @@ export async function Statement() {
           style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}
         >
           {t('texto')}{' '}
-          <span className="text-accent">{t('acento')}</span>
+          <span className="text-accent-soft">{t('acento')}</span>
         </p>
       </ScrollReveal>
 
@@ -38,7 +38,7 @@ export async function Statement() {
         >
           {t('cta')}
           <span
-            className="text-accent transition-transform duration-300 group-hover:translate-x-1"
+            className="text-accent-soft transition-transform duration-300 group-hover:translate-x-1"
             aria-hidden
           >
             →

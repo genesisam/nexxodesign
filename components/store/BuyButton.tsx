@@ -72,7 +72,7 @@ export function BuyButton({
       <p
         role="status"
         aria-live="polite"
-        className={`font-mono text-[10px] uppercase tracking-[0.2em] text-accent ${className}`}
+        className={`font-mono text-[10px] uppercase tracking-[0.2em] text-accent-soft ${className}`}
       >
         ¡Gracias! Revisa tu correo →
       </p>

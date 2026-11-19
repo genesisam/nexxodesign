@@ -4,8 +4,16 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
-// ── Swap por URL real de Google / Clutch ──────────────────────────────────────
-const REVIEWS_URL = '#'
+/**
+ * The public reviews profile — Google Business, Clutch, wherever they live.
+ *
+ * Empty until there is one. It used to be `'#'`, rendered as a link with
+ * `target="_blank"`, which gave two controls per page that announced
+ * themselves as links and did nothing: a 2.4.4 failure and a dead end for
+ * anyone who activated them. The link now renders only when it can lead
+ * somewhere; set this and it comes back on its own.
+ */
+const REVIEWS_URL = ''
 
 // ── Schema Testimonial (compatible con Sanity) ────────────────────────────────
 export type Testimonial = {
@@ -113,21 +121,28 @@ function reviewsJsonLd(items: Testimonial[]) {
 // ── Card ──────────────────────────────────────────────────────────────────────
 
 function TestimonialCard({
-  t, idx, isActive, onEnter, onLeave,
+  t, idx, isActive, onEnter, onLeave, decorative,
 }: {
   t:        Testimonial
   idx:      number
   isActive: boolean
   onEnter:  () => void
   onLeave:  () => void
+  /** The marquee's duplicated half: same pixels, already-announced content. */
+  decorative: boolean
 }) {
   const bg = AVATAR_BG[idx % AVATAR_BG.length]
   const fg = AVATAR_FG[idx % AVATAR_FG.length]
 
   return (
     <div
-      role="article"
-      aria-label={`Testimonio de ${t.name}, ${t.company}`}
+      // The track is the list twice over so the loop can be seamless. The
+      // second copy is the same ten quotes, so it is hidden from assistive
+      // technology — otherwise a screen reader reads twenty testimonials and
+      // the section's own text is counted twice.
+      {...(decorative
+        ? { 'aria-hidden': true as const }
+        : { role: 'article', 'aria-label': `Testimonio de ${t.name}, ${t.company}` })}
       // Raised dark surface rather than a light card: a paper panel broke the
       // dark language of the page. #232323 reads as elevated against the ink
       // ground, and the hairline keeps the edge defined at that low separation.
@@ -162,7 +177,10 @@ function TestimonialCard({
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={t.avatar}
-              alt={t.name}
+              // The name is printed immediately beside it; an alt here would
+              // just say it twice.
+              alt=""
+
               width={144}
               height={144}
               loading="lazy"
@@ -222,16 +240,20 @@ function TestimonialCard({
 
 export function Testimonios() {
   const [activeIdx, setActive] = useState<number | null>(null)
-  const [isPaused,  setIsPaused] = useState(false)
+  const [hovering,  setHovering] = useState(false)
+  // Held separately from the hover pause: the button is a decision the visitor
+  // made and must survive the pointer leaving a card.
+  const [stopped, setStopped] = useState(false)
   const t = useTranslations('testimonios')
 
   // Duplicamos el array para que el marquee sea seamless:
   // la animación mueve la pista un -50% de su propio ancho (= una copia)
   // y al reiniciar queda igual — sin salto visible.
   const cards = [...TESTIMONIALS, ...TESTIMONIALS]
+  const isPaused = stopped || hovering
 
   return (
-    <section aria-label="Testimonios" className="relative bg-ink py-16 md:py-20">
+    <section id="testimonios" aria-label="Testimonios" className="relative bg-ink py-16 md:py-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd(TESTIMONIALS)) }}
@@ -240,7 +262,7 @@ export function Testimonios() {
       {/* ── Cabecera ─────────────────────────────────────────────────────────── */}
       <div className="gutter-x shrink-0 flex items-start justify-between mb-6 md:mb-8">
         <div>
-          <span className="font-mono text-smoke/55 text-[9px] uppercase tracking-[0.25em] block mb-2.5">
+          <span className="font-mono text-smoke/70 text-[9px] uppercase tracking-[0.25em] block mb-2.5">
             {t('seccion')}
           </span>
           <h2
@@ -252,14 +274,16 @@ export function Testimonios() {
           </h2>
         </div>
 
-        <Link
-          href={REVIEWS_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden sm:block font-mono text-smoke/65 hover:text-paper text-[9px] md:text-[10px] uppercase tracking-[0.22em] transition-colors duration-200 mt-1.5 shrink-0"
-        >
-          {t('leerResenas')}
-        </Link>
+        {REVIEWS_URL && (
+          <Link
+            href={REVIEWS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:block font-mono text-smoke/70 hover:text-paper text-[9px] md:text-[10px] uppercase tracking-[0.22em] transition-colors duration-200 mt-1.5 shrink-0"
+          >
+            {t('leerResenas')}
+          </Link>
+        )}
       </div>
 
       {/* ── Marquee ──────────────────────────────────────────────────────────── */}
@@ -268,9 +292,16 @@ export function Testimonios() {
         recortar verticalmente las cards de la cascada diagonal.
         paddingBottom da aire debajo de la última card.
       */}
-      <div className="overflow-x-hidden">
+      {/* `onFocus`/`onBlur` as well as the pointer: a keyboard visitor moving
+          through the page must be able to stop it too, and the capture-phase
+          focus events fire for anything focusable that scrolls past. */}
+      <div
+        className="overflow-x-hidden"
+        onFocus={() => setHovering(true)}
+        onBlur={() => setHovering(false)}
+      >
         <div
-          className="flex items-center w-max"
+          className="testimonios-track flex items-center w-max"
           style={{
             gap:                'clamp(10px, 2.2vw, 36px)',
             paddingBottom:      'clamp(24px, 3vw, 48px)',
@@ -284,23 +315,43 @@ export function Testimonios() {
               key={`${t._id}-${i}`}
               t={t}
               idx={i % TESTIMONIALS.length}
+              decorative={i >= TESTIMONIALS.length}
               isActive={activeIdx === null || activeIdx === i}
-              onEnter={() => { setIsPaused(true);  setActive(i) }}
-              onLeave={() => { setIsPaused(false); setActive(null) }}
+              onEnter={() => { setHovering(true);  setActive(i) }}
+              onLeave={() => { setHovering(false); setActive(null) }}
             />
           ))}
         </div>
       </div>
 
-      {/* ── Link — solo mobile ────────────────────────────────────────────────── */}
-      <div className="mt-5 gutter-x md:hidden">
-        <Link
-          href={REVIEWS_URL}
-          className="font-mono text-smoke/65 text-[9px] uppercase tracking-[0.22em]"
+      {/* WCAG 2.2.2. The quotes scroll on their own for far longer than five
+          seconds, so stopping them has to be something the visitor can do —
+          hover was the only way before, which leaves out keyboards and touch. */}
+      <div className="gutter-x mt-1 flex items-center gap-4">
+        <button
+          type="button"
+          onClick={() => setStopped(v => !v)}
+          aria-pressed={stopped}
+          className="inline-flex min-h-[32px] items-center gap-2 border border-paper/20 px-3 py-1.5
+                     font-mono text-[9px] uppercase tracking-[0.22em] text-paper/80
+                     transition-colors duration-200 hover:border-paper/50 hover:text-paper"
         >
-          {t('leerResenas')}
-        </Link>
+          <span aria-hidden>{stopped ? '▶' : '❙❙'}</span>
+          {stopped ? t('reanudar') : t('pausar')}
+        </button>
       </div>
+
+      {/* ── Link — solo mobile ────────────────────────────────────────────────── */}
+      {REVIEWS_URL && (
+        <div className="mt-5 gutter-x md:hidden">
+          <Link
+            href={REVIEWS_URL}
+            className="font-mono text-smoke/70 text-[9px] uppercase tracking-[0.22em]"
+          >
+            {t('leerResenas')}
+          </Link>
+        </div>
+      )}
 
     </section>
   )

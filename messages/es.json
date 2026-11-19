@@ -149,7 +149,9 @@
     "seccion": "02 — Clientes",
     "headline1": "Más que clientes.",
     "headline2": "Socios.",
-    "leerResenas": "Leer todas las reseñas →"
+    "leerResenas": "Leer todas las reseñas →",
+    "pausar": "Pausar",
+    "reanudar": "Reanudar"
   },
   "journal": {
     "seccion": "07 — Journal",

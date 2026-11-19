@@ -46,10 +46,48 @@ export function ProjectModal({
   useEffect(() => {
     if (!open) return
 
+    /**
+     * `aria-modal="true"` tells a screen reader that nothing outside this box
+     * exists. Tab did not agree: it walked straight out of the panel and into
+     * the index underneath, which is still rendered and still focusable, so
+     * focus ended up on links the visitor could not see behind the backdrop.
+     * The trap is what makes the attribute true.
+     */
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') close()
+      if (event.key === 'Escape') { close(); return }
+      if (event.key !== 'Tab') return
+
+      const box = panel.current
+      if (!box) return
+
+      const items = Array.from(
+        box.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter(el => el.offsetParent !== null || el === document.activeElement)
+
+      // Nothing to cycle through: hold focus on the panel itself rather than
+      // letting it fall through to the page behind.
+      if (items.length === 0) { event.preventDefault(); box.focus(); return }
+
+      const first  = items[0]
+      const last   = items[items.length - 1]
+      const active = document.activeElement
+
+      if (event.shiftKey && (active === first || active === box || !box.contains(active))) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && (active === last || !box.contains(active))) {
+        event.preventDefault()
+        first.focus()
+      }
     }
     document.addEventListener('keydown', onKey)
+
+    // Where focus has to go back to. Closing left it on <body>, which drops a
+    // keyboard visitor at the top of the index every time they shut a case
+    // study instead of back on the card they opened.
+    const opener = document.activeElement as HTMLElement | null
 
     /**
      * The page behind must not scroll while the modal is open, and stopping
@@ -82,6 +120,9 @@ export function ProjectModal({
       lenis?.start()
       body.style.overflow     = previous.overflow
       body.style.paddingRight = previous.paddingRight
+      // `isConnected` because the card that opened this may itself be gone by
+      // now — the index re-renders behind the modal on some routes.
+      if (opener?.isConnected) opener.focus()
     }
   }, [close, open, lenis])
 

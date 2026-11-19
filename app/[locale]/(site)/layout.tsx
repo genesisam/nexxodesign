@@ -17,6 +17,15 @@ export default function SiteLayout({
 }) {
   return (
     <>
+      {/* WCAG 2.4.1. Five links and a CTA sit before the content on every page.
+          Off-screen until focused, then it lands in the top-left corner.
+          The target is declared below rather than on each page's own <main>
+          because a case study opened as a modal puts two <main> elements in one
+          document, and two elements cannot share an id. */}
+      <a href="#contenido-principal" className="skip-link">
+        Saltar al contenido
+      </a>
+
       <Nav />
       {/* La mano de bloques, en todo el sitio. Estaba montada solo en
           /nosotros, así que el puntero cambiaba al pasar de una página a
@@ -26,7 +35,11 @@ export default function SiteLayout({
           It renders nothing; it finds the sections of whatever page is
           mounted. */}
       <RevealSections />
-      {children}
+      {/* `tabIndex={-1}` so the skip link actually moves focus here: a fragment
+          jump to a non-focusable element only scrolls, in some browsers. */}
+      <div id="contenido-principal" tabIndex={-1}>
+        {children}
+      </div>
       {modal}
       <Footer />
     </>

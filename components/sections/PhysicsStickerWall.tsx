@@ -214,7 +214,12 @@ export function PhysicsStickerWall({
   return (
     <div
       ref={frameRef}
-      aria-label="Muro interactivo de stickers"
+      /* Decoration, and declared as such. `aria-label` on a plain div is
+         ignored by the spec (no role to label) and axe flags it; worse, it
+         announced the layer as "muro interactivo" when the only interaction is
+         dragging with a pointer — there is nothing here for a keyboard or a
+         screen reader to do, and every sticker is already alt="". */
+      aria-hidden="true"
       /* No `touch-none` here: this layer covers the whole 100svh hero, and
          touch-action:none swallows the scroll gesture — on a phone the home
          page could not be scrolled at all. Dragging sets it on the element

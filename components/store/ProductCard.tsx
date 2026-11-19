@@ -88,7 +88,7 @@ export function ProductCard({ product }: { product: ProductSummary }) {
           </div>
         </div>
 
-        <h3 className="font-display font-semibold text-paper leading-tight tracking-[-0.03em] group-hover:text-accent transition-colors duration-200 mb-2"
+        <h3 className="font-display font-semibold text-paper leading-tight tracking-[-0.03em] group-hover:text-accent-soft transition-colors duration-200 mb-2"
             style={{ fontSize: 'clamp(1.1rem, 1.6vw, 1.35rem)' }}>
           {product.title}
         </h3>

@@ -57,12 +57,19 @@ export function PaletteGrid({ colors }: { colors: Muestra[] }) {
         }
       `}</style>
 
-      <dl className={`grid grid-cols-2 gap-2 md:gap-3 ${columnas}`}>
+      {/* Una lista y no un <dl>.
+          Cada muestra es un <button> (abre la nota en táctil y por teclado), y
+          dentro de un <dl> solo caben <dt>, <dd> y <div>: un <button> suelto
+          ahí invalida la lista entera, y <dt>/<dd>/<p> dentro de un <button>
+          tampoco son válidos — un botón solo admite contenido de frase.
+          El par nombre/valor no se pierde: lo lleva el `aria-label` del botón,
+          que es además lo único que anuncia un lector de pantalla al llegar. */}
+      <ul role="list" className={`grid grid-cols-2 gap-2 md:gap-3 ${columnas}`}>
         {colors.map((c, i) => {
           const tinta = legibleSobre(c.hex)
           return (
+            <li key={c._key} className="contents">
             <button
-              key={c._key}
               type="button"
               // En escritorio la nota ya se ve al pasar por encima, así que
               // la hoja es cosa del táctil; el botón se queda igualmente por
@@ -95,32 +102,33 @@ export function PaletteGrid({ colors }: { colors: Muestra[] }) {
                   draggable={false}
                 />
               )}
-              <dt className="relative font-mono text-[12px] md:text-[14px] uppercase tracking-[0.16em]"
-                  style={{ color: tinta }}>
+              <span className="relative block font-mono text-[12px] md:text-[14px] uppercase tracking-[0.16em]"
+                    style={{ color: tinta }}>
                 {c.name}
-              </dt>
-              <dd className="relative font-mono text-[12px] md:text-[14px] tracking-[0.1em] mt-2 space-y-0.5"
-                  style={{ color: tinta, opacity: 0.72 }}>
+              </span>
+              <span className="relative block font-mono text-[12px] md:text-[14px] tracking-[0.1em] mt-2 space-y-0.5"
+                    style={{ color: tinta, opacity: 0.72 }}>
                 <span className="block">{c.hex.toUpperCase()}</span>
                 <span className="block">RGB {aRgb(c.hex).join(' ')}</span>
-              </dd>
+              </span>
 
               {/* La nota, solo de md para arriba y solo al pasar por encima.
                   `absolute` para que no empuje el cuadrado. */}
               {c.note && (
-                <p
+                <span
                   className="hidden md:block absolute inset-x-6 bottom-6 font-sans text-[13px] leading-snug
                              text-pretty opacity-0 translate-y-1 transition-all duration-300
                              group-hover:opacity-90 group-hover:translate-y-0"
                   style={{ color: tinta }}
                 >
                   {c.note}
-                </p>
+                </span>
               )}
             </button>
+            </li>
           )
         })}
-      </dl>
+      </ul>
 
       {/* ── La hoja ─────────────────────────────────────────────────────── */}
       {abierta && (

@@ -84,7 +84,12 @@ export function ProjectCard({ project, n, variant = 'pair' }: Props) {
           {project.services.map(s => (
             <span
               key={s}
-              className="font-mono text-[9px] uppercase tracking-[0.16em] text-paper/85 bg-ink/65 px-2.5 py-1.5"
+              /* bg-ink/80, not /65: these chips sit on whatever the cover
+                 happens to be, so the contrast of the label depends on the
+                 photograph underneath. At 65% a light cover brought the
+                 effective ratio under 4.5:1; at 80% the chip is its own dark
+                 ground regardless of the image. */
+              className="font-mono text-[9px] uppercase tracking-[0.16em] text-paper/85 bg-ink/80 px-2.5 py-1.5"
             >
               {s}
             </span>
@@ -114,7 +119,7 @@ export function ProjectCard({ project, n, variant = 'pair' }: Props) {
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-smoke">
             {project.client}
           </span>
-          <span className="font-mono text-[10px] text-smoke/60">
+          <span className="font-mono text-[10px] text-smoke/70">
             {project.year}
           </span>
         </div>
@@ -126,7 +131,7 @@ export function ProjectCard({ project, n, variant = 'pair' }: Props) {
         >
           {project.title}
         </h3>
-        <p className="font-mono text-accent text-[11px] uppercase tracking-[0.15em] pt-0.5">
+        <p className="font-mono text-accent-soft text-[11px] uppercase tracking-[0.15em] pt-0.5">
           {project.metric}
         </p>
       </div>

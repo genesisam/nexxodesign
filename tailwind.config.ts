@@ -16,6 +16,9 @@ const config: Config = {
         paper:  'rgb(var(--color-paper-rgb) / <alpha-value>)',
         smoke:  'rgb(var(--color-smoke-rgb) / <alpha-value>)',
         accent: 'rgb(var(--color-accent-rgb) / <alpha-value>)',
+        // Accent text on a dark ground. `accent` is the brand violet and stays
+        // the fill colour; it only reaches 3.15:1 on ink, so text uses this.
+        'accent-soft': 'rgb(var(--color-accent-soft-rgb) / <alpha-value>)',
         line:   'rgb(var(--color-line-rgb) / <alpha-value>)',
         clay:   'rgb(var(--color-clay-rgb) / <alpha-value>)',
       },

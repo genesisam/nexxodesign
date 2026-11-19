@@ -74,7 +74,11 @@ export default async function NosotrosPage({ params }: Props) {
       {/* ══ 4. PROCESO ═══════════════════════════════════════════════════════ */}
       <section className="pt-20 md:pt-28 pb-0">
         <div className="gutter-x mb-10 md:mb-14">
-          <p className={`${eyebrow} text-paper/65`}>{t('proceso.label')}</p>
+          {/* An <h2> and not a <p>: the process cards below are each an <h3>,
+              so with only a paragraph here the page jumped from its <h1>
+              straight to <h3>. Same classes, so nothing moves — it was
+              already the section's heading, it just wasn't marked as one. */}
+          <h2 className={`${eyebrow} text-paper/65`}>{t('proceso.label')}</h2>
         </div>
         <ProcesoCards steps={steps} />
       </section>

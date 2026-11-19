@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/lib/navigation'
 import { CONTACT_CALENDLY } from '@/lib/constants'
@@ -21,6 +21,8 @@ export function Nav() {
   const pathname              = usePathname()
   const lenis                 = useLenis()
   const t                     = useTranslations('nav')
+  const panel                 = useRef<HTMLDivElement>(null)
+  const toggle                = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -28,6 +30,61 @@ export function Nav() {
   }, [open])
 
   useEffect(() => { setOpen(false) }, [pathname])
+
+  /**
+   * The fullscreen menu stays mounted so it can fade, which used to mean its
+   * seven links were tab stops on every page — including desktop, where the
+   * panel is invisible. Tabbing past the header sent focus into nothing: no
+   * outline anywhere on screen for seven presses. `inert` on the closed panel
+   * takes it out of the tab order and out of the accessibility tree while the
+   * opacity transition keeps working.
+   *
+   * The rest is what `aria-modal` promises and has to be implemented: focus
+   * goes into the panel when it opens, Tab cycles inside it, Escape closes it,
+   * and focus returns to the button that opened it.
+   */
+  useEffect(() => {
+    if (!open) return
+    const box = panel.current
+    if (!box) return
+
+    const focusables = () =>
+      Array.from(box.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
+
+    focusables()[0]?.focus()
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        setOpen(false)
+        return
+      }
+      if (event.key !== 'Tab') return
+
+      const items = focusables()
+      if (items.length === 0) return
+      const first = items[0]
+      const last  = items[items.length - 1]
+      const active = document.activeElement
+
+      // Wrap at both ends, and pull focus back in if it has escaped the panel.
+      if (event.shiftKey && (active === first || !box.contains(active))) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && (active === last || !box.contains(active))) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      // Only reclaim focus if it is still inside the panel we are closing —
+      // a click on a nav link navigates and should not yank focus backwards.
+      if (box.contains(document.activeElement)) toggle.current?.focus()
+    }
+  }, [open])
 
   // Once the page has scrolled at all, the bar needs a surface of its own:
   // over article text `mix-blend-difference` inverts per-pixel and the links
@@ -141,9 +198,12 @@ export function Nav() {
 
       {/* Botón hamburguesa */}
       <button
+        ref={toggle}
+        type="button"
         className="md:hidden fixed top-0 right-0 z-[60] h-16 w-16 flex items-center justify-center"
         onClick={() => setOpen(v => !v)}
         aria-expanded={open}
+        aria-controls="menu-movil"
         aria-label={open ? t('cerrarMenu') : t('abrirMenu')}
       >
         <span className="sr-only">{open ? t('cerrarMenu') : t('abrirMenu')}</span>
@@ -165,9 +225,15 @@ export function Nav() {
 
       {/* Menú fullscreen mobile */}
       <div
+        ref={panel}
+        id="menu-movil"
         role="dialog"
         aria-modal="true"
         aria-label="Menú"
+        // Closed: out of the tab order and out of the accessibility tree, while
+        // still able to fade. `hidden` would kill the transition; `inert` does
+        // not. Supported in every browser this site targets.
+        inert={!open}
         className={[
           'fixed inset-0 z-40 bg-ink flex flex-col justify-between px-6 pt-28 pb-12',
           'transition-opacity duration-300',
