@@ -28,9 +28,17 @@ type Theme = {
  */
 export type Escala = 'lectura' | 'caso'
 
+/*
+ * Los topes estaban puestos para una pantalla de portátil: el cuerpo de un
+ * artículo topaba en 1,05rem —16,8 píxeles— y el de un caso en 1,75rem, daba
+ * igual que la ventana midiera 1440 o 2560. En un monitor grande eso es un
+ * texto diminuto dentro de una columna enorme. Siguen teniendo tope, porque
+ * una línea de lectura tampoco puede dispararse, pero ahora el tope está
+ * donde se deja de leer cómodo y no donde acababa un portátil.
+ */
 const CUERPO: Record<Escala, string> = {
-  lectura: 'clamp(1rem, 0.6vw + 0.85rem, 1.05rem)',
-  caso:    'clamp(1.12rem, 1.15vw + 0.6rem, 1.75rem)',
+  lectura: 'clamp(1rem, 0.5vw + 0.78rem, 1.45rem)',
+  caso:    'clamp(1.12rem, 1.15vw + 0.52rem, 2.2rem)',
 }
 
 const TITULAR: Record<Escala, string> = {

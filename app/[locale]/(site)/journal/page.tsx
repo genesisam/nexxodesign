@@ -46,8 +46,7 @@ export default async function JournalPage() {
           producto e IA.
         </h1>
         <p
-          className="font-sans text-paper/70 leading-relaxed max-w-[48ch]"
-          style={{ fontSize: 'clamp(0.95rem, 1.3vw, 1.05rem)' }}
+          className="font-sans text-paper/70 leading-relaxed max-w-[48ch] text-cuerpo-sm"
         >
           Lo que aprendemos en proyectos reales. Sin relleno de contenido, sin posts de LinkedIn
           disfrazados de insight.
@@ -90,8 +89,7 @@ export default async function JournalPage() {
                 {featured.title}
               </h2>
               <p
-                className="font-sans text-paper/55 leading-relaxed mb-6"
-                style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.05rem)' }}
+                className="font-sans text-paper/55 leading-relaxed mb-6 text-cuerpo-sm"
               >
                 {featured.excerpt}
               </p>

@@ -60,8 +60,7 @@ export function FAQSection() {
                 className="w-full flex items-start justify-between gap-6 py-5 md:py-6 text-left group"
               >
                 <span
-                  className="font-sans font-medium text-paper group-hover:text-paper/80 transition-colors leading-snug"
-                  style={{ fontSize: 'clamp(0.95rem, 1.15vw, 1.1rem)' }}
+                  className="font-sans font-medium text-paper group-hover:text-paper/80 transition-colors leading-snug text-cuerpo-sm"
                 >
                   {q}
                 </span>
