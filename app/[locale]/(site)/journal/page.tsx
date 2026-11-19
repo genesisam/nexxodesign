@@ -63,7 +63,7 @@ export default async function JournalPage() {
           >
             {/* Cover */}
             <div
-              className="rounded-[1.5rem] overflow-hidden aspect-[4/3] mb-8 md:mb-0"
+              className="rounded-pieza overflow-hidden aspect-[4/3] mb-8 md:mb-0"
               style={{ background: COVER_GRADIENT[featured.category] }}
             >
               {featured.cover && (

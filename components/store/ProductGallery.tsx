@@ -31,7 +31,7 @@ export function ProductGallery({ product }: { product: Product }) {
   return (
     <div>
       <div
-        className="relative overflow-hidden rounded-[1.5rem] aspect-[4/3]"
+        className="relative overflow-hidden rounded-pieza aspect-[4/3]"
         style={{ background: PRODUCT_GRADIENT[product.type] }}
       >
         {slide?.kind === 'video' && (

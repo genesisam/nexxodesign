@@ -339,7 +339,7 @@ const REVELADO = `
            la imagen al 1,06 del acercamiento se salía de la ventana. */
         overflow: clip;
         --lado: clamp(1rem, 4vw, 4rem);
-        --redondeo: 2rem;
+        --redondeo: 1.25rem;
         --acercamiento: 1.07;
         --alto-tarjeta: calc((100vw - var(--lado) * 2) * 9 / 16);
         --arriba: max(0px, calc((100svh - var(--alto-tarjeta)) / 2));
@@ -814,10 +814,15 @@ function MediaRenderer({ block, bg, title }: { block: MediaBlock; bg: string; ti
   return (
     <section className={`relative z-10 bg-ink ${sangre ? 'py-0' : 'gutter-x py-5 md:py-8'}`}>
       <figure className={`${isSmall ? 'max-w-[75%]' : 'w-full'} ${sangre ? 'relative' : ''}`}>
+        {/* A sangre son 100svh y `object-cover`: en escritorio eso llena la
+            ventana con una pieza apaisada y funciona. En un teléfono es una
+            caja vertical contra una pieza horizontal, así que de un vídeo de
+            1280x800 se veía una franja central de 390 de ancho. Aquí, como
+            en la apertura, manda la pieza: ancho completo y el alto que le
+            toque. */}
         <div
-          className={`relative overflow-hidden ${sangre ? 'h-[100svh]' : 'rounded-[2rem]'}`}
-          style={sangre ? undefined : { aspectRatio }}
-          data-parallax="media"
+          className={`relative overflow-hidden ${sangre ? 'max-md:h-auto md:h-[100svh]' : 'rounded-pieza'}`}
+          style={sangre || !aspectRatio ? undefined : { aspectRatio }}
         >
           {block.url ? (
             block.mediaType === 'video' ? (
@@ -825,14 +830,14 @@ function MediaRenderer({ block, bg, title }: { block: MediaBlock; bg: string; ti
                 src={block.url}
                 autoPlay muted loop playsInline
                 aria-label={alt}
-                className={`w-full h-full ${ajuste}`}
+                className={`w-full ${sangre ? 'max-md:h-auto md:h-full' : aspectRatio ? 'h-full' : 'h-auto'} ${ajuste}`}
               />
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={block.url}
                 alt={alt}
-                className={`w-full h-full ${ajuste}`}
+                className={`w-full ${sangre ? 'max-md:h-auto md:h-full' : aspectRatio ? 'h-full' : 'h-auto'} ${ajuste}`}
                 loading="lazy"
                 draggable={false}
               />
@@ -926,6 +931,13 @@ function porDefecto(pieza: SplitItem | MediaBlock) {
 function hueco(pieza: SplitItem | MediaBlock) {
   const real = pieza.ratio
   if (!real || !Number.isFinite(real)) {
+    // Una pieza suelta sin medida en el CMS caía en un 16/9 de oficio, y con
+    // eso una grabación de escritorio de 1280x800 —que es 1,6— se recortaba
+    // un 11 % por arriba y por abajo. Pasaba en los ocho casos. Sin medida no
+    // hay nada que adivinar: se quita la caja y el alto lo pone el archivo,
+    // que es quien lo sabe. La pareja sí conserva su hueco, porque ahí las
+    // dos fichas tienen que medir lo mismo.
+    if ('_type' in pieza) return { aspectRatio: null, ajuste: '' }
     return { aspectRatio: porDefecto(pieza), ajuste: 'object-cover' }
   }
   const limitado = Math.min(Math.max(real, BANDA[0]), BANDA[1])
@@ -943,8 +955,10 @@ function SplitItemCard({ item, bg, title }: { item: SplitItem; bg: string; title
   return (
     <figure>
       <div
-        className="relative overflow-hidden rounded-[2rem]"
-        style={{ aspectRatio }}
+        className="relative overflow-hidden rounded-pieza"
+        /* La pareja siempre trae hueco: sin medida cae en el de oficio, que
+           es lo que mantiene las dos fichas a la misma altura. */
+        style={{ aspectRatio: aspectRatio ?? undefined }}
       >
         {item.url ? (
           item.mediaType === 'video' ? (
@@ -1584,7 +1598,7 @@ export async function ProjectView({
         style={{ viewTimelineName: '--apertura' }}
       >
         <div
-          className="apertura relative overflow-hidden rounded-[2rem] w-full"
+          className="apertura relative overflow-hidden rounded-pieza w-full"
           style={{ aspectRatio: '16/9' }}
           data-parallax="cover"
         >

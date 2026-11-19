@@ -73,7 +73,7 @@ export function PaletteGrid({ colors }: { colors: Muestra[] }) {
               // teclado.
               onClick={() => c.note && setAbierta(c)}
               aria-label={c.note ? `${c.name}, ${c.hex}. Ver la nota` : `${c.name}, ${c.hex}`}
-              className="revelado group relative overflow-hidden rounded-[1.25rem] border border-paper/10
+              className="revelado group relative overflow-hidden rounded-pieza border border-paper/10
                          flex flex-col justify-end p-5 md:p-6 text-left
                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-paper/60"
               style={{
@@ -146,7 +146,7 @@ export function PaletteGrid({ colors }: { colors: Muestra[] }) {
             role="dialog"
             aria-modal="true"
             aria-label={abierta.name}
-            className="relative w-full md:max-w-md rounded-t-[1.75rem] md:rounded-[1.75rem]
+            className="relative w-full md:max-w-md rounded-t-pieza md:rounded-pieza
                        overflow-hidden animate-[hoja-sube_.32s_cubic-bezier(.2,.7,.3,1)]"
             style={{ background: abierta.hex }}
           >
@@ -159,7 +159,26 @@ export function PaletteGrid({ colors }: { colors: Muestra[] }) {
             <span aria-hidden className="relative mx-auto mt-3 mb-1 block h-1 w-10 rounded-full"
                   style={{ background: legibleSobre(abierta.hex), opacity: 0.35 }} />
 
-            <div className="relative p-7 pt-4">
+            {/* Cerrar, arriba a la derecha. Estaba abajo, de botón ancho, y
+                eso obligaba a bajar la vista hasta el final de la nota para
+                salir de una hoja que ya se había leído. El área táctil son
+                44 píxeles aunque el aspa dibuje 16: es el mínimo con el que
+                se acierta con el pulgar. */}
+            <button
+              type="button"
+              onClick={() => setAbierta(null)}
+              aria-label="Cerrar"
+              className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center
+                         rounded-full focus-visible:outline-none focus-visible:ring-2"
+              style={{ color: legibleSobre(abierta.hex) }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden focusable="false">
+                <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" strokeWidth="1.6"
+                      strokeLinecap="round" fill="none" />
+              </svg>
+            </button>
+
+            <div className="relative p-7 pt-4 pr-16">
               <p className="font-mono text-[12px] uppercase tracking-[0.16em]"
                  style={{ color: legibleSobre(abierta.hex) }}>
                 {abierta.name}
@@ -175,18 +194,6 @@ export function PaletteGrid({ colors }: { colors: Muestra[] }) {
                   {abierta.note}
                 </p>
               )}
-              <button
-                type="button"
-                onClick={() => setAbierta(null)}
-                className="mt-7 w-full rounded-full py-3 font-mono text-[12px] uppercase tracking-[0.2em]"
-                style={{
-                  color: legibleSobre(abierta.hex),
-                  border: `1px solid ${legibleSobre(abierta.hex)}`,
-                  opacity: 0.8,
-                }}
-              >
-                Cerrar
-              </button>
             </div>
           </div>
         </div>,

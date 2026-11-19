@@ -188,7 +188,7 @@ export default async function PostPage({ params }: Props) {
         <section className="gutter-x pb-14 md:pb-20">
           {post.youtubeId ? (
             <>
-              <div className="relative rounded-[2rem] overflow-hidden aspect-[16/9] bg-line">
+              <div className="relative rounded-pieza overflow-hidden aspect-[16/9] bg-line">
                 {/* The video's own frame, not the post cover: covers are 3:4
                     and designed for the journal grid, the player is 16:9. */}
                 <YouTubeEmbed id={post.youtubeId} title={post.title} />
@@ -204,7 +204,7 @@ export default async function PostPage({ params }: Props) {
             </>
           ) : (
             <div
-              className="rounded-[2rem] overflow-hidden aspect-[16/9]"
+              className="rounded-pieza overflow-hidden aspect-[16/9]"
               style={{ background: COVER_GRADIENT[post.category] }}
             >
               {post.cover && (
@@ -312,7 +312,7 @@ export default async function PostPage({ params }: Props) {
                   className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-ink"
                 >
                   <div
-                    className="rounded-[1.25rem] overflow-hidden aspect-[16/9] mb-4"
+                    className="rounded-pieza overflow-hidden aspect-[16/9] mb-4"
                     style={{ background: COVER_GRADIENT[rel.category] }}
                   >
                     {rel.cover && (

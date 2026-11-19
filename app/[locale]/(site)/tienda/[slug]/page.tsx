@@ -307,7 +307,7 @@ export default async function ProductPage({ params }: Props) {
               <li key={item._id}>
                 <Link href={`/tienda/${item.slug.current}`} className="group block">
                   <div
-                    className="relative rounded-[1rem] aspect-[4/3] mb-4 overflow-hidden"
+                    className="relative rounded-pieza aspect-[4/3] mb-4 overflow-hidden"
                     style={{ background: PRODUCT_GRADIENT[item.type] }}
                   >
                     {item.cover && (
@@ -382,7 +382,7 @@ export default async function ProductPage({ params }: Props) {
                     {/* 4:3 like the catalogue cards: the covers are 4:3, and a
                         16:9 crop was cutting the top and bottom off each one. */}
                     <div
-                      className="relative rounded-[1.25rem] aspect-[4/3] mb-4 overflow-hidden"
+                      className="relative rounded-pieza aspect-[4/3] mb-4 overflow-hidden"
                       style={{ background: PRODUCT_GRADIENT[item.type] }}
                     >
                       {item.cover && (

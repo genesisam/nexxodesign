@@ -55,7 +55,7 @@ export function ProjectCard({ project, n, variant = 'pair' }: Props) {
       aria-label={`${project.title} — ${project.client}`}
     >
       {/* ── Image ── */}
-      <div className={`relative overflow-hidden bg-line ${ASPECT[variant]}`}>
+      <div className={`relative overflow-hidden rounded-pieza bg-line ${ASPECT[variant]}`}>
 
         {imgSrc ? (
           <Image

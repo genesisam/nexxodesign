@@ -48,7 +48,7 @@ export function ProductCard({ product }: { product: ProductSummary }) {
           /* Sin esquinas redondeadas: en el resto del sitio —proyectos,
              journal, casos— las láminas van a canto vivo, y la tienda era
              lo único que las redondeaba. */
-          className="relative overflow-hidden aspect-[4/3] mb-5"
+          className="relative overflow-hidden rounded-pieza aspect-[4/3] mb-5"
           style={{ background: PRODUCT_GRADIENT[product.type] }}
         >
           {product.cover && (

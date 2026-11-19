@@ -193,7 +193,7 @@ const Card = memo(function Card({ project, slot, hovered, onHover }: CardProps) 
     >
       {/* ── Image ── */}
       <div className="relative w-full overflow-hidden">
-        <div ref={frame} className={`relative w-full overflow-hidden ${slot.ratio}`}>
+        <div ref={frame} className={`relative w-full overflow-hidden rounded-pieza ${slot.ratio}`}>
           <div className="ws-parallax absolute inset-x-0 -top-[5%] h-[110%] will-change-transform">
             <div className="ws-reveal absolute inset-0">
               {src ? (

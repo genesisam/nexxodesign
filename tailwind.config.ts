@@ -45,6 +45,22 @@ const config: Config = {
        * estaban, en cada sitio, porque dependen del número de líneas y de si
        * el título va en caja alta.
        */
+      /*
+       * El radio de una pieza.
+       *
+       * Había seis radios distintos conviviendo —2rem, 1,75, 1,5, 1,25, 1 y
+       * 0,6— y además las tarjetas de proyecto y de tienda iban a escuadra,
+       * de modo que una misma página mezclaba esquinas redondas y rectas sin
+       * criterio. Esto es el radio de cualquier cosa que enmarque una
+       * imagen: tarjeta, muestra, pieza de un caso.
+       *
+       * Baja de los 32 píxeles de antes y baja un poco más en el teléfono,
+       * donde la pieza es más pequeña y el mismo radio se come más esquina:
+       * 14 en un móvil, 20 en escritorio.
+       */
+      borderRadius: {
+        pieza: 'clamp(0.875rem, 1.4vw, 1.25rem)',
+      },
       fontSize: {
         /* La cubierta de un caso va un peldaño por encima de la portada de
            una página: es la primera plana de una historia, no el titular de
