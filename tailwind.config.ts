@@ -62,6 +62,25 @@ const config: Config = {
         pieza: 'clamp(0.875rem, 1.4vw, 1.25rem)',
       },
       fontSize: {
+        /*
+         * El cuerpo de texto.
+         *
+         * Los topes estaban puestos para una pantalla de portátil y no se
+         * movían de ahí: el párrafo de un capítulo topaba en 1,1rem —17,6
+         * píxeles— daba igual que la pantalla midiera 1440 o 2560. En un
+         * monitor grande eso es un texto diminuto dentro de una columna
+         * enorme.
+         *
+         * Estos crecen con la ventana y siguen teniendo tope, porque una
+         * línea de lectura tampoco puede dispararse:
+         *
+         *   cuerpo      16 -> 20 -> 24 px   (390 / 1440 / 2560)
+         *   cuerpo-lg   18 -> 26 -> 35 px   la entradilla de un caso
+         *   cuerpo-sm   15 -> 18 -> 21 px   pies y notas al margen
+         */
+        cuerpo:      'clamp(1rem, 0.72rem + 0.6vw, 1.5rem)',
+        'cuerpo-lg': 'clamp(1.12rem, 0.52rem + 1.15vw, 2.2rem)',
+        'cuerpo-sm': 'clamp(0.95rem, 0.82rem + 0.36vw, 1.3rem)',
         /* La cubierta de un caso va un peldaño por encima de la portada de
            una página: es la primera plana de una historia, no el titular de
            una sección. Estaba en 11vw —64 píxeles en un teléfono y 158 en

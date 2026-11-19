@@ -135,8 +135,39 @@ export function LegoCursor() {
       acc += f
       const steps = Math.floor(acc)
       acc -= steps
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      /*
+       * Borrar en píxeles de dispositivo, no en píxeles CSS.
+       *
+       * Estaba al revés: primero se ponía la escala y luego se borraba un
+       * rectángulo de `canvas.width` x `canvas.height`, que son píxeles de
+       * dispositivo, interpretados como CSS. Con una pantalla normal el
+       * rectángulo salía más grande de la cuenta y no se notaba, pero con el
+       * navegador alejado o una pantalla escalada por debajo del 100 % la
+       * proporción baja de 1 y entonces se borra MENOS de lo que se pinta:
+       * la banda que queda fuera no se limpia nunca y la mano va dejando
+       * cada fotograma por el camino.
+       *
+       * Con la matriz identidad el rectángulo son los píxeles de verdad del
+       * lienzo, que es exactamente lo que hay que borrar, salga la
+       * proporción que salga.
+       */
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      /*
+       * Y por si el lienzo se ha quedado con la medida de antes: cambiar de
+       * monitor o de nivel de zoom cambia `devicePixelRatio` sin que
+       * `resize` llegue a dispararse en todos los navegadores. Es una
+       * comparación de dos enteros por fotograma, y evita que un lienzo
+       * pequeño deje medio escritorio sin borrar.
+       */
+      if (canvas.width !== Math.round(window.innerWidth * Math.min(window.devicePixelRatio || 1, 2))) {
+        resize()
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+      }
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       scale += (scaleTarget - scale) * Math.min(1, 0.2 * f)
       press *= Math.pow(0.82, f)
       let energy = Math.abs(scaleTarget - scale) + press

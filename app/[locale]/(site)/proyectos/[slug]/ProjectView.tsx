@@ -271,7 +271,7 @@ function PaletteRenderer({ block }: { block: PaletteBlock }) {
           )}
         </div>
         {block.note && (
-          <p className="font-sans text-smoke/95 leading-[1.5] text-pretty" style={{ fontSize: 'clamp(1.05rem, 0.9vw + 0.7rem, 1.4rem)' }}>{block.note}</p>
+          <p className="font-sans text-smoke/95 leading-[1.5] text-pretty text-cuerpo">{block.note}</p>
         )}
       </div>
 
@@ -641,7 +641,7 @@ function TypographyRenderer({ block }: { block: TypographyBlock }) {
           )}
         </div>
         {block.note && (
-          <p className="font-sans text-smoke/95 leading-[1.5] text-pretty" style={{ fontSize: 'clamp(1.05rem, 0.9vw + 0.7rem, 1.4rem)' }}>{block.note}</p>
+          <p className="font-sans text-smoke/95 leading-[1.5] text-pretty text-cuerpo">{block.note}</p>
         )}
       </div>
 
@@ -1554,8 +1554,7 @@ export async function ProjectView({
             Centrado se nota el doble: «tomar.» solo, debajo de una línea
             llena, parece un error de maquetación. */}
         <p
-          className="font-sans text-paper/55 leading-relaxed mt-6 md:mt-8 max-w-[92ch] text-pretty"
-          style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.1rem)' }}
+          className="font-sans text-paper/55 leading-relaxed mt-6 md:mt-8 max-w-[92ch] text-pretty text-cuerpo"
         >
           {excerpt}
         </p>

@@ -36,8 +36,7 @@ export default async function ContactPage({ params }: Props) {
         </h1>
 
         <p
-          className="font-sans text-paper/55 leading-relaxed max-w-[52ch]"
-          style={{ fontSize: 'clamp(1rem, 1.4vw, 1.1rem)' }}
+          className="font-sans text-paper/55 leading-relaxed max-w-[52ch] text-cuerpo"
         >
           {t('subhead')}
         </p>

@@ -126,8 +126,7 @@ export default async function TiendaPage({ params }: Props) {
           para Framer.
         </h1>
         <p
-          className="font-sans text-paper/70 leading-relaxed max-w-[48ch]"
-          style={{ fontSize: 'clamp(0.95rem, 1.3vw, 1.05rem)' }}
+          className="font-sans text-paper/70 leading-relaxed max-w-[48ch] text-cuerpo-sm"
         >
           Piezas que salieron de proyectos reales, no de una lista de ideas. Pago único,
           actualizaciones incluidas y soporte de quien las construyó.
