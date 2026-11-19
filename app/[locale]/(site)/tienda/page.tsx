@@ -120,8 +120,7 @@ export default async function TiendaPage({ params }: Props) {
           Tienda · Nexxo
         </p>
         <h1
-          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] mb-7"
-          style={{ fontSize: 'clamp(3rem, 8vw, 8rem)' }}
+          className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.04em] mb-7 text-portada"
         >
           Componentes<br />
           para Framer.

@@ -43,8 +43,7 @@ export function Hero() {
 
         {/* H1 — thesis statement per §5.1 & §6 */}
         <h1
-          className="font-display font-semibold text-paper leading-[0.87] tracking-[-0.03em] mb-10 md:mb-14"
-          style={{ fontSize: 'clamp(3rem, 8.5vw, 8.5rem)' }}
+          className="font-display font-semibold text-paper leading-[0.87] tracking-[-0.03em] mb-10 md:mb-14 text-portada"
         >
           Producto y web<br />
           que convierte<br />

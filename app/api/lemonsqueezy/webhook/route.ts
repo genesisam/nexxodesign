@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { resend } from '@/lib/resend'
 import { Resend } from 'resend'
 import { verifyWebhookSignature } from '@/lib/lemonsqueezy-signature'
 
@@ -28,7 +29,6 @@ const STATE_ID = 'automation.lemonsqueezy'
 /** Enough history to cover a retry storm without the document growing forever. */
 const KEEP_IDS = 200
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM   = process.env.RESEND_FROM_EMAIL ?? 'noreply@nexxodesign.com'
 const TO     = process.env.NOTIFY_EMAIL ?? process.env.RESEND_TO_EMAIL ?? 'info@nexxodesign.com'
 
@@ -147,14 +147,14 @@ export async function POST(request: Request) {
   try {
     const audienceId = process.env.RESEND_AUDIENCE_ID
     if (audienceId && email) {
-      await resend.contacts.create({ email, audienceId, unsubscribed: false })
+      await resend().contacts.create({ email, audienceId, unsubscribed: false })
     }
   } catch (err) {
     console.error('[lemonsqueezy] Resend audience:', err)
   }
 
   try {
-    await resend.emails.send({
+    await resend().emails.send({
       from:    `Nexxo Tienda <${FROM}>`,
       to:      TO,
       replyTo: email || undefined,

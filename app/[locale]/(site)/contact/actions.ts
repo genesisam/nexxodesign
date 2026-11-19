@@ -1,8 +1,8 @@
 'use server'
 
 import { Resend } from 'resend'
+import { resend } from '@/lib/resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 const FROM  = process.env.RESEND_FROM_EMAIL ?? 'noreply@nexxodesign.com'
 const TO    = process.env.RESEND_TO_EMAIL   ?? 'info@nexxodesign.com'
@@ -48,7 +48,7 @@ export async function submitContact(
   }
 
   // ── Send email via Resend ─────────────────────────────────────────────────
-  const { error } = await resend.emails.send({
+  const { error } = await resend().emails.send({
     from:    `Nexxo Contact <${FROM}>`,
     to:      TO,
     replyTo: email,

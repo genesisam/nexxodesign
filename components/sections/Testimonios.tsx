@@ -244,8 +244,7 @@ export function Testimonios() {
             {t('seccion')}
           </span>
           <h2
-            className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.035em]"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 4.8rem)' }}
+            className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.035em] text-seccion"
           >
             {t('headline1')}
             <br />{t('headline2')}

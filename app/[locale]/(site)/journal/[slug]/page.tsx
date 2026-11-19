@@ -169,8 +169,7 @@ export default async function PostPage({ params }: Props) {
             {post.category}
           </p>
           <h1
-            className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-8"
-            style={{ fontSize: 'clamp(2.2rem, 5.5vw, 6rem)' }}
+            className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-8 text-portada"
           >
             {post.title}
           </h1>

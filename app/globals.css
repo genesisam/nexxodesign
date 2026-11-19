@@ -384,7 +384,10 @@ body::after {
 .wl-name {
   grid-column: 1 / -1; margin: 0; padding-block: .45em .05em;
   font-family: var(--font-display), sans-serif; font-weight: 500;
-  font-size: clamp(2.2rem, 10vw, 3.4rem); line-height: 1; letter-spacing: -.05em;
+  /* 10vw dejaba cada nombre en 39 píxeles en un teléfono, a tres del H1 de
+     la propia página: la lista pesaba lo mismo que el título que la presenta.
+     Sigue siendo lo más grande de la lista, pero por debajo de él. */
+  font-size: clamp(2rem, 8.6vw, 3.1rem); line-height: 1; letter-spacing: -.05em;
 }
 .wl-sector, .wl-year {
   margin: 0; font-family: var(--font-mono), monospace; font-size: 10px;

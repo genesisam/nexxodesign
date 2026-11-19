@@ -94,8 +94,7 @@ export function Journal({ posts }: { posts: Post[] }) {
             07 — Journal
           </span>
           <h2
-            className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.035em]"
-            style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5.8rem)' }}
+            className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.035em] text-seccion"
           >
             Ideas sobre diseño,
             <br />producto e IA.

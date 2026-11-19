@@ -43,8 +43,7 @@ export default async function NosotrosPage({ params }: Props) {
               {t('tophead.eyebrow')}
             </p>
             <h1
-              className="font-display font-semibold text-paper leading-[1.05] tracking-[-0.04em] max-w-[42vw] max-lg:max-w-[74vw]"
-              style={{ fontSize: 'clamp(2.2rem, 4.4vw, 5.5rem)' }}
+              className="font-display font-semibold text-paper leading-[1.05] tracking-[-0.04em] max-w-[42vw] max-lg:max-w-[74vw] text-portada"
               data-words
               data-delay="0.1"
             >
@@ -87,8 +86,7 @@ export default async function NosotrosPage({ params }: Props) {
               {t('trabajo.seccionLabel')}
             </p>
             <h2
-              className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em]"
-              style={{ fontSize: 'clamp(2rem, 4vw, 4rem)' }}
+              className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] text-seccion"
               data-words
             >
               {t('trabajo.headline')}
@@ -107,8 +105,7 @@ export default async function NosotrosPage({ params }: Props) {
       {/* ══ 6. CTA ═══════════════════════════════════════════════════════════ */}
       <section className="gutter-x py-24 md:py-36 border-t border-paper/10" data-reveal>
         <h2
-          className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-10"
-          style={{ fontSize: 'clamp(2.8rem, 6vw, 6.5rem)' }}
+          className="font-display font-semibold text-paper leading-[0.92] tracking-[-0.04em] mb-10 text-declaracion"
           data-words
         >
           {t('cta.headline')}

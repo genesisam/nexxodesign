@@ -15,8 +15,7 @@ export async function ProcesoSection() {
             {t('label')}
           </span>
           <h2
-            className="font-display font-semibold text-paper leading-[0.9] tracking-[-0.025em]"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 4rem)' }}
+            className="font-display font-semibold text-paper leading-[0.9] tracking-[-0.025em] text-seccion"
           >
             De la idea
             <br />

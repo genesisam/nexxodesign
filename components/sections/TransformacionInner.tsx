@@ -259,8 +259,7 @@ export default function TransformacionInner() {
           </span>
           <h2
             ref={titleRef}
-            className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.03em]"
-            style={{ fontSize: 'clamp(2rem, 2.8vw, 3.2rem)' }}
+            className="font-display font-semibold text-paper leading-[0.88] tracking-[-0.03em] text-seccion"
             dangerouslySetInnerHTML={{ __html: SLOTS[0].title.replace('\n', '<br/>') }}
           />
           <p

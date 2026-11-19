@@ -169,8 +169,7 @@ export function WorkIndex({ projects = [] }: { projects?: Project[] }) {
     <main className="bg-ink text-paper">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="wl-hero gutter-x pt-32 md:pt-40 pb-16 md:pb-24">
-        <h1 className="font-display font-medium leading-[0.92] tracking-[-0.055em] text-paper"
-            style={{ fontSize: 'clamp(2.6rem, 7vw, 9.5rem)' }}>
+        <h1 className="font-display font-medium leading-[0.92] tracking-[-0.055em] text-paper text-portada">
           {t('hero.title')}
         </h1>
         <div className="mt-6 grid grid-cols-12 md:mt-8">
