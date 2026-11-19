@@ -13,9 +13,8 @@ import type {
 import { absoluteUrl, SITE_URL } from '@/lib/seo'
 import { getProjectBySlug } from '@/sanity/lib/project-data'
 import { NexxoPortableText } from '@/components/portable-text'
-import { ChapterNav } from '@/components/project/ChapterNav'
 import { ProjectMotion } from '@/components/project/ProjectMotion'
-import { buildChapters, chapterId } from '@/lib/chapters'
+import { chapterId } from '@/lib/chapters'
 
 /**
  * A case study, rendered either as its own page or inside the modal that
@@ -300,10 +299,19 @@ const REVELADO = `
    * ocupa el teléfono, que es lo que tiene que hacer.
    */
   @media (max-width: 767px) {
-    .apertura-seccion { padding-left: 0; padding-right: 0 }
+    .apertura-seccion { padding-left: 0; padding-right: 0; padding-bottom: 0 }
+    /* Ni 16/9 entre márgenes ni un 3/4 a sangre: las dos cosas imponen una
+       caja y recortan la pieza para que entre. La pieza trae su proporción y
+       es la buena —se grabó así—, de modo que aquí manda ella: ancho
+       completo, alto el que le toque, y la sección mide lo que mida. */
     .apertura {
-      aspect-ratio: 3 / 4 !important;
+      aspect-ratio: auto !important;
+      height: auto !important;
       border-radius: 0 !important;
+    }
+    .apertura .acerca {
+      height: auto !important;
+      object-fit: contain;
     }
   }
 
@@ -332,6 +340,7 @@ const REVELADO = `
         overflow: clip;
         --lado: clamp(1rem, 4vw, 4rem);
         --redondeo: 2rem;
+        --acercamiento: 1.07;
         --alto-tarjeta: calc((100vw - var(--lado) * 2) * 9 / 16);
         --arriba: max(0px, calc((100svh - var(--alto-tarjeta)) / 2));
       }
@@ -343,16 +352,22 @@ const REVELADO = `
        * que ya ocupa casi todo y se termina de soltar al bajar.
        */
       @media (max-width: 767px) {
+        /* El margen del recorte va en porcentaje y no en píxeles: la caja ya
+           no mide una fracción de la ventana, sino lo que mide la pieza, y
+           un 3,5svh fijo dentro de una banda de 220 píxeles se come la
+           mitad. */
         .apertura {
-          height: 82svh;
-          --lado: 0.75rem;
-          --redondeo: 1.25rem;
-          --arriba: 3.5svh;
+          --lado: 4%;
+          --arriba: 7%;
+          --redondeo: 1rem;
+          /* Sin acercar. El 1,07 de escritorio se come un 7% por cada borde,
+             y lo que se pedía aquí es justamente verla entera. */
+          --acercamiento: 1;
         }
         /* Un tramo más corto: en una pantalla de 667 el recorrido de salida
            se agota antes, y con el 65% la apertura terminaba de abrirse ya
            medio fuera de cuadro. */
-        .apertura .acerca { animation-range: exit 0% exit 50% }
+        .apertura .acerca { animation-range: exit 0% exit 45% }
       }
       @keyframes abrir {
         from {
@@ -361,7 +376,7 @@ const REVELADO = `
         }
         to {
           clip-path: inset(0 0 0 0 round 0);
-          transform: scale(1.07);
+          transform: scale(var(--acercamiento));
         }
       }
       .apertura .acerca {
@@ -497,6 +512,19 @@ const REVELADO = `
    * columna, el central primero, y cada uno aparece subiendo al entrar en
    * pantalla. El fondo sigue detrás de todos, cubriendo la columna entera.
    */
+  /*
+   * El estado de base en el teléfono: una columna.
+   *
+   * El desplazamiento de los laterales va en porcentaje del ancho del propio
+   * aparato, que es lo que mantiene la escena compuesta de 768 para arriba.
+   * En 375 no: un teléfono de 70svh mide unos 215 de ancho, y el 120 % lo
+   * manda a 258 píxeles del centro de una pantalla que solo tiene 187 a cada
+   * lado. Los dos laterales se quedaban fuera.
+   *
+   * Esto es lo que ve quien no tenga líneas de tiempo o haya pedido menos
+   * movimiento. Con ellas, justo debajo, la sección se recoge a una sola
+   * pantalla y los tres se relevan en el sitio.
+   */
   @media (max-width: 767px) {
     .escenario {
       height: auto !important;
@@ -512,7 +540,6 @@ const REVELADO = `
       width: min(72%, 290px);
       transform: none;
     }
-    /* El central sigue mandando: llega primero y llega más grande. */
     .escenario .centro { order: 1; width: min(86%, 340px) }
     .escenario .izq    { order: 2 }
     .escenario .der    { order: 3 }
@@ -520,18 +547,63 @@ const REVELADO = `
 
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
-      @keyframes sube-al-entrar {
-        from { opacity: 0; transform: translateY(16%) scale(.94) }
-        to   { opacity: 1; transform: none }
+      /*
+       * El relevo.
+       *
+       * Una columna con los tres aparatos uno debajo de otro medía 1.482
+       * píxeles —casi cuatro pantallas— para enseñar tres capturas. Aquí la
+       * sección vuelve a durar una pantalla y son los aparatos los que se
+       * turnan en el mismo hueco mientras pasa: se baja lo mismo que por
+       * cualquier otra sección y se ven las tres.
+       */
+      .escenario {
+        height: 100svh !important;
+        display: block;
+        padding: 0;
       }
-      /* Cada aparato contra su propio recorrido por la ventana, no contra el
-         del escenario: en una columna cada uno entra cuando le toca. */
       .escenario .aparato {
-        animation: sube-al-entrar linear both;
-        animation-timeline: view();
-        animation-range: entry 6% entry 44%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 62svh;
+        width: auto;
+        /* De frente, sin el giro ni el desplazamiento de la escena abierta:
+           aquí no hay laterales, hay turnos. */
+        --x: 0;
+        --giro: 0deg;
+        transform: translate(-50%, -50%);
+        animation: releva linear both;
+        animation-timeline: --escenario;
         will-change: transform, opacity;
       }
+
+      /* Entra subiendo un poco, se queda su turno y sale. */
+      @keyframes releva {
+        0%   { opacity: 0; transform: translate(-50%, -50%) translateY(6%)  scale(.97) }
+        20%  { opacity: 1; transform: translate(-50%, -50%) }
+        74%  { opacity: 1; transform: translate(-50%, -50%) }
+        100% { opacity: 0; transform: translate(-50%, -50%) translateY(-4%) scale(.985) }
+      }
+      /* El último no sale: si saliera, la sección terminaría en negro justo
+         cuando se está yendo por arriba. */
+      @keyframes entra-y-queda {
+        0%   { opacity: 0; transform: translate(-50%, -50%) translateY(6%) scale(.97) }
+        24%  { opacity: 1; transform: translate(-50%, -50%) }
+        100% { opacity: 1; transform: translate(-50%, -50%) }
+      }
+
+      /*
+       * Los tramos se solapan a propósito: el que sale y el que entra se
+       * cruzan, de modo que nunca hay un instante con el hueco vacío.
+       *
+       * Van del 8 % al 92 % del recorrido y no de punta a punta: en 'cover',
+       * el 0 % es la sección asomando por abajo y el 100 % ya fuera por
+       * arriba, así que los extremos caen donde no se ve.
+       */
+      .escenario .centro { animation-range: cover  8% cover 44%; z-index: 3 }
+      .escenario .izq    { animation-range: cover 34% cover 70%; z-index: 2 }
+      .escenario .der    { animation-range: cover 60% cover 92%; z-index: 1;
+                           animation-name: entra-y-queda }
     }
   }
 `
@@ -1378,15 +1450,6 @@ export async function ProjectView({
 
   const ctaData = CTA_DATA[slug] ?? DEFAULT_CTA
 
-  // Read from the story, so the bar lists the chapters this project actually
-  // has rather than a fixed set every case study is assumed to follow.
-  const chapters = buildChapters(story, {
-    overviewLabel: 'Resumen',
-    // La barra ya no promete resultados de negocio: enumera hechos del trabajo.
-    resultsLabel:  'Cifras',
-    hasResults:    !!(metrics && metrics.length > 0),
-  })
-
   // JSON-LD — Quick Win #5
   const jsonLd = {
     '@context':    'https://schema.org',
@@ -1597,13 +1660,6 @@ export async function ProjectView({
       {/* Vive aquí y no en una página concreta: esta vista la comparten los
           seis casos y el modal, así que todos entran igual. */}
       <ProjectMotion />
-
-      <ChapterNav
-        chapters={chapters}
-        visitLabel={t('verSitio')}
-        liveUrl={project.liveUrl}
-        scrollerSelector={inModal ? '[data-project-scroller]' : undefined}
-      />
 
     </main>
     </>
