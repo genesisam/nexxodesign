@@ -397,7 +397,10 @@ body::after {
 .wl-year   { grid-column: 5 / 7; text-align: right; }
 .wl-pieces { grid-column: 1 / -1; display: block; margin-top: .6em; }
 .wl-pager, .wl-ghost { display: none; }
-.wl-pieces img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+.wl-pieces img {
+  width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block;
+  border-radius: clamp(.875rem, 1.4vw, 1.25rem);
+}
 
 @media (min-width: 768px) {
   .wl {

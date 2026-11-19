@@ -64,7 +64,7 @@ export function JournalList({ posts }: { posts: PostSummary[] }) {
               >
                 {/* Cover thumbnail */}
                 <div
-                  className="flex-shrink-0 rounded-[1rem] overflow-hidden relative"
+                  className="flex-shrink-0 rounded-pieza overflow-hidden relative"
                   style={{
                     width:      120,
                     height:     120,
