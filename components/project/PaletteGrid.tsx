@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { aRgb, legibleSobre } from '@/lib/color'
 
 export type Muestra = {
@@ -26,6 +27,9 @@ export type Muestra = {
  */
 export function PaletteGrid({ colors }: { colors: Muestra[] }) {
   const [abierta, setAbierta] = useState<Muestra | null>(null)
+  // La hoja se dibuja en el `body`, y el `body` no existe en el servidor.
+  const [montado, setMontado] = useState(false)
+  useEffect(() => setMontado(true), [])
 
   // Mientras la hoja está arriba, la página de debajo no se mueve.
   useEffect(() => {
@@ -122,8 +126,17 @@ export function PaletteGrid({ colors }: { colors: Muestra[] }) {
         })}
       </dl>
 
-      {/* ── La hoja ─────────────────────────────────────────────────────── */}
-      {abierta && (
+      {/*
+        * ── La hoja ───────────────────────────────────────────────────────
+        *
+        * Va al `body` y no donde está escrita. La lámina vive dentro de una
+        * sección con `z-10`, y eso es un contexto de apilado: el `z-[80]` de
+        * la hoja solo competía con sus hermanas dentro de esa sección, de
+        * modo que el menú de capítulos —`z-40`, pero fijo y colgando de la
+        * raíz— le pasaba por encima. Fuera de la sección, el 80 cuenta
+        * contra el 40 de verdad.
+        */}
+      {montado && abierta && createPortal(
         <div
           className="fixed inset-0 z-[80] flex items-end md:items-center md:justify-center"
           onMouseDown={e => { if (e.target === e.currentTarget) setAbierta(null) }}
@@ -176,7 +189,8 @@ export function PaletteGrid({ colors }: { colors: Muestra[] }) {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   )

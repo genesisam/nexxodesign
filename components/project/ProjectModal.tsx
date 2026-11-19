@@ -133,8 +133,7 @@ export function ProjectModal({
           </svg>
         </button>
 
-        {/* The case study scrolls in here, not in the window. ChapterNav is
-            told to measure against this box by the same attribute, and
+        {/* The case study scrolls in here, not in the window, and
             `data-lenis-prevent` is what stops Lenis stealing the wheel on its
             way in. */}
         <div
