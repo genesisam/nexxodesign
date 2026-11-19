@@ -723,3 +723,37 @@ las dos únicas familias en sesenta y cuatro textos. La paleta del panel es
 `#EB4602` de marca, `#FB7C13` de acento, `#01B859` en marcha, `#B8014A` avería,
 y la rampa `#0A090C`, `#232328`, `#ABABAB`, `#F7F7F7`. El naranja de marca
 coincide con el tono que domina sus capturas, contado píxel a píxel.
+
+## El esquema de Sanity, al día
+
+Cinco bloques llevaban meses publicados sin estar declarados —`statement`,
+`logo`, `palette`, `typography` y `escenario`—, más el reparto de `splitShow`,
+el color de marca del proyecto y tres campos sueltos de Media: `credito`,
+`ratio` y el tamaño `bleed`. La vista los pintaba y la proyección los pedía,
+pero el Studio los veía como campos desconocidos: nadie podía editar un caso
+desde ahí sin arriesgarse a perderlos al guardar.
+
+Declararlos destapó además dos cosas que no se veían:
+
+- `heroMedia` estaba declarado como URL absoluta, y las dos que existen son
+  rutas del propio sitio (`/images/projects/nbl/hero.mp4`). El Studio daba por
+  inválidos los casos de NBL y Cornish y no dejaba guardarlos. Ahora admite
+  ruta relativa.
+- `automationState` no estaba declarado. Lo escriben la ruta de YouTube y el
+  webhook de Lemon Squeezy; el segundo guarda ahí los identificadores de los
+  pedidos ya procesados, que es lo que evita procesar dos veces el mismo
+  cuando la entrega se repite. Queda declarado y en solo lectura.
+
+Validación de los documentos contra el esquema: **32 válidos, 0 errores**.
+Quedan tres avisos de datos que nadie lee —`publishedAt` en NBL y Cornish, que
+es un campo de los artículos, y `story_en` en Mente— y no se tocan sin
+decidirlo antes.
+
+## El orden de Nosotros
+
+La consulta ordenaba por `orderRank`, un campo que no existe en el esquema.
+GROQ lo resolvía como nulo para todos los proyectos, de modo que el orden lo
+acababa decidiendo el desempate, `_createdAt desc`: lo que salía no eran los
+dos casos elegidos sino los dos últimos creados. Ahora ordena por `order`,
+igual que el índice y el enlace al siguiente caso. Salen Solivus y Merxo, que
+son el 1 y el 2.
