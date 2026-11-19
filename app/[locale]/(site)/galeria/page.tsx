@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-/** Página para compartir: la galería 3D; cada caso se abre en el pop up de @modal. */
+/** Página para compartir: la galería 3D; cada caso abre su propia página. */
 export default async function GaleriaPage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)

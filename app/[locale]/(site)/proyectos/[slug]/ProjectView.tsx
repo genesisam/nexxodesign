@@ -1432,11 +1432,10 @@ function NextProjectSection({
 // ─── View ─────────────────────────────────────────────────────────────────────
 
 export async function ProjectView({
-  slug, locale, inModal = false,
+  slug, locale,
 }: {
   slug: string; locale: string
   /** Inside the modal there is no site header above, so the title sits higher. */
-  inModal?: boolean
 }) {
   const project: Project | null = await getProjectBySlug(slug)
   if (!project) notFound()
@@ -1511,13 +1510,13 @@ export async function ProjectView({
       <section
         id="resumen"
         className={`bg-ink gutter-x pb-12 md:pb-16 flex flex-col items-center text-center scroll-mt-24
-                    ${inModal ? 'pt-16 md:pt-20' : 'pt-32 md:pt-44'}`}
+                    pt-32 md:pt-44`}
       >
 
         {/* Breadcrumb visual. The modal has its own header and a close button,
             and a trail back to a page you are already standing on would be
             noise there. */}
-        <nav aria-label="Breadcrumb" className={`absolute top-[5.5rem] gutter-l ${inModal ? 'hidden' : ''}`}>
+        <nav aria-label="Breadcrumb" className="absolute top-[5.5rem] gutter-l">
           <ol className="flex items-center gap-2 font-mono text-[12px] md:text-[14px] uppercase tracking-[0.2em] text-paper/55">
             <li><Link href={`/${locale}`} className="hover:text-paper/60 transition-colors">Inicio</Link></li>
             <li aria-hidden className="text-paper/15">›</li>

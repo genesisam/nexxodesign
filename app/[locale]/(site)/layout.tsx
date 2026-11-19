@@ -9,11 +9,9 @@ import { CursorVariant } from '@/components/motion/CursorVariant'
 // its own via `buildAlternates` in lib/seo.ts.
 
 export default function SiteLayout({
-  children, modal,
+  children,
 }: {
   children: React.ReactNode
-  /** The parallel slot a case study opens into, empty on every other route. */
-  modal:    React.ReactNode
 }) {
   return (
     <>
@@ -27,7 +25,6 @@ export default function SiteLayout({
           mounted. */}
       <RevealSections />
       {children}
-      {modal}
       <Footer />
     </>
   )

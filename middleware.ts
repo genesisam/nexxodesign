@@ -50,7 +50,11 @@ export function middleware(request: NextRequest) {
       // product page that actually has a checkout.
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.lemonsqueezy.com",
       "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",
-      "font-src 'self' https://api.fontshare.com https://fonts.gstatic.com",
+      // Fontshare sirve la hoja desde api. y los archivos desde cdn. Faltaba
+      // el segundo, de modo que la hoja se cargaba, pedía los .woff2 y la
+      // política los bloqueaba: Clash Display y General Sans daban error en
+      // producción y todos los titulares del sitio caían al tipo del sistema.
+      "font-src 'self' https://api.fontshare.com https://cdn.fontshare.com https://fonts.gstatic.com",
       "img-src 'self' data: blob: https://cdn.sanity.io https://i.ytimg.com https://assets.lemonsqueezy.com",
       "media-src 'self' https://cdn.sanity.io blob:",
       "worker-src blob:",

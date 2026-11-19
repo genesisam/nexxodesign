@@ -3,7 +3,7 @@
  * Galería 3D de proyectos. `mount(root, opts)` crea el canvas dentro de `root`,
  * engancha la interfaz HTML que ya existe en el DOM (ids #panel, #list, …) y
  * devuelve { destroy, setPaused }.
- * opts.onOpenProject(slug): "Ver proyecto" → la página lo abre en el pop up del sitio.
+ * opts.onOpenProject(slug): "Ver proyecto" → la página navega al caso.
  */
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';

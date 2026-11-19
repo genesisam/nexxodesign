@@ -5,14 +5,12 @@ import { getProjectBySlug, getAllProjectSlugs } from '@/sanity/lib/project-data'
 import { ProjectView, SEO_META } from './ProjectView'
 
 /**
- * The case study at its own URL.
+ * La página de un caso.
  *
- * The body lives in `ProjectView` because the modal shows the same thing; what
- * stays here is what belongs to a route and nothing else — metadata, static
- * params, revalidation. Arrive here directly, refresh, or follow a link from
- * outside the site and this is what renders; click a project from inside the
- * site and the intercepting route in `@modal` shows the same view over the
- * page you were on.
+ * Antes existía ademas una ruta que la interceptaba y la abria en un pop up
+ * sobre la página anterior. Se quito: un caso es una página y se comporta
+ * como tal —se comparte, se imprime, se vuelve atras— sin dos maneras de
+ * verse que mantener a la vez.
  */
 
 // ─── ISR ─────────────────────────────────────────────────────────────────────
