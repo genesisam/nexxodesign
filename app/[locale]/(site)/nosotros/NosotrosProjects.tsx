@@ -2,8 +2,15 @@ import { ProjectCard } from '@/components/sections/ProjectCard'
 import type { Project } from '@/components/sections/ProjectCard'
 import { sanityClient } from '@/sanity/lib/client'
 
+/*
+ * order, no orderRank: ese campo no existe en el esquema, de modo que GROQ lo
+ * resolvia como nulo para todos y el orden acababa decidido por el desempate,
+ * _createdAt desc. Lo que salia en Nosotros no eran los dos casos elegidos,
+ * sino los dos ultimos creados. Es el mismo criterio que usan el indice de
+ * proyectos y el enlace al siguiente caso.
+ */
 const PROJECTS_QUERY = `
-  *[_type == "project"] | order(orderRank asc, _createdAt desc)[0...2] {
+  *[_type == "project"] | order(order asc, _createdAt desc)[0...2] {
     _id,
     title,
     slug,
