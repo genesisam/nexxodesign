@@ -689,3 +689,37 @@ declararlos antes de que alguien edite un caso desde ahí.
   su URL devuelve 404, así que nada falso está publicado.
 - El `liveUrl` de Cornish apunta al dominio de Vercel; el real es
   `cornisharquitectos.com`.
+
+## Las esquinas redondeadas que venían dentro del archivo
+
+Veintiséis piezas se habían exportado con las esquinas ya recortadas y
+transparentes. Cada archivo traía su propio radio —7, 9 y 14 píxeles— y cada
+uno se muestra a una escala distinta, así que en pantalla convivían tres
+redondeos diferentes con los 20 píxeles del contenedor. El marco no podía
+arreglarlo: donde el archivo es transparente no hay nada que redondear.
+
+Se han devuelto a su forma de rectángulo rellenando cada fila con el color del
+primer píxel opaco que tiene al lado, que en un recorte de esquina es justo el
+que habría ahí si no la hubieran recortado. Los rellenos van del 0,03 % al
+0,48 % de la superficie: solo las esquinas. El redondeo lo pone ahora el
+contenedor, una sola vez y el mismo para todas.
+
+Reparto: 13 de Mente, 7 de Solivus, 4 de Merxo, 1 de Greenery y 1 de Maison
+Oliva. Comprobación posterior sobre las 76 piezas del CMS: ninguna conserva la
+esquina recortada.
+
+Una pieza de Mente da positivo en la comprobación y no lo es: tiene dos filas
+enteras transparentes —un borde de un píxel— pero en (0,8) ya es opaca, de modo
+que no hay radio que quitar.
+
+## Paleta y tipografía de Mente y Solivus
+
+Mente sale de su propio sitio en producción: **Museo Sans** en los siete pesos
+que usa, y los colores calculados de cada elemento —`#4F50FF`, `#080B47`,
+`#CCFF66`, `#333333`, `#69727D`, blanco.
+
+Solivus sale del archivo de diseño del proyecto: **Gilroy**, Regular y SemiBold,
+las dos únicas familias en sesenta y cuatro textos. La paleta del panel es
+`#EB4602` de marca, `#FB7C13` de acento, `#01B859` en marcha, `#B8014A` avería,
+y la rampa `#0A090C`, `#232328`, `#ABABAB`, `#F7F7F7`. El naranja de marca
+coincide con el tono que domina sus capturas, contado píxel a píxel.
