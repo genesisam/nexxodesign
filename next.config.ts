@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'image.mux.com' },
     ],
   },
+  // /links es una página estática aparte (public/links), el "link in bio" de
+  // redes. No está enlazada desde el sitio ni figura en el sitemap.
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: '/links', destination: '/links/index.html' }],
+      afterFiles: [],
+      fallback: [],
+    }
+  },
 }
 
 export default withNextIntl(nextConfig)

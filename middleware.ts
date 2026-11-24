@@ -73,5 +73,7 @@ export const config = {
   // to /_vercel/insights/view and /_vercel/speed-insights/vitals. Those carry no
   // file extension, so the trailing `.*\..*` rule does not catch them, and
   // next-intl would try to localise the path and redirect the beacon away.
-  matcher: ['/((?!_next/static|_next/image|_vercel|favicon.ico|studio|api|.*\\..*).*)'],
+  // `links` is the static link-in-bio page in public/links (see the rewrite in
+  // next.config.ts); it must not be localised either.
+  matcher: ['/((?!_next/static|_next/image|_vercel|favicon.ico|studio|api|links$|.*\\..*).*)'],
 }
