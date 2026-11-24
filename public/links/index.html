@@ -242,7 +242,6 @@
   .feature .go { width: 48px; height: 48px; background: var(--ink); color: #0a0a0a; border-color: var(--ink); }
   .feature .go svg { width: 18px; height: 18px; }
 
-  footer { margin-top: 44px; text-align: center; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: #5d5b56; display: flex; justify-content: space-between; }
 
   .toast { position: fixed; left: 50%; bottom: 28px; z-index: 40; transform: translate(-50%, 80px); opacity: 0; background: var(--acc); color: #0a0a0a; font-weight: 600; font-size: 14px; padding: 11px 18px; border-radius: 99px; transition: transform .6s var(--ease), opacity .4s; pointer-events: none; }
   .toast.on { transform: translate(-50%, 0); opacity: 1; }
@@ -372,10 +371,6 @@
     </ul>
   </section>
 
-  <footer data-r style="--i:15">
-    <span>© <span id="yr">2026</span> alexdesain</span>
-    <span>Hecho a mano · sin anuncios</span>
-  </footer>
 </main>
 
 <div class="toast" id="toast" role="status">Enlace copiado ✓</div>
@@ -385,7 +380,6 @@
   const body = document.body;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  document.getElementById('yr').textContent = new Date().getFullYear();
 
   /* Partir texto en letras para la animación */
   document.querySelectorAll('[data-split]').forEach(el => {
